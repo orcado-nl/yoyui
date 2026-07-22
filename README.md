@@ -1,27 +1,21 @@
-# PrimeReact
+# YoYui
 
-### The next chapter has begun.
+**YoYui** is an internal fork of [PrimeReact](https://primereact.dev), maintained by **Orcado**.
 
-After years as an open source library, PrimeReact enters its next chapter as part of **PrimeUI**,  a sustainable foundation for the libraries you rely on.
+## Why this fork exists
 
-This repository is now **archived**. It remains available, as a record of everything built here together.
+We rely on PrimeReact across our products and maintain this fork internally to manage our own patches, customizations, and release cadence, independent of the upstream project's roadmap.
 
-## What this means
+## License
 
 **Existing MIT versions remain MIT, forever.**
-Every release published under the MIT license stays exactly as it is. Your existing projects are unaffected. Nothing is taken away.
 
-**Development continues at a new home.**
-Active development, new releases, and everything ahead now live under PrimeUI.
+This fork is built on the original PrimeReact codebase, released under the MIT license. That license is preserved in full — nothing about the existing MIT-licensed code is taken away or restricted. See [LICENSE](./LICENSE) for details, including both the original and Orcado copyright notices.
 
-➡️ **Read the announcement:** [primeui.dev/nextchapter](https://primeui.dev/nextchapter)
+## Contributing
 
-➡️ **The journey continues at:** [primereact.dev](https://primereact.dev)
+This is an internal Orcado project. Contributions are currently limited to Orcado employees — see [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
-## Thank you
+## Credit
 
-To everyone who used PrimeReact, filed an issue, opened a pull request, answered a question, or simply built something with it,  thank you. This library reached hundreds of millions of downloads because of you.
-
-This archive stays here as a thank you and a milestone. The next chapter is just beginning, and we hope you'll be part of it.
-
-— The PrimeTek Team
+This project builds on the work of the original PrimeReact / PrimeTek team. Thank you to everyone who built, maintained, and contributed to the library over the years.
