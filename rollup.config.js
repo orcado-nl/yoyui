@@ -19,83 +19,83 @@ const NPM_LINK = process.env.NPM_LINK === 'true';
 
 // alias entries
 const ALIAS_ICON_COMPONENT_ENTRIES = [
-    { find: '../../iconbase/IconBase', replacement: 'primereact/iconbase' },
-    { find: '../icons/angledoubledown', replacement: 'primereact/icons/angledoubledown' },
-    { find: '../icons/angledoubleleft', replacement: 'primereact/icons/angledoubleleft' },
-    { find: '../icons/angledoubleright', replacement: 'primereact/icons/angledoubleright' },
-    { find: '../icons/angledoubleup', replacement: 'primereact/icons/angledoubleup' },
-    { find: '../icons/angledown', replacement: 'primereact/icons/angledown' },
-    { find: '../icons/angleleft', replacement: 'primereact/icons/angleleft' },
-    { find: '../icons/angleright', replacement: 'primereact/icons/angleright' },
-    { find: '../icons/angleup', replacement: 'primereact/icons/angleup' },
-    { find: '../icons/arrowdown', replacement: 'primereact/icons/arrowdown' },
-    { find: '../icons/arrowup', replacement: 'primereact/icons/arrowup' },
-    { find: '../icons/ban', replacement: 'primereact/icons/ban' },
-    { find: '../icons/bars', replacement: 'primereact/icons/bars' },
-    { find: '../icons/calendar', replacement: 'primereact/icons/calendar' },
-    { find: '../icons/check', replacement: 'primereact/icons/check' },
-    { find: '../icons/chevrondown', replacement: 'primereact/icons/chevrondown' },
-    { find: '../icons/chevronleft', replacement: 'primereact/icons/chevronleft' },
-    { find: '../icons/chevronright', replacement: 'primereact/icons/chevronright' },
-    { find: '../icons/chevronup', replacement: 'primereact/icons/chevronup' },
-    { find: '../icons/exclamationtriangle', replacement: 'primereact/icons/exclamationtriangle' },
-    { find: '../icons/eye', replacement: 'primereact/icons/eye' },
-    { find: '../icons/eyeslash', replacement: 'primereact/icons/eyeslash' },
-    { find: '../icons/filter', replacement: 'primereact/icons/filter' },
-    { find: '../icons/filterslash', replacement: 'primereact/icons/filterslash' },
-    { find: '../icons/infocircle', replacement: 'primereact/icons/infocircle' },
-    { find: '../icons/minus', replacement: 'primereact/icons/minus' },
-    { find: '../icons/pencil', replacement: 'primereact/icons/pencil' },
-    { find: '../icons/plus', replacement: 'primereact/icons/plus' },
-    { find: '../icons/refresh', replacement: 'primereact/icons/refresh' },
-    { find: '../icons/search', replacement: 'primereact/icons/search' },
-    { find: '../icons/searchminus', replacement: 'primereact/icons/searchminus' },
-    { find: '../icons/searchplus', replacement: 'primereact/icons/searchplus' },
-    { find: '../icons/sortalt', replacement: 'primereact/icons/sortalt' },
-    { find: '../icons/sortamountdown', replacement: 'primereact/icons/sortamountdown' },
-    { find: '../icons/sortamountupalt', replacement: 'primereact/icons/sortamountupalt' },
-    { find: '../icons/spinner', replacement: 'primereact/icons/spinner' },
-    { find: '../icons/star', replacement: 'primereact/icons/star' },
-    { find: '../icons/starfill', replacement: 'primereact/icons/starfill' },
-    { find: '../icons/thlarge', replacement: 'primereact/icons/thlarge' },
-    { find: '../icons/times', replacement: 'primereact/icons/times' },
-    { find: '../icons/timescircle', replacement: 'primereact/icons/timescircle' },
-    { find: '../icons/trash', replacement: 'primereact/icons/trash' },
-    { find: '../icons/undo', replacement: 'primereact/icons/undo' },
-    { find: '../icons/upload', replacement: 'primereact/icons/upload' },
-    { find: '../icons/windowmaximize', replacement: 'primereact/icons/windowmaximize' },
-    { find: '../icons/windowminimize', replacement: 'primereact/icons/windowminimize' }
+    { find: '../../iconbase/IconBase', replacement: '@orcado/yoyui/iconbase' },
+    { find: '../icons/angledoubledown', replacement: '@orcado/yoyui/icons/angledoubledown' },
+    { find: '../icons/angledoubleleft', replacement: '@orcado/yoyui/icons/angledoubleleft' },
+    { find: '../icons/angledoubleright', replacement: '@orcado/yoyui/icons/angledoubleright' },
+    { find: '../icons/angledoubleup', replacement: '@orcado/yoyui/icons/angledoubleup' },
+    { find: '../icons/angledown', replacement: '@orcado/yoyui/icons/angledown' },
+    { find: '../icons/angleleft', replacement: '@orcado/yoyui/icons/angleleft' },
+    { find: '../icons/angleright', replacement: '@orcado/yoyui/icons/angleright' },
+    { find: '../icons/angleup', replacement: '@orcado/yoyui/icons/angleup' },
+    { find: '../icons/arrowdown', replacement: '@orcado/yoyui/icons/arrowdown' },
+    { find: '../icons/arrowup', replacement: '@orcado/yoyui/icons/arrowup' },
+    { find: '../icons/ban', replacement: '@orcado/yoyui/icons/ban' },
+    { find: '../icons/bars', replacement: '@orcado/yoyui/icons/bars' },
+    { find: '../icons/calendar', replacement: '@orcado/yoyui/icons/calendar' },
+    { find: '../icons/check', replacement: '@orcado/yoyui/icons/check' },
+    { find: '../icons/chevrondown', replacement: '@orcado/yoyui/icons/chevrondown' },
+    { find: '../icons/chevronleft', replacement: '@orcado/yoyui/icons/chevronleft' },
+    { find: '../icons/chevronright', replacement: '@orcado/yoyui/icons/chevronright' },
+    { find: '../icons/chevronup', replacement: '@orcado/yoyui/icons/chevronup' },
+    { find: '../icons/exclamationtriangle', replacement: '@orcado/yoyui/icons/exclamationtriangle' },
+    { find: '../icons/eye', replacement: '@orcado/yoyui/icons/eye' },
+    { find: '../icons/eyeslash', replacement: '@orcado/yoyui/icons/eyeslash' },
+    { find: '../icons/filter', replacement: '@orcado/yoyui/icons/filter' },
+    { find: '../icons/filterslash', replacement: '@orcado/yoyui/icons/filterslash' },
+    { find: '../icons/infocircle', replacement: '@orcado/yoyui/icons/infocircle' },
+    { find: '../icons/minus', replacement: '@orcado/yoyui/icons/minus' },
+    { find: '../icons/pencil', replacement: '@orcado/yoyui/icons/pencil' },
+    { find: '../icons/plus', replacement: '@orcado/yoyui/icons/plus' },
+    { find: '../icons/refresh', replacement: '@orcado/yoyui/icons/refresh' },
+    { find: '../icons/search', replacement: '@orcado/yoyui/icons/search' },
+    { find: '../icons/searchminus', replacement: '@orcado/yoyui/icons/searchminus' },
+    { find: '../icons/searchplus', replacement: '@orcado/yoyui/icons/searchplus' },
+    { find: '../icons/sortalt', replacement: '@orcado/yoyui/icons/sortalt' },
+    { find: '../icons/sortamountdown', replacement: '@orcado/yoyui/icons/sortamountdown' },
+    { find: '../icons/sortamountupalt', replacement: '@orcado/yoyui/icons/sortamountupalt' },
+    { find: '../icons/spinner', replacement: '@orcado/yoyui/icons/spinner' },
+    { find: '../icons/star', replacement: '@orcado/yoyui/icons/star' },
+    { find: '../icons/starfill', replacement: '@orcado/yoyui/icons/starfill' },
+    { find: '../icons/thlarge', replacement: '@orcado/yoyui/icons/thlarge' },
+    { find: '../icons/times', replacement: '@orcado/yoyui/icons/times' },
+    { find: '../icons/timescircle', replacement: '@orcado/yoyui/icons/timescircle' },
+    { find: '../icons/trash', replacement: '@orcado/yoyui/icons/trash' },
+    { find: '../icons/undo', replacement: '@orcado/yoyui/icons/undo' },
+    { find: '../icons/upload', replacement: '@orcado/yoyui/icons/upload' },
+    { find: '../icons/windowmaximize', replacement: '@orcado/yoyui/icons/windowmaximize' },
+    { find: '../icons/windowminimize', replacement: '@orcado/yoyui/icons/windowminimize' }
 ];
 
 const CORE_PASSTHROUGH_DEPENDENCIES = [
-    { find: '../passthrough', replacement: 'primereact/passthrough' },
-    { find: '../passthrough/tailwind', replacement: 'primereact/passthrough/tailwind' }
+    { find: '../passthrough', replacement: '@orcado/yoyui/passthrough' },
+    { find: '../passthrough/tailwind', replacement: '@orcado/yoyui/passthrough/tailwind' }
 ];
 
 const ALIAS_COMPONENT_ENTRIES = [
-    { find: '../utils/Utils', replacement: 'primereact/utils' },
-    { find: '../api/Api', replacement: 'primereact/api' },
-    { find: '../componentbase/ComponentBase', replacement: 'primereact/componentbase' },
-    { find: '../hooks/Hooks', replacement: 'primereact/hooks' },
-    { find: '../ripple/Ripple', replacement: 'primereact/ripple' },
-    { find: '../csstransition/CSSTransition', replacement: 'primereact/csstransition' },
-    { find: '../portal/Portal', replacement: 'primereact/portal' },
-    { find: '../keyfilter/KeyFilter', replacement: 'primereact/keyfilter' },
+    { find: '../utils/Utils', replacement: '@orcado/yoyui/utils' },
+    { find: '../api/Api', replacement: '@orcado/yoyui/api' },
+    { find: '../componentbase/ComponentBase', replacement: '@orcado/yoyui/componentbase' },
+    { find: '../hooks/Hooks', replacement: '@orcado/yoyui/hooks' },
+    { find: '../ripple/Ripple', replacement: '@orcado/yoyui/ripple' },
+    { find: '../csstransition/CSSTransition', replacement: '@orcado/yoyui/csstransition' },
+    { find: '../portal/Portal', replacement: '@orcado/yoyui/portal' },
+    { find: '../keyfilter/KeyFilter', replacement: '@orcado/yoyui/keyfilter' },
     ...ALIAS_ICON_COMPONENT_ENTRIES,
-    { find: '../tooltip/Tooltip', replacement: 'primereact/tooltip' },
-    { find: '../virtualscroller/VirtualScroller', replacement: 'primereact/virtualscroller' },
-    { find: '../terminalservice/TerminalService', replacement: 'primereact/terminalservice' },
-    { find: '../overlayservice/OverlayService', replacement: 'primereact/overlayservice' },
-    { find: '../checkox/Checkbox', replacement: 'primereact/checkbox' },
-    { find: '../button/Button', replacement: 'primereact/button' },
-    { find: '../inputtext/InputText', replacement: 'primereact/inputtext' },
-    { find: '../inputnumber/InputNumber', replacement: 'primereact/inputnumber' },
-    { find: '../messages/Messages', replacement: 'primereact/messages' },
-    { find: '../progressbar/ProgressBar', replacement: 'primereact/progressbar' },
-    { find: '../dropdown/Dropdown', replacement: 'primereact/dropdown' },
-    { find: '../dialog/Dialog', replacement: 'primereact/dialog' },
-    { find: '../paginator/Paginator', replacement: 'primereact/paginator' },
-    { find: '../tree/Tree', replacement: 'primereact/tree' },
+    { find: '../tooltip/Tooltip', replacement: '@orcado/yoyui/tooltip' },
+    { find: '../virtualscroller/VirtualScroller', replacement: '@orcado/yoyui/virtualscroller' },
+    { find: '../terminalservice/TerminalService', replacement: '@orcado/yoyui/terminalservice' },
+    { find: '../overlayservice/OverlayService', replacement: '@orcado/yoyui/overlayservice' },
+    { find: '../checkox/Checkbox', replacement: '@orcado/yoyui/checkbox' },
+    { find: '../button/Button', replacement: '@orcado/yoyui/button' },
+    { find: '../inputtext/InputText', replacement: '@orcado/yoyui/inputtext' },
+    { find: '../inputnumber/InputNumber', replacement: '@orcado/yoyui/inputnumber' },
+    { find: '../messages/Messages', replacement: '@orcado/yoyui/messages' },
+    { find: '../progressbar/ProgressBar', replacement: '@orcado/yoyui/progressbar' },
+    { find: '../dropdown/Dropdown', replacement: '@orcado/yoyui/dropdown' },
+    { find: '../dialog/Dialog', replacement: '@orcado/yoyui/dialog' },
+    { find: '../paginator/Paginator', replacement: '@orcado/yoyui/paginator' },
+    { find: '../tree/Tree', replacement: '@orcado/yoyui/tree' },
     ...CORE_PASSTHROUGH_DEPENDENCIES
 ];
 
@@ -108,7 +108,7 @@ const GLOBAL_DEPENDENCIES = {
 
 const GLOBAL_COMPONENT_DEPENDENCIES = {
     ...GLOBAL_DEPENDENCIES,
-    ...(NPM_LINK ? [] : ALIAS_COMPONENT_ENTRIES.reduce((acc, cur) => ({ ...acc, [cur.replacement]: cur.replacement.replaceAll('/', '.') }), {}))
+    ...(NPM_LINK ? [] : ALIAS_COMPONENT_ENTRIES.reduce((acc, cur) => ({ ...acc, [cur.replacement]: cur.replacement.replaceAll('@', '').replaceAll('/', '.') }), {}))
 };
 
 // externals
@@ -160,8 +160,12 @@ const PLUGINS = [replace(REPLACE_PLUGIN_OPTIONS), resolve(RESOLVE_PLUGIN_OPTIONS
 
 const PLUGINS_COMPONENT = NPM_LINK ? PLUGINS : [alias(ALIAS_PLUGIN_OPTIONS_FOR_COMPONENT), ...PLUGINS];
 
+function sanitizeNameForIIFE(name) {
+    return name.replace('@', '').replaceAll('/', '.');
+}
+
 function addEntry(name, input, output, isComponent = true) {
-    const exports = name === 'primereact.api' || name === 'primereact' ? 'named' : 'auto';
+    const exports = name === '@orcado/yoyui.api' || name === '@orcado/yoyui' ? 'named' : 'auto';
     const useCorePlugin = !NPM_LINK && ALIAS_COMPONENT_ENTRIES.some((entry) => entry.replacement === name.replaceAll('.', '/'));
     const plugins = isComponent ? PLUGINS_COMPONENT : PLUGINS;
     const external = isComponent ? EXTERNAL_COMPONENT : EXTERNAL;
@@ -213,7 +217,7 @@ function addEntry(name, input, output, isComponent = true) {
             output: [
                 {
                     format: 'iife',
-                    name,
+                    name: sanitizeNameForIIFE(name),
                     file: `${output}${isMinify ? '.min' : ''}.js`,
                     globals: isComponent ? GLOBAL_COMPONENT_DEPENDENCIES : GLOBAL_DEPENDENCIES,
                     exports
@@ -242,7 +246,8 @@ function corePlugin() {
             if (format === 'iife') {
                 Object.keys(bundle).forEach((id) => {
                     const chunk = bundle[id];
-                    const folderName = name.replace('primereact.', '').replaceAll('.', '/');
+                    const sanitizedName = name.replace('@', '').replaceAll('/', '.');
+                    const folderName = sanitizedName.replace('orcado.yoyui.', '').replaceAll('.', '/');
                     const filePath = `./dist/core/core${id.indexOf('.min.js') > 0 ? '.min.js' : '.js'}`;
 
                     core[filePath] ? (core[filePath][folderName] = chunk.code) : (core[filePath] = { [`${folderName}`]: chunk.code });
@@ -262,7 +267,7 @@ function addCore() {
             generateBundle() {
                 Object.entries(core).forEach(([filePath, value]) => {
                     const code = ALIAS_COMPONENT_ENTRIES.reduce((val, entry) => {
-                        const name = entry.replacement.replace('primereact/', '');
+                        const name = entry.replacement.replace('@orcado/yoyui/', '');
 
                         val += value[name] + '\n';
 
@@ -292,7 +297,7 @@ function addComponent() {
                     const input = process.env.INPUT_DIR + folderName + '/' + file;
                     const output = process.env.OUTPUT_DIR + folderName + '/' + name;
 
-                    addEntry('primereact.' + folderName, input, output, true);
+                    addEntry('@orcado/yoyui.' + folderName, input, output, true);
                 }
             });
         });
@@ -310,7 +315,7 @@ function addIcon() {
                     const input = process.env.INPUT_DIR + 'icons/' + folderName + '/' + file;
                     const output = process.env.OUTPUT_DIR + 'icons/' + folderName + '/' + name;
 
-                    addEntry('primereact.icons.' + folderName, input, output, true);
+                    addEntry('@orcado/yoyui.icons.' + folderName, input, output, true);
                 }
             });
         });
@@ -328,43 +333,22 @@ function addPrimeReact() {
     const input = process.env.INPUT_DIR + 'primereact.all.js';
     const output = process.env.OUTPUT_DIR + 'primereact.all';
 
-    addEntry('primereact', input, output, false);
+    addEntry('@orcado/yoyui', input, output, false);
 }
 
 function addPackageJson() {
     const outputDir = path.resolve(__dirname, process.env.OUTPUT_DIR);
     const packageJson = `{
-    "name": "primereact",
+    "name": "${pkg.name}",
     "version": "${pkg.version}",
     "private": false,
-    "author": "PrimeTek Informatics",
-    "description": "PrimeReact is an open source UI library for React featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.",
-    "homepage": "https://www.primereact.org",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/primefaces/primereact.git"
-    },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/primefaces/primereact/issues"
-    },
-    "keywords": [
-        "primereact",
-        "react",
-        "hooks",
-        "next",
-        "nextjs",
-        "ui-kit",
-        "ui library",
-        "component library",
-        "material",
-        "material design",
-        "bootstrap",
-        "tailwind theme",
-        "dark theme",
-        "react components",
-        "responsive components"
-    ],
+    "author": "${pkg.author || 'Orcado'}",
+    "description": "${pkg.description || ''}",
+    "homepage": "${pkg.homepage || ''}",
+    "repository": ${JSON.stringify(pkg.repository || {})},
+    "license": "${pkg.license || 'MIT'}",
+    "bugs": ${JSON.stringify(pkg.bugs || {})},
+    "keywords": ${JSON.stringify(pkg.keywords || [])},
     "unpkg": "primereact.all.min.js",
     "jsdelivr": "primereact.all.min.js",
     "main": "primereact.all.min.js",
