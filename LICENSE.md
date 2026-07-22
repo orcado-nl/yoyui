@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2016-2025 PrimeTek
+Copyright (c) 2016-2025 PrimeTek  
 Copyright (c) 2026 Orcado
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
