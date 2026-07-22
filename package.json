@@ -1,7 +1,7 @@
 {
     "name": "@orcado/yoyui",
     "private": false,
-    "version": "10.9.8",
+    "version": "0.0.1",
     "publishConfig": {
         "access": "public"
     },
