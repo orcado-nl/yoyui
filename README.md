@@ -1,8 +1,8 @@
-<img src="https://raw.githubusercontent.com/orcado-nl/yoyui/main/yoyui-icon.svg" alt="YoYui logo" width="64" />
+<img src="./yoyui-icon.svg" alt="YoYui logo" width="64" />
 
 # YoYui
 
-**YoYui** is an internal fork of [PrimeReact](https://primereact.dev), maintained by **Orcado**.
+**YoYui** is an internal fork of [PrimeReact](https://v10.primereact.org), maintained by **Orcado**.
 
 ## Why this fork exists
 
