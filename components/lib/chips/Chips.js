@@ -425,7 +425,7 @@ export const Chips = React.memo(
                     tabIndex: -1,
                     role: 'listbox',
                     'aria-orientation': 'horizontal',
-                    'aria-labelledby': props.ariaLabelledby,
+                    'aria-labelledby': props.ariaLabelledBy,
                     'aria-label': props.ariaLabel,
                     'aria-activedescendant': focusedState ? focusedOptionId() : undefined,
                     'data-p-disabled': props.disabled,

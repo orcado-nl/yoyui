@@ -75,7 +75,7 @@ export const ContextMenuBase = ComponentBase.extend({
         __TYPE: 'ContextMenu',
         id: null,
         ariaLabel: null,
-        ariaLabelledby: null,
+        ariaLabelledBy: null,
         model: null,
         style: null,
         className: null,
