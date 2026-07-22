@@ -1,7 +1,10 @@
 {
-    "name": "primereact",
+    "name": "@orcado/yoyui",
     "private": false,
     "version": "10.9.8",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "dev": "next dev",
         "start": "next start",

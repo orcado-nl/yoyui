@@ -1,4 +1,4 @@
-<img src="./yoyui-icon.svg" alt="YoYui logo" width="64" />
+<img src="https://raw.githubusercontent.com/orcado-nl/yoyui/main/yoyui-icon.svg" alt="YoYui logo" width="64" />
 
 # YoYui
 
