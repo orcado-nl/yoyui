@@ -12,11 +12,11 @@ We rely on PrimeReact across our products and maintain this fork internally to m
 
 **Existing MIT versions remain MIT, forever.**
 
-This fork is built on the original PrimeReact codebase, released under the MIT license. That license is preserved in full — nothing about the existing MIT-licensed code is taken away or restricted. See [LICENSE](./LICENSE) for details, including both the original and Orcado copyright notices.
+This fork is built on the original PrimeReact codebase, released under the MIT license. That license is preserved in full — nothing about the existing MIT-licensed code is taken away or restricted. See [LICENSE](./LICENSE.md) for details, including both the original and Orcado copyright notices.
 
 ## Contributing
 
-This is an internal Orcado project. Contributions are currently limited to Orcado employees — see [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+This is an internal Orcado project. Contributions are currently limited to Orcado employees — see [CONTRIBUTING](./CONTRIBUTING.md) for details.
 
 ## Credit
 
