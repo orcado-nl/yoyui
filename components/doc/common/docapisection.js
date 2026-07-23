@@ -5,127 +5,182 @@ import DocApiTable from './docapitable';
 import { DocSectionNav } from './docsectionnav';
 import { DocSections } from './docsections';
 
+function renderSonarNested1Element(componentName, tValue, inProps) {
+    return <DocApiTable name={componentName} data={[tValue]} allowLink={false} {...inProps} />;
+}
+
+function renderSonarNested2Element(modName, values, value, inProps) {
+    return <DocApiTable name={modName} data={[values]} description={value.description} {...inProps} />;
+}
+
+function renderSonarNested3Element(iValue, inProps) {
+    return <DocApiTable data={iValue.callbacks} {...inProps} />;
+}
+
+function renderSonarNested4Element(cKey, cValue, inProps) {
+    return <DocApiTable name={cKey} data={cValue.props.values} description={cValue.props.description} {...inProps} />;
+}
+
+function renderSonarNested5Element(cKey, cValue, inProps) {
+    return <DocApiTable name={cKey} data={cValue.methods.values} description={cValue.methods.description} {...inProps} />;
+}
+
+function renderSonarNested1(iValue, inProps) {
+    return <DocApiTable data={iValue.props} {...inProps} />;
+}
+
+function renderSonarNested2(cKey, cValue, inProps) {
+    return <DocApiTable name={cKey} data={cValue.callbacks.values} description={cValue.callbacks.description} {...inProps} />;
+}
+
+function renderSonarNested3(mKey, mValue, inProps) {
+    return <DocApiTable name={mKey} data={mValue.props.values} description={mValue.props.description} {...inProps} />;
+}
+
+function renderSonarNested4(componentName, eValue, inProps) {
+    return (
+        <DocApiTable
+            name={componentName}
+            data={eValue.props}
+            description={
+                <>
+                    {eValue.description} See <i>{eValue.relatedProp}</i>.
+                </>
+            }
+            {...inProps}
+        />
+    );
+}
+
+function renderSonarNested5(componentName, iValue, inProps) {
+    return (
+        <DocApiTable
+            name={componentName}
+            data={iValue.props}
+            description={
+                <>
+                    {iValue.description}{' '}
+                    {iValue.extendedTypes && (
+                        <>
+                            Extends <i>{iValue.extendedTypes}</i>.
+                        </>
+                    )}
+                </>
+            }
+            {...inProps}
+        />
+    );
+}
+
 export function DocApiSection(props) {
     const { doc, header } = props;
     const capitalize = (s) => (s && s[0].toUpperCase() + s.slice(1)) || '';
     const exclude = props.apiExclude;
-
     const docs = doc.reduce((cDocs, name) => {
         const splitedName = name.split('.');
         const modName = capitalize(splitedName[0]);
         const mod = APIDoc[modName.toLowerCase()];
 
         const isExcluded = (option, key) => {
-            return exclude && exclude[option] && exclude[option].includes(key);
+            return exclude?.[option]?.includes(key);
         };
 
         const isExcludedAll = (option) => {
-            return exclude && exclude[option] && exclude[option] === 'excludeAll';
+            return exclude?.[option] && exclude[option] === 'excludeAll';
         };
 
-        if (mod) {
+        const runComplexBranch1 = () => {
+            const addEvents = (childDoc, componentName) => {
+                if (!(ObjectUtils.isNotEmpty(mod.events) && ObjectUtils.isNotEmpty(mod.events.values) && !isExcludedAll('events'))) {
+                    return;
+                }
+
+                const eMap = {
+                    id: `api.${componentName}.events`,
+                    label: 'Events',
+                    description: mod.events.description,
+                    children: []
+                };
+
+                for (const [eKey, eValue] of Object.entries(mod.events.values)) {
+                    const [id, label] = [`api.${componentName}.${eKey}`, eKey];
+
+                    if (isExcluded('event', eKey)) {
+                        continue;
+                    }
+
+                    eMap.children.push({
+                        id,
+                        label,
+                        component: renderSonarNested4.bind(null, componentName, eValue)
+                    });
+                }
+
+                childDoc.push(eMap);
+            };
+
+            const addInterfaces = (childDoc, componentName) => {
+                if (!(ObjectUtils.isNotEmpty(mod.interfaces) && ObjectUtils.isNotEmpty(mod.interfaces.values) && !isExcludedAll('interfaces'))) {
+                    return;
+                }
+
+                const iMap = {
+                    id: `api.${componentName}.interfaces`,
+                    label: 'Interfaces',
+                    description: mod.interfaces.description,
+                    children: []
+                };
+
+                for (const [iKey, iValue] of Object.entries(mod.interfaces.values)) {
+                    const [id, label] = [`api.${componentName}.${iKey}`, iKey];
+
+                    if (isExcluded('interfaces', iKey)) {
+                        continue;
+                    }
+
+                    iMap.children.push({
+                        id,
+                        label,
+                        component: renderSonarNested5.bind(null, componentName, iValue)
+                    });
+                }
+
+                childDoc.push(iMap);
+            };
+
+            const addTypes = (childDoc, componentName) => {
+                if (!(ObjectUtils.isNotEmpty(mod.types) && ObjectUtils.isNotEmpty(mod.types.values) && !isExcludedAll('types'))) {
+                    return;
+                }
+
+                const tMap = {
+                    id: `api.${componentName}.types`,
+                    label: 'Types',
+                    description: mod.types.description,
+                    children: []
+                };
+
+                for (const [tKey, tValue] of Object.entries(mod.types.values)) {
+                    const [id, label] = [`api.${componentName}.${tKey}`, tKey];
+
+                    if (isExcluded('types', tKey)) {
+                        continue;
+                    }
+
+                    tMap.children.push({
+                        id,
+                        label,
+                        component: renderSonarNested1Element.bind(null, componentName, tValue)
+                    });
+                }
+
+                childDoc.push(tMap);
+            };
+
             const addToChildDoc = (childDoc, componentName) => {
-                if (ObjectUtils.isNotEmpty(mod.events) && ObjectUtils.isNotEmpty(mod.events.values) && !isExcludedAll('events')) {
-                    const eMap = {
-                        id: `api.${componentName}.events`,
-                        label: 'Events',
-                        description: mod.events.description,
-                        children: []
-                    };
-
-                    Object.entries(mod.events.values).forEach(([eKey, eValue]) => {
-                        const [id, label] = [`api.${componentName}.${eKey}`, eKey];
-
-                        if (isExcluded('event', eKey)) {
-                            return;
-                        }
-
-                        eMap.children.push({
-                            id,
-                            label,
-                            component: (inProps) => (
-                                <DocApiTable
-                                    name={componentName}
-                                    data={eValue.props}
-                                    description={
-                                        <>
-                                            {eValue.description} See <i>{eValue.relatedProp}</i>.
-                                        </>
-                                    }
-                                    {...inProps}
-                                />
-                            )
-                        });
-                    });
-
-                    childDoc.push(eMap);
-                }
-
-                if (ObjectUtils.isNotEmpty(mod.interfaces) && ObjectUtils.isNotEmpty(mod.interfaces.values) && !isExcludedAll('interfaces')) {
-                    const iMap = {
-                        id: `api.${componentName}.interfaces`,
-                        label: 'Interfaces',
-                        description: mod.interfaces.description,
-                        children: []
-                    };
-
-                    Object.entries(mod.interfaces.values).forEach(([iKey, iValue]) => {
-                        const [id, label] = [`api.${componentName}.${iKey}`, iKey];
-
-                        if (isExcluded('interfaces', iKey)) {
-                            return;
-                        }
-
-                        iMap.children.push({
-                            id,
-                            label,
-                            component: (inProps) => (
-                                <DocApiTable
-                                    name={componentName}
-                                    data={iValue.props}
-                                    description={
-                                        <>
-                                            {iValue.description}{' '}
-                                            {iValue.extendedTypes && (
-                                                <>
-                                                    Extends <i>{iValue.extendedTypes}</i>.
-                                                </>
-                                            )}
-                                        </>
-                                    }
-                                    {...inProps}
-                                />
-                            )
-                        });
-                    });
-
-                    childDoc.push(iMap);
-                }
-
-                if (ObjectUtils.isNotEmpty(mod.types) && ObjectUtils.isNotEmpty(mod.types.values) && !isExcludedAll('types')) {
-                    const tMap = {
-                        id: `api.${componentName}.types`,
-                        label: 'Types',
-                        description: mod.types.description,
-                        children: []
-                    };
-
-                    Object.entries(mod.types.values).forEach(([tKey, tValue]) => {
-                        const [id, label] = [`api.${componentName}.${tKey}`, tKey];
-
-                        if (isExcluded('types', tKey)) {
-                            return;
-                        }
-
-                        tMap.children.push({
-                            id,
-                            label,
-                            component: (inProps) => <DocApiTable name={componentName} data={[tValue]} allowLink={false} {...inProps} />
-                        });
-                    });
-
-                    childDoc.push(tMap);
-                }
+                addEvents(childDoc, componentName);
+                addInterfaces(childDoc, componentName);
+                addTypes(childDoc, componentName);
             };
 
             if (splitedName.length === 3) {
@@ -134,15 +189,12 @@ export function DocApiSection(props) {
 
                 if (type === 'functions') {
                     const value = mod[type].values[selectedName];
-
                     const fMap = {
                         id: `api.${modName}`,
                         label: modName,
                         children: []
                     };
-
                     const [id, label] = [`api.${modName}.function`, 'Function'];
-
                     const values = Object.entries(value).reduce((avs, [k, v]) => {
                         k !== 'description' && (avs[k] = v);
 
@@ -152,10 +204,9 @@ export function DocApiSection(props) {
                     fMap.children.push({
                         id,
                         label,
-                        component: (inProps) => <DocApiTable name={modName} data={[values]} description={value.description} {...inProps} />
+                        component: renderSonarNested2Element.bind(null, modName, values, value)
                     });
-
-                    const types = value.parameters && value.parameters.map((p) => p.type);
+                    const types = value.parameters?.map((p) => p.type);
 
                     if (ObjectUtils.isNotEmpty(mod.interfaces) && ObjectUtils.isNotEmpty(mod.interfaces.values)) {
                         const iMap = {
@@ -168,7 +219,6 @@ export function DocApiSection(props) {
                         Object.entries(mod.interfaces.values).forEach(([iKey, iValue]) => {
                             if (types.includes(iKey)) {
                                 const [id, label] = [`api.${modName}.${iKey}`, iKey];
-
                                 const tMap = {
                                     id,
                                     label,
@@ -189,7 +239,7 @@ export function DocApiSection(props) {
                                     tMap.children.push({
                                         id: `${id}.props`,
                                         label: 'Props',
-                                        component: (inProps) => <DocApiTable data={iValue.props} {...inProps} />
+                                        component: renderSonarNested1.bind(null, iValue)
                                     });
                                 }
 
@@ -197,14 +247,13 @@ export function DocApiSection(props) {
                                     tMap.children.push({
                                         id: `${id}.callbacks`,
                                         label: 'Callbacks',
-                                        component: (inProps) => <DocApiTable data={iValue.callbacks} {...inProps} />
+                                        component: renderSonarNested3Element.bind(null, iValue)
                                     });
                                 }
 
                                 iMap.children.push(tMap);
                             }
                         });
-
                         ObjectUtils.isNotEmpty(iMap.children) && fMap.children.push(iMap);
                     }
 
@@ -230,7 +279,7 @@ export function DocApiSection(props) {
                             cMap.children.push({
                                 id,
                                 label,
-                                component: (inProps) => <DocApiTable name={cKey} data={cValue.props.values} description={cValue.props.description} {...inProps} />
+                                component: renderSonarNested4Element.bind(null, cKey, cValue)
                             });
                         }
 
@@ -244,7 +293,7 @@ export function DocApiSection(props) {
                             cMap.children.push({
                                 id,
                                 label,
-                                component: (inProps) => <DocApiTable name={cKey} data={cValue.callbacks.values} description={cValue.callbacks.description} {...inProps} />
+                                component: renderSonarNested2.bind(null, cKey, cValue)
                             });
                         }
 
@@ -258,7 +307,7 @@ export function DocApiSection(props) {
                             cMap.children.push({
                                 id,
                                 label,
-                                component: (inProps) => <DocApiTable name={cKey} data={cValue.methods.values} description={cValue.methods.description} {...inProps} />
+                                component: renderSonarNested5Element.bind(null, cKey, cValue)
                             });
                         }
 
@@ -268,7 +317,6 @@ export function DocApiSection(props) {
 
                         cDocs.push(cMap);
                     });
-
                 mod.model &&
                     Object.entries(mod.model).forEach(([mKey, mValue]) => {
                         const mMap = {
@@ -288,7 +336,7 @@ export function DocApiSection(props) {
                             mMap.children.push({
                                 id,
                                 label,
-                                component: (inProps) => <DocApiTable name={mKey} data={mValue.props.values} description={mValue.props.description} {...inProps} />
+                                component: renderSonarNested3.bind(null, mKey, mValue)
                             });
                         }
 
@@ -298,9 +346,12 @@ export function DocApiSection(props) {
 
                         cDocs.push(mMap);
                     });
-
                 !mod.components && !mod.model && addToChildDoc(cDocs, modName);
             }
+        };
+
+        if (mod) {
+            runComplexBranch1();
         }
 
         return cDocs;
@@ -311,7 +362,9 @@ export function DocApiSection(props) {
         const element = document.getElementById(hash);
 
         setTimeout(() => {
-            element && element.scrollIntoView({ block: 'start' });
+            element?.scrollIntoView({
+                block: 'start'
+            });
         }, 1);
     }, []);
 

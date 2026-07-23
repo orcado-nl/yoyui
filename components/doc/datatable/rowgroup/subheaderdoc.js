@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Tag } from '@/components/lib/tag/Tag';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -25,11 +25,9 @@ export function SubHeaderRowGroupDoc(props) {
 
     const footerTemplate = (data) => {
         return (
-            <React.Fragment>
-                <td colSpan="5">
-                    <div className="flex justify-content-end font-bold w-full">Total Customers: {calculateCustomerTotal(data.representative.name)}</div>
-                </td>
-            </React.Fragment>
+            <td colSpan="5">
+                <div className="flex justify-content-end font-bold w-full">Total Customers: {calculateCustomerTotal(data.representative.name)}</div>
+            </td>
         );
     };
 

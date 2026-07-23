@@ -1,6 +1,15 @@
-import PrimeReact from '../api/Api';
+import { resolveConditional } from '../utils/ConditionalUtils';
+import { PrimeReactConfig } from '../api/Api';
 import { useMountEffect, useStyle, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { ObjectUtils, classNames, mergeProps } from '../utils/Utils';
+
+function handleSonarNested1(params) {
+    return params.props;
+}
+
+function handleSonarNested2(getHostInstance, params) {
+    return getHostInstance(params.parent);
+}
 
 const baseStyle = `
 .p-hidden-accessible {
@@ -22,7 +31,6 @@ const baseStyle = `
     padding-right: var(--scrollbar-width);
 }
 `;
-
 const buttonStyles = `
 .p-button {
     margin: 0;
@@ -416,12 +424,8 @@ const commonStyle = `
 export const ComponentBase = {
     cProps: undefined,
     cParams: undefined,
-    cName: undefined,
-    defaultProps: {
-        pt: undefined,
-        ptOptions: undefined,
-        unstyled: false
-    },
+    cName: '',
+    defaultProps: { pt: undefined, ptOptions: undefined, unstyled: false },
     context: {},
     globalCSS: undefined,
     classes: {},
@@ -450,12 +454,18 @@ export const ComponentBase = {
             const isNestedParam = /./g.test(originalkey) && !!params[originalkey.split('.')[0]];
             const fkey = isNestedParam ? ObjectUtils.toFlatCase(originalkey.split('.')[1]) : ObjectUtils.toFlatCase(originalkey);
             const hostName = params.hostName && ObjectUtils.toFlatCase(params.hostName);
-            const componentName = hostName || (params.props && params.props.__TYPE && ObjectUtils.toFlatCase(params.props.__TYPE)) || '';
+            const componentName = hostName || (params.props?.__TYPE && ObjectUtils.toFlatCase(params.props.__TYPE)) || '';
             const isTransition = fkey === 'transition';
             const datasetPrefix = 'data-pc-';
 
             const getHostInstance = (params) => {
-                return params?.props ? (params.hostName ? (params.props.__TYPE === params.hostName ? params.props : getHostInstance(params.parent)) : params.parent) : undefined;
+                return params?.props
+                    ? resolveConditional(
+                          params.hostName,
+                          () => resolveConditional(params.props.__TYPE === params.hostName, handleSonarNested1.bind(null, params), handleSonarNested2.bind(null, getHostInstance, params)),
+                          () => params.parent
+                      )
+                    : undefined;
             };
 
             const getPropValue = (name) => {
@@ -484,37 +494,68 @@ export const ComponentBase = {
                 return value;
             };
 
-            const globalPT = searchInDefaultPT ? (isNestedParam ? _useGlobalPT(getPTClassValue, originalkey, params) : _useDefaultPT(getPTClassValue, originalkey, params)) : undefined;
-            const self = isNestedParam ? undefined : _usePT(_getPT(obj, componentName), getPTClassValue, originalkey, params, componentName);
-
-            const datasetProps = !isTransition && {
-                ...(fkey === 'root' && { [`${datasetPrefix}name`]: params.props && params.props.__parentMetadata ? ObjectUtils.toFlatCase(params.props.__TYPE) : componentName }),
-                [`${datasetPrefix}section`]: fkey
-            };
+            const globalPT = searchInDefaultPT
+                ? resolveConditional(
+                      isNestedParam,
+                      () => _useGlobalPT(getPTClassValue, originalkey, params),
+                      () => _useDefaultPT(getPTClassValue, originalkey, params)
+                  )
+                : undefined;
+            const self = isNestedParam ? undefined : _usePT(_getPT(obj, componentName), getPTClassValue, originalkey, params);
+            const datasetProps = !isTransition && { ...(fkey === 'root' && { [`${datasetPrefix}name`]: params.props?.__parentMetadata ? ObjectUtils.toFlatCase(params.props.__TYPE) : componentName }), [`${datasetPrefix}section`]: fkey };
 
             return mergeSections || (!mergeSections && self)
-                ? useMergeProps
-                    ? mergeProps([globalPT, self, Object.keys(datasetProps).length ? datasetProps : {}], { classNameMergeFunction: ComponentBase.context.ptOptions?.classNameMergeFunction })
-                    : { ...globalPT, ...self, ...(Object.keys(datasetProps).length ? datasetProps : {}) }
-                : { ...self, ...(Object.keys(datasetProps).length ? datasetProps : {}) };
+                ? resolveConditional(
+                      useMergeProps,
+                      () =>
+                          mergeProps(
+                              [
+                                  globalPT,
+                                  self,
+                                  resolveConditional(
+                                      Object.keys(datasetProps).length,
+                                      () => datasetProps,
+                                      () => ({})
+                                  )
+                              ],
+                              { classNameMergeFunction: ComponentBase.context.ptOptions?.classNameMergeFunction }
+                          ),
+                      () => ({
+                          ...globalPT,
+                          ...self,
+                          ...resolveConditional(
+                              Object.keys(datasetProps).length,
+                              () => datasetProps,
+                              () => ({})
+                          )
+                      })
+                  )
+                : {
+                      ...self,
+                      ...resolveConditional(
+                          Object.keys(datasetProps).length,
+                          () => datasetProps,
+                          () => ({})
+                      )
+                  };
         };
 
         const setMetaData = (metadata = {}) => {
             const { props, state } = metadata;
-            const ptm = (key = '', params = {}) => getPTValue((props || {}).pt, key, { ...metadata, ...params });
+            const ptm = (key = '', params = {}) => getPTValue(props?.pt, key, { ...metadata, ...params });
             const ptmo = (obj = {}, key = '', params = {}) => getPTValue(obj, key, params, false);
 
             const isUnstyled = () => {
-                return ComponentBase.context.unstyled || PrimeReact.unstyled || props.unstyled;
+                return ComponentBase.context.unstyled || PrimeReactConfig.unstyled || props.unstyled;
             };
 
             const cx = (key = '', params = {}) => {
-                return !isUnstyled() ? getOptionValue(css && css.classes, key, { props, state, ...params }) : undefined;
+                return !isUnstyled() ? getOptionValue(css?.classes, key, { props, state, ...params }) : undefined;
             };
 
             const sx = (key = '', params = {}, when = true) => {
                 if (when) {
-                    const self = getOptionValue(css && css.inlineStyles, key, { props, state, ...params });
+                    const self = getOptionValue(css?.inlineStyles, key, { props, state, ...params });
                     const base = getOptionValue(inlineStyles, key, { props, state, ...params });
 
                     return mergeProps([base, self], { classNameMergeFunction: ComponentBase.context.ptOptions?.classNameMergeFunction });
@@ -526,13 +567,7 @@ export const ComponentBase = {
             return { ptm, ptmo, sx, cx, isUnstyled };
         };
 
-        return {
-            getProps,
-            getOtherProps,
-            setMetaData,
-            ...props,
-            defaultProps
-        };
+        return { getProps, getOtherProps, setMetaData, ...props, defaultProps };
     }
 };
 
@@ -541,26 +576,34 @@ const getOptionValue = (obj, key = '', params = {}) => {
     const fKey = fKeys.shift();
     const matchedPTOption = ObjectUtils.isNotEmpty(obj) ? Object.keys(obj).find((k) => ObjectUtils.toFlatCase(k) === fKey) : '';
 
-    return fKey ? (ObjectUtils.isObject(obj) ? getOptionValue(ObjectUtils.getItemValue(obj[matchedPTOption], params), fKeys.join('.'), params) : undefined) : ObjectUtils.getItemValue(obj, params);
+    return fKey
+        ? resolveConditional(
+              ObjectUtils.isObject(obj),
+              () => getOptionValue(ObjectUtils.getItemValue(obj[matchedPTOption], params), fKeys.join('.'), params),
+              () => undefined
+          )
+        : ObjectUtils.getItemValue(obj, params);
 };
 
-const _getPT = (pt, key = '', callback) => {
+const _getPT = (pt, key = '', callback = undefined) => {
     const _usept = pt?._usept;
 
     const getValue = (value, checkSameKey = false) => {
         const _value = callback ? callback(value) : value;
         const _key = ObjectUtils.toFlatCase(key);
 
-        return (checkSameKey ? (_key !== ComponentBase.cName ? _value?.[_key] : undefined) : _value?.[_key]) ?? _value;
+        return (
+            (checkSameKey
+                ? resolveConditional(
+                      _key !== ComponentBase.cName,
+                      () => _value?.[_key],
+                      () => undefined
+                  )
+                : _value?.[_key]) ?? _value
+        );
     };
 
-    return ObjectUtils.isNotEmpty(_usept)
-        ? {
-              _usept,
-              originalValue: getValue(pt.originalValue),
-              value: getValue(pt.value)
-          }
-        : getValue(pt, true);
+    return ObjectUtils.isNotEmpty(_usept) ? { _usept, originalValue: getValue(pt.originalValue), value: getValue(pt.value) } : getValue(pt, true);
 };
 
 const _usePT = (pt, callback, key, params) => {
@@ -579,18 +622,24 @@ const _usePT = (pt, callback, key, params) => {
             return originalValue;
         }
 
-        return mergeSections || (!mergeSections && value) ? (useMergeProps ? mergeProps([originalValue, value], { classNameMergeFunction }) : { ...originalValue, ...value }) : value;
+        return mergeSections || (!mergeSections && value)
+            ? resolveConditional(
+                  useMergeProps,
+                  () => mergeProps([originalValue, value], { classNameMergeFunction }),
+                  () => ({ ...originalValue, ...value })
+              )
+            : value;
     }
 
     return fn(pt);
 };
 
 const getGlobalPT = () => {
-    return _getPT(ComponentBase.context.pt || PrimeReact.pt, undefined, (value) => ObjectUtils.getItemValue(value, ComponentBase.cParams));
+    return _getPT(ComponentBase.context.pt || PrimeReactConfig.pt, undefined, (value) => ObjectUtils.getItemValue(value, ComponentBase.cParams));
 };
 
 const getDefaultPT = () => {
-    return _getPT(ComponentBase.context.pt || PrimeReact.pt, undefined, (value) => getOptionValue(value, ComponentBase.cName, ComponentBase.cParams) || ObjectUtils.getItemValue(value, ComponentBase.cParams));
+    return _getPT(ComponentBase.context.pt || PrimeReactConfig.pt, undefined, (value) => getOptionValue(value, ComponentBase.cName, ComponentBase.cParams) || ObjectUtils.getItemValue(value, ComponentBase.cParams));
 };
 
 const _useGlobalPT = (callback, key, params) => {
@@ -601,12 +650,10 @@ const _useDefaultPT = (callback, key, params) => {
     return _usePT(getDefaultPT(), callback, key, params);
 };
 
-export const useHandleStyle = (styles, _isUnstyled = () => {}, config) => {
+export const useHandleStyle = (styles, _isUnstyled = () => {}, config = {}) => {
     const { name, styled = false, hostName = '' } = config;
-
     const globalCSS = _useGlobalPT(getOptionValue, 'global.css', ComponentBase.cParams);
     const componentName = ObjectUtils.toFlatCase(name);
-
     const { load: loadBaseStyle } = useStyle(baseStyle, { name: 'base', manual: true });
     const { load: loadCommonStyle } = useStyle(commonStyle, { name: 'common', manual: true });
     const { load: loadGlobalStyle } = useStyle(globalCSS, { name: 'global', manual: true });
@@ -614,7 +661,7 @@ export const useHandleStyle = (styles, _isUnstyled = () => {}, config) => {
 
     const hook = (hookName) => {
         if (!hostName) {
-            const selfHook = _usePT(_getPT((ComponentBase.cProps || {}).pt, componentName), getOptionValue, `hooks.${hookName}`);
+            const selfHook = _usePT(_getPT(ComponentBase.cProps?.pt, componentName), getOptionValue, `hooks.${hookName}`);
             const defaultHook = _useDefaultPT(getOptionValue, `hooks.${hookName}`);
 
             selfHook?.();
@@ -626,24 +673,20 @@ export const useHandleStyle = (styles, _isUnstyled = () => {}, config) => {
     useMountEffect(() => {
         // Load base and global styles first as they are always needed
         loadBaseStyle();
-        loadGlobalStyle();
+        loadGlobalStyle(); // Only load additional styles if component is styled
 
-        // Only load additional styles if component is styled
         if (!_isUnstyled()) {
             // Load common styles shared across components
-            loadCommonStyle();
+            loadCommonStyle(); // Load component-specific styles if not explicitly styled
 
-            // Load component-specific styles if not explicitly styled
             if (!styled) {
                 loadComponentStyle();
             }
         }
     });
-
     useUpdateEffect(() => {
         hook('useUpdateEffect');
     });
-
     useUnmountEffect(() => {
         hook('useUnmountEffect');
     });

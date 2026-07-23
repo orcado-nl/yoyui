@@ -35,8 +35,8 @@ const TemplateHero = ({ logo, pattern, rectangle, light, dashboard1, dashboard2,
                     )}
                 </div>
             </div>
-            {!!dashboard1 && <img className="template-hero-dashboard1" src={dashboard1} alt="Template Dashboard Image 1" />}
-            {!!dashboard2 && <img className="template-hero-dashboard2" src={dashboard2} alt="Template Dashboard Image 2" />}
+            {!!dashboard1 && <img className="template-hero-dashboard1" src={dashboard1} alt="Primary template dashboard" />}
+            {!!dashboard2 && <img className="template-hero-dashboard2" src={dashboard2} alt="Secondary template dashboard" />}
         </div>
     );
 };

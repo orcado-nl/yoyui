@@ -29,10 +29,7 @@ export function TemplateDoc(props) {
         }
 
         const expanded = options.expanded;
-        const iconClassName = classNames('p-treetable-toggler-icon pi pi-fw', {
-            'pi-caret-right': !expanded,
-            'pi-caret-down': expanded
-        });
+        const iconClassName = classNames('p-treetable-toggler-icon pi pi-fw', { 'pi-caret-right': !expanded, 'pi-caret-down': expanded });
 
         return (
             <button type="button" className="p-treetable-toggler p-link" style={options.buttonStyle} tabIndex={-1} onClick={options.onClick}>
@@ -47,7 +44,6 @@ export function TemplateDoc(props) {
             <Button icon="pi pi-refresh" label="Reload" severity="warning" />
         </div>
     );
-
     const code = {
         basic: `
 <TreeTable value={nodes} header={header} footer={footer} togglerTemplate={togglerTemplate} tableStyle={{ minWidth: '50rem' }}>

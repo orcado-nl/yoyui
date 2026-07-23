@@ -10,28 +10,9 @@ export const ColorPickerPanel = React.forwardRef((props, ref) => {
     const { ptm, cx } = props;
 
     const createElement = () => {
-        const panelProps = mergeProps(
-            {
-                className: cx('panel', { panelProps: props, context }),
-                style: props.panelStyle,
-                onClick: props.onClick,
-                'data-pr-is-overlay': true
-            },
-            ptm('panel', { hostName: props.hostName })
-        );
-
+        const panelProps = mergeProps({ className: cx('panel', { panelProps: props, context }), style: props.panelStyle, onClick: props.onClick, 'data-pr-is-overlay': true }, ptm('panel', { hostName: props.hostName }));
         const transitionProps = mergeProps(
-            {
-                classNames: cx('transition'),
-                in: props.in,
-                timeout: { enter: 120, exit: 100 },
-                options: props.transitionOptions,
-                unmountOnExit: true,
-                onEnter: props.onEnter,
-                onEntered: props.onEntered,
-                onExit: props.onExit,
-                onExited: props.onExited
-            },
+            { classNames: cx('transition'), in: props.in, timeout: { enter: 120, exit: 100 }, options: props.transitionOptions, unmountOnExit: true, onEnter: props.onEnter, onEntered: props.onEntered, onExit: props.onExit, onExited: props.onExited },
             ptm('transition', { hostName: props.hostName })
         );
 
@@ -48,5 +29,4 @@ export const ColorPickerPanel = React.forwardRef((props, ref) => {
 
     return props.inline ? element : <Portal element={element} appendTo={props.appendTo} />;
 });
-
 ColorPickerPanel.displayName = 'ColorPickerPanel';

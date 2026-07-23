@@ -18,10 +18,7 @@ export const Paginator = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = PaginatorBase.getProps(inProps, context);
-        const metaData = {
-            props,
-            ...props.__parentMetadata
-        };
+        const metaData = { props, ...props.__parentMetadata };
         const { ptm, cx, isUnstyled } = PaginatorBase.setMetaData(metaData);
 
         useHandleStyle(PaginatorBase.css.styles, isUnstyled, { name: 'paginator' });
@@ -34,13 +31,9 @@ export const Paginator = React.memo(
 
         const calculatePageLinkBoundaries = () => {
             let numberOfPages = totalPages;
-            let visiblePages = Math.min(props.pageLinkSize, numberOfPages);
-
-            //calculate range, keep current in middle if necessary
+            let visiblePages = Math.min(props.pageLinkSize, numberOfPages); //calculate range, keep current in middle if necessary
             let start = Math.max(0, Math.ceil(page - visiblePages / 2));
-            let end = Math.min(numberOfPages - 1, start + visiblePages - 1);
-
-            //check when approaching to last page
+            let end = Math.min(numberOfPages - 1, start + visiblePages - 1); //check when approaching to last page
             let delta = props.pageLinkSize - (end - start + 1);
 
             start = Math.max(0, start - delta);
@@ -66,12 +59,7 @@ export const Paginator = React.memo(
             let p = Math.floor(first / rows);
 
             if (p >= 0 && p < pc) {
-                let newPageState = {
-                    first: first,
-                    rows: rows,
-                    page: p,
-                    totalPages: pc
-                };
+                let newPageState = { first: first, rows: rows, page: p, totalPages: pc };
 
                 if (props.onPageChange) {
                     props.onPageChange(newPageState);
@@ -109,11 +97,7 @@ export const Paginator = React.memo(
             changePage(0, rows);
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => elementRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
         useUpdateEffect(() => {
             if (page > 0 && props.first >= props.totalRecords) {
                 changePage((totalPages - 1) * props.rows, props.rows);
@@ -142,7 +126,6 @@ export const Paginator = React.memo(
                         />
                     );
                     break;
-
                 case 'PrevPageLink':
                     element = (
                         <PrevPageLink
@@ -161,7 +144,6 @@ export const Paginator = React.memo(
                         />
                     );
                     break;
-
                 case 'NextPageLink':
                     element = (
                         <NextPageLink
@@ -180,7 +162,6 @@ export const Paginator = React.memo(
                         />
                     );
                     break;
-
                 case 'LastPageLink':
                     element = (
                         <LastPageLink
@@ -199,13 +180,11 @@ export const Paginator = React.memo(
                         />
                     );
                     break;
-
                 case 'PageLinks':
                     element = (
                         <PageLinks hostName="Paginator" key={key} page={page} totalPages={totalPages} totalRecords={props.totalRecords} rows={props.rows} value={updatePageLinks()} onClick={onPageLinkClick} template={template} ptm={ptm} cx={cx} />
                     );
                     break;
-
                 case 'RowsPerPageDropdown':
                     element = (
                         <RowsPerPageDropdown
@@ -227,7 +206,6 @@ export const Paginator = React.memo(
                         />
                     );
                     break;
-
                 case 'CurrentPageReport':
                     element = (
                         <CurrentPageReport

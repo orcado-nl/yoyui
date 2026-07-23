@@ -4,7 +4,7 @@ import { InputText } from '@/components/lib/inputtext/InputText';
 
 export function RegexDoc(props) {
     const code = {
-        basic: `
+        basic: String.raw`
 <InputText keyfilter={/[^\s]/} />
 <InputText keyfilter={/^[^<>*!]+$/}  />
         `,

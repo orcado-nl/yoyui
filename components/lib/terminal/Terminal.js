@@ -11,7 +11,6 @@ export const Terminal = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = TerminalBase.getProps(inProps, context);
-
         const [commandTextState, setCommandTextState] = React.useState('');
         const [commandsState, setCommandsState] = React.useState([]);
         const [indexState, setIndexState] = React.useState(0);
@@ -19,22 +18,10 @@ export const Terminal = React.memo(
         const elementRef = React.useRef(null);
         const inputRef = React.useRef(null);
         const isEmitted = React.useRef(false);
-
-        const { ptm, cx, isUnstyled } = TerminalBase.setMetaData({
-            props,
-            state: {
-                commandText: commandTextState,
-                commands: commandsState
-            }
-        });
+        const { ptm, cx, isUnstyled } = TerminalBase.setMetaData({ props, state: { commandText: commandTextState, commands: commandsState } });
 
         useHandleStyle(TerminalBase.css.styles, isUnstyled, { name: 'terminal' });
-        const promptProps = mergeProps(
-            {
-                className: cx('prompt')
-            },
-            ptm('prompt')
-        );
+        const promptProps = mergeProps({ className: cx('prompt') }, ptm('prompt'));
 
         const onClick = () => {
             DomHandler.focus(inputRef.current);
@@ -47,7 +34,7 @@ export const Terminal = React.memo(
         const onKeyDown = (event) => {
             switch (event.code) {
                 case 'ArrowUp':
-                    if (commandsState && commandsState.length) {
+                    if (commandsState?.length) {
                         const prevIndex = indexState - 1 < 0 ? commandsState.length - 1 : indexState - 1;
                         const command = commandsState[prevIndex];
 
@@ -56,14 +43,12 @@ export const Terminal = React.memo(
                     }
 
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                     if (commandTextState) {
                         let newCommands = [...commandsState];
 
                         newCommands.push({ text: commandTextState });
-
                         setIndexState((prevIndex) => prevIndex + 1);
                         setCommandTextState('');
                         setCommandsState(newCommands);
@@ -72,25 +57,18 @@ export const Terminal = React.memo(
                     }
 
                     break;
-
                 default:
                     break;
             }
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            focus: () => DomHandler.focus(inputRef.current),
-            getElement: () => elementRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, focus: () => DomHandler.focus(inputRef.current), getElement: () => elementRef.current }));
         React.useEffect(() => {
             const response = (res) => {
                 if (commandsState && commandsState.length > 0) {
                     let commands = [...commandsState];
 
-                    commands[commands.length - 1].response = res;
-
+                    commands.at(-1).response = res;
                     setCommandsState(commands);
                 }
             };
@@ -108,7 +86,6 @@ export const Terminal = React.memo(
                 TerminalService.off('clear', clear);
             };
         }, [commandsState]);
-
         React.useEffect(() => {
             if (isEmitted.current) {
                 TerminalService.emit('command', emittedTextState);
@@ -132,19 +109,8 @@ export const Terminal = React.memo(
             const { text, response } = command;
             const key = text + '_' + index;
             const commandsProps = mergeProps({ key }, ptm('commands'));
-            const commandProps = mergeProps(
-                {
-                    className: cx('command')
-                },
-                ptm('command')
-            );
-            const responseProps = mergeProps(
-                {
-                    className: cx('response'),
-                    'aria-live': 'polite'
-                },
-                ptm('response')
-            );
+            const commandProps = mergeProps({ className: cx('command') }, ptm('command'));
+            const responseProps = mergeProps({ className: cx('response'), 'aria-live': 'polite' }, ptm('response'));
 
             return (
                 <div {...commandsProps}>
@@ -156,37 +122,15 @@ export const Terminal = React.memo(
         };
 
         const createContent = () => {
-            const content = commandsState.map(createCommand);
-            const contentProps = mergeProps(
-                {
-                    className: cx('content')
-                },
-                ptm('content')
-            );
+            const content = commandsState.map((command, index) => createCommand(command, index));
+            const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
 
             return <div {...contentProps}>{content}</div>;
         };
 
         const createPromptContainer = () => {
-            const containerProps = mergeProps(
-                {
-                    className: cx('container')
-                },
-                ptm('container')
-            );
-
-            const commandTextProps = mergeProps(
-                {
-                    ref: inputRef,
-                    value: commandTextState,
-                    type: 'text',
-                    className: cx('commandText'),
-                    autoComplete: 'off',
-                    onChange: (e) => onInputChange(e),
-                    onKeyDown
-                },
-                ptm('commandText')
-            );
+            const containerProps = mergeProps({ className: cx('container') }, ptm('container'));
+            const commandTextProps = mergeProps({ ref: inputRef, value: commandTextState, type: 'text', className: cx('commandText'), autoComplete: 'off', onChange: (e) => onInputChange(e), onKeyDown }, ptm('commandText'));
 
             return (
                 <div {...containerProps}>
@@ -199,17 +143,7 @@ export const Terminal = React.memo(
         const welcomeMessage = createWelcomeMessage();
         const content = createContent();
         const prompt = createPromptContainer();
-        const rootProps = mergeProps(
-            {
-                id: props.id,
-                ref: elementRef,
-                className: classNames(props.className, cx('root')),
-                style: props.style,
-                onClick
-            },
-            TerminalBase.getOtherProps(props),
-            ptm('root')
-        );
+        const rootProps = mergeProps({ id: props.id, ref: elementRef, className: classNames(props.className, cx('root')), style: props.style, onClick }, TerminalBase.getOtherProps(props), ptm('root'));
 
         return (
             <div {...rootProps}>

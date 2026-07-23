@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Next 12 Link requires an anchor child; the explicit href also satisfies static accessibility analysis. */
 import AppContentContext from '@/components/layout/appcontentcontext';
 import { Badge } from '@/components/lib/badge/Badge';
 import { Button } from '@/components/lib/button/Button';
@@ -20,15 +21,13 @@ const HeroSection = () => {
         { name: 'Styled', value: 1 },
         { name: 'Unstyled', value: 2 }
     ];
-
     const items = [
         { label: 'Home', icon: 'pi pi-fw pi-home' },
         { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
     ];
-
     const [value1, setValue1] = useState(24);
     const [category, setCategory] = useState('S');
-    const [dateValue, setDateValue] = useState(null);
+    const dateValue = null;
     const [chartOptions, setChartOptions] = useState({});
     const [chartData, setChartData] = useState({});
     const [checked, setChecked] = useState(true);
@@ -114,8 +113,8 @@ const HeroSection = () => {
                         Elevate your web applications with PrimeReact's comprehensive suite of customizable, feature-rich UI components. With PrimeReact, turning your development vision into reality has never been easier.
                     </p>
                     <div className="flex align-items-center gap-3">
-                        <Link href="/installation">
-                            <a className="linkbox active font-semibold py-3 px-4">
+                        <Link href="/installation" passHref>
+                            <a href="/installation" className="linkbox active font-semibold py-3 px-4">
                                 <span>Get Started</span>
                                 <i className="pi pi-arrow-right ml-3" />
                             </a>
@@ -202,23 +201,23 @@ const HeroSection = () => {
                                         </div>
                                     </li>
                                     <li className="flex">
-                                        <a className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
+                                        <button type="button" className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
                                             <i className="pi pi-home text-xl mr-3" />
                                             <span className="flex flex-column">
                                                 <span className="font-bold mb-1">Dashboard</span>
                                                 <span className="m-0 text-secondary">Control Panel</span>
                                             </span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li className="flex">
-                                        <a className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
+                                        <button type="button" className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
                                             <i className="pi pi-envelope text-xl mr-3" />
                                             <span className="flex flex-column">
                                                 <span className="font-bold mb-1">Inbox</span>
                                                 <span className="m-0 text-secondary">View Messages</span>
                                             </span>
                                             <Badge value="3" className="ml-auto" />
-                                        </a>
+                                        </button>
                                     </li>
                                 </ul>
                             </div>

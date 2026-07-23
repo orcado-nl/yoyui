@@ -22,7 +22,6 @@ export function StatefulDoc(props) {
         representative: { value: null, matchMode: FilterMatchMode.IN },
         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
     });
-
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const representatives = [
         { name: 'Amy Elsner', image: 'amyelsner.png' },
@@ -42,16 +41,12 @@ export function StatefulDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -111,7 +106,6 @@ export function StatefulDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
     };
 
@@ -127,7 +121,6 @@ export function StatefulDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <DataTable value={customers} paginator rows={5} header={header} filters={filters} onFilter={(e) => setFilters(e.filters)}
@@ -509,6 +502,7 @@ export default function BasicDemo() {
                             filterMenuStyle={{ width: '14rem' }}
                             style={{ width: '25%' }}
                         />
+
                         <Column field="status" header="Status" body={statusBodyTemplate} sortable filter filterElement={statusFilterTemplate} filterMenuStyle={{ width: '14rem' }} style={{ width: '25%' }} />
                     </DataTable>
                 </div>

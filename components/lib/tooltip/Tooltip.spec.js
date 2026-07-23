@@ -152,14 +152,12 @@ describe('Tooltip', () => {
         // Arrange
         const tooltipText = /Disabled/i;
         const { container } = render(
-            <>
-                <PrimeReactProvider>
-                    <Tooltip target=".disabled-button" />
-                    <span className="disabled-button" data-pr-tooltip="A Disabled Button">
-                        <Button type="button" label="Save" icon="pi pi-check" disabled />
-                    </span>
-                </PrimeReactProvider>
-            </>
+            <PrimeReactProvider>
+                <Tooltip target=".disabled-button" />
+                <span className="disabled-button" data-pr-tooltip="A Disabled Button">
+                    <Button type="button" label="Save" icon="pi pi-check" disabled />
+                </span>
+            </PrimeReactProvider>
         );
         const input = container.getElementsByClassName('disabled-button')[0];
 

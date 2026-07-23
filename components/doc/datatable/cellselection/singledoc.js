@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { InputSwitch } from '@/components/lib/inputswitch/InputSwitch';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -129,8 +129,7 @@ export default function SingleCellSelectionDemo() {
             <DocSectionText {...props}>
                 <p>
                     Single cell selection is enabled by adding <i>cellSelection</i>, defining <i>selectionMode</i> as <i>single</i> along with a value binding using <i>selection</i> and <i>onSelectionChange</i> properties. The type of the selection
-                    would be
-                    <i>DataTableCellSelection</i> that provides information about the cell such as <i>cellIndex</i> and <i>rowIndex</i>.
+                    would be <i>DataTableCellSelection</i> that provides information about the cell such as <i>cellIndex</i> and <i>rowIndex</i>.
                 </p>
                 <p>
                     By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a cell however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same

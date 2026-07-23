@@ -18,13 +18,10 @@ export function BasicDoc(props) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -213,7 +210,6 @@ export default function BasicDemo() {
     )
 }
         `,
-
         data: `
 /* ProductService */        
 {

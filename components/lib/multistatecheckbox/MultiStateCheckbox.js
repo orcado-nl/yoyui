@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { ariaLabel, PrimeReactContext } from '../api/Api';
 import { Checkbox } from '../checkbox/Checkbox';
@@ -48,7 +49,13 @@ export const MultiStateCheckbox = React.memo(
 
         const findNextOption = () => {
             if (props.options) {
-                return selectedOptionIndex === props.options.length - 1 ? (props.empty ? null : props.options[0]) : props.options[selectedOptionIndex + 1];
+                return selectedOptionIndex === props.options.length - 1
+                    ? resolveConditional(
+                          props.empty,
+                          () => null,
+                          () => props.options[0]
+                      )
+                    : props.options[selectedOptionIndex + 1];
             }
 
             return null;

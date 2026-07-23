@@ -31,7 +31,6 @@ export function RowExpansionDoc(props) {
         let _expandedRows = {};
 
         products.forEach((p) => (_expandedRows[`${p.id}`] = true));
-
         setExpandedRows(_expandedRows);
     };
 
@@ -75,13 +74,10 @@ export function RowExpansionDoc(props) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -91,16 +87,12 @@ export function RowExpansionDoc(props) {
         switch (order.status) {
             case 'DELIVERED':
                 return 'success';
-
             case 'CANCELLED':
                 return 'danger';
-
             case 'PENDING':
                 return 'warning';
-
             case 'RETURNED':
                 return 'info';
-
             default:
                 return null;
         }
@@ -132,7 +124,6 @@ export function RowExpansionDoc(props) {
             <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
         </div>
     );
-
     const code = {
         basic: `
 <DataTable value={products} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}

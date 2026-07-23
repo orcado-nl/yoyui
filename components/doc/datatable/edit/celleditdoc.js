@@ -10,7 +10,6 @@ import { ProductService } from '../../../../service/ProductService';
 
 export function CellEditDoc(props) {
     const [products, setProducts] = useState(null);
-
     const columns = [
         { field: 'code', header: 'Code' },
         { field: 'name', header: 'Name' },
@@ -50,7 +49,6 @@ export function CellEditDoc(props) {
                 }
 
                 break;
-
             default:
                 if (newValue.trim().length > 0) {
                     rowData[field] = newValue;

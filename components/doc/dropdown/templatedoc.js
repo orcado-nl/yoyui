@@ -5,6 +5,10 @@ import { ChevronDownIcon } from '@/components/lib/icons/chevrondown';
 import { ChevronRightIcon } from '@/components/lib/icons/chevronright';
 import { useState } from 'react';
 
+function renderDropdownIcon(options) {
+    return options.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...options.iconProps} /> : <ChevronDownIcon {...options.iconProps} />;
+}
+
 export function TemplateDoc(props) {
     const [selectedCountry, setSelectedCountry] = useState(null);
     const countries = [
@@ -68,6 +72,10 @@ export function TemplateDoc(props) {
         javascript: `
 import React, { useState } from "react";
 import { Dropdown } from 'primereact/dropdown';
+
+function renderDropdownIcon(options) {
+    return options.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...options.iconProps} /> : <ChevronDownIcon {...options.iconProps} />;
+}
 import { ChevronDownIcon } from 'primereact/icons/chevrondown';
 import { ChevronRightIcon } from 'primereact/icons/chevronright';
 
@@ -226,9 +234,7 @@ export default function TemplateDemo() {
                     itemTemplate={countryOptionTemplate}
                     panelFooterTemplate={panelFooterTemplate}
                     className="w-full md:w-14rem"
-                    dropdownIcon={(opts) => {
-                        return opts.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...opts.iconProps} /> : <ChevronDownIcon {...opts.iconProps} />;
-                    }}
+                    dropdownIcon={renderDropdownIcon}
                 />
             </div>
             <DocSectionCode code={code} />

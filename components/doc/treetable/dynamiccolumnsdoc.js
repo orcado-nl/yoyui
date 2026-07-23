@@ -16,7 +16,6 @@ export function DynamicColumnsDoc(props) {
     useEffect(() => {
         NodeService.getTreeTableNodes().then((data) => setNodes(data));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     const code = {
         basic: `
 <TreeTable value={nodes} tableStyle={{ minWidth: '50rem' }}>

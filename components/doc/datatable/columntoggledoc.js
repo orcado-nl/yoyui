@@ -28,7 +28,6 @@ export function ColumnToggleDoc(props) {
     };
 
     const header = <MultiSelect value={visibleColumns} options={columns} optionLabel="header" onChange={onColumnToggle} className="w-full sm:w-20rem" display="chip" />;
-
     const code = {
         basic: `
 <DataTable value={products} header={header} tableStyle={{ minWidth: '50rem' }}>

@@ -1,4 +1,4 @@
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -36,8 +36,8 @@ const classes = {
     root: ({ props, context }) =>
         classNames('p-menu p-component', {
             'p-menu-overlay': props.popup,
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     menu: 'p-menu-list p-reset',
     content: ({ item }) => classNames('p-menuitem-content', { 'p-disabled': item.disabled }),

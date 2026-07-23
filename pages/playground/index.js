@@ -15,9 +15,10 @@ const PlayGround = () => {
                     </div>
                     <section className="py-4">
                         <iframe
+                            title="PrimeReact playground"
                             className="w-full h-full"
                             style={{ border: '1px solid rgba(0, 0, 0, 0.1)', borderRadius: '2px', minHeight: '800px' }}
-                            allowfFullScreen
+                            allowFullScreen
                             src="https://stackblitz.com/edit/stackblitz-starters-66bhze?embed=1&file=src%2FApp.tsx"
                         />
                     </section>

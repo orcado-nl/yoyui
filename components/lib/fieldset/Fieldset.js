@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -15,19 +16,18 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
     const props = FieldsetBase.getProps(inProps, context);
     const [idState, setIdState] = React.useState(props.id);
     const [collapsedState, setCollapsedState] = React.useState(props.collapsed);
-    const collapsed = props.toggleable ? (props.onToggle ? props.collapsed : collapsedState) : false;
+    const collapsed = props.toggleable
+        ? resolveConditional(
+              props.onToggle,
+              () => props.collapsed,
+              () => collapsedState
+          )
+        : false;
     const elementRef = React.useRef(null);
     const contentRef = React.useRef(null);
     const headerId = idState + '_header';
     const contentId = idState + '_content';
-
-    const { ptm, cx, isUnstyled } = FieldsetBase.setMetaData({
-        props,
-        state: {
-            id: idState,
-            collapsed: collapsed
-        }
-    });
+    const { ptm, cx, isUnstyled } = FieldsetBase.setMetaData({ props, state: { id: idState, collapsed: collapsed } });
 
     useHandleStyle(FieldsetBase.css.styles, isUnstyled, { name: 'fieldset' });
 
@@ -36,10 +36,7 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
             collapsed ? expand(event) : collapse(event);
 
             if (props.onToggle) {
-                props.onToggle({
-                    originalEvent: event,
-                    value: !collapsed
-                });
+                props.onToggle({ originalEvent: event, value: !collapsed });
             }
         }
 
@@ -51,7 +48,7 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
             setCollapsedState(false);
         }
 
-        props.onExpand && props.onExpand(event);
+        props.onExpand?.(event);
     };
 
     const collapse = (event) => {
@@ -59,7 +56,7 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
             setCollapsedState(true);
         }
 
-        props.onCollapse && props.onCollapse(event);
+        props.onCollapse?.(event);
     };
 
     useMountEffect(() => {
@@ -76,34 +73,9 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
     };
 
     const createContent = () => {
-        const contentProps = mergeProps(
-            {
-                className: cx('content')
-            },
-            ptm('content')
-        );
-
-        const toggleableProps = mergeProps(
-            {
-                ref: contentRef,
-                id: contentId,
-                role: 'region',
-                'aria-labelledby': headerId,
-                className: cx('toggleableContent')
-            },
-            ptm('toggleableContent')
-        );
-
-        const transitionProps = mergeProps(
-            {
-                classNames: cx('transition'),
-                timeout: { enter: 1000, exit: 450 },
-                in: !collapsed,
-                unmountOnExit: true,
-                options: props.transitionOptions
-            },
-            ptm('transition')
-        );
+        const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
+        const toggleableProps = mergeProps({ ref: contentRef, id: contentId, role: 'region', 'aria-labelledby': headerId, className: cx('toggleableContent') }, ptm('toggleableContent'));
+        const transitionProps = mergeProps({ classNames: cx('transition'), timeout: { enter: 1000, exit: 450 }, in: !collapsed, unmountOnExit: true, options: props.transitionOptions }, ptm('transition'));
 
         return (
             <CSSTransition nodeRef={contentRef} {...transitionProps}>
@@ -116,13 +88,7 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
 
     const createToggleIcon = () => {
         if (props.toggleable) {
-            const togglerIconProps = mergeProps(
-                {
-                    className: cx('togglericon')
-                },
-                ptm('togglericon')
-            );
-
+            const togglerIconProps = mergeProps({ className: cx('togglericon') }, ptm('togglericon'));
             const icon = collapsed ? props.expandIcon || <PlusIcon {...togglerIconProps} /> : props.collapseIcon || <MinusIcon {...togglerIconProps} />;
             const toggleIcon = IconUtils.getJSXIcon(icon, togglerIconProps, { props });
 
@@ -133,26 +99,8 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
     };
 
     const createLegendContent = () => {
-        const legendTextProps = mergeProps(
-            {
-                className: cx('legendTitle')
-            },
-            ptm('legendTitle')
-        );
-
-        const togglerProps = mergeProps(
-            {
-                id: headerId,
-                role: 'button',
-                'aria-expanded': !collapsed,
-                'aria-controls': contentId,
-                onKeyDown,
-                onClick: toggle,
-                'aria-label': props.legend,
-                tabIndex: 0
-            },
-            ptm('toggler')
-        );
+        const legendTextProps = mergeProps({ className: cx('legendTitle') }, ptm('legendTitle'));
+        const togglerProps = mergeProps({ id: headerId, role: 'button', 'aria-expanded': !collapsed, 'aria-controls': contentId, onKeyDown, onClick: toggle, 'aria-label': props.legend, tabIndex: 0 }, ptm('toggler'));
 
         if (props.toggleable) {
             const toggleIcon = createToggleIcon();
@@ -174,12 +122,7 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
     };
 
     const createLegend = () => {
-        const legendProps = mergeProps(
-            {
-                className: cx('legend')
-            },
-            ptm('legend')
-        );
+        const legendProps = mergeProps({ className: cx('legend') }, ptm('legend'));
 
         if (props.legend != null || props.toggleable) {
             const legendContent = createLegendContent();
@@ -188,23 +131,8 @@ export const Fieldset = React.forwardRef((inProps, ref) => {
         }
     };
 
-    React.useImperativeHandle(ref, () => ({
-        props,
-        getElement: () => elementRef.current,
-        getContent: () => contentRef.current
-    }));
-
-    const rootProps = mergeProps(
-        {
-            id: idState,
-            ref: elementRef,
-            style: props.style,
-            className: classNames(props.className, cx('root')),
-            onClick: props.onClick
-        },
-        FieldsetBase.getOtherProps(props),
-        ptm('root')
-    );
+    React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current, getContent: () => contentRef.current }));
+    const rootProps = mergeProps({ id: idState, ref: elementRef, style: props.style, className: classNames(props.className, cx('root')), onClick: props.onClick }, FieldsetBase.getOtherProps(props), ptm('root'));
 
     const legend = createLegend();
     const content = createContent();

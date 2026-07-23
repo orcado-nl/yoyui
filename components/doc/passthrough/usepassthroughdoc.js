@@ -111,7 +111,7 @@ const CustomTailwind = usePassThrough(
                 </p>
                 <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
                 <p>
-                    The <i>mergeSections</i> defines whether the sections from the main configuration gets added and the <i>mergeProps</i> controls whether to override or merge the defined props. Defaults are <i>true</i> for <i>mergeSections</i> and
+                    The <i>mergeSections</i> defines whether the sections from the main configuration gets added and the <i>mergeProps</i> controls whether to override or merge the defined props. Defaults are <i>true</i> for <i>mergeSections</i> and{' '}
                     <i>false</i> for <i>mergeProps</i>.
                 </p>
                 <p>

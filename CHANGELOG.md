@@ -1,5 +1,138 @@
 # Changelog
 
+## Unreleased - Repository quality and reliability overhaul (2026-07-23)
+
+This entry documents the repository-wide review and SonarQube remediation. It groups
+behavior-preserving edits by purpose so that the full scope is recorded without
+repeating the same mechanical cleanup for every component, test, and documentation
+page.
+
+### Fixed
+
+- Corrected Calendar date and time validation, including invalid-date detection,
+  millisecond range checks, day-of-year conversion, time-only parsing, date-time
+  parsing, selection updates, and keyboard navigation edge cases.
+- Hardened InputMask, InputNumber, InputOtp, and shared mask utilities around pasted
+  values, numeric validation, cursor placement, inserted characters, partially
+  completed values, and optional DOM state.
+- Preserved DataTable and TreeTable filtering semantics while simplifying local and
+  global filter evaluation, strict and lenient tree filtering, row and cell
+  selection, editing, expansion, frozen-column positioning, and keyboard handling.
+- Normalized Splitter children with the React children API so empty, single,
+  fragment-wrapped, and nested panels are handled consistently. Splitter resize and
+  nesting state attributes now use the DOM `dataset` API.
+- Fixed unsafe access to nullable menu, overlay, selection, and template state in
+  components including MegaMenu, PanelMenu, MultiSelect, TreeSelect, Dropdown,
+  VirtualScroller, and related overlays.
+- Corrected OrganizationChart column-span handling when child collections are absent.
+- Corrected conditional Tailwind button class selection and consolidated filled,
+  text, plain, and outlined class calculation.
+- Kept legacy Next.js links valid by restoring explicit anchor destinations where
+  required by the version of Next.js used by the documentation application.
+- Improved DOM utilities for element comparison, attribute and style handling,
+  overlay positioning, focus discovery, scrolling, selection cleanup, inline style
+  removal, downloads, and animation or transition detection.
+- Replaced weak pseudo-random demo car generation with the Web Crypto API.
+- Fixed documentation-only callback placement and rendering errors that could break
+  individual examples or the documentation build.
+
+### Changed
+
+- Decomposed high-complexity rendering and event logic across Calendar, DataTable,
+  TreeTable, InputNumber, MultiSelect, VirtualScroller, SpeedDial, menu components,
+  utility modules, and documentation tooling into focused helpers.
+- Added a lazy `resolveConditional` utility for readable conditional branches that
+  must not evaluate the unselected value.
+- Removed duplicated branches, redundant conditions, unnecessary jumps, unused
+  imports and variables, dead assignments, and duplicate renderer implementations.
+- Replaced nested ternaries with named decisions and extracted nested render
+  functions where doing so improves readability and React reconciliation.
+- Modernized JavaScript usage with optional chaining, nullish assignment, `for...of`,
+  `Object.entries`, `Array.at`, `String.replaceAll`, `Number.parseFloat`,
+  `Number.isNaN`, `Date.now`, spread arguments, and explicit locale-aware sorting.
+- Reworked recursive class-name flattening, deep object equality, DOM equality, mask
+  processing, SpeedDial positioning, paginator rendering, and API-document
+  generation into smaller reusable operations.
+- Reduced avoidable array creation and discarded return values by using direct
+  iteration for side-effect-only work.
+- Added stable, value-derived React keys throughout component rendering,
+  documentation examples, landing pages, templates, and API documentation.
+- Improved JSX readability and text rendering by making punctuation and whitespace
+  explicit where React or assistive technology could interpret it ambiguously.
+
+### Accessibility and React correctness
+
+- Replaced non-navigation anchors with semantic buttons where appropriate and
+  corrected label, span, link, and interactive-element semantics.
+- Standardized React DOM property casing, including corrections such as
+  `readonly` to `readOnly`, so React applies the intended DOM property without
+  invalid-property warnings.
+- Added or retained valid `href`, ARIA, focus, and keyboard behavior on interactive
+  elements.
+- Removed index-only keys from dynamic lists where stable domain values are
+  available.
+- Extracted nested JSX component definitions and render callbacks that caused
+  unstable component identities.
+- Added null guards around focus targets, active items, child collections, and
+  browser-only DOM operations.
+
+### Documentation and tooling
+
+- Refactored component examples, theme and Tailwind documentation, API tables,
+  navigation, templates, landing pages, and generated code samples to follow the
+  same static-analysis and accessibility rules as the library.
+- Simplified `build-apidoc.js` and `build-webtypes.js` while preserving generated API
+  and Web Types output behavior.
+- Added `sonar-project.properties` with source, test, coverage, encoding, memory, and
+  exclusion settings for repeatable local analysis.
+- Updated Splitter tests to cover actual panel rendering in addition to its existing
+  empty, single, vertical, and nested-panel snapshots.
+- Updated affected snapshots and test fixtures after deterministic key and semantic
+  markup changes.
+- No package dependencies, package scripts, public import paths, public component
+  props, or event payload contracts were intentionally changed.
+
+### Required changes for users
+
+For consumers using the supported public component API, **no code changes are
+required**. Existing imports, props, callbacks, and theme configuration remain
+compatible.
+
+Only apply the following changes if the condition describes your project:
+
+- If your own JSX uses lowercase HTML attribute spellings such as `readonly`, change
+  them to React's camel-cased DOM property spelling, for example
+  `readOnly`. Existing code that already uses the public YoYui `readOnly` prop needs
+  no change; the repository edits correct internal JSX rather than rename the public
+  prop.
+- If application tests select exact elements from the YoYui documentation site or
+  compare its raw HTML snapshots, update selectors and snapshots for semantic
+  button/link markup and deterministic list keys. This does not affect the public
+  component API.
+- If code deep-imports undocumented files from `components/lib/utils`, verify strict
+  assumptions about DOM attribute coercion, element equality, or conditional
+  evaluation. Prefer the documented component APIs; use the native
+  `element.getAttribute()` when a string result is specifically required.
+- If custom pass-through code supplies non-boolean values for boolean Button props
+  such as `text`, `outlined`, or `plain`, change them to real booleans. Corrected
+  Tailwind conditions now follow the documented boolean contract.
+- If the demo `CarService` is copied into a runtime without Web Crypto, provide
+  `crypto.getRandomValues` or replace the demo-only random generator. Supported
+  modern browsers and current Node.js versions already provide this API.
+- If CI runs the new local SonarQube configuration and coverage is required, run the
+  Jest coverage task before the scanner so `coverage/lcov.info` exists. Set the
+  SonarQube host URL and token in the scanner environment rather than committing
+  credentials.
+
+### Verification
+
+- SonarQube: **0 unresolved issues**, reduced from the initial 2,578 findings.
+- Jest: **26 suites, 280 tests, and 145 snapshots passed**.
+- ESLint: passed with zero warnings.
+- TypeScript: passed.
+- Prettier verification: passed.
+- Next.js production build: passed and generated 156 pages.
+
 ## [10.9.8](https://github.com/primefaces/primereact/tree/10.9.8) (2026-05-14)
 
 [Full Changelog](https://github.com/primefaces/primereact/compare/10.9.7...10.9.8)

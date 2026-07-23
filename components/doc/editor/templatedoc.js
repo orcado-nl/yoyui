@@ -17,7 +17,6 @@ export function TemplateDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <Editor value={text} onTextChange={(e) => setText(e.htmlValue)} headerTemplate={header} style={{ height: '320px' }} />
@@ -80,7 +79,7 @@ export default function TemplateDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Toolbar is customized with the <i>headerTemplate</i> property. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.
+                    Toolbar is customized with the <i>headerTemplate</i> property. Refer to <a href="https://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.
                 </p>
             </DocSectionText>
             <div className="card">

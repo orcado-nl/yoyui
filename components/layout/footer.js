@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="layout-footer">
             <div>
                 <span>PrimeReact {version} by </span>
-                <a href="http://www.primetek.com.tr" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.primetek.com.tr" target="_blank" rel="noopener noreferrer">
                     PrimeTek
                 </a>
             </div>

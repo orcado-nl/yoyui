@@ -35,11 +35,7 @@ export function BasicDoc(props) {
         </IconField>
     );
 
-    const endContent = (
-        <React.Fragment>
-            <SplitButton label="Save" model={items} icon="pi pi-check" />
-        </React.Fragment>
-    );
+    const endContent = <SplitButton label="Save" model={items} icon="pi pi-check" />;
 
     const code = {
         basic: `

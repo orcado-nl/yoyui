@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { SelectButton } from '@/components/lib/selectbutton/SelectButton';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 

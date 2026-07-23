@@ -13,24 +13,11 @@ export function AdvancedDoc(props) {
     const [isAutoPlayActive, setAutoPlayActive] = useState(true);
     const [isFullScreen, setFullScreen] = useState(false);
     const galleria = useRef(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '960px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+        { breakpoint: '1024px', numVisible: 5 },
+        { breakpoint: '960px', numVisible: 4 },
+        { breakpoint: '768px', numVisible: 3 },
+        { breakpoint: '560px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -39,7 +26,6 @@ export function AdvancedDoc(props) {
 
         return () => unbindDocumentListeners();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     useEffect(() => {
         setAutoPlayActive(galleria.current.isAutoPlayActive());
     }, [isAutoPlayActive]);
@@ -66,14 +52,11 @@ export function AdvancedDoc(props) {
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem.mozRequestFullScreen) {
-            /* Firefox */
-            elem.mozRequestFullScreen();
+            /* Firefox */ elem.mozRequestFullScreen();
         } else if (elem.webkitRequestFullscreen) {
-            /* Chrome, Safari & Opera */
-            elem.webkitRequestFullscreen();
+            /* Chrome, Safari & Opera */ elem.webkitRequestFullscreen();
         } else if (elem.msRequestFullscreen) {
-            /* IE/Edge */
-            elem.msRequestFullscreen();
+            /* IE/Edge */ elem.msRequestFullscreen();
         }
     };
 
@@ -120,15 +103,8 @@ export function AdvancedDoc(props) {
     };
 
     const renderFooter = () => {
-        let autoPlayClassName = classNames('pi', {
-            'pi-play': !isAutoPlayActive,
-            'pi-pause': isAutoPlayActive
-        });
-
-        let fullScreenClassName = classNames('pi', {
-            'pi-window-maximize': !isFullScreen,
-            'pi-window-minimize': isFullScreen
-        });
+        let autoPlayClassName = classNames('pi', { 'pi-play': !isAutoPlayActive, 'pi-pause': isAutoPlayActive });
+        let fullScreenClassName = classNames('pi', { 'pi-window-maximize': !isFullScreen, 'pi-window-minimize': isFullScreen });
 
         return (
             <div className="custom-galleria-footer">
@@ -145,6 +121,7 @@ export function AdvancedDoc(props) {
                         }
                     }}
                 />
+
                 {images && (
                     <span className="title-container">
                         <span>
@@ -160,10 +137,7 @@ export function AdvancedDoc(props) {
     };
 
     const footer = renderFooter();
-    const galleriaClassName = classNames('custom-galleria', {
-        fullscreen: isFullScreen
-    });
-
+    const galleriaClassName = classNames('custom-galleria', { fullscreen: isFullScreen });
     const code = {
         basic: `
 <Galleria ref={galleria} value={images} activeIndex={activeIndex} onItemChange={onItemChange}
@@ -530,7 +504,6 @@ export default function AdvancedDemo() {
     )
 }
         `,
-
         extFiles: {
             'GalleriaAdvancedDemo.css': `
 /* GalleriaAdvancedDemo.css */

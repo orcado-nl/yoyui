@@ -1,22 +1,23 @@
 import * as React from 'react';
 
-export const useCounter = (initialValue = 0, options = { step: 1 }) => {
+export const useCounter = (initialValue = 0, options = undefined) => {
     const [count, setCount] = React.useState(initialValue);
+    const { max, min, step = 1 } = options ?? {};
 
     const increment = () => {
-        if (options.max && count >= options.max) {
+        if (max && count >= max) {
             return;
         }
 
-        setCount(count + options.step);
+        setCount(count + step);
     };
 
     const decrement = () => {
-        if (options.min || (options.min === 0 && count <= options.min)) {
+        if (min || (min === 0 && count <= min)) {
             return null;
         }
 
-        setCount(count - options.step);
+        setCount(count - step);
     };
 
     const reset = () => {

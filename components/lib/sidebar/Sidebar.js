@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext, ariaLabel } from '../api/Api';
+import { PrimeReactContext, ariaLabel, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { CSSTransition } from '../csstransition/CSSTransition';
 import { ESC_KEY_HANDLING_PRIORITIES, useDisplayOrder, useEventListener, useGlobalOnEscapeKey, useMergeProps, useMountEffect, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
@@ -13,18 +13,11 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
     const props = SidebarBase.getProps(inProps, context);
-
     const [maskVisibleState, setMaskVisibleState] = React.useState(false);
     const [visibleState, setVisibleState] = React.useState(false);
-    const { ptm, cx, sx, isUnstyled } = SidebarBase.setMetaData({
-        props,
-        state: {
-            containerVisible: maskVisibleState
-        }
-    });
+    const { ptm, cx, sx, isUnstyled } = SidebarBase.setMetaData({ props, state: { containerVisible: maskVisibleState } });
 
     useHandleStyle(SidebarBase.css.styles, isUnstyled, { name: 'sidebar' });
-
     const sidebarRef = React.useRef(null);
     const maskRef = React.useRef(null);
     const closeIconRef = React.useRef(null);
@@ -38,7 +31,6 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
         when: isCloseOnEscape && sidebarDisplayOrder,
         priority: [ESC_KEY_HANDLING_PRIORITIES.SIDEBAR, sidebarDisplayOrder]
     });
-
     const [bindDocumentClickListener, unbindDocumentClickListener] = useEventListener({
         type: 'click',
         listener: (event) => {
@@ -54,12 +46,12 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
     });
 
     const isOutsideClicked = (event) => {
-        return sidebarRef && sidebarRef.current && !sidebarRef.current.contains(event.target);
+        return sidebarRef?.current && !sidebarRef.current.contains(event.target);
     };
 
     const focus = () => {
         const activeElement = document.activeElement;
-        const isActiveElementInDialog = activeElement && sidebarRef && sidebarRef.current.contains(activeElement);
+        const isActiveElementInDialog = activeElement && sidebarRef?.current.contains(activeElement);
 
         if (!isActiveElementInDialog && props.showCloseIcon && closeIconRef.current) {
             closeIconRef.current.focus();
@@ -78,7 +70,7 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
     };
 
     const onEntered = () => {
-        props.onShow && props.onShow();
+        props.onShow?.();
         focus();
         enableDocumentSettings();
     };
@@ -113,19 +105,12 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
         }
     };
 
-    React.useImperativeHandle(ref, () => ({
-        props,
-        getElement: () => sidebarRef.current,
-        getMask: () => maskRef.current,
-        getCloseIcon: () => closeIconRef.current
-    }));
-
+    React.useImperativeHandle(ref, () => ({ props, getElement: () => sidebarRef.current, getMask: () => maskRef.current, getCloseIcon: () => closeIconRef.current }));
     useMountEffect(() => {
         if (props.visible) {
             setMaskVisibleState(true);
         }
     });
-
     useUpdateEffect(() => {
         if (props.visible && !maskVisibleState) {
             setMaskVisibleState(true);
@@ -135,14 +120,12 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
             setVisibleState(props.visible);
         }
     }, [props.visible, maskVisibleState, visibleState]);
-
     useUpdateEffect(() => {
         if (maskVisibleState) {
-            ZIndexUtils.set('modal', maskRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, props.baseZIndex || (context && context.zIndex.modal) || PrimeReact.zIndex.modal);
+            ZIndexUtils.set('modal', maskRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, props.baseZIndex || context?.zIndex.modal || PrimeReactConfig.zIndex.modal);
             setVisibleState(true);
         }
     }, [maskVisibleState]);
-
     useUpdateEffect(() => {
         // #3811 if dismissible state is toggled while open we must unregister and re-regisetr
         if (visibleState) {
@@ -153,31 +136,14 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
             }
         }
     }, [props.dismissable, props.modal, visibleState]);
-
     useUnmountEffect(() => {
         disableDocumentSettings();
         maskRef.current && ZIndexUtils.clear(maskRef.current);
     });
 
     const createCloseIcon = () => {
-        const closeButtonProps = mergeProps(
-            {
-                type: 'button',
-                ref: closeIconRef,
-                className: cx('closeButton'),
-                onClick: (e) => onClose(e),
-                'aria-label': props.ariaCloseLabel || ariaLabel('close')
-            },
-            ptm('closeButton')
-        );
-
-        const closeIconProps = mergeProps(
-            {
-                className: cx('closeIcon')
-            },
-            ptm('closeIcon')
-        );
-
+        const closeButtonProps = mergeProps({ type: 'button', ref: closeIconRef, className: cx('closeButton'), onClick: (e) => onClose(e), 'aria-label': props.ariaCloseLabel || ariaLabel('close') }, ptm('closeButton'));
+        const closeIconProps = mergeProps({ className: cx('closeIcon') }, ptm('closeIcon'));
         const icon = props.closeIcon || <TimesIcon {...closeIconProps} />;
         const closeIcon = IconUtils.getJSXIcon(icon, { ...closeIconProps }, { props });
 
@@ -201,66 +167,13 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
         return props.icons ? ObjectUtils.getJSXElement(props.icons, props) : null;
     };
 
-    const maskProps = mergeProps(
-        {
-            ref: maskRef,
-            style: sx('mask'),
-            className: cx('mask', { maskVisibleState }),
-            onMouseDown: (e) => onMaskClick(e)
-        },
-        ptm('mask')
-    );
-
-    const rootProps = mergeProps(
-        {
-            id: props.id,
-            className: classNames(props.className, cx('root', { context })),
-            style: props.style,
-            role: 'complementary'
-        },
-        SidebarBase.getOtherProps(props),
-        ptm('root')
-    );
-
-    const headerProps = mergeProps(
-        {
-            className: cx('header')
-        },
-        ptm('header')
-    );
-
-    const contentProps = mergeProps(
-        {
-            className: cx('content')
-        },
-        ptm('content')
-    );
-
-    const iconsProps = mergeProps(
-        {
-            className: cx('icons')
-        },
-        ptm('icons')
-    );
-
-    const transitionTimeout = {
-        enter: props.fullScreen ? 150 : 300,
-        exit: props.fullScreen ? 150 : 300
-    };
-
-    const transitionProps = mergeProps(
-        {
-            classNames: cx('transition'),
-            in: visibleState,
-            timeout: transitionTimeout,
-            options: props.transitionOptions,
-            unmountOnExit: true,
-            onEntered,
-            onExiting,
-            onExited
-        },
-        ptm('transition')
-    );
+    const maskProps = mergeProps({ ref: maskRef, style: sx('mask'), className: cx('mask', { maskVisibleState }), onMouseDown: (e) => onMaskClick(e) }, ptm('mask'));
+    const rootProps = mergeProps({ id: props.id, className: classNames(props.className, cx('root', { context })), style: props.style, role: 'complementary' }, SidebarBase.getOtherProps(props), ptm('root'));
+    const headerProps = mergeProps({ className: cx('header') }, ptm('header'));
+    const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
+    const iconsProps = mergeProps({ className: cx('icons') }, ptm('icons'));
+    const transitionTimeout = { enter: props.fullScreen ? 150 : 300, exit: props.fullScreen ? 150 : 300 };
+    const transitionProps = mergeProps({ classNames: cx('transition'), in: visibleState, timeout: transitionTimeout, options: props.transitionOptions, unmountOnExit: true, onEntered, onExiting, onExited }, ptm('transition'));
 
     const createTemplateElement = () => {
         const templateElementProps = { closeIconRef, hide: onClose };
@@ -307,5 +220,4 @@ export const Sidebar = React.forwardRef((inProps, ref) => {
 
     return maskVisibleState && createSidebar();
 });
-
 Sidebar.displayName = 'Sidebar';

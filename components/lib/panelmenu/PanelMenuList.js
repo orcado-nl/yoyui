@@ -1,8 +1,8 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { useUpdateEffect } from '../hooks/useUpdateEffect';
 import { DomHandler, ObjectUtils } from '../utils/Utils';
 import { PanelMenuSub } from './PanelMenuSub';
-``;
 
 export const PanelMenuList = React.memo((props) => {
     const { ptm, cx } = props;
@@ -19,7 +19,7 @@ export const PanelMenuList = React.memo((props) => {
     const elementRef = React.useRef(null);
 
     const getItemProp = (processedItem, name) => {
-        return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
+        return processedItem?.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
     };
 
     const getItemLabel = (processedItem) => {
@@ -35,7 +35,7 @@ export const PanelMenuList = React.memo((props) => {
     };
 
     const isItemActive = (processedItem) => {
-        return activeItemPath && activeItemPath.some((path) => path.key === processedItem.parentKey);
+        return activeItemPath?.some((path) => path.key === processedItem.parentKey);
     };
 
     const isItemGroup = (processedItem) => {
@@ -43,7 +43,7 @@ export const PanelMenuList = React.memo((props) => {
     };
 
     const getListElement = () => {
-        return elementRef.current && elementRef.current.getElement();
+        return elementRef.current?.getElement();
     };
 
     const onFocus = (event) => {
@@ -137,7 +137,7 @@ export const PanelMenuList = React.memo((props) => {
     };
 
     const onArrowLeftKey = (event) => {
-        if (ObjectUtils.isNotEmpty(focusedItem)) {
+        if (focusedItem) {
             const matched = activeItemPath.some((p) => p.key === focusedItem.key);
 
             if (matched) {
@@ -151,7 +151,7 @@ export const PanelMenuList = React.memo((props) => {
     };
 
     const onArrowRightKey = (event) => {
-        if (ObjectUtils.isNotEmpty(focusedItem)) {
+        if (focusedItem) {
             const grouped = isItemGroup(focusedItem);
 
             if (grouped) {
@@ -183,10 +183,10 @@ export const PanelMenuList = React.memo((props) => {
 
     const onEnterKey = (event) => {
         if (ObjectUtils.isNotEmpty(focusedItem)) {
-            const element = DomHandler.findSingle(getListElement(), `li[id="${`${focusedItemId}`}"]`);
+            const element = DomHandler.findSingle(getListElement(), `li[id="${focusedItemId}"]`);
             const anchorElement = element && (DomHandler.findSingle(element, '[data-pc-section="action"]') || DomHandler.findSingle(element, 'a,button'));
 
-            anchorElement ? anchorElement.click() : element && element.click();
+            anchorElement ? anchorElement.click() : element?.click();
         }
 
         event.preventDefault();
@@ -200,7 +200,10 @@ export const PanelMenuList = React.memo((props) => {
         const { processedItem, expanded } = event;
 
         if (props.expandedKeys) {
-            props.onToggle && props.onToggle({ item: processedItem.item, expanded });
+            props.onToggle?.({
+                item: processedItem.item,
+                expanded
+            });
         } else {
             const _activeItemPath = activeItemPath.filter((p) => p.parentKey !== processedItem.parentKey);
 
@@ -217,12 +220,6 @@ export const PanelMenuList = React.memo((props) => {
 
         DomHandler.focus(getListElement());
         setFocusedItem(processedItem);
-    };
-
-    const isElementInPanel = (event, element) => {
-        const panel = event.currentTarget.closest('[data-pc-section="panel"]');
-
-        return panel && panel.contains(element);
     };
 
     const isItemMatched = (processedItem) => {
@@ -265,7 +262,7 @@ export const PanelMenuList = React.memo((props) => {
         let matchedItem = null;
         let matched = false;
 
-        if (ObjectUtils.isNotEmpty(focusedItem)) {
+        if (focusedItem) {
             const focusedItemIndex = visibleItems.findIndex((processedItem) => processedItem.key === focusedItem.key);
 
             matchedItem = visibleItems.slice(focusedItemIndex).find((processedItem) => isItemMatched(processedItem));
@@ -305,19 +302,26 @@ export const PanelMenuList = React.memo((props) => {
     const changeFocusedItem = (event) => {
         const { originalEvent, processedItem, focusOnNext, selfCheck, allowHeaderFocus = true } = event;
 
-        if (ObjectUtils.isNotEmpty(focusedItem) && focusedItem.key !== processedItem.key) {
+        if (ObjectUtils.isNotEmpty(focusedItem) && focusedItem?.key !== processedItem.key) {
             setFocusedItem(processedItem);
             scrollInView();
         } else if (allowHeaderFocus) {
-            props.onHeaderFocus && props.onHeaderFocus({ originalEvent, focusOnNext, selfCheck });
+            props.onHeaderFocus?.({
+                originalEvent,
+                focusOnNext,
+                selfCheck
+            });
         }
     };
 
     const scrollInView = () => {
-        const element = DomHandler.findSingle(getListElement(), `li[id="${`${focusedItemId}`}"]`);
+        const element = DomHandler.findSingle(getListElement(), `li[id="${focusedItemId}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView?.({
+                block: 'nearest',
+                inline: 'start'
+            });
         }
     };
 
@@ -336,14 +340,14 @@ export const PanelMenuList = React.memo((props) => {
     };
 
     const findProcessedItemByItemKey = (key, processed, level = 0) => {
-        const _processedItems = processed ? processed : level === 0 && props.model;
+        const _processedItems = processed || (level === 0 && props.model);
 
         if (!_processedItems) {
             return null;
         }
 
-        for (let i = 0; i < _processedItems.length; i++) {
-            const processedItem = _processedItems[i];
+        for (const _item of _processedItems) {
+            const processedItem = _item;
             const processedKey = getItemProp(processedItem, 'key') || processedItem.key;
 
             if (processedKey === key) {
@@ -361,33 +365,37 @@ export const PanelMenuList = React.memo((props) => {
     const createProcessedItems = (items, level = 0, parent = {}, parentKey = '') => {
         const processedItems = [];
 
-        items &&
-            items.forEach((item, index) => {
-                const key = item.key ? item.key : (parentKey !== '' ? parentKey + '_' : '') + index;
-                const newItem = {
-                    item,
-                    index,
-                    level,
-                    key,
-                    parent,
-                    parentKey
-                };
+        items?.forEach((item, index) => {
+            const key = item.key
+                ? item.key
+                : resolveConditional(
+                      parentKey !== '',
+                      () => parentKey + '_',
+                      () => ''
+                  ) + index;
+            const newItem = {
+                item,
+                index,
+                level,
+                key,
+                parent,
+                parentKey
+            };
 
-                newItem.items = createProcessedItems(item.items, level + 1, newItem, key);
-                processedItems.push(newItem);
-            });
+            newItem.items = createProcessedItems(item.items, level + 1, newItem, key);
+            processedItems.push(newItem);
+        });
 
         return processedItems;
     };
 
     const flatItems = (processedItems, processedFlattenItems = []) => {
-        processedItems &&
-            processedItems.forEach((processedItem) => {
-                if (isVisibleItem(processedItem)) {
-                    processedFlattenItems.push(processedItem);
-                    flatItems(processedItem.items, processedFlattenItems);
-                }
-            });
+        processedItems?.forEach((processedItem) => {
+            if (isVisibleItem(processedItem)) {
+                processedFlattenItems.push(processedItem);
+                flatItems(processedItem.items, processedFlattenItems);
+            }
+        });
 
         return processedFlattenItems;
     };
@@ -412,7 +420,7 @@ export const PanelMenuList = React.memo((props) => {
     }, [props.expandedKeys]);
 
     useUpdateEffect(() => {
-        const _id = ObjectUtils.isNotEmpty(focusedItem) ? `${props.panelId}_${focusedItem.key}` : null;
+        const _id = focusedItem ? `${props.panelId}_${focusedItem.key}` : null;
 
         setFocusedItemId(_id);
     }, [props.panelId, focusedItem]);

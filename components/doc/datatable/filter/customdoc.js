@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 
 // The rule argument should be a string in the format "custom_[field]".
+
 FilterService.register('custom_activity', (value, filters) => {
     const [from, to] = filters ?? [null, null];
 
@@ -41,8 +42,7 @@ export function CustomFilterDoc(props) {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         'country.name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        representative: { value: null, matchMode: FilterMatchMode.IN },
-        // For using custom filters, you must set FilterMatchMode.CUSTOM to matchMode.
+        representative: { value: null, matchMode: FilterMatchMode.IN }, // For using custom filters, you must set FilterMatchMode.CUSTOM to matchMode.
         activity: { value: null, matchMode: FilterMatchMode.CUSTOM },
         status: { value: null, matchMode: FilterMatchMode.EQUALS },
         verified: { value: null, matchMode: FilterMatchMode.EQUALS }
@@ -67,16 +67,12 @@ export function CustomFilterDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -102,7 +98,6 @@ export function CustomFilterDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
         setGlobalFilterValue(value);
     };
@@ -197,7 +192,6 @@ export function CustomFilterDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 // The rule argument should be a string in the format "custom_[field]".
@@ -710,6 +704,7 @@ export default function CustomFilterDemo() {
                             filter
                             filterElement={representativeRowFilterTemplate}
                         />
+
                         <Column header="Activity(Custom Filter)" field="activity" showFilterMenu={false} showClearButton={false} style={{ minWidth: '14rem' }} filter filterElement={activityRowFilterTemplate} />
                         <Column field="status" header="Status" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusRowFilterTemplate} />
                         <Column field="verified" header="Verified" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate} />

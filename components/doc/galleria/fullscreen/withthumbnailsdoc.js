@@ -8,24 +8,11 @@ import { PhotoService } from '../../../../service/PhotoService';
 export function WithThumbnailsDoc(props) {
     const [images, setImages] = useState(null);
     const galleria = useRef(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '1500px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '1024px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 2
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+        { breakpoint: '1500px', numVisible: 5 },
+        { breakpoint: '1024px', numVisible: 3 },
+        { breakpoint: '768px', numVisible: 2 },
+        { breakpoint: '560px', numVisible: 1 }
     ];
 
     useEffect(() => {

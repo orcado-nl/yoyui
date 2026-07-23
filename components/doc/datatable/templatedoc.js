@@ -58,6 +58,7 @@ export function TemplateDoc(props) {
             <Button icon="pi pi-refresh" rounded raised />
         </div>
     );
+
     const footer = `In total there are ${products ? products.length : 0} products.`;
 
     const code = {

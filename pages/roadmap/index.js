@@ -17,7 +17,7 @@ const Roadmap = () => {
                     At{' '}
                     <a href="https://www.primetek.com.tr/" className="font-medium hover:underline text-primary">
                         PrimeTek
-                    </a>
+                    </a>{' '}
                     , we are passionate about improving PrimeReact and would like to share our ideas for 2024 with the community. These are planned to be implemented in parallel to the regular maintenance work of the library involving review of issue
                     tickets, PRs and PrimeReact PRO support.
                 </p>

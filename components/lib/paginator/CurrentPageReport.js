@@ -39,12 +39,11 @@ export const CurrentPageReport = React.memo((inProps) => {
     if (props.template) {
         const defaultOptions = {
             ...report,
-            ...{
-                ariaLive: 'polite',
-                className: 'p-paginator-current',
-                element,
-                props
-            }
+
+            ariaLive: 'polite',
+            className: 'p-paginator-current',
+            element,
+            props
         };
 
         return ObjectUtils.getJSXElement(props.template, defaultOptions);

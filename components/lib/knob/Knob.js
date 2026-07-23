@@ -264,9 +264,9 @@ export const Knob = React.memo(
                 tabIndex: props.readonly || props.disabled ? -1 : props.tabIndex,
                 onClick: (e) => onClick(e),
                 onMouseDown: (e) => onMouseDown(e),
-                onMouseUp: (e) => onMouseUp(e),
-                onTouchStart: (e) => onTouchStart(e),
-                onTouchEnd: (e) => onTouchEnd(e),
+                onMouseUp: (e) => onMouseUp(),
+                onTouchStart: (e) => onTouchStart(),
+                onTouchEnd: (e) => onTouchEnd(),
                 onKeyDown: (e) => onKeyDown(e)
             },
             ptm('svg')

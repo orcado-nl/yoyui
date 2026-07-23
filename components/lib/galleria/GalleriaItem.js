@@ -10,14 +10,10 @@ export const GalleriaItem = React.memo(
     React.forwardRef((props, ref) => {
         const mergeProps = useMergeProps();
         const indicatorContent = React.useRef(null);
-
         const { ptm, cx } = props;
 
         const getPTOptions = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
+            return ptm(key, { hostName: props.hostName, ...options });
         };
 
         const ariaSlideNumber = (value) => {
@@ -31,17 +27,13 @@ export const GalleriaItem = React.memo(
         const next = () => {
             const nextItemIndex = props.activeItemIndex + 1;
 
-            props.onActiveItemChange({
-                index: props.circular && props.value.length - 1 === props.activeItemIndex ? 0 : nextItemIndex
-            });
+            props.onActiveItemChange({ index: props.circular && props.value.length - 1 === props.activeItemIndex ? 0 : nextItemIndex });
         };
 
         const prev = () => {
             const prevItemIndex = props.activeItemIndex !== 0 ? props.activeItemIndex - 1 : 0;
 
-            props.onActiveItemChange({
-                index: props.circular && props.activeItemIndex === 0 ? props.value.length - 1 : prevItemIndex
-            });
+            props.onActiveItemChange({ index: props.circular && props.activeItemIndex === 0 ? props.value.length - 1 : prevItemIndex });
         };
 
         const stopSlideShow = () => {
@@ -54,7 +46,7 @@ export const GalleriaItem = React.memo(
             stopSlideShow();
             prev();
 
-            if (e && e.cancelable) {
+            if (e?.cancelable) {
                 e.preventDefault();
             }
         };
@@ -63,25 +55,20 @@ export const GalleriaItem = React.memo(
             stopSlideShow();
             next();
 
-            if (e && e.cancelable) {
+            if (e?.cancelable) {
                 e.preventDefault();
             }
         };
 
         const onIndicatorClick = (index) => {
             stopSlideShow();
-            props.onActiveItemChange({
-                index
-            });
+            props.onActiveItemChange({ index });
         };
 
         const onIndicatorMouseEnter = (index) => {
             if (props.changeItemOnIndicatorHover) {
                 stopSlideShow();
-
-                props.onActiveItemChange({
-                    index
-                });
+                props.onActiveItemChange({ index });
             }
         };
 
@@ -91,42 +78,32 @@ export const GalleriaItem = React.memo(
                 case 'NumpadEnter':
                 case 'Space':
                     stopSlideShow();
-
-                    props.onActiveItemChange({
-                        index
-                    });
+                    props.onActiveItemChange({ index });
                     event.preventDefault();
                     break;
-
                 case 'ArrowRight':
                     onRightKey();
                     break;
-
                 case 'ArrowLeft':
                     onLeftKey();
                     break;
-
                 case 'Home':
                     onHomeKey();
                     event.preventDefault();
                     break;
-
                 case 'End':
                     onEndKey();
                     event.preventDefault();
                     break;
-
                 case 'Tab':
                     onTabKey();
                     break;
-
                 case 'ArrowDown':
                 case 'ArrowUp':
                 case 'PageUp':
                 case 'PageDown':
                     event.preventDefault();
                     break;
-
                 default:
                     break;
             }
@@ -142,7 +119,7 @@ export const GalleriaItem = React.memo(
         const onLeftKey = () => {
             const activeIndex = findFocusedIndicatorIndex();
 
-            changedFocusedIndicator(activeIndex, activeIndex - 1 <= 0 ? 0 : activeIndex - 1);
+            changedFocusedIndicator(activeIndex, Math.max(0, activeIndex - 1));
         };
 
         const onHomeKey = () => {
@@ -161,9 +138,8 @@ export const GalleriaItem = React.memo(
         const onTabKey = () => {
             const indicators = [...DomHandler.find(indicatorContent.current, '[data-pc-section="indicator"]')];
             const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-highlight') === true);
-
             const activeIndicator = DomHandler.findSingle(indicatorContent.current, '[data-pc-section="indicator"] > button[tabindex="0"]');
-            const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+            const activeIndex = indicators.indexOf(activeIndicator.parentElement);
 
             indicators[activeIndex].children[0].tabIndex = '-1';
             indicators[highlightedIndex].children[0].tabIndex = '0';
@@ -173,7 +149,7 @@ export const GalleriaItem = React.memo(
             const indicators = [...DomHandler.find(indicatorContent.current, '[data-pc-section="indicator"]')];
             const activeIndicator = DomHandler.findSingle(indicatorContent.current, '[data-pc-section="indicator"] > button[tabindex="0"]');
 
-            return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+            return indicators.indexOf(activeIndicator.parentElement);
         };
 
         const changedFocusedIndicator = (prevInd, nextInd) => {
@@ -193,25 +169,11 @@ export const GalleriaItem = React.memo(
         const createBackwardNavigator = () => {
             if (props.showItemNavigators) {
                 const isDisabled = !props.circular && props.activeItemIndex === 0;
-
-                const previousItemIconProps = mergeProps(
-                    {
-                        className: cx('previousItemIcon')
-                    },
-                    getPTOptions('previousItemIcon')
-                );
+                const previousItemIconProps = mergeProps({ className: cx('previousItemIcon') }, getPTOptions('previousItemIcon'));
                 const icon = props.itemPrevIcon || <ChevronLeftIcon {...previousItemIconProps} />;
                 const itemPrevIcon = IconUtils.getJSXIcon(icon, { ...previousItemIconProps }, { props });
-
                 const previousItemButtonProps = mergeProps(
-                    {
-                        type: 'button',
-                        className: cx('previousItemButton', { isDisabled }),
-                        onClick: navBackward,
-                        disabled: isDisabled,
-                        'data-p-disabled': isDisabled,
-                        'data-pc-group-section': 'itemnavigator'
-                    },
+                    { type: 'button', className: cx('previousItemButton', { isDisabled }), onClick: navBackward, disabled: isDisabled, 'data-p-disabled': isDisabled, 'data-pc-group-section': 'itemnavigator' },
                     getPTOptions('previousItemButton')
                 );
 
@@ -229,25 +191,11 @@ export const GalleriaItem = React.memo(
         const createForwardNavigator = () => {
             if (props.showItemNavigators) {
                 const isDisabled = !props.circular && props.activeItemIndex === props.value.length - 1;
-
-                const nextItemIconProps = mergeProps(
-                    {
-                        className: cx('nextItemIcon')
-                    },
-                    getPTOptions('nextItemIcon')
-                );
+                const nextItemIconProps = mergeProps({ className: cx('nextItemIcon') }, getPTOptions('nextItemIcon'));
                 const icon = props.itemNextIcon || <ChevronRightIcon {...nextItemIconProps} />;
                 const itemNextIcon = IconUtils.getJSXIcon(icon, { ...nextItemIconProps }, { props });
-
                 const nextItemButtonProps = mergeProps(
-                    {
-                        type: 'button',
-                        className: cx('nextItemButton', { isDisabled }),
-                        onClick: navForward,
-                        disabled: isDisabled,
-                        'data-p-disabled': isDisabled,
-                        'data-pc-group-section': 'itemnavigator'
-                    },
+                    { type: 'button', className: cx('nextItemButton', { isDisabled }), onClick: navForward, disabled: isDisabled, 'data-p-disabled': isDisabled, 'data-pc-group-section': 'itemnavigator' },
                     getPTOptions('nextItemButton')
                 );
 
@@ -263,12 +211,7 @@ export const GalleriaItem = React.memo(
         };
 
         const createCaption = () => {
-            const captionProps = mergeProps(
-                {
-                    className: cx('caption')
-                },
-                getPTOptions('caption')
-            );
+            const captionProps = mergeProps({ className: cx('caption') }, getPTOptions('caption'));
 
             if (props.caption) {
                 const content = props.caption(props.value[props.activeItemIndex]);
@@ -282,8 +225,7 @@ export const GalleriaItem = React.memo(
         const createIndicator = (index) => {
             const key = 'p-galleria-indicator-' + index;
             const isActive = props.activeItemIndex === index;
-            let indicator = props.indicator && props.indicator(index);
-
+            let indicator = props.indicator?.(index);
             const indicatorProps = mergeProps(
                 {
                     className: cx('indicator', { isActive }),
@@ -317,12 +259,7 @@ export const GalleriaItem = React.memo(
         const createIndicators = () => {
             if (props.showIndicators) {
                 let indicators = [];
-                const indicatorsProps = mergeProps(
-                    {
-                        className: classNames(props.indicatorsContentClassName, cx('indicators'))
-                    },
-                    getPTOptions('indicators')
-                );
+                const indicatorsProps = mergeProps({ className: classNames(props.indicatorsContentClassName, cx('indicators')) }, getPTOptions('indicators'));
 
                 for (let i = 0; i < props.value.length; i++) {
                     indicators.push(createIndicator(i));
@@ -338,26 +275,13 @@ export const GalleriaItem = React.memo(
             return null;
         };
 
-        const content = props.itemTemplate && props.itemTemplate(props.value[props.activeItemIndex]);
+        const content = props.itemTemplate?.(props.value[props.activeItemIndex]);
         const backwardNavigator = createBackwardNavigator();
         const forwardNavigator = createForwardNavigator();
         const caption = createCaption();
         const indicators = createIndicators();
-
-        const itemWrapperProps = mergeProps(
-            {
-                ref: ref,
-                className: cx('itemWrapper')
-            },
-            getPTOptions('itemWrapper')
-        );
-
-        const itemContainerProps = mergeProps(
-            {
-                className: cx('itemContainer')
-            },
-            getPTOptions('itemContainer')
-        );
+        const itemWrapperProps = mergeProps({ ref: ref, className: cx('itemWrapper') }, getPTOptions('itemWrapper'));
+        const itemContainerProps = mergeProps({ className: cx('itemContainer') }, getPTOptions('itemContainer'));
 
         const itemProps = mergeProps(
             {

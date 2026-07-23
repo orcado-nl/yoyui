@@ -9,7 +9,7 @@ const TemplateFeatures = ({ featuresData, displayType }) => {
             <div className="template-features-horizontal-wrapper">
                 <div className="template-features-horizontal">
                     {featuresData.map((data, i) => (
-                        <div key={i} className="template-features-horizontal-card">
+                        <div key={data?.id ?? data?.key ?? data?.name ?? data?.label ?? data?.value ?? data?.href ?? data?.src ?? data?.field ?? JSON.stringify(data)} className="template-features-horizontal-card">
                             <div className="template-features-horizontal-card-top">
                                 <img src={darkMode ? data.darkSrc || data.src : data.src} alt={data.title} />
                             </div>
@@ -31,21 +31,19 @@ const TemplateFeatures = ({ featuresData, displayType }) => {
         return (
             <div className="template-features-vertical-wrapper">
                 <div className="template-features-vertical">
-                    {Array(2)
-                        .fill(null)
-                        .map((_, i) => (
-                            <div key={i} className="template-features-vertical-col">
-                                {(i === 0 ? firstColumnData : secondColumnData).map((data, j) => (
-                                    <div key={j} className={'template-features-vertical-card '}>
-                                        <div className="template-features-vertical-card-image">
-                                            <img src={darkMode ? data.darkSrc || data.src : data.src} alt={data.title} />
-                                        </div>
-                                        <h2>{data.title}</h2>
-                                        <p>{data.description}</p>
+                    {['first', 'second'].map((columnKey, i) => (
+                        <div key={columnKey} className="template-features-vertical-col">
+                            {(i === 0 ? firstColumnData : secondColumnData).map((data, j) => (
+                                <div key={data?.id ?? data?.key ?? data?.name ?? data?.label ?? data?.value ?? data?.href ?? data?.src ?? data?.field ?? JSON.stringify(data)} className={'template-features-vertical-card '}>
+                                    <div className="template-features-vertical-card-image">
+                                        <img src={darkMode ? data.darkSrc || data.src : data.src} alt={data.title} />
                                     </div>
-                                ))}
-                            </div>
-                        ))}
+                                    <h2>{data.title}</h2>
+                                    <p>{data.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                 </div>
             </div>
         );

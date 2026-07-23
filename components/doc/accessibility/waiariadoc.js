@@ -54,8 +54,7 @@ export function WAIAriaDoc(props) {
 
             <p className="doc-section-description">
                 However the best practice is combining semantic HTML for accessibility while keeping the design for UX. This approach involves hiding a native checkbox for accessibility and using javascript events to update its state. Notice the
-                usage of <i>p-hidden-accessible</i>
-                that hides the elements from the user but not from the screen reader.
+                usage of <i>p-hidden-accessible</i> that hides the elements from the user but not from the screen reader.
             </p>
             <CodeHighlight>
                 {`

@@ -17,14 +17,8 @@ export function LazyLoadDoc(props) {
         page: 1,
         sortField: null,
         sortOrder: null,
-        filters: {
-            name: { value: '', matchMode: 'contains' },
-            'country.name': { value: '', matchMode: 'contains' },
-            company: { value: '', matchMode: 'contains' },
-            'representative.name': { value: '', matchMode: 'contains' }
-        }
+        filters: { name: { value: '', matchMode: 'contains' }, 'country.name': { value: '', matchMode: 'contains' }, company: { value: '', matchMode: 'contains' }, 'representative.name': { value: '', matchMode: 'contains' } }
     });
-
     let networkTimeout = null;
 
     useEffect(() => {
@@ -36,9 +30,8 @@ export function LazyLoadDoc(props) {
 
         if (networkTimeout) {
             clearTimeout(networkTimeout);
-        }
+        } //imitate delay of a backend call
 
-        //imitate delay of a backend call
         networkTimeout = setTimeout(
             () => {
                 CustomerService.getCustomers({ lazyEvent: JSON.stringify(lazyState) }).then((data) => {
@@ -47,7 +40,7 @@ export function LazyLoadDoc(props) {
                     setLoading(false);
                 });
             },
-            Math.random() * 1000 + 250
+            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
         );
     };
 
@@ -163,7 +156,7 @@ export default function LazyLoadDemo() {
                 setCustomers(data.customers);
                 setLoading(false);
             });
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const onPage = (event) => {
@@ -314,7 +307,7 @@ export default function LazyLoadDemo() {
                 setCustomers(data.customers);
                 setLoading(false);
             });
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const onPage = (event: DataTablePageEvent) => {

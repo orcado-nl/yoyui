@@ -56,6 +56,10 @@ export function GMapDoc(props) {
     };
 
     const addMarker = () => {
+        if (!selectedPosition) {
+            return;
+        }
+
         let newMarker = new google.maps.Marker({
             position: {
                 lat: selectedPosition.lat(),
@@ -83,6 +87,7 @@ export function GMapDoc(props) {
                     { lat: 36.8829, lng: 30.8111 },
                     { lat: 36.9177, lng: 30.8159 }
                 ],
+
                 strokeOpacity: 0.5,
                 strokeWeight: 1,
                 fillColor: '#1976D2',
@@ -94,6 +99,7 @@ export function GMapDoc(props) {
                     { lat: 36.86149, lng: 30.63743 },
                     { lat: 36.86341, lng: 30.72463 }
                 ],
+
                 geodesic: true,
                 strokeColor: '#FF0000',
                 strokeOpacity: 0.5,
@@ -146,17 +152,17 @@ export function GMapDoc(props) {
         const mapScript = document.getElementById('googleMaps');
 
         if (mapScript) {
-            mapScript.parentNode.removeChild(mapScript);
+            mapScript.remove();
 
             const head = document.getElementsByTagName('head')[0];
             const scripts = head.getElementsByTagName('script');
 
-            for (let i = 0; i < scripts.length; i++) {
-                let script = scripts[i];
+            for (const _item of scripts) {
+                let script = _item;
                 let src = script.src;
 
                 if (src.startsWith('https://maps.google.com/maps')) {
-                    head.removeChild(script);
+                    script.remove();
                 }
             }
         }
@@ -223,6 +229,10 @@ export default function GMapDoc() {
     };
 
     const addMarker = () => {
+        if (!selectedPosition) {
+            return;
+        }
+
         let newMarker = new google.maps.Marker({
             position: {
                 lat: selectedPosition.lat(),
@@ -309,7 +319,7 @@ export default function GMapDoc() {
         const mapScript = document.getElementById('googleMaps');
 
         if (mapScript) {
-            mapScript.parentNode.removeChild(mapScript);
+            mapScript.remove();
 
             const head = document.getElementsByTagName('head')[0];
             const scripts = head.getElementsByTagName('script');
@@ -319,7 +329,7 @@ export default function GMapDoc() {
                 let src = script.src;
 
                 if (src.startsWith('https://maps.google.com/maps')) {
-                    head.removeChild(script);
+                    script.remove();
                 }
             }
         }
@@ -512,7 +522,7 @@ export default function GMapDoc() {
         const mapScript = document.getElementById('googleMaps');
 
         if (mapScript) {
-            mapScript.parentNode.removeChild(mapScript);
+            mapScript.remove();
 
             const head = document.getElementsByTagName('head')[0];
             const scripts = head.getElementsByTagName('script');
@@ -522,7 +532,7 @@ export default function GMapDoc() {
                 let src = script.src;
 
                 if (src.startsWith('https://maps.google.com/maps')) {
-                    head.removeChild(script);
+                    script.remove();
                 }
             }
         }

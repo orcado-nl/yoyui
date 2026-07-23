@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useMergeProps, useMountEffect, useUpdateEffect } from '../hooks/Hooks';
@@ -15,7 +16,9 @@ export const CascadeSelectSub = React.memo((props) => {
     const getPTOptions = (key, options) => {
         return ptm(key, {
             hostName: props.hostName,
-            state: { ...options }
+            state: {
+                ...options
+            }
         });
     };
 
@@ -26,13 +29,13 @@ export const CascadeSelectSub = React.memo((props) => {
         const sublistWidth = elementRef.current.offsetParent ? elementRef.current.offsetWidth : DomHandler.getHiddenElementOuterWidth(element);
         const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
 
-        if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+        if (Number.parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
             elementRef.current.parentElement.style.left = '-100%';
         }
     };
 
     const onOptionSelect = (event) => {
-        props.onOptionSelect && props.onOptionSelect(event);
+        props.onOptionSelect?.(event);
     };
 
     const onKeyDown = (event, option) => {
@@ -40,7 +43,8 @@ export const CascadeSelectSub = React.memo((props) => {
 
         switch (event.key) {
             case 'Down':
-            case 'ArrowDown':
+
+            case 'ArrowDown': {
                 const nextItem = findNextItem(listItem);
 
                 if (nextItem) {
@@ -48,9 +52,11 @@ export const CascadeSelectSub = React.memo((props) => {
                 }
 
                 break;
+            }
 
             case 'Up':
-            case 'ArrowUp':
+
+            case 'ArrowUp': {
                 const prevItem = findPrevItem(listItem);
 
                 if (prevItem) {
@@ -58,6 +64,7 @@ export const CascadeSelectSub = React.memo((props) => {
                 }
 
                 break;
+            }
 
             case 'Right':
             case 'ArrowRight':
@@ -71,29 +78,32 @@ export const CascadeSelectSub = React.memo((props) => {
                 }
 
                 break;
-
             case 'Left':
-            case 'ArrowLeft':
-                setActiveOptionState(null);
 
+            case 'ArrowLeft': {
+                setActiveOptionState(null);
                 const currentList = event.currentTarget.parentElement.parentElement;
                 const wrapperDiv = currentList.parentElement;
                 const parentListItem = wrapperDiv.parentElement;
 
-                if (parentListItem && parentListItem.tagName === 'LI') {
+                const runComplexBranch1 = () => {
                     const parentContent = parentListItem.querySelector('[data-pc-section="content"]');
 
                     if (parentContent) {
                         parentContent.focus();
                     }
+                };
+
+                if (parentListItem?.tagName === 'LI') {
+                    runComplexBranch1();
                 }
 
                 break;
+            }
 
             case 'Enter':
                 onOptionClick(event, option);
                 break;
-
             case 'Tab':
             case 'Escape':
                 if (props.onPanelHide) {
@@ -102,7 +112,6 @@ export const CascadeSelectSub = React.memo((props) => {
                 }
 
                 break;
-
             default:
                 break;
         }
@@ -113,13 +122,25 @@ export const CascadeSelectSub = React.memo((props) => {
     const findNextItem = (item) => {
         const nextItem = item.nextElementSibling;
 
-        return nextItem ? (DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-cascadeselect-item') ? findNextItem(nextItem) : nextItem) : null;
+        return nextItem
+            ? resolveConditional(
+                  DomHandler.hasClass(nextItem, 'p-disabled') || !DomHandler.hasClass(nextItem, 'p-cascadeselect-item'),
+                  () => findNextItem(nextItem),
+                  () => nextItem
+              )
+            : null;
     };
 
     const findPrevItem = (item) => {
         const prevItem = item.previousElementSibling;
 
-        return prevItem ? (DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-cascadeselect-item') ? findPrevItem(prevItem) : prevItem) : null;
+        return prevItem
+            ? resolveConditional(
+                  DomHandler.hasClass(prevItem, 'p-disabled') || !DomHandler.hasClass(prevItem, 'p-cascadeselect-item'),
+                  () => findPrevItem(prevItem),
+                  () => prevItem
+              )
+            : null;
     };
 
     const onOptionClick = (event, option) => {
@@ -141,7 +162,7 @@ export const CascadeSelectSub = React.memo((props) => {
     };
 
     const onOptionGroupSelect = (event) => {
-        props.onOptionGroupSelect && props.onOptionGroupSelect(event);
+        props.onOptionGroupSelect?.(event);
     };
 
     const getOptionLabel = (option) => {
@@ -161,7 +182,7 @@ export const CascadeSelectSub = React.memo((props) => {
     };
 
     const isOptionGroup = (option) => {
-        return Object.prototype.hasOwnProperty.call(option, props.optionGroupChildren[props.level]);
+        return Object.hasOwn(option, props.optionGroupChildren[props.level]);
     };
 
     const getOptionLabelToRender = (option) => {
@@ -179,17 +200,14 @@ export const CascadeSelectSub = React.memo((props) => {
             position();
         }
     });
-
     useUpdateEffect(() => {
         if (!props.parentActive) {
             setActiveOptionState(null);
         }
     }, [props.parentActive]);
-
     useUpdateEffect(() => {
         if (shouldFocusSubmenu.current && activeOptionState && elementRef.current) {
             shouldFocusSubmenu.current = false;
-
             setTimeout(() => {
                 const activeItem = elementRef.current.querySelector('[data-p-highlight="true"]');
 
@@ -253,7 +271,17 @@ export const CascadeSelectSub = React.memo((props) => {
             getPTOptions('optionGroupIcon')
         );
         const icon = props.optionGroupIcon || <AngleRightIcon {...optionGroupIconProps} />;
-        const optionGroup = isOptionGroup(option) && IconUtils.getJSXIcon(icon, { ...optionGroupIconProps }, { props });
+        const optionGroup =
+            isOptionGroup(option) &&
+            IconUtils.getJSXIcon(
+                icon,
+                {
+                    ...optionGroupIconProps
+                },
+                {
+                    props
+                }
+            );
         const key = getOptionLabelToRender(option) + '_' + index;
         const contentProps = mergeProps(
             {
@@ -264,18 +292,27 @@ export const CascadeSelectSub = React.memo((props) => {
             },
             getPTOptions('content')
         );
-
         const isSelected = activeOptionState === option;
         const isGroup = isOptionGroup(option);
         const itemProps = mergeProps(
             {
-                className: classNames(option.className, cx('item', { option, isGroup, isSelected })),
+                className: classNames(
+                    option.className,
+                    cx('item', {
+                        option,
+                        isGroup,
+                        isSelected
+                    })
+                ),
                 style: option.style,
                 role: 'none',
                 'data-p-item-group': isGroup,
                 'data-p-highlight': isSelected
             },
-            getPTOptions('item', { selected: isSelected, group: isGroup })
+            getPTOptions('item', {
+                selected: isSelected,
+                group: isGroup
+            })
         );
 
         return (
@@ -298,7 +335,9 @@ export const CascadeSelectSub = React.memo((props) => {
         const listProps = mergeProps(
             {
                 ref: elementRef,
-                className: cx(props.level === 0 ? 'list' : 'sublist', { context }),
+                className: cx(props.level === 0 ? 'list' : 'sublist', {
+                    context
+                }),
                 role: 'listbox',
                 'aria-orientation': 'horizontal'
             },

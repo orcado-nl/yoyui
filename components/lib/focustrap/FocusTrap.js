@@ -12,31 +12,18 @@ export const FocusTrap = React.memo(
         const context = React.useContext(PrimeReactContext);
         const props = FocusTrapBase.getProps(inProps, context);
 
-        const metaData = {
-            props
-        };
-
         useStyle(FocusTrapBase.css.styles, { name: 'focustrap' });
 
-        const { ptm } = FocusTrapBase.setMetaData({
-            ...metaData
-        });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getInk: () => firstFocusableElementRef.current,
-            getTarget: () => targetRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, getInk: () => firstFocusableElementRef.current, getTarget: () => targetRef.current }));
         useMountEffect(() => {
             if (!props.disabled) {
                 targetRef.current = getTarget();
-                setAutoFocus(targetRef.current, props);
+                setAutoFocus(targetRef.current);
             }
         });
 
         const getTarget = () => {
-            return firstFocusableElementRef.current && firstFocusableElementRef.current.parentElement;
+            return firstFocusableElementRef.current?.parentElement;
         };
 
         /**
@@ -46,16 +33,13 @@ export const FocusTrap = React.memo(
          * If the autoFocus prop is set to true and a focusable element is found, it sets the focus on that element.
          *
          * @param {HTMLElement} target - The target element within which to find a focusable element.
-         */
-        const setAutoFocus = (target) => {
+         */ const setAutoFocus = (target) => {
             const { autoFocusSelector = '', firstFocusableSelector = '', autoFocus = false } = props || {};
             const defaultAutoFocusSelector = `${getComputedSelector(autoFocusSelector)}`;
             const computedAutoFocusSelector = `[autofocus]${defaultAutoFocusSelector}, [data-pc-autofocus='true']${defaultAutoFocusSelector}`;
-
             let focusableElement = DomHandler.getFirstFocusableElement(target, computedAutoFocusSelector);
 
             autoFocus && !focusableElement && (focusableElement = DomHandler.getFirstFocusableElement(target, getComputedSelector(firstFocusableSelector)));
-
             DomHandler.focus(focusableElement);
         };
 
@@ -65,7 +49,6 @@ export const FocusTrap = React.memo(
 
         const onFirstHiddenElementFocus = (event) => {
             const { currentTarget, relatedTarget } = event;
-
             const focusableElement =
                 relatedTarget === currentTarget.$_pfocustrap_lasthiddenfocusableelement || !targetRef.current?.contains(relatedTarget)
                     ? DomHandler.getFirstFocusableElement(currentTarget.parentElement, getComputedSelector(currentTarget.$_pfocustrap_focusableselector))
@@ -76,7 +59,6 @@ export const FocusTrap = React.memo(
 
         const onLastHiddenElementFocus = (event) => {
             const { currentTarget, relatedTarget } = event;
-
             const focusableElement =
                 relatedTarget === currentTarget.$_pfocustrap_firsthiddenfocusableelement || !targetRef.current?.contains(relatedTarget)
                     ? DomHandler.getLastFocusableElement(currentTarget.parentElement, getComputedSelector(currentTarget.$_pfocustrap_focusableselector))
@@ -89,19 +71,7 @@ export const FocusTrap = React.memo(
             const { tabIndex = 0 } = props || {};
 
             const createFocusableElement = (inRef, onFocus, section) => {
-                return (
-                    <span
-                        ref={inRef}
-                        className={'p-hidden-accessible p-hidden-focusable'}
-                        tabIndex={tabIndex}
-                        role={'presentation'}
-                        aria-hidden={true}
-                        data-p-hidden-accessible={true}
-                        data-p-hidden-focusable={true}
-                        onFocus={onFocus}
-                        data-pc-section={section}
-                    />
-                );
+                return <span ref={inRef} className={'p-hidden-accessible p-hidden-focusable'} tabIndex={tabIndex} aria-hidden={true} data-p-hidden-accessible={true} data-p-hidden-focusable={true} onFocus={onFocus} data-pc-section={section} />;
             };
 
             const firstFocusableElement = createFocusableElement(firstFocusableElementRef, onFirstHiddenElementFocus, 'firstfocusableelement');
@@ -124,5 +94,4 @@ export const FocusTrap = React.memo(
         return createHiddenFocusableElements();
     })
 );
-
 export default FocusTrap;

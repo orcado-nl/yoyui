@@ -78,8 +78,8 @@ const PrimeReactChart = React.memo(
             getChart: () => chartRef.current,
             getBase64Image: () => chartRef.current.toBase64Image(),
             getElement: () => elementRef.current,
-            generateLegend: () => chartRef.current && chartRef.current.generateLegend(),
-            refresh: () => chartRef.current && chartRef.current.update()
+            generateLegend: () => chartRef.current?.generateLegend(),
+            refresh: () => chartRef.current?.update()
         }));
 
         React.useEffect(() => {
@@ -90,7 +90,7 @@ const PrimeReactChart = React.memo(
             destroyChart();
         });
 
-        const title = props.options && props.options.plugins && props.options.plugins.title && props.options.plugins.title.text;
+        const title = props.options?.plugins?.title?.text;
         const ariaLabel = props.ariaLabel || title;
         const rootProps = mergeProps(
             {

@@ -39,21 +39,21 @@ const TemplateYoutube = ({
             <div className="template-youtube">
                 <div className="template-youtube-title">
                     {title.map((data, i) => (
-                        <h2 key={i}>{data}</h2>
+                        <h2 key={data?.id ?? data?.key ?? data?.name ?? data?.label ?? data?.value ?? data?.href ?? data?.src ?? data?.field ?? JSON.stringify(data)}>{data}</h2>
                     ))}
                 </div>
                 <div className="template-youtube-description">{description}</div>
-                <div className="template-youtube-screen" onClick={() => setYoutubeVideoVisible(true)}>
+                <button type="button" className="template-youtube-screen border-none p-0" aria-label="Play video" onClick={() => setYoutubeVideoVisible(true)}>
                     <div className="template-youtube-screen-blur">
                         <div className="template-youtube-screen-play">
                             <PlayIcon />
                         </div>
                     </div>
                     <img src={imgSrc} alt="Template Youtube Screen" />
-                </div>
+                </button>
                 <Dialog header="Video Content" visible={youtubeVideoVisible} style={{ width: '70vw' }} onHide={() => setYoutubeVideoVisible(false)}>
                     <div className="template-youtube-video">
-                        <iframe src={youtubeLink} title="PrimeNG 2023 Roadmap" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen />
+                        <iframe src={youtubeLink} title="PrimeNG 2023 Roadmap" style={{ border: 0 }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
                     </div>
                 </Dialog>
             </div>

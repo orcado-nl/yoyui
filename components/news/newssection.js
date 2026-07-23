@@ -46,9 +46,9 @@ export default function NewsSection() {
                         {announcement.linkText}
                     </a>
                 </div>
-                <a className="layout-news-close" onClick={close}>
+                <button type="button" className="layout-news-close border-none bg-transparent" aria-label="Close announcement" onClick={close}>
                     <span className="pi pi-times" />
-                </a>
+                </button>
             </div>
         </div>
     );

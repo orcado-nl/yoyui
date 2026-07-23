@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import { useEventListener } from './useEventListener';
 
@@ -22,8 +22,10 @@ export const useStorage = (initialValue, key, storage = 'local') => {
         type: 'storage',
         listener: (event) => {
             const area = storage === 'local' ? window.localStorage : window.sessionStorage;
+
             if (event.storageArea === area && event.key === key) {
                 const newValue = event.newValue ? JSON.parse(event.newValue) : undefined;
+
                 setStoredValue(newValue);
             }
         }
@@ -34,14 +36,17 @@ export const useStorage = (initialValue, key, storage = 'local') => {
     const setValue = (value) => {
         try {
             // Allow value to be a function so we have same API as useState
-            const valueToStore = value instanceof Function ? value(storedValue) : value;
+            const valueToStore = typeof value === 'function' ? value(storedValue) : value;
+
             setStoredValue(valueToStore);
+
             if (storageAvailable) {
                 const serializedValue = JSON.stringify(valueToStore);
+
                 storage === 'local' ? window.localStorage.setItem(key, serializedValue) : window.sessionStorage.setItem(key, serializedValue);
             }
         } catch (error) {
-            throw new Error(`PrimeReact useStorage: Failed to serialize the value at key: ${key}`);
+            throw new Error(`PrimeReact useStorage: Failed to serialize the value at key: ${key}`, { cause: error });
         }
     };
 
@@ -49,15 +54,19 @@ export const useStorage = (initialValue, key, storage = 'local') => {
         if (!storageAvailable) {
             setStoredValue(initialValue);
         }
+
         try {
             const item = storage === 'local' ? window.localStorage.getItem(key) : window.sessionStorage.getItem(key);
+
             setStoredValue(item ? JSON.parse(item) : initialValue);
         } catch (error) {
             // If error also return initialValue
+            console.warn(`PrimeReact useStorage: Failed to read the value at key: ${key}`, error); // eslint-disable-line no-console
             setStoredValue(initialValue);
         }
 
         bindWindowStorageListener();
+
         return () => unbindWindowStorageListener();
     }, []);
 

@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -16,9 +17,22 @@ const classes = {
 
 const inlineStyles = {
     arrow: ({ context }) => ({
-        top: context.bottom ? '0' : context.right || context.left || (!context.right && !context.left && !context.top && !context.bottom) ? '50%' : null,
+        top: context.bottom
+            ? '0'
+            : resolveConditional(
+                  context.right || context.left || (!context.right && !context.left && !context.top && !context.bottom),
+                  () => '50%',
+                  () => null
+              ),
         bottom: context.top ? '0' : null,
-        left: context.right || (!context.right && !context.left && !context.top && !context.bottom) ? '0' : context.top || context.bottom ? '50%' : null,
+        left:
+            context.right || (!context.right && !context.left && !context.top && !context.bottom)
+                ? '0'
+                : resolveConditional(
+                      context.top || context.bottom,
+                      () => '50%',
+                      () => null
+                  ),
         right: context.left ? '0' : null
     })
 };

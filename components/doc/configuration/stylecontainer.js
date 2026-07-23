@@ -29,7 +29,7 @@ ReactDOM.createRoot(mountHere).render(
                     This option allows <i>useStyle</i> to insert dynamic CSS styles into a specific container. This is useful when styles need to be scoped such as in a{' '}
                     <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM" target="_blank">
                         Shadow DOM
-                    </a>
+                    </a>{' '}
                     . By default all dynamic styles are appended to <i>document.head</i>.
                 </p>
             </DocSectionText>

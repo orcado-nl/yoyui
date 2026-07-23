@@ -53,10 +53,10 @@ export function GroupDoc(props) {
         let _filteredCities = [];
 
         for (let country of groupedCities) {
-            let filteredItems = country.items.filter((item) => item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+            let filteredItems = country.items.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
 
-            if (filteredItems && filteredItems.length) {
-                _filteredCities.push({ ...country, ...{ items: filteredItems } });
+            if (filteredItems?.length) {
+                _filteredCities.push({ ...country, items: filteredItems });
             }
         }
 

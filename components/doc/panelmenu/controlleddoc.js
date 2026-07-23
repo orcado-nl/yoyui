@@ -92,7 +92,7 @@ export function ControlledDoc(props) {
     };
 
     const expandNode = (node) => {
-        if (node.items && node.items.length) {
+        if (node.items?.length) {
             expandedKeys[node.key] = true;
 
             node.items.forEach(expandNode);

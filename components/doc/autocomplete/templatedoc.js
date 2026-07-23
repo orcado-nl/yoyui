@@ -58,7 +58,6 @@ export function TemplateDoc(props) {
     useEffect(() => {
         CountryService.getCountries().then((data) => setCountries(data));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     const code = {
         basic: `
 <AutoComplete field="name" value={selectedCountry} suggestions={filteredCountries}  

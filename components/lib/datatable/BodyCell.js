@@ -43,7 +43,13 @@ export const Cell = (props) => {
             }
         };
 
-        return mergeProps(ptm(`column.${key}`, { column: columnMetaData }), ptm(`column.${key}`, columnMetaData), ptmo(props.cProps, key, columnMetaData));
+        return mergeProps(
+            ptm(`column.${key}`, {
+                column: columnMetaData
+            }),
+            ptm(`column.${key}`, columnMetaData),
+            ptmo(props.cProps, key, columnMetaData)
+        );
     };
 
     const isEditable = () => {
@@ -55,7 +61,7 @@ export const Cell = (props) => {
     };
 
     const isIgnoredElement = (element) => {
-        const isOverlay = (el) => el.getAttribute && el.getAttribute('data-pr-is-overlay');
+        const isOverlay = (el) => el.dataset.prIsOverlay;
 
         return isOverlay(element) || DomHandler.getParents(element).find((el) => isOverlay(el));
     };
@@ -79,7 +85,16 @@ export const Cell = (props) => {
         const bodyStyle = getColumnProp('bodyStyle');
         const columnStyle = getColumnProp('style');
 
-        return props.frozenCol ? Object.assign({}, columnStyle, bodyStyle, styleObjectState) : Object.assign({}, columnStyle, bodyStyle);
+        return props.frozenCol
+            ? {
+                  ...columnStyle,
+                  ...bodyStyle,
+                  ...styleObjectState
+              }
+            : {
+                  ...columnStyle,
+                  ...bodyStyle
+              };
     };
 
     const getCellParams = () => {
@@ -121,9 +136,15 @@ export const Cell = (props) => {
 
     const switchCellToViewMode = (event, submit) => {
         const callbackParams = getCellCallbackParams(event);
-        const newRowData = { ...editingRowDataStateRef.current };
+        const newRowData = {
+            ...editingRowDataStateRef.current
+        };
         const newValue = props.resolveFieldData(newRowData);
-        const params = { ...callbackParams, newRowData, newValue };
+        const params = {
+            ...callbackParams,
+            newRowData,
+            newValue
+        };
         const onCellEditCancel = getColumnProp('onCellEditCancel');
         const cellEditValidator = getColumnProp('cellEditValidator');
         const onCellEditComplete = getColumnProp('onCellEditComplete');
@@ -152,12 +173,12 @@ export const Cell = (props) => {
     };
 
     const editorCallback = (val) => {
-        let editingRowData = { ...editingRowDataState };
+        let editingRowData = {
+            ...editingRowDataState
+        };
 
         ObjectUtils.mutateFieldData(editingRowData, props.field, val);
-        setEditingRowDataState(editingRowData);
-
-        // update editing meta for complete methods on row mode
+        setEditingRowDataState(editingRowData); // update editing meta for complete methods on row mode
         const currentData = props.getEditingRowData();
 
         if (currentData) {
@@ -174,17 +195,17 @@ export const Cell = (props) => {
     const onMouseDown = (event) => {
         const params = getCellCallbackParams(event);
 
-        props.onMouseDown && props.onMouseDown(params);
+        props.onMouseDown?.(params);
     };
 
     const onMouseUp = (event) => {
         const params = getCellCallbackParams(event);
 
-        props.onMouseUp && props.onMouseUp(params);
+        props.onMouseUp?.(params);
     };
 
     const onKeyDown = (event) => {
-        if (props.editMode !== 'row') {
+        const runComplexBranch1 = () => {
             if (event.code === 'Enter' || event.code === 'NumpadEnter' || event.code === 'Tab') {
                 switchCellToViewMode(event, true);
             }
@@ -192,75 +213,103 @@ export const Cell = (props) => {
             if (event.code === 'Escape') {
                 switchCellToViewMode(event, false);
             }
+        };
+
+        if (props.editMode !== 'row') {
+            runComplexBranch1();
         }
 
         if (props.allowCellSelection) {
             const { target, currentTarget: cell } = event;
 
+            const handleComplexCase1 = () => {
+                if (event.shiftKey || event.ctrlKey) {
+                    // #5192 allow TextArea to add new lines
+                } else if (!DomHandler.isClickable(target)) {
+                    onClick(event);
+                    event.preventDefault();
+                }
+            };
+
+            const handleComplexCase2 = () => {
+                if (!DomHandler.isClickable(target) && !target.readOnly) {
+                    onClick(event);
+                    event.preventDefault();
+                }
+            };
+
+            const handleComplexCase3 = () => {
+                let prevCell = props.findPrevSelectableCell(cell);
+
+                if (prevCell) {
+                    changeTabIndex(cell, prevCell);
+                    prevCell.focus();
+                }
+
+                event.preventDefault();
+            };
+
+            const handleComplexCase4 = () => {
+                let nextCell = props.findNextSelectableCell(cell);
+
+                if (nextCell) {
+                    changeTabIndex(cell, nextCell);
+                    nextCell.focus();
+                }
+
+                event.preventDefault();
+            };
+
+            const handleComplexCase5 = () => {
+                let upCell = props.findUpSelectableCell(cell, index);
+
+                if (upCell) {
+                    changeTabIndex(cell, upCell);
+                    upCell.focus();
+                }
+
+                event.preventDefault();
+            };
+
+            const handleComplexCase6 = () => {
+                let downCell = props.findDownSelectableCell(cell, index);
+
+                if (downCell) {
+                    changeTabIndex(cell, downCell);
+                    downCell.focus();
+                }
+
+                event.preventDefault();
+            };
+
             switch (event.code) {
-                case 'ArrowLeft':
-                    let prevCell = props.findPrevSelectableCell(cell);
-
-                    if (prevCell) {
-                        changeTabIndex(cell, prevCell);
-                        prevCell.focus();
-                    }
-
-                    event.preventDefault();
+                case 'ArrowLeft': {
+                    handleComplexCase3();
                     break;
+                }
 
-                case 'ArrowRight':
-                    let nextCell = props.findNextSelectableCell(cell);
-
-                    if (nextCell) {
-                        changeTabIndex(cell, nextCell);
-                        nextCell.focus();
-                    }
-
-                    event.preventDefault();
+                case 'ArrowRight': {
+                    handleComplexCase4();
                     break;
+                }
 
-                case 'ArrowUp':
-                    let upCell = props.findUpSelectableCell(cell, index);
-
-                    if (upCell) {
-                        changeTabIndex(cell, upCell);
-                        upCell.focus();
-                    }
-
-                    event.preventDefault();
+                case 'ArrowUp': {
+                    handleComplexCase5();
                     break;
+                }
 
-                case 'ArrowDown':
-                    let downCell = props.findDownSelectableCell(cell, index);
-
-                    if (downCell) {
-                        changeTabIndex(cell, downCell);
-                        downCell.focus();
-                    }
-
-                    event.preventDefault();
+                case 'ArrowDown': {
+                    handleComplexCase6();
                     break;
+                }
 
                 case 'Enter':
                 case 'NumpadEnter':
-                    if (event.shiftKey || event.ctrlKey) {
-                        // #5192 allow TextArea to add new lines
-                    } else if (!DomHandler.isClickable(target)) {
-                        onClick(event);
-                        event.preventDefault();
-                    }
-
+                    handleComplexCase1();
                     break;
-
                 case 'Space':
-                    if (!DomHandler.isClickable(target) && !target.readOnly) {
-                        onClick(event);
-                        event.preventDefault();
-                    }
-
+                    handleComplexCase2();
                     break;
-
                 default:
                     //no op
                     break;
@@ -317,42 +366,45 @@ export const Cell = (props) => {
     };
 
     const onRowEditCancel = (event) => {
-        props.onRowEditCancel({ originalEvent: event, data: props.rowData, newData: props.getEditingRowData(), field: props.field, index: props.rowIndex });
+        props.onRowEditCancel({
+            originalEvent: event,
+            data: props.rowData,
+            newData: props.getEditingRowData(),
+            field: props.field,
+            index: props.rowIndex
+        });
         props.focusOnInit(initFocusTimeout, elementRef);
     };
 
     React.useEffect(() => {
         if (props.frozenCol) props.updateStickyPosition(elementRef, props.frozenCol, props.alignFrozenCol, styleObjectState, setStyleObjectState);
-
         if (props.editMode === 'cell' || props.editMode === 'row') props.focusOnElement(focusTimeout, editingState, elementRef, keyHelperRef);
     }, [props.editMode, props.editing, editingState, props.frozenCol, props.alignFrozenCol]); // eslint-disable-line react-hooks/exhaustive-deps
-
     React.useEffect(() => {
         if (props.editMode === 'row' && props.editing !== editingState) {
             setEditingState(props.editing);
         }
     }, [props.editMode, props.editing, editingState]);
-
     useUpdateEffect(() => {
         if (props.editMode === 'cell' || props.editMode === 'row') {
             const editingRowData = props.getEditingRowData();
 
             setEditingRowDataState(editingRowData);
-
             editingRowDataStateRef.current = editingRowData;
         }
     }, [props.editingMeta]);
-
     React.useEffect(() => {
         if (props.editMode === 'cell' || props.editMode === 'row') {
             const callbackParams = getCellCallbackParams();
-            const params = { ...callbackParams, editing: editingState, editingKey: props.editingKey };
+            const params = {
+                ...callbackParams,
+                editing: editingState,
+                editingKey: props.editingKey
+            };
 
             props.onEditingMetaChange(params);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        } // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [editingState]);
-
     useUnmountEffect(() => {
         if (editingRowDataStateRef.current) {
             editingRowDataStateRef.current = null;
@@ -388,10 +440,18 @@ export const Cell = (props) => {
         const header = getColumnProp('header');
         const body = getColumnProp('body');
         const editor = getColumnProp('editor');
+        const shouldRenderBody = () => body && (!editingState || !editor);
+        const shouldCreateEditorKeyHelper = () => !isRowEditor && editor;
         const frozen = props.frozenCol;
         const align = getColumnProp('align');
         const value = props.resolveFieldData();
-        const columnBodyOptions = { column: props.column, field: props.field, rowIndex: props.rowIndex, frozenRow: props.frozenRow, props: props.tableProps };
+        const columnBodyOptions = {
+            column: props.column,
+            field: props.field,
+            rowIndex: props.rowIndex,
+            frozenRow: props.frozenRow,
+            props: props.tableProps
+        };
         const rowEditor = ObjectUtils.getPropValue(getColumnProp('rowEditor'), props.rowData, columnBodyOptions);
         const expander = ObjectUtils.getPropValue(getColumnProp('expander'), props.rowData, columnBodyOptions);
         const cellClassName = ObjectUtils.getPropValue(props.cellClassName, value, columnBodyOptions);
@@ -403,11 +463,23 @@ export const Cell = (props) => {
             },
             getColumnPTOptions('columnTitle')
         );
+        const createResponsiveTitle = () =>
+            props.responsiveLayout === 'stack' && (
+                <span {...columnTitleProps}>
+                    {ObjectUtils.getJSXElement(header, {
+                        props: props.tableProps
+                    })}
+                </span>
+            );
+        const title = createResponsiveTitle();
 
-        const title = props.responsiveLayout === 'stack' && <span {...columnTitleProps}>{ObjectUtils.getJSXElement(header, { props: props.tableProps })}</span>;
-
-        if (selectionMode) {
-            const showSelection = props.showSelectionElement ? props.showSelectionElement(props.rowData, { rowIndex: props.rowIndex, props: props.tableProps }) : true;
+        const runComplexBranch2 = () => {
+            const showSelection = props.showSelectionElement
+                ? props.showSelectionElement(props.rowData, {
+                      rowIndex: props.rowIndex,
+                      props: props.tableProps
+                  })
+                : true;
             let label;
 
             if (showSelection) {
@@ -424,7 +496,12 @@ export const Cell = (props) => {
                             hostName={props.hostName}
                             column={props.column}
                             checked={props.isRowSelected}
-                            disabled={!props.isSelectable({ data: props.rowData, index: props.rowIndex })}
+                            disabled={
+                                !props.isSelectable({
+                                    data: props.rowData,
+                                    index: props.rowIndex
+                                })
+                            }
                             onChange={onRadioChange}
                             tabIndex={props.tabIndex}
                             tableSelector={props.tableSelector}
@@ -439,7 +516,12 @@ export const Cell = (props) => {
                             hostName={props.hostName}
                             column={props.column}
                             checked={props.isRowSelected}
-                            disabled={!props.isSelectable({ data: props.rowData, index: props.rowIndex })}
+                            disabled={
+                                !props.isSelectable({
+                                    data: props.rowData,
+                                    index: props.rowIndex
+                                })
+                            }
                             onChange={props.onCheckboxChange}
                             tabIndex={props.tabIndex}
                             ariaLabel={label}
@@ -451,150 +533,249 @@ export const Cell = (props) => {
                     )}
                 </>
             );
+        };
+
+        if (selectionMode) {
+            runComplexBranch2();
         } else if (rowReorder) {
-            const showReorder = props.showRowReorderElement ? props.showRowReorderElement(props.rowData, { rowIndex: props.rowIndex, props: props.tableProps }) : true;
+            const createRowReorderContent = () => {
+                const showReorder = props.showRowReorderElement
+                    ? props.showRowReorderElement(props.rowData, {
+                          rowIndex: props.rowIndex,
+                          props: props.tableProps
+                      })
+                    : true;
+                const customIcon = getColumnProp('rowReorderIcon');
+                const rowReorderIconProps = mergeProps(
+                    {
+                        className: cx('rowReorderIcon')
+                    },
+                    customIcon ? null : getColumnPTOptions('rowReorderIcon')
+                );
+                const rowReorderIcon = customIcon || <BarsIcon {...rowReorderIconProps} />;
 
-            const customIcon = getColumnProp('rowReorderIcon');
-            const rowReorderIconProps = mergeProps(
-                {
-                    className: cx('rowReorderIcon')
-                },
-                customIcon ? null : getColumnPTOptions('rowReorderIcon')
-            );
-
-            const rowReorderIcon = customIcon || <BarsIcon {...rowReorderIconProps} />;
-
-            content = showReorder ? IconUtils.getJSXIcon(rowReorderIcon, { ...rowReorderIconProps }, { props }) : null;
-        } else if (expander) {
-            const rowTogglerIconProps = mergeProps(
-                {
-                    className: cx('rowTogglerIcon'),
-                    'aria-hidden': true
-                },
-                getColumnPTOptions('rowTogglerIcon')
-            );
-            const icon = props.expanded ? props.expandedRowIcon || <ChevronDownIcon {...rowTogglerIconProps} /> : props.collapsedRowIcon || <ChevronRightIcon {...rowTogglerIconProps} />;
-            const togglerIcon = IconUtils.getJSXIcon(icon, { ...rowTogglerIconProps }, { props });
-            const ariaControls = `${props.tableSelector}_content_${props.rowIndex}_expanded`;
-            const ariaLabelField = props.selectionAriaLabel || props.tableProps.dataKey;
-            const ariaLabelText = ObjectUtils.resolveFieldData(props.rowData, ariaLabelField);
-            const label = `${props.expanded ? ariaLabel('collapseLabel') : ariaLabel('expandLabel')} ${ariaLabelText}`;
-            const expanderProps = {
-                onClick: onRowToggle,
-                className: cx('rowToggler')
+                return showReorder
+                    ? IconUtils.getJSXIcon(
+                          rowReorderIcon,
+                          {
+                              ...rowReorderIconProps
+                          },
+                          {
+                              props
+                          }
+                      )
+                    : null;
             };
-            const rowTogglerProps = mergeProps(
-                {
-                    ...expanderProps,
-                    type: 'button',
-                    'aria-expanded': props.expanded,
-                    'aria-controls': ariaControls,
-                    tabIndex: props.tabIndex,
-                    'aria-label': label
-                },
-                getColumnPTOptions('rowToggler')
-            );
 
-            content = (
-                <button {...rowTogglerProps}>
-                    {togglerIcon}
-                    <Ripple />
-                </button>
-            );
-
-            if (body) {
-                expanderProps.element = content;
-                content = ObjectUtils.getJSXElement(body, props.rowData, { column: props.column, field: props.field, rowIndex: props.rowIndex, frozenRow: props.frozenRow, props: props.tableProps, expander: expanderProps });
-            }
-        } else if (isRowEditor && rowEditor) {
-            let rowEditorProps = {};
-            const rowEditorSaveIconProps = mergeProps({ className: cx('rowEditorSaveIcon') }, getColumnPTOptions('rowEditorSaveIcon'));
-            const rowEditorCancelIconProps = mergeProps({ className: cx('rowEditorCancelIcon') }, getColumnPTOptions('rowEditorCancelIcon'));
-            const rowEditorInitIconProps = mergeProps({ className: cx('rowEditorInitIcon') }, getColumnPTOptions('rowEditorInitIcon'));
-            const rowEditorSaveIcon = IconUtils.getJSXIcon(props.rowEditorSaveIcon || <CheckIcon {...rowEditorSaveIconProps} />, { ...rowEditorSaveIconProps }, { props });
-            const rowEditorCancelIcon = IconUtils.getJSXIcon(props.rowEditorCancelIcon || <TimesIcon {...rowEditorCancelIconProps} />, { ...rowEditorCancelIconProps }, { props });
-            const rowEditorInitIcon = IconUtils.getJSXIcon(props.rowEditorInitIcon || <PencilIcon {...rowEditorInitIconProps} />, { ...rowEditorInitIconProps }, { props });
-
-            if (editingState) {
-                rowEditorProps = {
-                    editing: true,
-                    onSaveClick: onRowEditSave,
-                    saveClassName: cx('rowEditorSaveButton'),
-                    onCancelClick: onRowEditCancel,
-                    cancelClassName: cx('rowEditorCancelButton')
-                };
-
-                const rowEditorSaveButtonProps = mergeProps(
+            content = createRowReorderContent();
+        } else if (expander) {
+            const createExpanderContent = () => {
+                const rowTogglerIconProps = mergeProps(
                     {
-                        type: 'button',
-                        name: 'row-save',
-                        'aria-label': ariaLabel('saveEdit'),
-                        onClick: rowEditorProps.onSaveClick,
-                        className: rowEditorProps.saveClassName,
-                        tabIndex: props.tabIndex,
-                        'data-p-row-editor-save': true
+                        className: cx('rowTogglerIcon'),
+                        'aria-hidden': true
                     },
-                    getColumnPTOptions('rowEditorSaveButton')
+                    getColumnPTOptions('rowTogglerIcon')
                 );
-
-                const rowEditorCancelButtonProps = mergeProps(
+                const icon = props.expanded ? props.expandedRowIcon || <ChevronDownIcon {...rowTogglerIconProps} /> : props.collapsedRowIcon || <ChevronRightIcon {...rowTogglerIconProps} />;
+                const togglerIcon = IconUtils.getJSXIcon(
+                    icon,
                     {
-                        type: 'button',
-                        name: 'row-cancel',
-                        'aria-label': ariaLabel('cancelEdit'),
-                        onClick: rowEditorProps.onCancelClick,
-                        className: rowEditorProps.cancelClassName,
-                        tabIndex: props.tabIndex
+                        ...rowTogglerIconProps
                     },
-                    getColumnPTOptions('rowEditorCancelButton')
+                    {
+                        props
+                    }
+                );
+                const ariaControls = `${props.tableSelector}_content_${props.rowIndex}_expanded`;
+                const ariaLabelField = props.selectionAriaLabel || props.tableProps.dataKey;
+                const ariaLabelText = ObjectUtils.resolveFieldData(props.rowData, ariaLabelField);
+                const label = `${props.expanded ? ariaLabel('collapseLabel') : ariaLabel('expandLabel')} ${ariaLabelText}`;
+                const expanderProps = {
+                    onClick: onRowToggle,
+                    className: cx('rowToggler')
+                };
+                const rowTogglerProps = mergeProps(
+                    {
+                        ...expanderProps,
+                        type: 'button',
+                        'aria-expanded': props.expanded,
+                        'aria-controls': ariaControls,
+                        tabIndex: props.tabIndex,
+                        'aria-label': label
+                    },
+                    getColumnPTOptions('rowToggler')
                 );
 
                 content = (
-                    <>
-                        <button {...rowEditorSaveButtonProps}>
-                            {rowEditorSaveIcon}
-                            <Ripple />
-                        </button>
-                        <button {...rowEditorCancelButtonProps}>
-                            {rowEditorCancelIcon}
-                            <Ripple />
-                        </button>
-                    </>
-                );
-            } else {
-                rowEditorProps = {
-                    editing: false,
-                    onInitClick: onRowEditInit,
-                    initClassName: cx('rowEditorInitButton')
-                };
-
-                const rowEditorInitButtonProps = mergeProps(
-                    {
-                        type: 'button',
-                        name: 'row-edit',
-                        'aria-label': ariaLabel('editRow'),
-                        onClick: rowEditorProps.onInitClick,
-                        className: rowEditorProps.initClassName,
-                        tabIndex: props.tabIndex,
-                        'data-p-row-editor-init': true
-                    },
-                    getColumnPTOptions('rowEditorInitButton')
-                );
-
-                content = (
-                    <button {...rowEditorInitButtonProps}>
-                        {rowEditorInitIcon}
+                    <button {...rowTogglerProps}>
+                        {togglerIcon}
                         <Ripple />
                     </button>
                 );
-            }
 
-            if (body) {
-                rowEditorProps.element = content;
-                content = ObjectUtils.getJSXElement(body, props.rowData, { column: props.column, field: props.field, rowIndex: props.rowIndex, frozenRow: props.frozenRow, props: props.tableProps, rowEditor: rowEditorProps });
-            }
-        } else if (body && (!editingState || !editor)) {
-            content = body ? ObjectUtils.getJSXElement(body, props.rowData, { column: props.column, field: props.field, rowIndex: props.rowIndex, frozenRow: props.frozenRow, props: props.tableProps }) : value;
+                if (body) {
+                    expanderProps.element = content;
+                    content = ObjectUtils.getJSXElement(body, props.rowData, {
+                        column: props.column,
+                        field: props.field,
+                        rowIndex: props.rowIndex,
+                        frozenRow: props.frozenRow,
+                        props: props.tableProps,
+                        expander: expanderProps
+                    });
+                }
+
+                return content;
+            };
+
+            content = createExpanderContent();
+        } else if (isRowEditor && rowEditor) {
+            const createRowEditorContent = () => {
+                let rowEditorProps = {};
+                const rowEditorSaveIconProps = mergeProps(
+                    {
+                        className: cx('rowEditorSaveIcon')
+                    },
+                    getColumnPTOptions('rowEditorSaveIcon')
+                );
+                const rowEditorCancelIconProps = mergeProps(
+                    {
+                        className: cx('rowEditorCancelIcon')
+                    },
+                    getColumnPTOptions('rowEditorCancelIcon')
+                );
+                const rowEditorInitIconProps = mergeProps(
+                    {
+                        className: cx('rowEditorInitIcon')
+                    },
+                    getColumnPTOptions('rowEditorInitIcon')
+                );
+                const rowEditorSaveIcon = IconUtils.getJSXIcon(
+                    props.rowEditorSaveIcon || <CheckIcon {...rowEditorSaveIconProps} />,
+                    {
+                        ...rowEditorSaveIconProps
+                    },
+                    {
+                        props
+                    }
+                );
+                const rowEditorCancelIcon = IconUtils.getJSXIcon(
+                    props.rowEditorCancelIcon || <TimesIcon {...rowEditorCancelIconProps} />,
+                    {
+                        ...rowEditorCancelIconProps
+                    },
+                    {
+                        props
+                    }
+                );
+                const rowEditorInitIcon = IconUtils.getJSXIcon(
+                    props.rowEditorInitIcon || <PencilIcon {...rowEditorInitIconProps} />,
+                    {
+                        ...rowEditorInitIconProps
+                    },
+                    {
+                        props
+                    }
+                );
+
+                if (editingState) {
+                    rowEditorProps = {
+                        editing: true,
+                        onSaveClick: onRowEditSave,
+                        saveClassName: cx('rowEditorSaveButton'),
+                        onCancelClick: onRowEditCancel,
+                        cancelClassName: cx('rowEditorCancelButton')
+                    };
+                    const rowEditorSaveButtonProps = mergeProps(
+                        {
+                            type: 'button',
+                            name: 'row-save',
+                            'aria-label': ariaLabel('saveEdit'),
+                            onClick: rowEditorProps.onSaveClick,
+                            className: rowEditorProps.saveClassName,
+                            tabIndex: props.tabIndex,
+                            'data-p-row-editor-save': true
+                        },
+                        getColumnPTOptions('rowEditorSaveButton')
+                    );
+                    const rowEditorCancelButtonProps = mergeProps(
+                        {
+                            type: 'button',
+                            name: 'row-cancel',
+                            'aria-label': ariaLabel('cancelEdit'),
+                            onClick: rowEditorProps.onCancelClick,
+                            className: rowEditorProps.cancelClassName,
+                            tabIndex: props.tabIndex
+                        },
+                        getColumnPTOptions('rowEditorCancelButton')
+                    );
+
+                    content = (
+                        <>
+                            <button {...rowEditorSaveButtonProps}>
+                                {rowEditorSaveIcon}
+                                <Ripple />
+                            </button>
+                            <button {...rowEditorCancelButtonProps}>
+                                {rowEditorCancelIcon}
+                                <Ripple />
+                            </button>
+                        </>
+                    );
+                } else {
+                    rowEditorProps = {
+                        editing: false,
+                        onInitClick: onRowEditInit,
+                        initClassName: cx('rowEditorInitButton')
+                    };
+                    const rowEditorInitButtonProps = mergeProps(
+                        {
+                            type: 'button',
+                            name: 'row-edit',
+                            'aria-label': ariaLabel('editRow'),
+                            onClick: rowEditorProps.onInitClick,
+                            className: rowEditorProps.initClassName,
+                            tabIndex: props.tabIndex,
+                            'data-p-row-editor-init': true
+                        },
+                        getColumnPTOptions('rowEditorInitButton')
+                    );
+
+                    content = (
+                        <button {...rowEditorInitButtonProps}>
+                            {rowEditorInitIcon}
+                            <Ripple />
+                        </button>
+                    );
+                }
+
+                if (body) {
+                    rowEditorProps.element = content;
+                    content = ObjectUtils.getJSXElement(body, props.rowData, {
+                        column: props.column,
+                        field: props.field,
+                        rowIndex: props.rowIndex,
+                        frozenRow: props.frozenRow,
+                        props: props.tableProps,
+                        rowEditor: rowEditorProps
+                    });
+                }
+
+                return content;
+            };
+
+            content = createRowEditorContent();
+        } else if (shouldRenderBody()) {
+            content = body
+                ? ObjectUtils.getJSXElement(body, props.rowData, {
+                      column: props.column,
+                      field: props.field,
+                      rowIndex: props.rowIndex,
+                      frozenRow: props.frozenRow,
+                      props: props.tableProps
+                  })
+                : value;
         } else if (editor && editingState) {
             content = ObjectUtils.getJSXElement(editor, {
                 rowData: editingRowDataState,
@@ -612,7 +793,7 @@ export const Cell = (props) => {
 
         content = typeof content === 'boolean' ? content.toString() : content;
 
-        if (!isRowEditor && editor) {
+        if (shouldCreateEditorKeyHelper()) {
             const editorKeyHelperProps = mergeProps(
                 {
                     tabIndex: '0',
@@ -621,9 +802,9 @@ export const Cell = (props) => {
                 },
                 getColumnPTOptions('editorKeyHelperLabel')
             );
-
             const editorKeyHelperLabelProps = mergeProps(getColumnPTOptions('editorKeyHelper'));
-            /* eslint-disable */
+
+            /* eslint-disable jsx-a11y/anchor-is-valid */
             editorKeyHelper = (
                 <a ref={keyHelperRef} {...editorKeyHelperProps}>
                     <span {...editorKeyHelperLabelProps}></span>
@@ -635,7 +816,21 @@ export const Cell = (props) => {
         const bodyCellProps = mergeProps(
             {
                 style,
-                className: classNames(bodyClassName, getColumnProp('className'), cellClassName, cx('bodyCell', { selectionMode, editor, editingState, frozen, cellSelected, align, bodyProps: props, getCellParams })),
+                className: classNames(
+                    bodyClassName,
+                    getColumnProp('className'),
+                    cellClassName,
+                    cx('bodyCell', {
+                        selectionMode,
+                        editor,
+                        editingState,
+                        frozen,
+                        cellSelected,
+                        align,
+                        bodyProps: props,
+                        getCellParams
+                    })
+                ),
                 rowSpan: props.rowSpan,
                 tabIndex,
                 role: 'cell',
@@ -644,7 +839,12 @@ export const Cell = (props) => {
                 onBlur: (e) => onBlur(e),
                 onMouseDown: (e) => onMouseDown(e),
                 onMouseUp: (e) => onMouseUp(e),
-                'data-p-selectable-cell': props.allowCellSelection && props.isSelectable({ data: getCellParams(), index: props.rowIndex }),
+                'data-p-selectable-cell':
+                    props.allowCellSelection &&
+                    props.isSelectable({
+                        data: getCellParams(),
+                        index: props.rowIndex
+                    }),
                 'data-p-selection-column': getColumnProp('selectionMode') != null,
                 'data-p-editable-column': isEditable() != null,
                 'data-p-cell-editing': editingState,
@@ -664,24 +864,20 @@ export const Cell = (props) => {
     };
 
     return props.getVirtualScrollerOption('loading') ? createLoading() : createElement();
-};
+}; // RadioCheckCell is used for the Radio and Checkbox selection and has the isRowSelected dependency
 
-// RadioCheckCell is used for the Radio and Checkbox selection and has the isRowSelected dependency
 export const RadioCheckCell = React.memo(
     (props) => {
         return <Cell {...props} />;
     },
     (prevProps, nextProps) => {
         if (nextProps.cellMemo === false) return false;
-
         const keysToCompare = ['isRowSelected', 'field', 'allowCellSelection', 'isCellSelected', 'editMode', 'index', 'tabIndex', 'editing', 'expanded', 'editingMeta', 'rowData'];
 
         return ObjectUtils.selectiveCompare(prevProps, nextProps, keysToCompare);
     }
 );
-
 RadioCheckCell.displayName = 'RadioCheckCell';
-
 const defaultKeysToCompare = ['rowData', 'field', 'allowCellSelection', 'isCellSelected', 'editMode', 'index', 'tabIndex', 'editing', 'expanded', 'editingMeta', 'frozenCol', 'alignFrozenCol'];
 
 export const BodyCell = React.memo(
@@ -690,15 +886,12 @@ export const BodyCell = React.memo(
     },
     (prevProps, nextProps) => {
         if (nextProps.cellMemo === false) return false;
-
         const memoProps = nextProps.cellMemoProps;
         const keysToCompare = Array.isArray(memoProps) && memoProps.every((prop) => typeof prop === 'string') ? memoProps : defaultKeysToCompare;
-
         const memoPropsDepth = nextProps.cellMemoPropsDepth;
         const depth = typeof memoPropsDepth === 'number' && memoPropsDepth > 0 ? memoPropsDepth : 1;
 
         return ObjectUtils.selectiveCompare(prevProps, nextProps, keysToCompare, depth);
     }
 );
-
 BodyCell.displayName = 'BodyCell';

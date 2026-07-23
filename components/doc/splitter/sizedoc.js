@@ -42,8 +42,7 @@ export default function SizeDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Initial dimension of a panel is percentage based and defined using the <i>size</i> property. In addition,
-                    <i>minSize</i> is provided to set a minimum value during a resize.
+                    Initial dimension of a panel is percentage based and defined using the <i>size</i> property. In addition, <i>minSize</i> is provided to set a minimum value during a resize.
                 </p>
             </DocSectionText>
             <div className="card">

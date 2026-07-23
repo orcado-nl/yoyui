@@ -43,16 +43,12 @@ export function AdvancedFilterDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -75,11 +71,7 @@ export function AdvancedFilterDoc(props) {
     };
 
     const formatDate = (value) => {
-        return value.toLocaleDateString('en-US', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        return value.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
 
     const formatCurrency = (value) => {
@@ -95,7 +87,6 @@ export function AdvancedFilterDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
         setGlobalFilterValue(value);
     };
@@ -232,7 +223,6 @@ export function AdvancedFilterDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id" 
@@ -858,6 +848,7 @@ export default function AdvancedFilterDemo() {
                             filterApply={filterApplyTemplate}
                             filterFooter={filterFooterTemplate}
                         />
+
                         <Column
                             header="Agent"
                             filterField="representative"
@@ -868,6 +859,7 @@ export default function AdvancedFilterDemo() {
                             filter
                             filterElement={representativeFilterTemplate}
                         />
+
                         <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate} filter filterElement={dateFilterTemplate} />
                         <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />
                         <Column field="status" header="Status" filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusFilterTemplate} />

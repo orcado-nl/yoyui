@@ -6,20 +6,10 @@ import { PhotoService } from '../../../service/PhotoService';
 
 export function BasicDoc(props) {
     const [images, setImages] = useState(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
+        { breakpoint: '991px', numVisible: 4 },
+        { breakpoint: '767px', numVisible: 3 },
+        { breakpoint: '575px', numVisible: 1 }
     ];
 
     useEffect(() => {

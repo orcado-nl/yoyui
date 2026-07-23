@@ -5,8 +5,8 @@ export function AccessibilityDoc() {
         <DocSectionText id="accessibility" label="Accessibility">
             <h3>Screen Reader</h3>
             <p>
-                Stepper container is defined with the <i>tablist</i> role, as any attribute is passed to the container element <i>aria-labelledby</i> can be optionally used to specify an element to describe the Stepper. Each stepper header has a
-                <i>tab</i> role and <i>aria-controls</i> to refer to the corresponding stepper content element. The content element of each stepper has <i>tabpanel</i> role, an id to match the <i>aria-controls</i> of the header and
+                Stepper container is defined with the <i>tablist</i> role, as any attribute is passed to the container element <i>aria-labelledby</i> can be optionally used to specify an element to describe the Stepper. Each stepper header has a{' '}
+                <i>tab</i> role and <i>aria-controls</i> to refer to the corresponding stepper content element. The content element of each stepper has <i>tabpanel</i> role, an id to match the <i>aria-controls</i> of the header and{' '}
                 <i>aria-labelledby</i> reference to the header as the accessible name.
             </p>
 

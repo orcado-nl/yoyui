@@ -11,10 +11,88 @@ import { Tooltip } from '@/components/lib/tooltip/Tooltip';
 import { classNames } from '@/components/lib/utils/Utils';
 import React, { useState } from 'react';
 
+function renderSonarNested1Element(options) {
+    return (
+        <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
+            <span className="p-3">Previous</span>
+            <Ripple />
+        </button>
+    );
+}
+
+function renderSonarNested2Element(options, dropdownOptions) {
+    return <Dropdown value={options.value} options={dropdownOptions} onChange={options.onChange} />;
+}
+
+function renderSonarNested3Element(options) {
+    return (
+        <span style={{ color: 'var(--text-color)', userSelect: 'none', width: '120px', textAlign: 'center' }}>
+            {options.first} - {options.last} of {options.totalRecords}
+        </span>
+    );
+}
+
+function renderSonarNested1(options) {
+    return (
+        <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
+            <span className="p-3">Next</span>
+            <Ripple />
+        </button>
+    );
+}
+
+function renderSonarNested2(className) {
+    return (
+        <span className={className} style={{ userSelect: 'none' }}>
+            ...
+        </span>
+    );
+}
+
+function renderSonarNested3(options) {
+    return (
+        <button type="button" className={options.className} onClick={options.onClick}>
+            {options.page + 1}
+            <Ripple />
+        </button>
+    );
+}
+
+function renderSonarNested4(currentPage, pageInputTooltip, onPageInputKeyDown, options, onPageInputChange) {
+    return (
+        <span className="mx-3" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
+            Go to <InputText size="2" className="ml-1" value={currentPage} tooltip={pageInputTooltip} onKeyDown={(e) => onPageInputKeyDown(e, options)} onChange={onPageInputChange} />
+        </span>
+    );
+}
+
+function renderSonarNested5(options, dropdownOptions) {
+    return (
+        <React.Fragment>
+            <span className="mx-1" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
+                Items per page:{' '}
+            </span>
+            <Dropdown value={options.value} options={dropdownOptions} onChange={options.onChange} />
+        </React.Fragment>
+    );
+}
+
+function renderSonarNested6(options) {
+    return (
+        <div className="flex align-items-center">
+            <Tooltip target=".slider>.p-slider-handle" content={`${options.value} / page`} position="top" event="focus" />
+
+            <span className="mr-3" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
+                Items per page:{' '}
+            </span>
+            <Slider className="slider" value={options.value} onChange={options.onChange} min={10} max={120} step={30} style={{ width: '10rem' }} />
+        </div>
+    );
+}
+
 export function TemplateDoc(props) {
     const [first, setFirst] = useState([0, 0, 0]);
     const [rows, setRows] = useState([10, 10, 10]);
-
     const [currentPage, setCurrentPage] = useState(1);
     const [pageInputTooltip, setPageInputTooltip] = useState("Press 'Enter' key to go to this page.");
 
@@ -29,7 +107,7 @@ export function TemplateDoc(props) {
 
     const onPageInputKeyDown = (event, options) => {
         if (event.key === 'Enter') {
-            const page = parseInt(currentPage);
+            const page = Number.parseInt(currentPage);
 
             if (page < 0 || page > options.totalPages) {
                 setPageInputTooltip(`Value must be between 1 and ${options.totalPages}.`);
@@ -37,7 +115,6 @@ export function TemplateDoc(props) {
                 let _first = [...first];
 
                 _first[0] = currentPage ? options.rows * (page - 1) : 0;
-
                 setFirst(_first);
                 setPageInputTooltip("Press 'Enter' key to go to this page.");
             }
@@ -46,42 +123,22 @@ export function TemplateDoc(props) {
 
     const leftContent = <Button type="button" icon="pi pi-star" className="p-button-outlined" />;
     const rightContent = <Button type="button" icon="pi pi-search" />;
-
     const template1 = {
         layout: 'PrevPageLink PageLinks NextPageLink RowsPerPageDropdown CurrentPageReport',
         PrevPageLink: (options) => {
-            return (
-                <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
-                    <span className="p-3">Previous</span>
-                    <Ripple />
-                </button>
-            );
+            return renderSonarNested1Element(options);
         },
         NextPageLink: (options) => {
-            return (
-                <button type="button" className={classNames(options.className, 'border-round')} onClick={options.onClick} disabled={options.disabled}>
-                    <span className="p-3">Next</span>
-                    <Ripple />
-                </button>
-            );
+            return renderSonarNested1(options);
         },
         PageLinks: (options) => {
             if ((options.view.startPage === options.page && options.view.startPage !== 0) || (options.view.endPage === options.page && options.page + 1 !== options.totalPages)) {
                 const className = classNames(options.className, { 'p-disabled': true });
 
-                return (
-                    <span className={className} style={{ userSelect: 'none' }}>
-                        ...
-                    </span>
-                );
+                return renderSonarNested2(className);
             }
 
-            return (
-                <button type="button" className={options.className} onClick={options.onClick}>
-                    {options.page + 1}
-                    <Ripple />
-                </button>
-            );
+            return renderSonarNested3(options);
         },
         RowsPerPageDropdown: (options) => {
             const dropdownOptions = [
@@ -91,14 +148,10 @@ export function TemplateDoc(props) {
                 { label: 'All', value: options.totalRecords }
             ];
 
-            return <Dropdown value={options.value} options={dropdownOptions} onChange={options.onChange} />;
+            return renderSonarNested2Element(options, dropdownOptions);
         },
         CurrentPageReport: (options) => {
-            return (
-                <span className="mx-3" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
-                    Go to <InputText size="2" className="ml-1" value={currentPage} tooltip={pageInputTooltip} onKeyDown={(e) => onPageInputKeyDown(e, options)} onChange={onPageInputChange} />
-                </span>
-            );
+            return renderSonarNested4(currentPage, pageInputTooltip, onPageInputKeyDown, options, onPageInputChange);
         }
     };
     const template2 = {
@@ -111,46 +164,21 @@ export function TemplateDoc(props) {
                 { label: 120, value: 120 }
             ];
 
-            return (
-                <React.Fragment>
-                    <span className="mx-1" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
-                        Items per page:{' '}
-                    </span>
-                    <Dropdown value={options.value} options={dropdownOptions} onChange={options.onChange} />
-                </React.Fragment>
-            );
+            return renderSonarNested5(options, dropdownOptions);
         },
         CurrentPageReport: (options) => {
-            return (
-                <span style={{ color: 'var(--text-color)', userSelect: 'none', width: '120px', textAlign: 'center' }}>
-                    {options.first} - {options.last} of {options.totalRecords}
-                </span>
-            );
+            return renderSonarNested3Element(options);
         }
     };
     const template3 = {
         layout: 'RowsPerPageDropdown PrevPageLink PageLinks NextPageLink CurrentPageReport',
         RowsPerPageDropdown: (options) => {
-            return (
-                <div className="flex align-items-center">
-                    <Tooltip target=".slider>.p-slider-handle" content={`${options.value} / page`} position="top" event="focus" />
-
-                    <span className="mr-3" style={{ color: 'var(--text-color)', userSelect: 'none' }}>
-                        Items per page:{' '}
-                    </span>
-                    <Slider className="slider" value={options.value} onChange={options.onChange} min={10} max={120} step={30} style={{ width: '10rem' }} />
-                </div>
-            );
+            return renderSonarNested6(options);
         },
         CurrentPageReport: (options) => {
-            return (
-                <span style={{ color: 'var(--text-color)', userSelect: 'none', width: '120px', textAlign: 'center' }}>
-                    {options.first} - {options.last} of {options.totalRecords}
-                </span>
-            );
+            return renderSonarNested3Element(options);
         }
     };
-
     const code = {
         basic: `
 <Paginator template={template1} first={first[0]} rows={rows[0]} totalRecords={120} onPageChange={(e) => onPageChange(e, 0)} leftContent={leftContent} rightContent={rightContent} />
@@ -187,7 +215,7 @@ export default function TemplateDemo() {
 
     const onPageInputKeyDown = (event, options) => {
         if (event.key === 'Enter') {
-            const page = parseInt(currentPage);
+            const page = Number.parseInt(currentPage);
 
             if (page < 0 || page > options.totalPages) {
                 setPageInputTooltip(\`Value must be between 1 and \${options.totalPages}.\`);
@@ -351,7 +379,7 @@ export default function TemplateDemo() {
 
     const onPageInputKeyDown = (event: React.KeydownEvent<HTMLInputElement>, options: PaginatorCurrentPageReportOptions) => {
         if (event.key === 'Enter') {
-            const page = parseInt(currentPage);
+            const page = Number.parseInt(currentPage);
 
             if (page < 0 || page > options.totalPages) {
                 setPageInputTooltip(\`Value must be between 1 and \${options.totalPages}.\`);

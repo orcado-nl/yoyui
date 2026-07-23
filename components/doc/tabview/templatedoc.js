@@ -7,29 +7,29 @@ import { TabPanel, TabView } from '@/components/lib/tabview/TabView';
 export function TemplateDoc(props) {
     const tab1HeaderTemplate = (options) => {
         return (
-            <div className="flex align-items-center gap-2 p-3" style={{ cursor: 'pointer' }} onClick={options.onClick}>
+            <button type="button" className="flex align-items-center gap-2 p-3 border-none bg-transparent" style={{ cursor: 'pointer' }} onClick={options.onClick}>
                 <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
                 <span className="font-bold white-space-nowrap">Amy Elsner</span>
-            </div>
+            </button>
         );
     };
 
     const tab2HeaderTemplate = (options) => {
         return (
-            <div className="flex align-items-center gap-2 p-3" style={{ cursor: 'pointer' }} onClick={options.onClick}>
+            <button type="button" className="flex align-items-center gap-2 p-3 border-none bg-transparent" style={{ cursor: 'pointer' }} onClick={options.onClick}>
                 <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" />
                 <span className="font-bold white-space-nowrap">Onyama Limba</span>
-            </div>
+            </button>
         );
     };
 
     const tab3HeaderTemplate = (options) => {
         return (
-            <div className="flex align-items-center gap-2 p-3" style={{ cursor: 'pointer' }} onClick={options.onClick}>
+            <button type="button" className="flex align-items-center gap-2 p-3 border-none bg-transparent" style={{ cursor: 'pointer' }} onClick={options.onClick}>
                 <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" shape="circle" />
                 <span className="font-bold white-space-nowrap">Ioni Bowcher</span>
                 <Badge value="2" />
-            </div>
+            </button>
         );
     };
 

@@ -32,12 +32,14 @@ const ThemeSection = () => {
     const replaceTableTheme = (newTheme) => {
         const elementId = 'home-table-link';
         const linkElement = document.getElementById(elementId);
-        const tableThemeTokens = linkElement?.getAttribute('href').split('/') || null;
-        const currentTableTheme = tableThemeTokens ? tableThemeTokens[tableThemeTokens.length - 2] : null;
+        const tableThemeHref = linkElement?.getAttribute('href');
 
-        if (currentTableTheme !== newTheme && tableThemeTokens) {
-            const newThemeUrl = linkElement.getAttribute('href').replace(currentTableTheme, newTheme);
+        if (!tableThemeHref) return;
+        const tableThemeTokens = tableThemeHref.split('/');
+        const currentTableTheme = tableThemeTokens.at(-2);
 
+        if (currentTableTheme && currentTableTheme !== newTheme) {
+            const newThemeUrl = tableThemeHref.replace(currentTableTheme, newTheme);
             const cloneLinkElement = linkElement.cloneNode(true);
 
             cloneLinkElement.setAttribute('id', elementId + '-clone');
@@ -45,7 +47,6 @@ const ThemeSection = () => {
             cloneLinkElement.addEventListener('load', () => {
                 linkElement.remove();
                 cloneLinkElement.setAttribute('id', elementId);
-
                 setTableTheme(newTheme);
             });
             linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling);
@@ -64,7 +65,6 @@ const ThemeSection = () => {
             setLoading(false);
         });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     useUpdateEffect(() => {
         const newTheme = darkMode ? tableTheme.replace('light', 'dark') : tableTheme.replace('dark', 'light');
 
@@ -80,11 +80,7 @@ const ThemeSection = () => {
     };
 
     const formatDate = (value) => {
-        return value.toLocaleDateString('en-US', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        return value.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
 
     const formatCurrency = (value) => {
@@ -96,7 +92,6 @@ const ThemeSection = () => {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
         setGlobalFilterValue(value);
     };
@@ -157,16 +152,12 @@ const ThemeSection = () => {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -179,13 +170,13 @@ const ThemeSection = () => {
             <div className="section-header">Themes</div>
             <p className="section-detail">Crafted on a design-agnostic infrastructure, choose from a vast amount of themes such as material, bootstrap, tailwind, primeone or develop your own.</p>
             <div className="flex flex-wrap justify-content-center">
-                <button type="button" className={classNames('font-medium linkbox mr-3 mt-4', { active: tableTheme && tableTheme.startsWith('lara') })} onClick={() => changeTheme('lara', 'cyan')}>
+                <button type="button" className={classNames('font-medium linkbox mr-3 mt-4', { active: tableTheme?.startsWith('lara') })} onClick={() => changeTheme('lara', 'cyan')}>
                     PrimeOne
                 </button>
-                <button type="button" className={classNames('font-medium linkbox mr-3 mt-4', { active: tableTheme && tableTheme.startsWith('md') })} onClick={() => changeTheme('md', 'indigo')}>
+                <button type="button" className={classNames('font-medium linkbox mr-3 mt-4', { active: tableTheme?.startsWith('md') })} onClick={() => changeTheme('md', 'indigo')}>
                     Material
                 </button>
-                <button type="button" className={classNames('font-medium linkbox mr-3 mt-4', { active: tableTheme && tableTheme.startsWith('bootstrap4') })} onClick={() => changeTheme('bootstrap4', 'blue')}>
+                <button type="button" className={classNames('font-medium linkbox mr-3 mt-4', { active: tableTheme?.startsWith('bootstrap4') })} onClick={() => changeTheme('bootstrap4', 'blue')}>
                     Bootstrap
                 </button>
             </div>

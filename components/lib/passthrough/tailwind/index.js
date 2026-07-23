@@ -1,26 +1,82 @@
+import { resolveConditional } from '../../utils/ConditionalUtils';
 import { classNames } from '../../utils/Utils';
+
+function handleSonarNested1() {
+    return {
+        enter: 'translate-x-full translate-y-0 translate-z-0',
+        enterActive: '!translate-x-0 transition-transform duration-300',
+        exit: 'translate-x-0 transition-transform duration-300',
+        exitActive: '!translate-x-full translate-y-0 translate-z-0'
+    };
+}
+
+function handleSonarNested2() {
+    return undefined;
+}
+
+function getFilledButtonClasses(props) {
+    const isFilled = !props.text && !props.outlined && !props.plain;
+
+    return {
+        'text-white dark:text-gray-900 bg-gray-500 dark:bg-gray-400 border border-gray-500 dark:border-gray-400 hover:bg-gray-600 dark:hover:bg-gray-500 hover:border-gray-600 dark:hover:border-gray-500': props.severity === 'secondary' && isFilled,
+        'text-white dark:text-gray-900 bg-green-500 dark:bg-green-400 border border-green-500 dark:border-green-400 hover:bg-green-600 dark:hover:bg-green-500 hover:border-green-600 dark:hover:border-green-500':
+            props.severity === 'success' && isFilled,
+        'text-white dark:text-gray-900 dark:bg-blue-400 bg-blue-500 dark:bg-blue-400 border border-blue-500 dark:border-blue-400 hover:bg-blue-600 hover:border-blue-600 dark:hover:bg-blue-500 dark:hover:border-blue-500':
+            props.severity === 'info' && isFilled,
+        'text-white dark:text-gray-900 bg-orange-500 dark:bg-orange-400 border border-orange-500 dark:border-orange-400 hover:bg-orange-600 dark:hover:bg-orange-500 hover:border-orange-600 dark:hover:border-orange-500':
+            props.severity === 'warning' && isFilled,
+        'text-white dark:text-gray-900 bg-purple-500 dark:bg-purple-400 border border-purple-500 dark:border-purple-400 hover:bg-purple-600 dark:hover:bg-purple-500 hover:border-purple-600 dark:hover:border-purple-500':
+            props.severity === 'help' && isFilled,
+        'text-white dark:text-gray-900 bg-red-500 dark:bg-red-400 border border-red-500 dark:border-red-400 hover:bg-red-600 dark:hover:bg-red-500 hover:border-red-600 dark:hover:border-red-500': props.severity === 'danger' && isFilled
+    };
+}
+
+function getTextButtonClasses(props) {
+    const isText = props.text && !props.plain;
+
+    return {
+        'bg-transparent border-transparent': isText,
+        'text-blue-500 dark:text-blue-400 hover:bg-blue-300/20': isText && (props.severity === null || props.severity === 'info'),
+        'text-gray-500 dark:text-gray-400 hover:bg-gray-300/20': isText && props.severity === 'secondary',
+        'text-green-500 dark:text-green-400 hover:bg-green-300/20': isText && props.severity === 'success',
+        'text-orange-500 dark:text-orange-400 hover:bg-orange-300/20': isText && props.severity === 'warning',
+        'text-purple-500 dark:text-purple-400 hover:bg-purple-300/20': isText && props.severity === 'help',
+        'text-red-500 dark:text-red-400 hover:bg-red-300/20': isText && props.severity === 'danger'
+    };
+}
+
+function getPlainButtonClasses(props) {
+    return {
+        'text-gray-500 hover:bg-gray-300/20': props.plain && props.text,
+        'text-gray-500 border border-gray-500 hover:bg-gray-300/20': props.plain && props.outlined,
+        'text-white bg-gray-500 border border-gray-500 hover:bg-gray-600 hover:border-gray-600': props.plain && !props.outlined && !props.text
+    };
+}
+
+function getOutlinedButtonClasses(props) {
+    const isOutlined = props.outlined && !props.plain;
+
+    return {
+        'bg-transparent border': isOutlined,
+        'text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 hover:bg-blue-300/20': isOutlined && (props.severity === null || props.severity === 'info'),
+        'text-gray-500 dark:text-gray-400 border border-gray-500 dark:border-gray-400 hover:bg-gray-300/20': isOutlined && props.severity === 'secondary',
+        'text-green-500 dark:text-green-400 border border-green-500 dark:border-green-400 hover:bg-green-300/20': isOutlined && props.severity === 'success',
+        'text-orange-500 dark:text-orange-400 border border-orange-500 dark:border-orange-400 hover:bg-orange-300/20': isOutlined && props.severity === 'warning',
+        'text-purple-500 dark:text-purple-400 border border-purple-500 dark:border-purple-400 hover:bg-purple-300/20': isOutlined && props.severity === 'help',
+        'text-red-500 dark:text-red-400 border border-red-500 dark:border-red-400 hover:bg-red-300/20': isOutlined && props.severity === 'danger'
+    };
+}
 
 export const TRANSITIONS = {
     toggleable: {
         timeout: 500,
-        classNames: {
-            enter: 'max-h-0',
-            enterActive: '!max-h-[1000px] overflow-hidden transition-[max-height] duration-500 ease-in',
-            exit: 'max-h-[1000px]',
-            exitActive: '!max-h-0 overflow-hidden transition-[max-height] duration-500 ease-out'
-        }
+        classNames: { enter: 'max-h-0', enterActive: '!max-h-[1000px] overflow-hidden transition-[max-height] duration-500 ease-in', exit: 'max-h-[1000px]', exitActive: '!max-h-0 overflow-hidden transition-[max-height] duration-500 ease-out' }
     },
     overlay: {
         timeout: 150,
-        classNames: {
-            enter: 'opacity-0 scale-75',
-            enterActive: 'opacity-100 !scale-100 transition-transform transition-opacity duration-150 ease-in',
-            exit: 'opacity-100',
-            exitActive: '!opacity-0 transition-opacity duration-150 ease-linear'
-        }
+        classNames: { enter: 'opacity-0 scale-75', enterActive: 'opacity-100 !scale-100 transition-transform transition-opacity duration-150 ease-in', exit: 'opacity-100', exitActive: '!opacity-0 transition-opacity duration-150 ease-linear' }
     }
 };
-
 const Tailwind = {
     global: {
         css: `
@@ -98,8 +154,7 @@ const Tailwind = {
             }
         }
 `
-    },
-    //PANELS
+    }, //PANELS
     panel: {
         header: ({ props }) => ({
             className: classNames(
@@ -187,11 +242,7 @@ const Tailwind = {
                     'min-h-full mx-4 md:mx-5 py-5 before:block before:min-h-full before:absolute before:left-1/2 before:top-0 before:transform before:-translate-x-1/2 before:border-l before:border-gray-300 before:dark:border-blue-900/40':
                         props.layout == 'vertical' // Padding and borders for vertical layout.
                 },
-                {
-                    'before:border-solid': props.type == 'solid',
-                    'before:border-dotted': props.type == 'dotted',
-                    'before:border-dashed': props.type == 'dashed'
-                } // Border type condition.
+                { 'before:border-solid': props.type == 'solid', 'before:border-dotted': props.type == 'dotted', 'before:border-dashed': props.type == 'dashed' } // Border type condition.
             )
         }),
         content: 'px-1 bg-white z-10 dark:bg-gray-900' // Padding and background color.
@@ -227,12 +278,8 @@ const Tailwind = {
     scrollpanel: {
         wrapper: 'overflow-hidden relative float-left h-full w-full z-[1]',
         content: 'box-border h-[calc(100%+18px)] overflow-scroll pr-[18px] pb-[18px] pl-0 pt-0 relative scrollbar-none w-[calc(100%+18px)] [&::-webkit-scrollbar]:hidden',
-        barX: {
-            className: classNames('relative bg-gray-100 invisible rounded cursor-pointer h-[9px] bottom-0 z-[2]', 'transition duration-[250ms] ease-linear')
-        },
-        barY: {
-            className: classNames('relative bg-gray-100 rounded cursor-pointer w-[9px] top-0 z-[2]', 'transition duration-[250ms] ease-linear')
-        }
+        barX: { className: classNames('relative bg-gray-100 invisible rounded cursor-pointer h-[9px] bottom-0 z-[2]', 'transition duration-[250ms] ease-linear') },
+        barY: { className: classNames('relative bg-gray-100 rounded cursor-pointer w-[9px] top-0 z-[2]', 'transition duration-[250ms] ease-linear') }
     },
     tabview: {
         navContainer: ({ props }) => ({
@@ -279,23 +326,12 @@ const Tailwind = {
     },
     splitter: {
         root: ({ props, state }) => ({
-            className: classNames('flex flex-nowrap bg-white dark:bg-gray-900 rounded-lg text-gray-700 dark:text-white/80', {
-                'border border-solid border-gray-300 dark:border-blue-900/40': !state.nested,
-                'flex-col': props.layout === 'vertical'
-            })
+            className: classNames('flex flex-nowrap bg-white dark:bg-gray-900 rounded-lg text-gray-700 dark:text-white/80', { 'border border-solid border-gray-300 dark:border-blue-900/40': !state.nested, 'flex-col': props.layout === 'vertical' })
         }),
         gutter: ({ props }) => ({
-            className: classNames('flex items-center justify-center shrink-0', 'transition-all duration-200 bg-gray-100 dark:bg-gray-800', {
-                'cursor-col-resize': props.layout == 'horizontal',
-                'cursor-row-resize': props.layout !== 'horizontal'
-            })
+            className: classNames('flex items-center justify-center shrink-0', 'transition-all duration-200 bg-gray-100 dark:bg-gray-800', { 'cursor-col-resize': props.layout == 'horizontal', 'cursor-row-resize': props.layout !== 'horizontal' })
         }),
-        gutterHandler: ({ props }) => ({
-            className: classNames('bg-gray-300 dark:bg-gray-600 transition-all duration-200', {
-                'h-7 w-[0.3rem]': props.layout == 'horizontal',
-                'w-7 h-[0.3rem]': props.layout == 'vertical'
-            })
-        })
+        gutterHandler: ({ props }) => ({ className: classNames('bg-gray-300 dark:bg-gray-600 transition-all duration-200', { 'h-7 w-[0.3rem]': props.layout == 'horizontal', 'w-7 h-[0.3rem]': props.layout == 'vertical' }) })
     },
     dialog: {
         root: ({ state }) => ({
@@ -303,9 +339,7 @@ const Tailwind = {
                 'transition-none transform-none !w-screen !h-screen !max-h-full !top-0 !left-0': state.maximized
             })
         }),
-        header: {
-            className: classNames('flex items-center justify-between shrink-0', 'bg-white text-gray-800 border-t-0  rounded-tl-lg rounded-tr-lg p-6', 'dark:bg-gray-900  dark:text-white/80')
-        },
+        header: { className: classNames('flex items-center justify-between shrink-0', 'bg-white text-gray-800 border-t-0  rounded-tl-lg rounded-tr-lg p-6', 'dark:bg-gray-900  dark:text-white/80') },
         headerTitle: 'font-bold text-lg',
         headerIcons: 'flex items-center',
         closeButton: {
@@ -318,17 +352,9 @@ const Tailwind = {
             )
         },
         closeButtonIcon: 'w-4 h-4 inline-block',
-        content: ({ props, state }) => ({
-            className: classNames('overflow-y-auto', 'bg-white text-gray-700 px-6 pb-8 pt-0', { 'rounded-bl-lg rounded-br-lg': !props.footer }, 'dark:bg-gray-900  dark:text-white/80 ', {
-                grow: state.maximized
-            })
-        }),
-        footer: {
-            className: classNames('flex gap-2 shrink-0 justify-end align-center', 'border-t-0 bg-white text-gray-700 px-6 pb-6 text-right rounded-b-lg', 'dark:bg-gray-900 dark:text-white/80')
-        },
-        mask: ({ state }) => ({
-            className: classNames('transition duration-200', { 'bg-black/40': state.containerVisible })
-        }),
+        content: ({ props, state }) => ({ className: classNames('overflow-y-auto', 'bg-white text-gray-700 px-6 pb-8 pt-0', { 'rounded-bl-lg rounded-br-lg': !props.footer }, 'dark:bg-gray-900  dark:text-white/80 ', { grow: state.maximized }) }),
+        footer: { className: classNames('flex gap-2 shrink-0 justify-end align-center', 'border-t-0 bg-white text-gray-700 px-6 pb-6 text-right rounded-b-lg', 'dark:bg-gray-900 dark:text-white/80') },
+        mask: ({ state }) => ({ className: classNames('transition duration-200', { 'bg-black/40': state.containerVisible }) }),
         transition: ({ props }) => {
             return {
                 timeout: 200,
@@ -340,33 +366,41 @@ const Tailwind = {
                               exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
                               exitActive: '!opacity-0 !scale-75 translate-x-0 -translate-y-full translate-z-0'
                           }
-                        : props.position === 'bottom'
-                          ? {
-                                enter: 'opacity-0 scale-75 translate-y-full',
-                                enterActive: '!opacity-100 !scale-100 !translate-y-0 transition-all duration-200 ease-out',
-                                exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
-                                exitActive: '!opacity-0 !scale-75 translate-x-0 translate-y-full translate-z-0'
-                            }
-                          : props.position === 'left' || props.position === 'top-left' || props.position === 'bottom-left'
-                            ? {
-                                  enter: 'opacity-0 scale-75 -translate-x-full translate-y-0 translate-z-0',
-                                  enterActive: '!opacity-100 !scale-100 !translate-x-0 transition-all duration-200 ease-out',
+                        : resolveConditional(
+                              props.position === 'bottom',
+                              () => ({
+                                  enter: 'opacity-0 scale-75 translate-y-full',
+                                  enterActive: '!opacity-100 !scale-100 !translate-y-0 transition-all duration-200 ease-out',
                                   exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
-                                  exitActive: '!opacity-0 !scale-75 -translate-x-full translate-y-0 translate-z-0'
-                              }
-                            : props.position === 'right' || props.position === 'top-right' || props.position === 'bottom-right'
-                              ? {
-                                    enter: 'opacity-0 scale-75 translate-x-full translate-y-0 translate-z-0',
-                                    enterActive: '!opacity-100 !scale-100 !translate-x-0 transition-all duration-200 ease-out',
-                                    exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
-                                    exitActive: '!opacity-0 !scale-75 translate-x-full translate-y-0 translate-z-0'
-                                }
-                              : {
-                                    enter: 'opacity-0 scale-75',
-                                    enterActive: '!opacity-100 !scale-100 transition-all duration-200 ease-out',
-                                    exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
-                                    exitActive: '!opacity-0 !scale-75'
-                                }
+                                  exitActive: '!opacity-0 !scale-75 translate-x-0 translate-y-full translate-z-0'
+                              }),
+                              () =>
+                                  resolveConditional(
+                                      props.position === 'left' || props.position === 'top-left' || props.position === 'bottom-left',
+                                      () => ({
+                                          enter: 'opacity-0 scale-75 -translate-x-full translate-y-0 translate-z-0',
+                                          enterActive: '!opacity-100 !scale-100 !translate-x-0 transition-all duration-200 ease-out',
+                                          exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
+                                          exitActive: '!opacity-0 !scale-75 -translate-x-full translate-y-0 translate-z-0'
+                                      }),
+                                      () =>
+                                          resolveConditional(
+                                              props.position === 'right' || props.position === 'top-right' || props.position === 'bottom-right',
+                                              () => ({
+                                                  enter: 'opacity-0 scale-75 translate-x-full translate-y-0 translate-z-0',
+                                                  enterActive: '!opacity-100 !scale-100 !translate-x-0 transition-all duration-200 ease-out',
+                                                  exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
+                                                  exitActive: '!opacity-0 !scale-75 translate-x-full translate-y-0 translate-z-0'
+                                              }),
+                                              () => ({
+                                                  enter: 'opacity-0 scale-75',
+                                                  enterActive: '!opacity-100 !scale-100 transition-all duration-200 ease-out',
+                                                  exit: 'opacity-100 scale-100 transition-all duration-200 ease-out',
+                                                  exitActive: '!opacity-0 !scale-75'
+                                              })
+                                          )
+                                  )
+                          )
             };
         }
     },
@@ -429,9 +463,7 @@ const Tailwind = {
                 'dark:border dark:border-blue-900/40 dark:bg-gray-900 dark:text-white/80'
             )
         }),
-        header: {
-            className: classNames('flex items-center justify-end', 'p-5')
-        },
+        header: { className: classNames('flex items-center justify-end', 'p-5') },
         closeButton: {
             className: classNames(
                 'flex items-center justify-center overflow-hidden relative',
@@ -442,70 +474,55 @@ const Tailwind = {
             )
         },
         closeButtonIcon: 'w-4 h-4 inline-block',
-        content: {
-            className: classNames('p-5 pt-0 h-full w-full', 'grow overflow-y-auto')
-        },
-        mask: {
-            className: classNames('flex pointer-events-auto', 'bg-black bg-opacity-40 transition duration-200 z-20 transition-colors')
-        },
+        content: { className: classNames('p-5 pt-0 h-full w-full', 'grow overflow-y-auto') },
+        mask: { className: classNames('flex pointer-events-auto', 'bg-black bg-opacity-40 transition duration-200 z-20 transition-colors') },
         transition: ({ props }) => {
             return {
                 timeout: 300,
                 classNames: props.fullScreen
-                    ? {
-                          enter: 'opacity-0',
-                          enterActive: '!opacity-100 transition-opacity duration-300 ease-in',
-                          exit: 'opacity-100 transition-opacity duration-300 ease-in',
-                          exitActive: '!opacity-0'
-                      }
-                    : props.position === 'top'
-                      ? {
-                            enter: 'translate-x-0 -translate-y-full translate-z-0',
-                            enterActive: '!translate-y-0 transition-transform duration-300',
-                            exit: 'translate-y-0 transition-transform duration-300',
-                            exitActive: 'translate-x-0 !-translate-y-full translate-z-0'
-                        }
-                      : props.position === 'bottom'
-                        ? {
-                              enter: 'translate-x-0 translate-y-full translate-z-0',
+                    ? { enter: 'opacity-0', enterActive: '!opacity-100 transition-opacity duration-300 ease-in', exit: 'opacity-100 transition-opacity duration-300 ease-in', exitActive: '!opacity-0' }
+                    : resolveConditional(
+                          props.position === 'top',
+                          () => ({
+                              enter: 'translate-x-0 -translate-y-full translate-z-0',
                               enterActive: '!translate-y-0 transition-transform duration-300',
                               exit: 'translate-y-0 transition-transform duration-300',
-                              exitActive: 'translate-x-0 !translate-y-full translate-z-0'
-                          }
-                        : props.position === 'left'
-                          ? {
-                                enter: '-translate-x-full translate-y-0 translate-z-0',
-                                enterActive: '!translate-x-0 transition-transform duration-300',
-                                exit: 'translate-x-0 transition-transform duration-300',
-                                exitActive: '!-translate-x-full translate-y-0 translate-z-0'
-                            }
-                          : props.position === 'right'
-                            ? {
-                                  enter: 'translate-x-full translate-y-0 translate-z-0',
-                                  enterActive: '!translate-x-0 transition-transform duration-300',
-                                  exit: 'translate-x-0 transition-transform duration-300',
-                                  exitActive: '!translate-x-full translate-y-0 translate-z-0'
-                              }
-                            : undefined
+                              exitActive: 'translate-x-0 !-translate-y-full translate-z-0'
+                          }),
+                          () =>
+                              resolveConditional(
+                                  props.position === 'bottom',
+                                  () => ({
+                                      enter: 'translate-x-0 translate-y-full translate-z-0',
+                                      enterActive: '!translate-y-0 transition-transform duration-300',
+                                      exit: 'translate-y-0 transition-transform duration-300',
+                                      exitActive: 'translate-x-0 !translate-y-full translate-z-0'
+                                  }),
+                                  () =>
+                                      resolveConditional(
+                                          props.position === 'left',
+                                          () => ({
+                                              enter: '-translate-x-full translate-y-0 translate-z-0',
+                                              enterActive: '!translate-x-0 transition-transform duration-300',
+                                              exit: 'translate-x-0 transition-transform duration-300',
+                                              exitActive: '!-translate-x-full translate-y-0 translate-z-0'
+                                          }),
+                                          () => resolveConditional(props.position === 'right', handleSonarNested1.bind(null), handleSonarNested2.bind(null))
+                                      )
+                              )
+                      )
             };
         }
     },
     toolbar: {
-        root: {
-            className: classNames('flex items-center justify-between flex-wrap', 'bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-blue-900/40  p-5 rounded-md gap-2')
-        },
+        root: { className: classNames('flex items-center justify-between flex-wrap', 'bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-blue-900/40  p-5 rounded-md gap-2') },
         start: 'flex items-center',
         center: 'flex items-center',
         end: 'flex items-center'
     },
     tooltip: {
         root: ({ context }) => {
-            return {
-                className: classNames('absolute shadow-md', {
-                    'py-0 px-1': context.right || context.left || (!context.right && !context.left && !context.top && !context.bottom),
-                    'py-1 px-0': context.top || context.bottom
-                })
-            };
+            return { className: classNames('absolute shadow-md', { 'py-0 px-1': context.right || context.left || (!context.right && !context.left && !context.top && !context.bottom), 'py-1 px-0': context.top || context.bottom }) };
         },
         arrow: ({ context }) => ({
             className: classNames('absolute w-0 h-0 border-transparent border-solid', {
@@ -515,61 +532,39 @@ const Tailwind = {
                 '-ml-1 border-x-[0.25rem] border-b-[0.25rem] border-t-0 border-b-gray-600': context.bottom
             })
         }),
-        text: {
-            className: 'p-3 bg-gray-600 text-white rounded-md whitespace-pre-line break-words'
-        }
-    },
-    //UPLOAD
+        text: { className: 'p-3 bg-gray-600 text-white rounded-md whitespace-pre-line break-words' }
+    }, //UPLOAD
     fileupload: {
         input: 'hidden',
-        buttonbar: {
-            className: classNames('flex flex-wrap', 'bg-gray-50 dark:bg-gray-800 p-5 border border-solid border-gray-300 dark:border-blue-900/40 text-gray-700 dark:text-white/80 rounded-tr-lg rounded-tl-lg gap-2 border-b-0')
-        },
-        basicButton: {
-            className: classNames('text-white bg-blue-500 border border-blue-500 p-3 px-5 rounded-md text-base', 'overflow-hidden relative')
-        },
-        chooseButton: {
-            className: classNames('text-white bg-blue-500 border border-blue-500 p-3 px-5 rounded-md text-base', 'overflow-hidden relative')
-        },
+        buttonbar: { className: classNames('flex flex-wrap', 'bg-gray-50 dark:bg-gray-800 p-5 border border-solid border-gray-300 dark:border-blue-900/40 text-gray-700 dark:text-white/80 rounded-tr-lg rounded-tl-lg gap-2 border-b-0') },
+        basicButton: { className: classNames('text-white bg-blue-500 border border-blue-500 p-3 px-5 rounded-md text-base', 'overflow-hidden relative') },
+        chooseButton: { className: classNames('text-white bg-blue-500 border border-blue-500 p-3 px-5 rounded-md text-base', 'overflow-hidden relative') },
         chooseIcon: 'mr-2 inline-block',
         chooseButtonLabel: 'flex-1 font-bold',
-        uploadButton: {
-            icon: 'mr-2'
-        },
-        cancelButton: {
-            icon: 'mr-2'
-        },
-        content: {
-            className: classNames('relative', 'bg-white dark:bg-gray-900 p-8 border border-gray-300 dark:border-blue-900/40 text-gray-700 dark:text-white/80 rounded-b-lg')
-        },
-        file: {
-            className: classNames('flex items-center flex-wrap', 'p-4 border border-gray-300 dark:border-blue-900/40 rounded gap-2 mb-2', 'last:mb-0')
-        },
+        uploadButton: { icon: 'mr-2' },
+        cancelButton: { icon: 'mr-2' },
+        content: { className: classNames('relative', 'bg-white dark:bg-gray-900 p-8 border border-gray-300 dark:border-blue-900/40 text-gray-700 dark:text-white/80 rounded-b-lg') },
+        file: { className: classNames('flex items-center flex-wrap', 'p-4 border border-gray-300 dark:border-blue-900/40 rounded gap-2 mb-2', 'last:mb-0') },
         thumbnail: 'shrink-0',
         fileName: 'mb-2',
         fileSize: 'mr-2',
         uploadIcon: 'mr-2'
-    },
-    //Messages
+    }, //Messages
     messages: {
         root: ({ state, index }) => {
             return {
                 className: classNames('my-4 rounded-md', {
-                    'bg-blue-100 border-solid border-0 border-l-4 border-blue-500 text-blue-700': state.messages[index] && state.messages[index].message.severity == 'info',
-                    'bg-green-100 border-solid border-0 border-l-4 border-green-500 text-green-700': state.messages[index] && state.messages[index].message.severity == 'success',
-                    'bg-orange-100 border-solid border-0 border-l-4 border-orange-500 text-orange-700': state.messages[index] && state.messages[index].message.severity == 'warn',
-                    'bg-red-100 border-solid border-0 border-l-4 border-red-500 text-red-700': state.messages[index] && state.messages[index].message.severity == 'error'
+                    'bg-blue-100 border-solid border-0 border-l-4 border-blue-500 text-blue-700': state.messages[index]?.message.severity == 'info',
+                    'bg-green-100 border-solid border-0 border-l-4 border-green-500 text-green-700': state.messages[index]?.message.severity == 'success',
+                    'bg-orange-100 border-solid border-0 border-l-4 border-orange-500 text-orange-700': state.messages[index]?.message.severity == 'warn',
+                    'bg-red-100 border-solid border-0 border-l-4 border-red-500 text-red-700': state.messages[index]?.message.severity == 'error'
                 })
             };
         },
         wrapper: 'flex items-center py-5 px-7',
-        icon: {
-            className: classNames('w-6 h-6', 'text-lg mr-2')
-        },
+        icon: { className: classNames('w-6 h-6', 'text-lg mr-2') },
         text: 'text-base font-normal',
-        button: {
-            className: classNames('w-8 h-8 rounded-full bg-transparent transition duration-200 ease-in-out', 'ml-auto overflow-hidden relative', 'flex items-center justify-center', 'hover:bg-white/30')
-        },
+        button: { className: classNames('w-8 h-8 rounded-full bg-transparent transition duration-200 ease-in-out', 'ml-auto overflow-hidden relative', 'flex items-center justify-center', 'hover:bg-white/30') },
         transition: {
             timeout: 300,
             classNames: {
@@ -592,27 +587,21 @@ const Tailwind = {
         icon: 'text-base mr-2'
     },
     toast: {
-        root: {
-            className: classNames('w-96', 'opacity-90')
-        },
+        root: { className: classNames('w-96', 'opacity-90') },
         message: ({ state, index }) => ({
             className: classNames('my-4 rounded-md w-full', {
-                'bg-blue-100 border-solid border-0 border-l-4 border-blue-500 text-blue-700': state.messages[index] && state.messages[index].message.severity == 'info',
-                'bg-green-100 border-solid border-0 border-l-4 border-green-500 text-green-700': state.messages[index] && state.messages[index].message.severity == 'success',
-                'bg-orange-100 border-solid border-0 border-l-4 border-orange-500 text-orange-700': state.messages[index] && state.messages[index].message.severity == 'warn',
-                'bg-red-100 border-solid border-0 border-l-4 border-red-500 text-red-700': state.messages[index] && state.messages[index].message.severity == 'error'
+                'bg-blue-100 border-solid border-0 border-l-4 border-blue-500 text-blue-700': state.messages[index]?.message.severity == 'info',
+                'bg-green-100 border-solid border-0 border-l-4 border-green-500 text-green-700': state.messages[index]?.message.severity == 'success',
+                'bg-orange-100 border-solid border-0 border-l-4 border-orange-500 text-orange-700': state.messages[index]?.message.severity == 'warn',
+                'bg-red-100 border-solid border-0 border-l-4 border-red-500 text-red-700': state.messages[index]?.message.severity == 'error'
             })
         }),
         content: 'flex items-center py-5 px-7',
-        icon: {
-            className: classNames('w-6 h-6', 'text-lg mr-2')
-        },
+        icon: { className: classNames('w-6 h-6', 'text-lg mr-2') },
         text: 'text-base font-normal flex flex-col flex-1 grow shrink ml-4',
         summary: 'font-bold block',
         detail: 'mt-1 block',
-        closeButton: {
-            className: classNames('w-8 h-8 rounded-full bg-transparent transition duration-200 ease-in-out', 'ml-auto overflow-hidden relative', 'flex items-center justify-center', 'hover:bg-white/30')
-        },
+        closeButton: { className: classNames('w-8 h-8 rounded-full bg-transparent transition duration-200 ease-in-out', 'ml-auto overflow-hidden relative', 'flex items-center justify-center', 'hover:bg-white/30') },
         transition: {
             timeout: { enter: 300, exit: 500 },
             classNames: {
@@ -650,46 +639,13 @@ const Tailwind = {
                     'focus:shadow-[0_0_0_2px_rgba(255,255,255,1),0_0_0_4px_rgba(247,162,162,1),0_1px_2px_0_rgba(0,0,0,1)] dark:focus:shadow-[0_0_0_2px_rgba(28,33,39,1),0_0_0_4px_rgba(252,165,165,0.7),0_1px_2px_0_rgba(0,0,0,0)]':
                         props.severity === 'danger'
                 },
-                {
-                    'text-white dark:text-gray-900 bg-gray-500 dark:bg-gray-400 border border-gray-500 dark:border-gray-400 hover:bg-gray-600 dark:hover:bg-gray-500 hover:border-gray-600 dark:hover:border-gray-500':
-                        props.severity === 'secondary' && !props.text && !props.outlined && !props.plain,
-                    'text-white dark:text-gray-900 bg-green-500 dark:bg-green-400 border border-green-500 dark:border-green-400 hover:bg-green-600 dark:hover:bg-green-500 hover:border-green-600 dark:hover:border-green-500':
-                        props.severity === 'success' && !props.text && !props.outlined && !props.plain,
-                    'text-white dark:text-gray-900 dark:bg-blue-400 bg-blue-500 dark:bg-blue-400 border border-blue-500 dark:border-blue-400 hover:bg-blue-600 hover:border-blue-600 dark:hover:bg-blue-500 dark:hover:border-blue-500':
-                        props.severity === 'info' && !props.text && !props.outlined && !props.plain,
-                    'text-white dark:text-gray-900 bg-orange-500 dark:bg-orange-400 border border-orange-500 dark:border-orange-400 hover:bg-orange-600 dark:hover:bg-orange-500 hover:border-orange-600 dark:hover:border-orange-500':
-                        props.severity === 'warning' && !props.text && !props.outlined && !props.plain,
-                    'text-white dark:text-gray-900 bg-purple-500 dark:bg-purple-400 border border-purple-500 dark:border-purple-400 hover:bg-purple-600 dark:hover:bg-purple-500 hover:border-purple-600 dark:hover:border-purple-500':
-                        props.severity === 'help' && !props.text && !props.outlined && !props.plain,
-                    'text-white dark:text-gray-900 bg-red-500 dark:bg-red-400 border border-red-500 dark:border-red-400 hover:bg-red-600 dark:hover:bg-red-500 hover:border-red-600 dark:hover:border-red-500':
-                        props.severity === 'danger' && !props.text && !props.outlined && !props.plain
-                },
+                getFilledButtonClasses(props),
                 { 'shadow-lg': props.raised },
                 { 'rounded-md': !props.rounded, 'rounded-full': props.rounded },
-                {
-                    'bg-transparent border-transparent': props.text && !props.plain,
-                    'text-blue-500 dark:text-blue-400 hover:bg-blue-300/20': props.text && (props.severity === null || props.severity === 'info') && !props.plain,
-                    'text-gray-500 dark:text-gray-400 hover:bg-gray-300/20': props.text && props.severity === 'secondary' && !props.plain,
-                    'text-green-500 dark:text-green-400 hover:bg-green-300/20': props.text && props.severity === 'success' && !props.plain,
-                    'text-orange-500 dark:text-orange-400 hover:bg-orange-300/20': props.text && props.severity === 'warning' && !props.plain,
-                    'text-purple-500 dark:text-purple-400 hover:bg-purple-300/20': props.text && props.severity === 'help' && !props.plain,
-                    'text-red-500 dark:text-red-400 hover:bg-red-300/20': props.text && props.severity === 'danger' && !props.plain
-                },
+                getTextButtonClasses(props),
                 { 'shadow-lg': props.raised && props.text },
-                {
-                    'text-gray-500 hover:bg-gray-300/20': props.plain & props.text,
-                    'text-gray-500 border border-gray-500 hover:bg-gray-300/20': props.plain & props.outlined,
-                    'text-white bg-gray-500 border border-gray-500 hover:bg-gray-600 hover:border-gray-600': props.plain & !props.outlined & !props.text
-                },
-                {
-                    'bg-transparent border': props.outlined && !props.plain,
-                    'text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 hover:bg-blue-300/20': props.outlined && (props.severity === null || props.severity === 'info') && !props.plain,
-                    'text-gray-500 dark:text-gray-400 border border-gray-500 dark:border-gray-400 hover:bg-gray-300/20': props.outlined && props.severity === 'secondary' && !props.plain,
-                    'text-green-500 dark:text-green-400 border border-green-500 dark:border-green-400 hover:bg-green-300/20': props.outlined && props.severity === 'success' && !props.plain,
-                    'text-orange-500 dark:text-orange-400 border border-orange-500 dark:border-orange-400 hover:bg-orange-300/20': props.outlined && props.severity === 'warning' && !props.plain,
-                    'text-purple-500 dark:text-purple-400 border border-purple-500 dark:border-purple-400 hover:bg-purple-300/20': props.outlined && props.severity === 'help' && !props.plain,
-                    'text-red-500 dark:text-red-400 border border-red-500 dark:border-red-400 hover:bg-red-300/20': props.outlined && props.severity === 'danger' && !props.plain
-                },
+                getPlainButtonClasses(props),
+                getOutlinedButtonClasses(props),
                 { 'px-4 py-3 text-base': props.size === null, 'text-xs py-2 px-3': props.size === 'small', 'text-xl py-3 px-4': props.size === 'large' },
                 { 'flex-column': props.iconPos == 'top' || props.iconPos == 'bottom' },
                 { 'opacity-60 pointer-events-none cursor-default': context?.disabled }
@@ -3319,7 +3275,13 @@ const Tailwind = {
                 className: classNames(
                     'text-left border-0 border-b border-solid border-gray-300 dark:border-blue-900/40 font-bold',
                     'transition duration-200',
-                    context?.size === 'small' ? 'p-2' : context?.size === 'large' ? 'p-5' : 'p-4', // Size
+                    context?.size === 'small'
+                        ? 'p-2'
+                        : resolveConditional(
+                              context?.size === 'large',
+                              () => 'p-5',
+                              () => 'p-4'
+                          ), // Size
                     context.sorted ? 'bg-blue-50 text-blue-700' : 'bg-slate-50 text-slate-700', // Sort
                     context.sorted ? 'dark:text-white/80 dark:bg-blue-300' : 'dark:text-white/80 dark:bg-gray-900', // Dark Mode
                     {
@@ -3333,7 +3295,13 @@ const Tailwind = {
             bodyCell: ({ props, context }) => ({
                 className: classNames(
                     'text-left border-0 border-b border-solid border-gray-300',
-                    context?.size === 'small' ? 'p-2' : context?.size === 'large' ? 'p-5' : 'p-4', // Size
+                    context?.size === 'small'
+                        ? 'p-2'
+                        : resolveConditional(
+                              context?.size === 'large',
+                              () => 'p-5',
+                              () => 'p-4'
+                          ), // Size
                     'dark:text-white/80 dark:border-blue-900/40', // Dark Mode
                     {
                         'sticky bg-inherit': props && (props.frozen || props.frozen === ''), // Frozen Columns
@@ -3346,7 +3314,13 @@ const Tailwind = {
                     'text-left border-0 border-b border-solid border-gray-300 font-bold',
                     'bg-slate-50 text-slate-700',
                     'transition duration-200',
-                    context?.size === 'small' ? 'p-2' : context?.size === 'large' ? 'p-5' : 'p-4', // Size
+                    context?.size === 'small'
+                        ? 'p-2'
+                        : resolveConditional(
+                              context?.size === 'large',
+                              () => 'p-5',
+                              () => 'p-4'
+                          ), // Size
                     'dark:text-white/80 dark:bg-gray-900 dark:border-blue-900/40', // Dark Mode
                     {
                         'border-x border-y': context.showGridlines
@@ -3525,7 +3499,13 @@ const Tailwind = {
         bodyRow: ({ context }) => ({
             className: classNames(
                 context.selected ? 'bg-blue-50 text-blue-700 dark:bg-blue-300' : 'bg-white text-gray-600 dark:bg-gray-900',
-                context.stripedRows ? (context.index % 2 === 0 ? 'bg-white text-gray-600 dark:bg-gray-900' : 'bg-blue-50/50 text-gray-600 dark:bg-gray-950') : '',
+                context.stripedRows
+                    ? resolveConditional(
+                          context.index % 2 === 0,
+                          () => 'bg-white text-gray-600 dark:bg-gray-900',
+                          () => 'bg-blue-50/50 text-gray-600 dark:bg-gray-950'
+                      )
+                    : '',
                 'transition duration-200',
                 'focus:outline focus:outline-[0.15rem] focus:outline-blue-200 focus:outline-offset-[-0.15rem]', // Focus
                 'dark:text-white/80 dark:focus:outline dark:focus:outline-[0.15rem] dark:focus:outline-blue-300 dark:focus:outline-offset-[-0.15rem]', // Dark Mode

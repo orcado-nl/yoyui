@@ -11,22 +11,10 @@ export function PositionDoc(props) {
     const [inside, setInside] = useState(false);
     const [position, setPosition] = useState('bottom');
     const positionOptions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Top', value: 'top' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
     ];
 
     useEffect(() => {

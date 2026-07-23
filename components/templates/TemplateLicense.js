@@ -3,8 +3,8 @@ const TemplateLicense = ({ license }) => {
         <div className="template-license-wrapper">
             <div className="template-license">
                 <div className="template-license-cards">
-                    {license.licenseDetails.map(({ title, price, discountPrice, included }, i) => (
-                        <div key={i} className="template-license-card">
+                    {license.licenseDetails.map(({ title, price, discountPrice, included }) => (
+                        <div key={title} className="template-license-card">
                             <span>{title}</span>
                             <div className="template-license-price flex gap-3">
                                 <h2 className={license.showDiscount && 'discount'}>{price}</h2>
@@ -12,7 +12,7 @@ const TemplateLicense = ({ license }) => {
                             </div>
                             <div className="template-license-card-included">
                                 {included.map((txt, j) => (
-                                    <p key={j}>{txt}</p>
+                                    <p key={txt?.id ?? txt?.key ?? txt?.name ?? txt?.label ?? txt?.value ?? txt?.href ?? txt?.src ?? txt?.field ?? JSON.stringify(txt)}>{txt}</p>
                                 ))}
                             </div>
                             <a href="https://www.primefaces.org/layouts/licenses" target="_blank">

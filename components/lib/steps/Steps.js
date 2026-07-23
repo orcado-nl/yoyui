@@ -10,23 +10,12 @@ export const Steps = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = StepsBase.getProps(inProps, context);
-
         const [idState, setIdState] = React.useState(props.id);
         const elementRef = React.useRef(null);
         const listRef = React.useRef(null);
         const count = React.Children.count(props.children);
-
-        const metaData = {
-            props,
-            state: {
-                id: idState,
-                activeIndex: props.activeIndex
-            }
-        };
-
-        const { ptm, ptmo, cx, isUnstyled } = StepsBase.setMetaData({
-            ...metaData
-        });
+        const metaData = { props, state: { id: idState, activeIndex: props.activeIndex } };
+        const { ptm, ptmo, cx, isUnstyled } = StepsBase.setMetaData({ ...metaData });
 
         useHandleStyle(StepsBase.css.styles, isUnstyled, { name: 'steps' });
 
@@ -34,14 +23,7 @@ export const Steps = React.memo(
             const stepMetaData = {
                 // props: step.props,
                 parent: metaData,
-                context: {
-                    index,
-                    count,
-                    first: index === 0,
-                    last: index === count - 1,
-                    active: index === props.activeIndex,
-                    disabled: getStepProp(step, 'disabled')
-                }
+                context: { index, count, first: index === 0, last: index === count - 1, active: index === props.activeIndex, disabled: getStepProp(step, 'disabled') }
             };
 
             return mergeProps(ptm(`step.${key}`, { step: stepMetaData }), ptm(`steps.${key}`, { steps: stepMetaData }), ptm(`steps.${key}`, stepMetaData), ptmo(getStepProp(step, 'pt'), key, stepMetaData));
@@ -57,19 +39,11 @@ export const Steps = React.memo(
             }
 
             if (props.onSelect) {
-                props.onSelect({
-                    originalEvent: event,
-                    item,
-                    index
-                });
+                props.onSelect({ originalEvent: event, item, index });
             }
 
             if (item.command) {
-                item.command({
-                    originalEvent: event,
-                    item,
-                    index
-                });
+                item.command({ originalEvent: event, item, index });
             }
 
             if (!item.url) {
@@ -88,33 +62,26 @@ export const Steps = React.memo(
                     navigateToNextItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'ArrowLeft':
                     navigateToPrevItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'Home':
                     navigateToFirstItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'End':
                     navigateToLastItem(event.target);
                     event.preventDefault();
                     break;
-
-                case 'Tab':
-                    //no op
+                case 'Tab': //no op
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                 case 'Space':
                     itemClick(event, item, index);
                     event.preventDefault();
                     break;
-
                 default:
                     break;
             }
@@ -133,13 +100,13 @@ export const Steps = React.memo(
         };
 
         const navigateToFirstItem = (target) => {
-            const firstItem = findFirstItem(target);
+            const firstItem = findFirstItem();
 
             firstItem && setFocusToMenuitem(target, firstItem);
         };
 
         const navigateToLastItem = (target) => {
-            const lastItem = findLastItem(target);
+            const lastItem = findLastItem();
 
             lastItem && setFocusToMenuitem(target, lastItem);
         };
@@ -165,13 +132,12 @@ export const Steps = React.memo(
         const findLastItem = () => {
             const siblings = DomHandler.find(listRef.current, '[data-pc-section="menuitem"]');
 
-            return siblings ? siblings[siblings.length - 1].children[0] : null;
+            return siblings ? siblings.at(-1).children[0] : null;
         };
 
         const setFocusToMenuitem = (target, focusableItem) => {
             target.tabIndex = '-1';
             focusableItem.tabIndex = '0';
-
             setTimeout(() => focusableItem.focus(), 0);
         };
 
@@ -190,33 +156,12 @@ export const Steps = React.memo(
             const key = item.id || idState + '_' + index;
             const active = index === props.activeIndex;
             const disabled = item.disabled || (index !== props.activeIndex && props.readOnly);
-
             const iconClassName = classNames('p-menuitem-icon', item.icon);
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon', { item })
-                },
-                getStepPT(item, 'icon', index)
-            );
-
+            const iconProps = mergeProps({ className: cx('icon', { item }) }, getStepPT(item, 'icon', index));
             const icon = IconUtils.getJSXIcon(item.icon, { ...iconProps }, { props });
-
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                getStepPT(item, 'label', index)
-            );
-
+            const labelProps = mergeProps({ className: cx('label') }, getStepPT(item, 'label', index));
             const label = item.label && <span {...labelProps}>{item.label}</span>;
-
-            const stepProps = mergeProps(
-                {
-                    className: cx('step')
-                },
-                getStepPT(item, 'step', index)
-            );
-
+            const stepProps = mergeProps({ className: cx('step') }, getStepPT(item, 'step', index));
             const actionProps = mergeProps(
                 {
                     href: item.url || '#',
@@ -229,7 +174,6 @@ export const Steps = React.memo(
                 },
                 getStepPT(item, 'action', index)
             );
-
             let content = (
                 <a {...actionProps}>
                     <span {...stepProps}>{index + 1}</span>
@@ -255,14 +199,7 @@ export const Steps = React.memo(
                 content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
             }
 
-            const menuItemProps = mergeProps(
-                {
-                    id: key,
-                    className: cx('menuitem', { active, disabled, item }),
-                    style: item.style
-                },
-                ptm('menuitem')
-            );
+            const menuItemProps = mergeProps({ id: key, className: cx('menuitem', { active, disabled, item }), style: item.style }, ptm('menuitem'));
 
             return (
                 <li {...menuItemProps} key={key}>
@@ -300,12 +237,7 @@ export const Steps = React.memo(
                 setIdState(UniqueComponentId());
             }
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => elementRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
         const rootProps = mergeProps(
             {
                 id: props.id,

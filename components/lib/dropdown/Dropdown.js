@@ -1,5 +1,6 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import PrimeReact, { FilterService, PrimeReactContext, localeOption } from '../api/Api';
+import { FilterService, PrimeReactContext, localeOption, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useDebounce, useMergeProps, useMountEffect, useOverlayListener, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { ChevronDownIcon } from '../icons/chevrondown';
@@ -31,21 +32,12 @@ export const Dropdown = React.memo(
         const virtualScrollerRef = React.useRef(null);
         const searchTimeout = React.useRef(null);
         const searchValue = React.useRef(null);
-        const isLazy = props.virtualScrollerOptions && props.virtualScrollerOptions.lazy;
+        const isLazy = props.virtualScrollerOptions?.lazy;
         const hasFilter = ObjectUtils.isNotEmpty(filterState);
-        const appendTo = props.appendTo || (context && context.appendTo) || PrimeReact.appendTo;
-        const { ptm, cx, sx, isUnstyled } = DropdownBase.setMetaData({
-            props,
-            ...props.__parentMetadata,
-            state: {
-                filter: filterState,
-                focused: focusedState,
-                overlayVisible: overlayVisibleState
-            }
-        });
+        const appendTo = props.appendTo || context?.appendTo || PrimeReactConfig.appendTo;
+        const { ptm, cx, sx, isUnstyled } = DropdownBase.setMetaData({ props, ...props.__parentMetadata, state: { filter: filterState, focused: focusedState, overlayVisible: overlayVisibleState } });
 
         useHandleStyle(DropdownBase.css.styles, isUnstyled, { name: 'dropdown' });
-
         const [bindOverlayListener, unbindOverlayListener] = useOverlayListener({
             target: elementRef,
             overlay: overlayRef,
@@ -68,10 +60,9 @@ export const Dropdown = React.memo(
         const flatOptions = (options) => {
             return (options || []).reduce((result, option, index) => {
                 result.push({ ...option, group: true, index });
-
                 const optionGroupChildren = getOptionGroupChildren(option);
 
-                optionGroupChildren && optionGroupChildren.forEach((o) => result.push(o));
+                optionGroupChildren?.forEach((o) => result.push(o));
 
                 return result;
             }, []);
@@ -90,8 +81,8 @@ export const Dropdown = React.memo(
                     for (let optgroup of props.options) {
                         let filteredSubOptions = FilterService.filter(getOptionGroupChildren(optgroup), searchFields, filterValue, props.filterMatchMode, props.filterLocale);
 
-                        if (filteredSubOptions && filteredSubOptions.length) {
-                            filteredGroups.push({ ...optgroup, ...{ [`${props.optionGroupChildren}`]: filteredSubOptions } });
+                        if (filteredSubOptions?.length) {
+                            filteredGroups.push({ ...optgroup, [`${props.optionGroupChildren}`]: filteredSubOptions });
                         }
                     }
 
@@ -125,9 +116,8 @@ export const Dropdown = React.memo(
                 return;
             }
 
-            props.onClick && props.onClick(event);
+            props.onClick?.(event); // do not continue if the user defined click wants to prevent it
 
-            // do not continue if the user defined click wants to prevent it
             if (event.defaultPrevented) {
                 return;
             }
@@ -149,7 +139,7 @@ export const Dropdown = React.memo(
             }
 
             setFocusedState(true);
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onInputBlur = (event) => {
@@ -168,34 +158,23 @@ export const Dropdown = React.memo(
                         preventDefault: () => {
                             event.originalEvent.preventDefault();
                         },
-                        target: {
-                            name: props.name,
-                            id: props.id,
-                            value: currentValue
-                        }
+                        target: { name: props.name, id: props.id, value: currentValue }
                     });
                 }, 200);
             }
         };
 
         const onOptionSelect = (event, option, isHide = true) => {
-            selectItem({
-                originalEvent: event,
-                option
-            });
+            selectItem({ originalEvent: event, option });
 
             if (isHide) {
-                hide(true);
-
+                hide();
                 DomHandler.focus(focusInputRef.current);
             }
         };
 
         const onPanelClick = (event) => {
-            OverlayService.emit('overlay-click', {
-                originalEvent: event,
-                target: elementRef.current
-            });
+            OverlayService.emit('overlay-click', { originalEvent: event, target: elementRef.current });
         };
 
         const onInputKeyDown = (event) => {
@@ -211,68 +190,55 @@ export const Dropdown = React.memo(
                 case 'ArrowDown':
                     onArrowDownKey(event);
                     break;
-
                 case 'ArrowUp':
                     onArrowUpKey(event);
                     break;
-
                 case 'ArrowLeft':
                 case 'ArrowRight':
                     onArrowLeftKey(event, props.editable);
                     break;
-
                 case 'Home':
                     onHomeKey(event, props.editable);
                     break;
-
                 case 'End':
                     onEndKey(event, props.editable);
                     break;
-
                 case 'PageDown':
                     onPageDownKey(event);
                     break;
-
                 case 'PageUp':
                     onPageUpKey(event);
                     break;
-
                 case 'Space':
                     onSpaceKey(event, props.editable);
                     break;
-
                 case 'NumpadEnter':
                 case 'Enter':
                     onEnterKey(event);
                     break;
-
                 case 'Escape':
                     onEscapeKey(event);
                     break;
-
                 case 'Tab':
                     onTabKey(event);
                     break;
-
                 case 'Backspace':
                     onBackspaceKey(event, props.editable);
                     break;
-
                 case 'ShiftLeft':
-                case 'ShiftRight':
-                    //NOOP
+                case 'ShiftRight': //NOOP
                     break;
 
-                default:
-                    const metaKey = event.metaKey || event.ctrlKey || event.altKey;
+                default: {
+                    const metaKey = event.metaKey || event.ctrlKey || event.altKey; // Only handle printable characters when no meta keys are pressed
 
-                    // Only handle printable characters when no meta keys are pressed
                     if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
                         !overlayVisibleState && !props.editable && show();
                         !props.editable && searchOptions(event, event.key);
                     }
 
                     break;
+                }
             }
 
             clickedRef.current = false;
@@ -283,22 +249,18 @@ export const Dropdown = React.memo(
                 case 'ArrowDown':
                     onArrowDownKey(event);
                     break;
-
                 case 'ArrowUp':
                     onArrowUpKey(event);
                     break;
-
                 case 'ArrowLeft':
                 case 'ArrowRight':
                     onArrowLeftKey(event, true);
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                     onEnterKey(event);
                     event.preventDefault();
                     break;
-
                 case 'Escape':
                     onEscapeKey(event);
                     break;
@@ -339,7 +301,6 @@ export const Dropdown = React.memo(
 
         const searchOptions = (event, char) => {
             searchValue.current = (searchValue.current || '') + char;
-
             let optionIndex = -1;
             let matched = false;
 
@@ -416,7 +377,7 @@ export const Dropdown = React.memo(
         const focusOnItem = (index) => {
             const focusedItem = DomHandler.findSingle(overlayRef.current, `li[id="dropdownItem_${index}"]`);
 
-            focusedItem && focusedItem.focus();
+            focusedItem?.focus();
         };
 
         const onArrowDownKey = (event) => {
@@ -424,7 +385,14 @@ export const Dropdown = React.memo(
                 show();
                 props.editable && changeFocusedOptionIndex(event, findSelectedOptionIndex());
             } else {
-                const optionIndex = focusedOptionIndex !== -1 ? findNextOptionIndex(focusedOptionIndex) : clickedRef.current ? findFirstOptionIndex() : findFirstFocusedOptionIndex();
+                const optionIndex =
+                    focusedOptionIndex !== -1
+                        ? findNextOptionIndex(focusedOptionIndex)
+                        : resolveConditional(
+                              clickedRef.current,
+                              () => findFirstOptionIndex(),
+                              () => findFirstFocusedOptionIndex()
+                          );
 
                 changeFocusedOptionIndex(event, optionIndex);
             }
@@ -432,8 +400,8 @@ export const Dropdown = React.memo(
             event.preventDefault();
         };
 
-        const onArrowUpKey = (event, pressedInInputText = false) => {
-            if (event.altKey && !pressedInInputText) {
+        const onArrowUpKey = (event) => {
+            if (event.altKey) {
                 if (focusedOptionIndex !== -1) {
                     onOptionSelect(event, visibleOptions[focusedOptionIndex]);
                 }
@@ -441,10 +409,16 @@ export const Dropdown = React.memo(
                 state.overlayVisible && hide();
                 event.preventDefault();
             } else {
-                const optionIndex = focusedOptionIndex !== -1 ? findPrevOptionIndex(focusedOptionIndex) : clickedRef.current ? findLastOptionIndex() : findLastFocusedOptionIndex();
+                const optionIndex =
+                    focusedOptionIndex !== -1
+                        ? findPrevOptionIndex(focusedOptionIndex)
+                        : resolveConditional(
+                              clickedRef.current,
+                              () => findLastOptionIndex(),
+                              () => findLastFocusedOptionIndex()
+                          );
 
                 changeFocusedOptionIndex(event, optionIndex);
-
                 !overlayVisibleState && show();
                 event.preventDefault();
             }
@@ -452,7 +426,6 @@ export const Dropdown = React.memo(
 
         const onArrowLeftKey = (event, pressedInInputText = false) => {
             if (!pressedInInputText) return;
-
             props.editable && DomHandler.focus(inputRef.current);
             setFocusedOptionIndex(-1);
         };
@@ -464,7 +437,6 @@ export const Dropdown = React.memo(
                 setFocusedOptionIndex(-1);
             } else {
                 changeFocusedOptionIndex(event, findFirstOptionIndex());
-
                 !overlayVisibleState && show();
             }
 
@@ -481,7 +453,6 @@ export const Dropdown = React.memo(
                 setFocusedOptionIndex(-1);
             } else {
                 changeFocusedOptionIndex(event, findLastOptionIndex());
-
                 !overlayVisibleState && show();
             }
 
@@ -535,7 +506,6 @@ export const Dropdown = React.memo(
             if (!pressedInInputText) {
                 if (overlayVisibleState && !hasFocusableElements()) {
                     DomHandler.focus(firstHiddenFocusableElementOnOverlay.current);
-
                     event.preventDefault();
                 } else {
                     if (focusedOptionIndex !== -1) {
@@ -596,10 +566,7 @@ export const Dropdown = React.memo(
                 if (option) {
                     return option;
                 } else if (groupIndex > 0) {
-                    return findPrevOption({
-                        group: groupIndex - 1,
-                        option: getOptionGroupChildren(visibleOptions[groupIndex - 1]).length
-                    });
+                    return findPrevOption({ group: groupIndex - 1, option: getOptionGroupChildren(visibleOptions[groupIndex - 1]).length });
                 }
 
                 return null;
@@ -622,9 +589,7 @@ export const Dropdown = React.memo(
 
         const findInArray = (visibleOptions, searchText) => {
             if (!searchText || !visibleOptions?.length) return -1;
-
             const normalizedSearch = searchText.toLocaleLowerCase();
-
             const exactMatch = visibleOptions.findIndex((item) => getOptionLabel(item).toLocaleLowerCase() === normalizedSearch);
 
             if (exactMatch !== -1) return exactMatch;
@@ -652,11 +617,7 @@ export const Dropdown = React.memo(
                     preventDefault: () => {
                         event.originalEvent.preventDefault();
                     },
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: event.target.value
-                    }
+                    target: { name: props.name, id: props.id, value: event.target.value }
                 });
             }
         };
@@ -664,7 +625,7 @@ export const Dropdown = React.memo(
         const onEditableInputFocus = (event) => {
             setFocusedState(true);
             hide();
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onOptionClick = (event) => {
@@ -684,10 +645,7 @@ export const Dropdown = React.memo(
             setFilterState(filter);
 
             if (props.onFilter) {
-                props.onFilter({
-                    originalEvent: event,
-                    filter
-                });
+                props.onFilter({ originalEvent: event, filter });
             }
         };
 
@@ -697,8 +655,8 @@ export const Dropdown = React.memo(
 
         const resetFilter = (callback) => {
             setFilterState('');
-            props.onFilter && props.onFilter({ filter: '' });
-            callback && callback();
+            props.onFilter?.({ filter: '' });
+            callback?.();
         };
 
         const clear = (event) => {
@@ -712,11 +670,7 @@ export const Dropdown = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: undefined
-                    }
+                    target: { name: props.name, id: props.id, value: undefined }
                 });
             }
 
@@ -733,7 +687,6 @@ export const Dropdown = React.memo(
                 updateEditableLabel(event.option);
                 setFocusedOptionIndex(-1);
                 const optionValue = getOptionValue(event.option);
-
                 const selectedOptionIndex = findOptionIndexInList(event.option, visibleOptions);
 
                 if (props.onChange) {
@@ -746,11 +699,7 @@ export const Dropdown = React.memo(
                         preventDefault: () => {
                             event.originalEvent.preventDefault();
                         },
-                        target: {
-                            name: props.name,
-                            id: props.id,
-                            value: optionValue
-                        }
+                        target: { name: props.name, id: props.id, value: optionValue }
                     });
                 }
 
@@ -793,7 +742,20 @@ export const Dropdown = React.memo(
         };
 
         const show = () => {
-            setFocusedOptionIndex(focusedOptionIndex !== -1 ? focusedOptionIndex : props.autoOptionFocus ? findFirstFocusedOptionIndex() : props.editable ? -1 : findSelectedOptionIndex());
+            setFocusedOptionIndex(
+                focusedOptionIndex !== -1
+                    ? focusedOptionIndex
+                    : resolveConditional(
+                          props.autoOptionFocus,
+                          () => findFirstFocusedOptionIndex(),
+                          () =>
+                              resolveConditional(
+                                  props.editable,
+                                  () => -1,
+                                  () => findSelectedOptionIndex()
+                              )
+                      )
+            );
             setOverlayVisibleState(true);
         };
 
@@ -809,17 +771,16 @@ export const Dropdown = React.memo(
         };
 
         const onOverlayEnter = (callback) => {
-            ZIndexUtils.set('overlay', overlayRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.overlay) || PrimeReact.zIndex.overlay);
+            ZIndexUtils.set('overlay', overlayRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.overlay || PrimeReactConfig.zIndex.overlay);
             DomHandler.addStyles(overlayRef.current, { position: 'absolute', top: '0', left: '0' });
             alignOverlay();
-            callback && callback();
+            callback?.();
         };
 
         const onOverlayEntered = (callback) => {
-            callback && callback();
+            callback?.();
             bindOverlayListener();
-
-            props.onShow && props.onShow();
+            props.onShow?.();
         };
 
         const onOverlayExit = () => {
@@ -832,23 +793,22 @@ export const Dropdown = React.memo(
             }
 
             ZIndexUtils.clear(overlayRef.current);
-
-            props.onHide && props.onHide();
+            props.onHide?.();
         };
 
         const alignOverlay = () => {
-            DomHandler.alignOverlay(overlayRef.current, inputRef.current.parentElement, props.appendTo || (context && context.appendTo) || PrimeReact.appendTo);
+            DomHandler.alignOverlay(overlayRef.current, inputRef.current.parentElement, props.appendTo || context?.appendTo || PrimeReactConfig.appendTo);
         };
 
         const scrollInView = () => {
             const focusedItem = DomHandler.findSingle(overlayRef.current, 'li[data-p-focused="true"]');
 
-            if (focusedItem && focusedItem.scrollIntoView) {
+            if (focusedItem?.scrollIntoView) {
                 focusedItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else {
                 const highlightItem = DomHandler.findSingle(overlayRef.current, 'li[data-p-highlight="true"]');
 
-                if (highlightItem && highlightItem.scrollIntoView) {
+                if (highlightItem?.scrollIntoView) {
                     highlightItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                 }
             }
@@ -856,9 +816,8 @@ export const Dropdown = React.memo(
 
         const updateEditableLabel = (option) => {
             if (inputRef.current) {
-                inputRef.current.value = option ? getOptionLabel(option) : props.value || '';
+                inputRef.current.value = option ? getOptionLabel(option) : props.value || ''; // #1413 NVDA screenreader
 
-                // #1413 NVDA screenreader
                 if (focusInputRef.current) {
                     focusInputRef.current.value = inputRef.current.value;
                 }
@@ -880,7 +839,13 @@ export const Dropdown = React.memo(
                 return option;
             }
 
-            const optionValue = props.optionValue ? ObjectUtils.resolveFieldData(option, props.optionValue) : option ? option['value'] : ObjectUtils.resolveFieldData(option, 'value');
+            const optionValue = props.optionValue
+                ? ObjectUtils.resolveFieldData(option, props.optionValue)
+                : resolveConditional(
+                      option,
+                      () => option['value'],
+                      () => ObjectUtils.resolveFieldData(option, 'value')
+                  );
 
             return props.optionValue || ObjectUtils.isNotEmpty(optionValue) ? optionValue : option;
         };
@@ -898,7 +863,7 @@ export const Dropdown = React.memo(
                 return ObjectUtils.isFunction(props.optionDisabled) ? props.optionDisabled(option) : ObjectUtils.resolveFieldData(option, props.optionDisabled);
             }
 
-            return option && option.disabled !== undefined ? option.disabled : false;
+            return option?.disabled !== undefined ? option.disabled : false;
         };
 
         const getOptionGroupRenderKey = (optionGroup) => {
@@ -918,9 +883,8 @@ export const Dropdown = React.memo(
                 const label = selectedOption ? getOptionLabel(selectedOption) : null;
                 const value = label || props.value || '';
 
-                inputRef.current.value = value;
+                inputRef.current.value = value; // #1413 NVDA screenreader
 
-                // #1413 NVDA screenreader
                 if (focusInputRef.current) {
                     focusInputRef.current.value = value;
                 }
@@ -930,7 +894,13 @@ export const Dropdown = React.memo(
         const getSelectedOption = () => {
             const index = getSelectedOptionIndex(props.options);
 
-            return index !== -1 ? (props.optionGroupLabel ? getOptionGroupChildren(props.options[index.group])[index.option] : props.options[index]) : null;
+            return index !== -1
+                ? resolveConditional(
+                      props.optionGroupLabel,
+                      () => getOptionGroupChildren(props.options[index.group])[index.option],
+                      () => props.options[index]
+                  )
+                : null;
         };
 
         React.useImperativeHandle(ref, () => ({
@@ -945,12 +915,10 @@ export const Dropdown = React.memo(
             getFocusInput: () => focusInputRef.current,
             getVirtualScroller: () => virtualScrollerRef.current
         }));
-
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
             ObjectUtils.combinedRefs(focusInputRef, props.focusInputRef);
         }, [inputRef, props.inputRef, focusInputRef, props.focusInputRef]);
-
         useMountEffect(() => {
             if (props.autoFocus) {
                 DomHandler.focus(focusInputRef.current, props.autoFocus);
@@ -958,23 +926,19 @@ export const Dropdown = React.memo(
 
             alignOverlay();
         });
-
         useUpdateEffect(() => {
             if (overlayVisibleState && (props.value || focusedOptionIndex >= 0)) {
                 scrollInView();
             }
         }, [overlayVisibleState, props.value, focusedOptionIndex]);
-
         useUpdateEffect(() => {
             if (overlayVisibleState && filterState && props.filter) {
                 alignOverlay();
             }
         }, [overlayVisibleState, filterState, props.filter]);
-
         useUpdateEffect(() => {
-            virtualScrollerRef.current && virtualScrollerRef.current.scrollInView(0);
+            virtualScrollerRef.current?.scrollInView(0);
         }, [filterState]);
-
         useUpdateEffect(() => {
             updateInputField();
 
@@ -982,7 +946,6 @@ export const Dropdown = React.memo(
                 inputRef.current.selectedIndex = 1;
             }
         });
-
         useUnmountEffect(() => {
             ZIndexUtils.clear(overlayRef.current);
         });
@@ -993,36 +956,12 @@ export const Dropdown = React.memo(
             if (selectedOption) {
                 const optionValue = getOptionValue(selectedOption);
 
-                option = {
-                    value: typeof optionValue === 'object' ? props.options.findIndex((o) => o === optionValue) : optionValue,
-                    label: getOptionLabel(selectedOption)
-                };
+                option = { value: typeof optionValue === 'object' ? props.options.indexOf(optionValue) : optionValue, label: getOptionLabel(selectedOption) };
             }
 
-            const hiddenSelectedMessageProps = mergeProps(
-                {
-                    className: 'p-hidden-accessible p-dropdown-hidden-select'
-                },
-                ptm('hiddenSelectedMessage')
-            );
-
-            const selectProps = mergeProps(
-                {
-                    ref: inputRef,
-                    required: props.required,
-                    defaultValue: option.value,
-                    name: props.name,
-                    tabIndex: -1
-                },
-                ptm('select')
-            );
-
-            const optionProps = mergeProps(
-                {
-                    value: option.value
-                },
-                ptm('option')
-            );
+            const hiddenSelectedMessageProps = mergeProps({ className: 'p-hidden-accessible p-dropdown-hidden-select' }, ptm('hiddenSelectedMessage'));
+            const selectProps = mergeProps({ ref: inputRef, required: props.required, defaultValue: option.value, name: props.name, tabIndex: -1 }, ptm('select'));
+            const optionProps = mergeProps({ value: option.value }, ptm('option'));
 
             return (
                 <div {...hiddenSelectedMessageProps}>
@@ -1040,13 +979,7 @@ export const Dropdown = React.memo(
                 value = value || props.value || '';
             }
 
-            const hiddenSelectedMessageProps = mergeProps(
-                {
-                    className: 'p-hidden-accessible'
-                },
-                ptm('hiddenSelectedMessage')
-            );
-
+            const hiddenSelectedMessageProps = mergeProps({ className: 'p-hidden-accessible' }, ptm('hiddenSelectedMessage'));
             const inputProps = mergeProps(
                 {
                     ref: focusInputRef,
@@ -1101,14 +1034,7 @@ export const Dropdown = React.memo(
             }
 
             const content = props.valueTemplate ? ObjectUtils.getJSXElement(props.valueTemplate, selectedOption, props) : label || props.placeholder || props.emptyMessage || <>&nbsp;</>;
-            const inputProps = mergeProps(
-                {
-                    ref: inputRef,
-                    className: cx('input', { label }),
-                    tabIndex: '-1'
-                },
-                ptm('input')
-            );
+            const inputProps = mergeProps({ ref: inputRef, className: cx('input', { label }), tabIndex: '-1' }, ptm('input'));
 
             return <span {...inputProps}>{content}</span>;
         };
@@ -1122,16 +1048,7 @@ export const Dropdown = React.memo(
 
         const createClearIcon = () => {
             if (props.value != null && props.showClear && !props.disabled && !ObjectUtils.isEmpty(props.options)) {
-                const clearIconProps = mergeProps(
-                    {
-                        className: cx('clearIcon'),
-                        onPointerUp: clear,
-                        tabIndex: props.editable ? -1 : props.tabIndex || '0',
-                        onKeyDown: onClearIconKeyDown,
-                        'aria-label': localeOption('clear')
-                    },
-                    ptm('clearIcon')
-                );
+                const clearIconProps = mergeProps({ className: cx('clearIcon'), onPointerUp: clear, tabIndex: props.editable ? -1 : props.tabIndex || '0', onKeyDown: onClearIconKeyDown, 'aria-label': localeOption('clear') }, ptm('clearIcon'));
                 const icon = props.clearIcon || <TimesIcon {...clearIconProps} />;
 
                 return IconUtils.getJSXIcon(icon, { ...clearIconProps }, { props });
@@ -1141,59 +1058,27 @@ export const Dropdown = React.memo(
         };
 
         const createLoadingIcon = () => {
-            const loadingIconProps = mergeProps(
-                {
-                    className: cx('loadingIcon'),
-                    'data-pr-overlay-visible': overlayVisibleState
-                },
-                ptm('loadingIcon')
-            );
+            const loadingIconProps = mergeProps({ className: cx('loadingIcon'), 'data-pr-overlay-visible': overlayVisibleState }, ptm('loadingIcon'));
             const icon = props.loadingIcon || <SpinnerIcon spin />;
             const loadingIcon = IconUtils.getJSXIcon(icon, { ...loadingIconProps }, { props });
             const ariaLabel = props.placeholder || props.ariaLabel;
-            const loadingButtonProps = mergeProps(
-                {
-                    className: cx('trigger'),
-                    role: 'button',
-                    'aria-haspopup': 'listbox',
-                    'aria-expanded': overlayVisibleState,
-                    'aria-label': ariaLabel
-                },
-                ptm('trigger')
-            );
+            const loadingButtonProps = mergeProps({ className: cx('trigger'), role: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': overlayVisibleState, 'aria-label': ariaLabel }, ptm('trigger'));
 
             return <div {...loadingButtonProps}>{loadingIcon}</div>;
         };
 
         const createDropdownIcon = () => {
-            const dropdownIconProps = mergeProps(
-                {
-                    className: cx('dropdownIcon'),
-                    'data-pr-overlay-visible': overlayVisibleState
-                },
-                ptm('dropdownIcon')
-            );
+            const dropdownIconProps = mergeProps({ className: cx('dropdownIcon'), 'data-pr-overlay-visible': overlayVisibleState }, ptm('dropdownIcon'));
             const icon = !overlayVisibleState ? props.dropdownIcon || <ChevronDownIcon {...dropdownIconProps} /> : props.collapseIcon || <ChevronUpIcon {...dropdownIconProps} />;
             const dropdownIcon = IconUtils.getJSXIcon(icon, { ...dropdownIconProps }, { props });
-
             const ariaLabel = props.placeholder || props.ariaLabel;
-            const triggerProps = mergeProps(
-                {
-                    className: cx('trigger'),
-                    role: 'button',
-                    'aria-haspopup': 'listbox',
-                    'aria-expanded': overlayVisibleState,
-                    'aria-label': ariaLabel
-                },
-                ptm('trigger')
-            );
+            const triggerProps = mergeProps({ className: cx('trigger'), role: 'button', 'aria-haspopup': 'listbox', 'aria-expanded': overlayVisibleState, 'aria-label': ariaLabel }, ptm('trigger'));
 
             return <div {...triggerProps}>{dropdownIcon}</div>;
         };
 
         const visibleOptions = getVisibleOptions();
         const selectedOption = getSelectedOption();
-
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip);
         const otherProps = DropdownBase.getOtherProps(props);
         const ariaProps = ObjectUtils.reduceKeys(otherProps, DomHandler.ARIA_PROPS);

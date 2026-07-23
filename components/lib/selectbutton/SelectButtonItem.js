@@ -9,24 +9,14 @@ export const SelectButtonItem = React.memo((props) => {
     const { ptm, cx } = props;
 
     const getPTOptions = (key) => {
-        return ptm(key, {
-            hostName: props.hostName,
-            context: {
-                selected: props.selected,
-                disabled: props.disabled,
-                option: props.option
-            }
-        });
+        return ptm(key, { hostName: props.hostName, context: { selected: props.selected, disabled: props.disabled, option: props.option } });
     };
 
     const onClick = (event, index) => {
         props.setFocusedIndex(index);
 
         if (props.onClick) {
-            props.onClick({
-                originalEvent: event,
-                option: props.option
-            });
+            props.onClick({ originalEvent: event, option: props.option });
         }
     };
 
@@ -94,12 +84,7 @@ export const SelectButtonItem = React.memo((props) => {
     };
 
     const createContent = () => {
-        const labelProps = mergeProps(
-            {
-                className: cx('label')
-            },
-            getPTOptions('label')
-        );
+        const labelProps = mergeProps({ className: cx('label') }, getPTOptions('label'));
 
         return props.template ? ObjectUtils.getJSXElement(props.template, props.option) : <span {...labelProps}>{props.label}</span>;
     };

@@ -4,20 +4,19 @@ import { InputOtp } from '@/components/lib/inputotp/InputOtp';
 import { useState } from 'react';
 
 export function TemplateDoc(props) {
-    const [token, setTokens] = useState();
-
+    const [token, setToken] = useState();
     const customInput = ({ events, props: attr }) => <input {...events} {...attr} type="text" className="custom-otp-input" />;
 
     const code = {
         basic: `
-<InputOtp value={token} onChange={(e) => setTokens(e.value)} inputTemplate={customInput}/>
+<InputOtp value={token} onChange={(e) => setToken(e.value)} inputTemplate={customInput}/>
         `,
         javascript: `
 import React, { useState } from 'react';
 import { InputOtp } from 'primereact/inputotp';
 
 export default function TemplateDemo() {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     const customInput = ({events, props}) => <input {...events} {...props} type="text" className="custom-otp-input" />;
 
@@ -43,7 +42,7 @@ export default function TemplateDemo() {
                 \`}
             </style>
 
-            <InputOtp value={token} onChange={(e) => setTokens(e.value)} inputTemplate={customInput}/>
+            <InputOtp value={token} onChange={(e) => setToken(e.value)} inputTemplate={customInput}/>
         </div>
     );
 }
@@ -58,7 +57,7 @@ interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function TemplateDemo() {
-    const [token, setTokens] = useState<string | number | undefined>();
+    const [token, setToken] = useState<string | number | undefined>();
 
       
     const customInput = ({ events, props }: CustomInputProps) => (
@@ -87,7 +86,7 @@ export default function TemplateDemo() {
                 \`}
             </style>
 
-            <InputOtp value={token} onChange={(e: any) => setTokens(e?.value)} inputTemplate={customInput}/>
+            <InputOtp value={token} onChange={(e: any) => setToken(e?.value)} inputTemplate={customInput}/>
         </div>
     );
 }
@@ -100,7 +99,7 @@ export default function TemplateDemo() {
                 <p>Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.</p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <style scoped>
+                <style>
                     {`
                         .custom-otp-input {
                             width: 40px;
@@ -120,7 +119,7 @@ export default function TemplateDemo() {
                     `}
                 </style>
 
-                <InputOtp value={token} onChange={(e) => setTokens(e.value)} inputTemplate={customInput} />
+                <InputOtp value={token} onChange={(e) => setToken(e.value)} inputTemplate={customInput} />
             </div>
             <DocSectionCode code={code} />
         </>

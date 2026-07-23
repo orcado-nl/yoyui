@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -188,7 +189,7 @@ const classes = {
         }),
     input: ({ props, context }) =>
         classNames('p-inputtext p-component', {
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     dropdownButton: 'p-datepicker-trigger',
     buttonbar: 'p-datepicker-buttonbar',
@@ -222,7 +223,14 @@ const classes = {
     header: 'p-datepicker-header',
     groupContainer: 'p-datepicker-group-container',
     group: 'p-datepicker-group',
-    select: ({ props }) => (props.monthNavigator && props.view !== 'month' ? 'p-datepicker-month' : props.yearNavigator ? 'p-datepicker-year' : undefined),
+    select: ({ props }) =>
+        props.monthNavigator && props.view !== 'month'
+            ? 'p-datepicker-month'
+            : resolveConditional(
+                  props.yearNavigator,
+                  () => 'p-datepicker-year',
+                  () => undefined
+              ),
     weekHeader: 'p-datepicker-weekheader p-disabled',
     weekNumber: 'p-datepicker-weeknumber',
     weekLabelContainer: 'p-disabled',

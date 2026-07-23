@@ -2,12 +2,11 @@ import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Menu } from '@/components/lib/menu/Menu';
 import { Toast } from '@/components/lib/toast/Toast';
-import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
 export function GroupDoc(props) {
     const toast = useRef(null);
-    const router = useRouter();
+
     const items = [
         {
             label: 'Documents',
@@ -44,13 +43,11 @@ export function GroupDoc(props) {
 `,
         javascript: `
 import React, { useRef } from 'react';
-import { useRouter } from 'next/router';
 import { Menu } from 'primereact/menu';
 import { Toast } from 'primereact/toast';
 
 export default function GroupDemo() {
     const toast = useRef(null);
-    const router = useRouter();
     const items = [
         {
             label: 'Documents',
@@ -90,14 +87,12 @@ export default function GroupDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { useRouter } from 'next/router';
 import { Menu } from 'primereact/menu';
 import { MenuItem } from 'primereact/menuitem';
 import { Toast } from 'primereact/toast';
 
 export default function GroupDemo() {
     const toast = useRef<Toast>(null);
-    const router = useRouter();
     const items: MenuItem[] = [
         {
             label: 'Documents',

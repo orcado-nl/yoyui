@@ -1,3 +1,4 @@
+import { resolveConditional } from '../../lib/utils/ConditionalUtils';
 import { classNames } from '@/components/lib/utils/Utils';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -47,28 +48,40 @@ export function DocComponent(props) {
                             {header}
                         </button>
                     </li>
-                    {props.apiDocs ? (
-                        <li className={classNames({ 'doc-tabmenu-active': tab === 1 })}>
-                            <button type="button" onClick={() => activateTab(1)}>
-                                API
-                            </button>
-                        </li>
-                    ) : null}
+                    {resolveConditional(
+                        props.apiDocs,
+                        () => (
+                            <li className={classNames({ 'doc-tabmenu-active': tab === 1 })}>
+                                <button type="button" onClick={() => activateTab(1)}>
+                                    API
+                                </button>
+                            </li>
+                        ),
+                        () => null
+                    )}
 
-                    {props.themingDocs ? (
-                        <li className={classNames({ 'doc-tabmenu-active': tab === 2 })}>
-                            <button type="button" onClick={() => activateTab(2)}>
-                                THEMING
-                            </button>
-                        </li>
-                    ) : null}
-                    {props.ptDocs ? (
-                        <li className={classNames({ 'doc-tabmenu-active': tab === 3 })}>
-                            <button type="button" onClick={() => activateTab(3)}>
-                                PASS THROUGH
-                            </button>
-                        </li>
-                    ) : null}
+                    {resolveConditional(
+                        props.themingDocs,
+                        () => (
+                            <li className={classNames({ 'doc-tabmenu-active': tab === 2 })}>
+                                <button type="button" onClick={() => activateTab(2)}>
+                                    THEMING
+                                </button>
+                            </li>
+                        ),
+                        () => null
+                    )}
+                    {resolveConditional(
+                        props.ptDocs,
+                        () => (
+                            <li className={classNames({ 'doc-tabmenu-active': tab === 3 })}>
+                                <button type="button" onClick={() => activateTab(3)}>
+                                    PASS THROUGH
+                                </button>
+                            </li>
+                        ),
+                        () => null
+                    )}
                 </ul>
             ) : null}
             <div className="doc-tabpanels">
@@ -86,51 +99,57 @@ export function DocComponent(props) {
                 ) : null}
                 {tab === 1 ? (
                     <div className="doc-tabpanel">
-                        {props.apiDocs ? (
-                            <DocApiSection header={props.header} doc={props.apiDocs} apiExclude={props.apiExclude} />
-                        ) : (
-                            <>
+                        {resolveConditional(
+                            props.apiDocs,
+                            () => (
+                                <DocApiSection header={props.header} doc={props.apiDocs} apiExclude={props.apiExclude} />
+                            ),
+                            () => (
                                 <div className="doc-main">
                                     <div className="doc-intro">
                                         <h1>{props.header} API</h1>
                                         <p>{props.header} is a CSS feature so does not provide a Javascript API</p>
                                     </div>
                                 </div>
-                            </>
+                            )
                         )}
                     </div>
                 ) : null}
-                {tab === 2 ? (
-                    <>
-                        {props.themingDocs ? (
-                            <div className="doc-tabpanel">
-                                <div className="doc-main">
-                                    <div className="doc-intro">
-                                        <h1>{props.header} Theming</h1>
-                                    </div>
-                                    <DocSections docs={props.themingDocs} />
-                                </div>
-                                <DocSectionNav docs={props.themingDocs} />
-                            </div>
-                        ) : null}
-                    </>
-                ) : null}
-                {tab === 3 ? (
-                    <>
-                        {props.ptDocs ? (
-                            <div className="doc-tabpanel">
-                                <div className="doc-main">
-                                    <div className="doc-intro">
-                                        <h1>{props.header} Pass Through</h1>
-                                        <p>{props.ptDescription}</p>
-                                    </div>
-                                    <DocSections docs={props.ptDocs} />
-                                </div>
-                                <DocSectionNav docs={props.ptDocs} />
-                            </div>
-                        ) : null}
-                    </>
-                ) : null}
+                {tab === 2
+                    ? resolveConditional(
+                          props.themingDocs,
+                          () => (
+                              <div className="doc-tabpanel">
+                                  <div className="doc-main">
+                                      <div className="doc-intro">
+                                          <h1>{props.header} Theming</h1>
+                                      </div>
+                                      <DocSections docs={props.themingDocs} />
+                                  </div>
+                                  <DocSectionNav docs={props.themingDocs} />
+                              </div>
+                          ),
+                          () => null
+                      )
+                    : null}
+                {tab === 3
+                    ? resolveConditional(
+                          props.ptDocs,
+                          () => (
+                              <div className="doc-tabpanel">
+                                  <div className="doc-main">
+                                      <div className="doc-intro">
+                                          <h1>{props.header} Pass Through</h1>
+                                          <p>{props.ptDescription}</p>
+                                      </div>
+                                      <DocSections docs={props.ptDocs} />
+                                  </div>
+                                  <DocSectionNav docs={props.ptDocs} />
+                              </div>
+                          ),
+                          () => null
+                      )
+                    : null}
             </div>
         </div>
     );

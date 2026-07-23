@@ -42,7 +42,7 @@ export const DeferredContent = React.forwardRef((inProps, ref) => {
 
     const load = (event) => {
         setLoadedState(true);
-        props.onLoad && props.onLoad(event);
+        props.onLoad?.(event);
     };
 
     React.useImperativeHandle(ref, () => ({

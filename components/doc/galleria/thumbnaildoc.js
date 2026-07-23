@@ -9,36 +9,15 @@ export function ThumbnailDoc(props) {
     const [images, setImages] = useState(null);
     const [position, setPosition] = useState('bottom');
     const positionOptions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Top', value: 'top' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
     ];
     const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
+        { breakpoint: '991px', numVisible: 4 },
+        { breakpoint: '767px', numVisible: 3 },
+        { breakpoint: '575px', numVisible: 1 }
     ];
 
     useEffect(() => {

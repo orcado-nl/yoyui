@@ -681,6 +681,7 @@ export interface PrimeReactPTOptions {
  * @deprecated since version 9.6.0. Use PrimeReactContext instead.
  */
 declare const PrimeReact: APIOptions;
+declare const PrimeReactConfig: APIOptions;
 
 export default PrimeReact;
 
@@ -699,7 +700,7 @@ type PrimeReactProviderProps = {
 declare const PrimeReactProvider: React.FC<PrimeReactProviderProps>;
 declare const PrimeReactContext: React.Context<APIOptions>;
 
-export { PrimeReactContext, PrimeReactProvider };
+export { PrimeReactConfig, PrimeReactContext, PrimeReactProvider };
 
 // Locale
 /**

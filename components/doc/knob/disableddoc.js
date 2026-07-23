@@ -1,11 +1,8 @@
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Knob } from '@/components/lib/knob/Knob';
-import { useState } from 'react';
 
 export function DisabledDoc(props) {
-    const [value, setValue] = useState(75);
-
     const code = {
         basic: `
 <Knob value={50} disabled />

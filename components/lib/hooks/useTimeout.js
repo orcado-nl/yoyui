@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import { useUnmountEffect } from './useUnmountEffect';
 
@@ -19,6 +19,7 @@ export const useTimeout = (fn, delay = 0, when = true) => {
 
         if (when) {
             timeout.current = setTimeout(callback, delay);
+
             return clear;
         } else {
             clear();

@@ -1,4 +1,4 @@
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames, ObjectUtils } from '../utils/Utils';
 
@@ -8,7 +8,7 @@ const classes = {
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
             'p-focus': focusedState,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled',
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled',
             'p-dropdown-clearable': props.showClear && !props.disabled,
             'p-inputwrapper-filled': ObjectUtils.isNotEmpty(props.value),
             'p-inputwrapper-focus': focusedState || overlayVisibleState
@@ -35,13 +35,13 @@ const classes = {
     filterContainer: ({ clearIcon }) => classNames('p-dropdown-filter-container', { 'p-dropdown-clearable-filter': !!clearIcon }),
     filterInput: ({ props, context }) =>
         classNames('p-dropdown-filter p-inputtext p-component', {
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
-    list: ({ virtualScrollerOptions }) => (virtualScrollerOptions ? 'p-dropdown-items' : 'p-dropdown-items'),
+    list: 'p-dropdown-items',
     panel: ({ context }) =>
         classNames('p-dropdown-panel p-component', {
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     item: ({ selected, disabled, label, index, focusedOptionIndex, highlightOnSelect }) =>
         classNames('p-dropdown-item', {

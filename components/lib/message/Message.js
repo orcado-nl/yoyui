@@ -14,12 +14,8 @@ export const Message = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = MessageBase.getProps(inProps, context);
-
         const elementRef = React.useRef(null);
-
-        const { ptm, cx, isUnstyled } = MessageBase.setMetaData({
-            props
-        });
+        const { ptm, cx, isUnstyled } = MessageBase.setMetaData({ props });
 
         useHandleStyle(MessageBase.css.styles, isUnstyled, { name: 'message' });
 
@@ -29,14 +25,7 @@ export const Message = React.memo(
             }
 
             const text = ObjectUtils.getJSXElement(props.text, props);
-
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                ptm('icon')
-            );
-
+            const iconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
             let icon = props.icon;
 
             if (!icon) {
@@ -59,13 +48,7 @@ export const Message = React.memo(
             }
 
             const messageIcon = IconUtils.getJSXIcon(icon, { ...iconProps }, { props });
-
-            const textProps = mergeProps(
-                {
-                    className: cx('text')
-                },
-                ptm('text')
-            );
+            const textProps = mergeProps({ className: cx('text') }, ptm('text'));
 
             return (
                 <>
@@ -75,10 +58,7 @@ export const Message = React.memo(
             );
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => elementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
 
         const content = createContent();
 

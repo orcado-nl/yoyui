@@ -1,4 +1,5 @@
-import PrimeReact from '../api/Api';
+import { resolveConditional } from '../utils/ConditionalUtils';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -89,8 +90,8 @@ const styles = `
 const classes = {
     root: ({ props, context }) =>
         classNames('p-toast p-component p-toast-' + props.position, props.className, {
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     message: {
         message: ({ severity }) =>
@@ -111,10 +112,24 @@ const classes = {
 const inlineStyles = {
     root: ({ props }) => ({
         position: 'fixed',
-        top: props.position === 'top-right' || props.position === 'top-left' || props.position === 'top-center' ? '20px' : props.position === 'center' ? '50%' : null,
+        top:
+            props.position === 'top-right' || props.position === 'top-left' || props.position === 'top-center'
+                ? '20px'
+                : resolveConditional(
+                      props.position === 'center',
+                      () => '50%',
+                      () => null
+                  ),
         right: (props.position === 'top-right' || props.position === 'bottom-right') && '20px',
         bottom: (props.position === 'bottom-left' || props.position === 'bottom-right' || props.position === 'bottom-center') && '20px',
-        left: props.position === 'top-left' || props.position === 'bottom-left' ? '20px' : props.position === 'center' || props.position === 'top-center' || props.position === 'bottom-center' ? '50%' : null
+        left:
+            props.position === 'top-left' || props.position === 'bottom-left'
+                ? '20px'
+                : resolveConditional(
+                      props.position === 'center' || props.position === 'top-center' || props.position === 'bottom-center',
+                      () => '50%',
+                      () => null
+                  )
     })
 };
 

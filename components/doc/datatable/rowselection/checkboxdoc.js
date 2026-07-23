@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { InputSwitch } from '@/components/lib/inputswitch/InputSwitch';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -129,8 +129,8 @@ export default function CheckboxRowSelectionDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Specifying <i>selectionMode</i> as <i>multiple</i> on a Column, displays a checkbox inside that column for selection. By default, row clicks also trigger selection, set <i>selectionMode</i>
-                    of DataTable to <i>checkbox</i> to only trigger selection using the checkboxes.
+                    Specifying <i>selectionMode</i> as <i>multiple</i> on a Column, displays a checkbox inside that column for selection. By default, row clicks also trigger selection, set <i>selectionMode</i> of DataTable to <i>checkbox</i> to only
+                    trigger selection using the checkboxes.
                 </p>
                 <p>
                     The header checkbox toggles the selection state of the whole dataset by default, when paginator is enabled you may add <i>selectionPageOnly</i> to only control the selection of visible rows.

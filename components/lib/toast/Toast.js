@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TransitionGroup } from 'react-transition-group';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { CSSTransition } from '../csstransition/CSSTransition';
 import { useMergeProps, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
@@ -16,17 +16,9 @@ export const Toast = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = ToastBase.getProps(inProps, context);
-
         const [messagesState, setMessagesState] = React.useState([]);
         const containerRef = React.useRef(null);
-
-        const metaData = {
-            props,
-            state: {
-                messages: messagesState
-            }
-        };
-
+        const metaData = { props, state: { messages: messagesState } };
         const ptCallbacks = ToastBase.setMetaData(metaData);
 
         useHandleStyle(ToastBase.css.styles, ptCallbacks.isUnstyled, { name: 'toast' });
@@ -79,8 +71,7 @@ export const Toast = React.memo(
             const removeMessage = ObjectUtils.isNotEmpty(messageInfo._pId) ? messageInfo._pId : messageInfo.message || messageInfo;
 
             setMessagesState((prev) => prev.filter((msg) => msg._pId !== messageInfo._pId && !ObjectUtils.deepEquals(msg.message, removeMessage)));
-
-            props.onRemove && props.onRemove(messageInfo.message || removeMessage);
+            props.onRemove?.(messageInfo.message || removeMessage);
         };
 
         const onClose = (messageInfo) => {
@@ -88,85 +79,54 @@ export const Toast = React.memo(
         };
 
         const onEntered = () => {
-            props.onShow && props.onShow();
+            props.onShow?.();
         };
 
         const onExited = () => {
             messagesState.length === 1 && ZIndexUtils.clear(containerRef.current);
-
-            props.onHide && props.onHide();
+            props.onHide?.();
         };
 
         useUpdateEffect(() => {
-            ZIndexUtils.set('toast', containerRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, props.baseZIndex || (context && context.zIndex.toast) || PrimeReact.zIndex.toast);
+            ZIndexUtils.set('toast', containerRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, props.baseZIndex || context?.zIndex.toast || PrimeReactConfig.zIndex.toast);
         }, [messagesState, props.baseZIndex]);
-
         useUnmountEffect(() => {
             ZIndexUtils.clear(containerRef.current);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            show,
-            replace,
-            remove,
-            clear,
-            getElement: () => containerRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, show, replace, remove, clear, getElement: () => containerRef.current }));
 
         const createElement = () => {
-            const rootProps = mergeProps(
-                {
-                    ref: containerRef,
-                    id: props.id,
-                    className: ptCallbacks.cx('root', { context }),
-                    style: ptCallbacks.sx('root')
-                },
-                ToastBase.getOtherProps(props),
-                ptCallbacks.ptm('root')
-            );
-
-            const transitionProps = mergeProps(
-                {
-                    classNames: ptCallbacks.cx('transition'),
-                    timeout: { enter: 300, exit: 300 },
-                    options: props.transitionOptions,
-                    unmountOnExit: true,
-                    onEntered,
-                    onExited
-                },
-                ptCallbacks.ptm('transition')
-            );
+            const rootProps = mergeProps({ ref: containerRef, id: props.id, className: ptCallbacks.cx('root', { context }), style: ptCallbacks.sx('root') }, ToastBase.getOtherProps(props), ptCallbacks.ptm('root'));
+            const transitionProps = mergeProps({ classNames: ptCallbacks.cx('transition'), timeout: { enter: 300, exit: 300 }, options: props.transitionOptions, unmountOnExit: true, onEntered, onExited }, ptCallbacks.ptm('transition'));
 
             return (
                 <div {...rootProps}>
                     <TransitionGroup>
-                        {messagesState &&
-                            messagesState.map((messageInfo, index) => {
-                                const messageRef = React.createRef();
+                        {messagesState?.map((messageInfo, index) => {
+                            const messageRef = React.createRef();
 
-                                return (
-                                    <CSSTransition nodeRef={messageRef} key={messageInfo._pId} {...transitionProps}>
-                                        {inProps.content ? (
-                                            ObjectUtils.getJSXElement(inProps.content, { message: messageInfo.message })
-                                        ) : (
-                                            <ToastMessage
-                                                hostName="Toast"
-                                                ref={messageRef}
-                                                messageInfo={messageInfo}
-                                                index={index}
-                                                onClick={props.onClick}
-                                                onClose={onClose}
-                                                onMouseEnter={props.onMouseEnter}
-                                                onMouseLeave={props.onMouseLeave}
-                                                closeIcon={props.closeIcon}
-                                                ptCallbacks={ptCallbacks}
-                                                metaData={metaData}
-                                            />
-                                        )}
-                                    </CSSTransition>
-                                );
-                            })}
+                            return (
+                                <CSSTransition nodeRef={messageRef} key={messageInfo._pId} {...transitionProps}>
+                                    {inProps.content ? (
+                                        ObjectUtils.getJSXElement(inProps.content, { message: messageInfo.message })
+                                    ) : (
+                                        <ToastMessage
+                                            hostName="Toast"
+                                            ref={messageRef}
+                                            messageInfo={messageInfo}
+                                            index={index}
+                                            onClick={props.onClick}
+                                            onClose={onClose}
+                                            onMouseEnter={props.onMouseEnter}
+                                            onMouseLeave={props.onMouseLeave}
+                                            closeIcon={props.closeIcon}
+                                            ptCallbacks={ptCallbacks}
+                                            metaData={metaData}
+                                        />
+                                    )}
+                                </CSSTransition>
+                            );
+                        })}
                     </TransitionGroup>
                 </div>
             );
@@ -177,5 +137,4 @@ export const Toast = React.memo(
         return <Portal element={element} appendTo={props.appendTo} />;
     })
 );
-
 Toast.displayName = 'Toast';

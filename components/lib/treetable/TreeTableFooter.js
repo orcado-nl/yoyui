@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { ColumnBase } from '../column/ColumnBase';
 import { ColumnGroupBase } from '../columngroup/ColumnGroupBase';
@@ -21,11 +22,7 @@ export const TreeTableFooter = React.memo((props) => {
 
     const getColumnPTOptions = (column, key) => {
         const cProps = getColumnProps(column);
-        const columnMetadata = {
-            props: cProps,
-            parent: props.metaData,
-            hostName: props.hostName
-        };
+        const columnMetadata = { props: cProps, parent: props.metaData, hostName: props.hostName };
 
         return mergeProps(ptm(`column.${key}`, { column: columnMetadata }), ptm(`column.${key}`, columnMetadata), ptmo(cProps, key, columnMetadata));
     };
@@ -41,7 +38,6 @@ export const TreeTableFooter = React.memo((props) => {
             },
             getColumnPTOptions(column, 'footerCell')
         );
-
         const content = ObjectUtils.getJSXElement(getColumnProp(column, 'footer'), { props: getColumnProps(column) });
 
         return <td {...footerCellProps}>{content}</td>;
@@ -49,7 +45,7 @@ export const TreeTableFooter = React.memo((props) => {
 
     const createFooterRow = (row, index) => {
         const rowColumns = React.Children.toArray(RowBase.getCProp(row, 'children'));
-        const rowFooterCells = rowColumns.map(createFooterCell);
+        const rowFooterCells = rowColumns.map((column, index) => createFooterCell(column, index));
         const footerRowProps = mergeProps(ptm('footerRow', { hostName: props.hostName, role: 'row' }), RowBase.getProps(row.props, context));
 
         return (
@@ -62,12 +58,12 @@ export const TreeTableFooter = React.memo((props) => {
     const createColumnGroup = () => {
         let rows = React.Children.toArray(ColumnGroupBase.getCProp(props.columnGroup, 'children'));
 
-        return rows.map(createFooterRow);
+        return rows.map((row, index) => createFooterRow(row, index));
     };
 
     const createColumns = (columns) => {
         if (columns) {
-            const headerCells = columns.map(createFooterCell);
+            const headerCells = columns.map((column, index) => createFooterCell(column, index));
             const footerRowProps = mergeProps(ptm('footerRow', { hostName: props.hostName }));
 
             return <tr {...footerRowProps}>{headerCells}</tr>;
@@ -77,7 +73,13 @@ export const TreeTableFooter = React.memo((props) => {
     };
 
     const hasFooter = () => {
-        return props.columnGroup ? true : props.columns ? props.columns.some((col) => col && getColumnProp(col, 'footer')) : false;
+        return props.columnGroup
+            ? true
+            : resolveConditional(
+                  props.columns,
+                  () => props.columns.some((col) => col && getColumnProp(col, 'footer')),
+                  () => false
+              );
     };
 
     const content = props.columnGroup ? createColumnGroup() : createColumns(props.columns);

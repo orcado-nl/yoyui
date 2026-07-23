@@ -4,44 +4,36 @@ import { Dock } from '@/components/lib/dock/Dock';
 import { RadioButton } from '@/components/lib/radiobutton/RadioButton';
 import { useState } from 'react';
 
+function renderSonarNested1Element() {
+    return <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />;
+}
+
+function renderSonarNested2Element() {
+    return <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />;
+}
+
+function renderSonarNested1() {
+    return <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />;
+}
+
+function renderSonarNested2() {
+    return <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />;
+}
+
 export function BasicDoc(props) {
     const [position, setPosition] = useState('bottom');
     const items = [
-        {
-            label: 'Finder',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />
-        },
-        {
-            label: 'App Store',
-            icon: () => <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />
-        },
-        {
-            label: 'Photos',
-            icon: () => <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />
-        },
-        {
-            label: 'Trash',
-            icon: () => <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />
-        }
+        { label: 'Finder', icon: () => renderSonarNested1Element() },
+        { label: 'App Store', icon: () => renderSonarNested2Element() },
+        { label: 'Photos', icon: () => renderSonarNested1() },
+        { label: 'Trash', icon: () => renderSonarNested2() }
     ];
 
     const positions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Top', value: 'top' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
     ];
 
     const code = {

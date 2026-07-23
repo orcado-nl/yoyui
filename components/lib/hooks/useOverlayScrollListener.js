@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { DomHandler, ObjectUtils } from '../utils/Utils';
 import { usePrevious } from './usePrevious';
 import { useUnmountEffect } from './useUnmountEffect';
@@ -19,7 +19,7 @@ export const useOverlayScrollListener = ({ target, listener, options, when = tru
         }
 
         if (!listenerRef.current && targetRef.current) {
-            const hideOnScroll = context ? context.hideOverlaysOnDocumentScrolling : PrimeReact.hideOverlaysOnDocumentScrolling;
+            const hideOnScroll = context ? context.hideOverlaysOnDocumentScrolling : PrimeReactConfig.hideOverlaysOnDocumentScrolling;
             const nodes = (scrollableParentsRef.current = DomHandler.getScrollableParents(targetRef.current));
 
             // Ensure window/body is always included as fallback
@@ -27,7 +27,7 @@ export const useOverlayScrollListener = ({ target, listener, options, when = tru
                 nodes.push(hideOnScroll ? window : document.body);
             }
 
-            listenerRef.current = (event) => listener && listener(event);
+            listenerRef.current = (event) => listener?.(event);
             nodes.forEach((node) => node.addEventListener('scroll', listenerRef.current, options));
         }
     };

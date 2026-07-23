@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import React, { useContext, useRef, useState } from 'react';
 import { PrimeReactContext, ariaLabel } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -12,16 +13,9 @@ export const InputOtp = React.memo(
         const mergeProps = useMergeProps();
         const context = useContext(PrimeReactContext);
         const props = InputOtpBase.getProps(inProps, context);
-        const { ptm, cx, isUnstyled } = InputOtpBase.setMetaData({
-            props,
-            ...props.__parentMetadata,
-            context: {
-                disabled: props.disabled
-            }
-        });
+        const { ptm, cx, isUnstyled } = InputOtpBase.setMetaData({ props, ...props.__parentMetadata, context: { disabled: props.disabled } });
 
         useHandleStyle(InputOtpBase.css.styles, isUnstyled, { name: 'inputotp' });
-
         const defaultValue = props.value ? props.value?.toString()?.split?.('') : new Array(props.length);
         const [tokens, setTokens] = useState(defaultValue);
 
@@ -60,10 +54,7 @@ export const InputOtp = React.memo(
         };
 
         const onChange = (event, value) => {
-            props?.onChange?.({
-                originalEvent: event,
-                value: value.join('')
-            });
+            props?.onChange?.({ originalEvent: event, value: value.join('') });
         };
 
         const updateTokens = (event, index) => {
@@ -73,7 +64,6 @@ export const InputOtp = React.memo(
             newTokens[index] = inputValue;
             newTokens = newTokens.join('');
             newTokens = newTokens ? newTokens.split('') : new Array(props.length);
-
             setTokens(newTokens);
             onChange(event, newTokens);
         };
@@ -106,7 +96,7 @@ export const InputOtp = React.memo(
             if (paste.length) {
                 let pastedCode = paste.substring(0, props.length + 1);
 
-                if (!props.integerOnly || !isNaN(pastedCode)) {
+                if (!props.integerOnly || !Number.isNaN(Number(pastedCode))) {
                     const newTokens = pastedCode.split('');
 
                     setTokens(newTokens);
@@ -127,9 +117,8 @@ export const InputOtp = React.memo(
         const onKeydown = (event) => {
             if (props.disabled || props.readOnly) {
                 return;
-            }
+            } // special keys should be ignored, if it is CTRL+V is handled in onPaste
 
-            // special keys should be ignored, if it is CTRL+V is handled in onPaste
             if (event.altKey || event.ctrlKey || event.metaKey) {
                 return;
             }
@@ -176,7 +165,6 @@ export const InputOtp = React.memo(
                 }
 
                 case 'Tab':
-
                 case 'NumpadEnter':
 
                 case 'Enter': {
@@ -188,7 +176,7 @@ export const InputOtp = React.memo(
                     const target = event.target;
                     const hasSelection = target.selectionStart !== target.selectionEnd;
                     const isAtMaxLength = tokens.join('').length >= props.length;
-                    const isValidKey = props.integerOnly ? /^[0-9]$/.test(event.key) : true;
+                    const isValidKey = props.integerOnly ? /^\d$/.test(event.key) : true;
 
                     if (!isValidKey || (isAtMaxLength && event.code !== 'Delete' && !hasSelection)) {
                         event.preventDefault();
@@ -215,13 +203,7 @@ export const InputOtp = React.memo(
             }
 
             const inputElementIndex = props.length - remainingInputs;
-            const inputElementEvents = {
-                onInput: (event) => onInput(event, inputElementIndex),
-                onKeyDown: onKeydown,
-                onFocus,
-                onBlur,
-                onPaste
-            };
+            const inputElementEvents = { onInput: (event) => onInput(event, inputElementIndex), onKeyDown: onKeydown, onFocus, onBlur, onPaste };
             const inputElementProps = {
                 value: tokens[inputElementIndex] || '',
                 type: props?.mask ? 'password' : 'text',
@@ -235,26 +217,28 @@ export const InputOtp = React.memo(
                 className: cx('input')
             };
             const inputElement = props?.inputTemplate ? (
-                ObjectUtils.getJSXElement(props?.inputTemplate, {
-                    events: inputElementEvents,
-                    props: inputElementProps
-                })
+                ObjectUtils.getJSXElement(props?.inputTemplate, { events: inputElementEvents, props: inputElementProps })
             ) : (
-                <InputText {...inputElementProps} {...inputElementEvents} invalid={props?.invalid} unstyled={props?.unstyled} pt={ptm('input')} inputMode={props?.integerOnly ? 'numeric' : 'text'} key={inputElementIndex} />
+                <InputText
+                    {...inputElementProps}
+                    {...inputElementEvents}
+                    invalid={props?.invalid}
+                    unstyled={props?.unstyled}
+                    pt={ptm('input')}
+                    inputMode={resolveConditional(
+                        props?.integerOnly,
+                        () => 'numeric',
+                        () => 'text'
+                    )}
+                    key={inputElementIndex}
+                />
             );
             const inputElements = [inputElement, ...createInputElements(remainingInputs - 1)];
 
-            return inputElements.map((input, index) => <React.Fragment key={index}>{input}</React.Fragment>);
+            return inputElements.map((input, index) => <React.Fragment key={input?.id ?? input?.key ?? input?.name ?? input?.label ?? input?.value ?? input?.href ?? input?.src ?? input?.field ?? JSON.stringify(input)}>{input}</React.Fragment>);
         };
 
-        const rootElementProps = mergeProps(
-            {
-                className: cx('root'),
-                ref: elementRef,
-                style: props?.style
-            },
-            ptm('root')
-        );
+        const rootElementProps = mergeProps({ className: cx('root'), ref: elementRef, style: props?.style }, ptm('root'));
 
         return <div {...rootElementProps}>{createInputElements(props.length)}</div>;
     })

@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Button } from '@/components/lib/button/Button';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -13,24 +13,8 @@ export function FrozenRowsDoc(props) {
 
     const loadDemoData = () => {
         CustomerService.getCustomersMedium().then((data) => setCustomers(data));
-
         setLockedCustomers([
-            {
-                id: 5135,
-                name: 'Geraldine Bisset',
-                country: {
-                    name: 'France',
-                    code: 'fr'
-                },
-                company: 'Bisset Group',
-                status: 'proposal',
-                date: '2019-05-05',
-                activity: 0,
-                representative: {
-                    name: 'Amy Elsner',
-                    image: 'amyelsner.png'
-                }
-            }
+            { id: 5135, name: 'Geraldine Bisset', country: { name: 'France', code: 'fr' }, company: 'Bisset Group', status: 'proposal', date: '2019-05-05', activity: 0, representative: { name: 'Amy Elsner', image: 'amyelsner.png' } }
         ]);
     };
 

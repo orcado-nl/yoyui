@@ -14,10 +14,10 @@ export function VirtualScrollDoc(props) {
         let query = event.query;
         let _filteredItems = [];
 
-        for (let i = 0; i < items.length; i++) {
-            let item = items[i];
+        for (const _item of items) {
+            let item = _item;
 
-            if (item.label.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+            if (item.label.toLowerCase().startsWith(query.toLowerCase())) {
                 _filteredItems.push(item);
             }
         }
@@ -101,8 +101,8 @@ export default function VirtualScrollerDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Virtual Scrolling is a performant way to render large lists. Configuration of the scroll behavior is defined with <i>virtualScrollerOptions</i>
-                    that requires <i>itemSize</i> as the mandatory value to set the height of an item. Visit <Link href="/virtualscroller">VirtualScroller</Link> documentation for more information about the configuration API.
+                    Virtual Scrolling is a performant way to render large lists. Configuration of the scroll behavior is defined with <i>virtualScrollerOptions</i> that requires <i>itemSize</i> as the mandatory value to set the height of an item.
+                    Visit <Link href="/virtualscroller">VirtualScroller</Link> documentation for more information about the configuration API.
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">

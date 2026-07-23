@@ -22,7 +22,7 @@ const TemplatesPage = () => {
                     and{' '}
                     <a href="https://primevue.org" className="text-primary hover:underline font-medium">
                         PrimeVue
-                    </a>
+                    </a>{' '}
                     . All the members in our team are full time employees of PrimeTek who share the same passion and vision for open source to create awesome UI libraries.
                 </p>
             </div>

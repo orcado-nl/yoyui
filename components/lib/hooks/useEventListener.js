@@ -18,7 +18,7 @@ export const useEventListener = ({ target = 'document', type, listener, options,
         }
 
         if (!listenerRef.current && targetRef.current) {
-            listenerRef.current = (event) => listener && listener(event);
+            listenerRef.current = (event) => listener?.(event);
             targetRef.current.addEventListener(type, listenerRef.current, options);
         }
     };

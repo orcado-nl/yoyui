@@ -10,14 +10,10 @@ export const DataScroller = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = DataScrollerBase.getProps(inProps, context);
-
         const [dataToRenderState, setDataToRenderState] = React.useState([]);
-        const { ptm, cx, sx, isUnstyled } = DataScrollerBase.setMetaData({
-            props
-        });
+        const { ptm, cx, sx, isUnstyled } = DataScrollerBase.setMetaData({ props });
 
         useHandleStyle(DataScrollerBase.css.styles, isUnstyled, { name: 'datascroller' });
-
         const elementRef = React.useRef(null);
         const contentRef = React.useRef(null);
         const value = React.useRef(props.value);
@@ -65,15 +61,8 @@ export const DataScroller = React.memo(
             load();
         };
 
-        const isEmpty = () => {
-            return !dataToRender.current || dataToRender.current.length === 0;
-        };
-
         const createLazyLoadMetadata = () => {
-            return {
-                first: first.current,
-                rows: props.rows
-            };
+            return { first: first.current, rows: props.rows };
         };
 
         const bindScrollListener = () => {
@@ -125,7 +114,6 @@ export const DataScroller = React.memo(
                 bindScrollListener();
             }
         });
-
         useUpdateEffect(() => {
             if (props.value) {
                 value.current = props.value;
@@ -138,7 +126,6 @@ export const DataScroller = React.memo(
                 handleDataChange();
             }
         }, [props.value]);
-
         useUpdateEffect(() => {
             if (props.loader) {
                 unbindScrollListener();
@@ -146,28 +133,15 @@ export const DataScroller = React.memo(
                 bindScrollListener();
             }
         }, [props.loader]);
-
         useUnmountEffect(() => {
             if (scrollFunction.current) {
                 unbindScrollListener();
             }
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            load,
-            reset,
-            getElement: () => elementRef.current,
-            getContent: () => contentRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, load, reset, getElement: () => elementRef.current, getContent: () => contentRef.current }));
 
         const createHeader = () => {
-            const headerProps = mergeProps(
-                {
-                    className: cx('header')
-                },
-                ptm('header')
-            );
+            const headerProps = mergeProps({ className: cx('header') }, ptm('header'));
 
             if (props.header) {
                 return <div {...headerProps}>{props.header}</div>;
@@ -177,12 +151,7 @@ export const DataScroller = React.memo(
         };
 
         const createFooter = () => {
-            const footerProps = mergeProps(
-                {
-                    className: cx('footer')
-                },
-                ptm('footer')
-            );
+            const footerProps = mergeProps({ className: cx('footer') }, ptm('footer'));
 
             if (props.footer) {
                 return <div {...footerProps}>{props.footer}</div>;
@@ -204,28 +173,15 @@ export const DataScroller = React.memo(
 
         const createEmptyMessage = () => {
             const emptyMessageProps = mergeProps(ptm('emptyMessage'));
-
             const content = ObjectUtils.getJSXElement(props.emptyMessage, props) || localeOption('emptyMessage');
 
             return <li {...emptyMessageProps}>{content}</li>;
         };
 
         const createContent = () => {
-            const contentProps = mergeProps(
-                {
-                    ref: contentRef,
-                    className: cx('content'),
-                    style: sx('content')
-                },
-                ptm('content')
-            );
-            const listProps = mergeProps(
-                {
-                    className: cx('list')
-                },
-                ptm('list')
-            );
-            const content = ObjectUtils.isNotEmpty(dataToRenderState) ? dataToRenderState.map(createItem) : createEmptyMessage();
+            const contentProps = mergeProps({ ref: contentRef, className: cx('content'), style: sx('content') }, ptm('content'));
+            const listProps = mergeProps({ className: cx('list') }, ptm('list'));
+            const content = ObjectUtils.isNotEmpty(dataToRenderState) ? dataToRenderState.map((item, index) => createItem(item, index)) : createEmptyMessage();
 
             return (
                 <div {...contentProps}>
@@ -237,7 +193,6 @@ export const DataScroller = React.memo(
         const header = createHeader();
         const footer = createFooter();
         const content = createContent();
-
         const rootProps = mergeProps(
             {
                 id: props.id,

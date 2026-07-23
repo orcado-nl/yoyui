@@ -197,8 +197,8 @@ export default function ContextMenuDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    TreeTable has exclusive integration with ContextMenu using the <i>onContextMenu</i> event to open a menu on right click alont with
-                    <i>contextMenuSelection</i> and <i>onContextMenuSelectionChange</i> properties to control the selection via the menu.
+                    TreeTable has exclusive integration with ContextMenu using the <i>onContextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> and <i>onContextMenuSelectionChange</i> properties to control the
+                    selection via the menu.
                 </p>
             </DocSectionText>
             <div className="card">

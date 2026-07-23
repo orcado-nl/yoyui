@@ -15,14 +15,8 @@ export function TemplateDoc(props) {
                     expanded: true,
                     data: 'ar',
                     children: [
-                        {
-                            label: 'Argentina',
-                            data: 'ar'
-                        },
-                        {
-                            label: 'Croatia',
-                            data: 'hr'
-                        }
+                        { label: 'Argentina', data: 'ar' },
+                        { label: 'Croatia', data: 'hr' }
                     ]
                 },
                 {
@@ -30,14 +24,8 @@ export function TemplateDoc(props) {
                     expanded: true,
                     data: 'fr',
                     children: [
-                        {
-                            label: 'France',
-                            data: 'fr'
-                        },
-                        {
-                            label: 'Morocco',
-                            data: 'ma'
-                        }
+                        { label: 'France', data: 'fr' },
+                        { label: 'Morocco', data: 'ma' }
                     ]
                 }
             ]

@@ -15,9 +15,7 @@ export function ConditionalStyleDoc(props) {
     };
 
     const rowClass = (data) => {
-        return {
-            'bg-primary': data.category === 'Fitness'
-        };
+        return { 'bg-primary': data.category === 'Fitness' };
     };
 
     const stockBodyTemplate = (rowData) => {

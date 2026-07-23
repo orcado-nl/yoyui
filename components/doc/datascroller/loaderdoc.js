@@ -19,13 +19,10 @@ export function LoaderDataScrollerDoc(props) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -62,7 +59,6 @@ export function LoaderDataScrollerDoc(props) {
     };
 
     const footer = <Button type="text" icon="pi pi-plus" label="Load" onClick={() => ds.current.load()} />;
-
     const code = {
         basic: `
 <DataScroller ref={ds} value={products} itemTemplate={itemTemplate} rows={5} loader footer={footer} header="Click Load Button at Footer to Load More" />

@@ -9,45 +9,23 @@ export function TemplateDoc(props) {
     const [products, setProducts] = useState([]);
     const [selectedId, setSelectedId] = useState([]);
     const cm = useRef(null);
-
     const itemTemplate = (item) => (
-        <a className="flex align-items-center px-3 py-2 cursor-pointer">
+        <button type="button" className="flex align-items-center px-3 py-2 cursor-pointer">
             <span className={item.icon} />
             <span className="ml-2">{item.label}</span>
             <Badge className="ml-auto" value={item.badge} />
-        </a>
+        </button>
     );
-
     const items = [
-        {
-            label: 'Favorite',
-            icon: 'pi pi-star',
-            shortcut: '⌘+D'
-        },
-        {
-            label: 'Add',
-            icon: 'pi pi-shopping-cart',
-            shortcut: '⌘+A'
-        },
-        {
-            separator: true
-        },
+        { label: 'Favorite', icon: 'pi pi-star', shortcut: '⌘+D' },
+        { label: 'Add', icon: 'pi pi-shopping-cart', shortcut: '⌘+A' },
+        { separator: true },
         {
             label: 'Share',
             icon: 'pi pi-share-alt',
             items: [
-                {
-                    label: 'Whatsapp',
-                    icon: 'pi pi-whatsapp',
-                    badge: 2,
-                    template: itemTemplate
-                },
-                {
-                    label: 'Instagram',
-                    icon: 'pi pi-instagram',
-                    badge: 3,
-                    template: itemTemplate
-                }
+                { label: 'Whatsapp', icon: 'pi pi-whatsapp', badge: 2, template: itemTemplate },
+                { label: 'Instagram', icon: 'pi pi-instagram', badge: 3, template: itemTemplate }
             ]
         }
     ];
@@ -62,7 +40,6 @@ export function TemplateDoc(props) {
     useEffect(() => {
         ProductService.getProductsSmall().then((data) => setProducts(data.slice(0, 5)));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     const code = {
         basic: `
 <div className="card flex md:justify-content-center">

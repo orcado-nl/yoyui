@@ -31,7 +31,7 @@ export function AccessibilityDoc() {
             </p>
 
             <p>
-                Popup has a <i>dialog</i> role along with <i>aria-modal</i> and <i>aria-label</i>. The navigation buttons at the header has an <i>aria-label</i> retrieved from the <i>prevYear</i>, <i>nextYear</i>, <i>prevMonth</i>, <i>nextMonth</i>,
+                Popup has a <i>dialog</i> role along with <i>aria-modal</i> and <i>aria-label</i>. The navigation buttons at the header has an <i>aria-label</i> retrieved from the <i>prevYear</i>, <i>nextYear</i>, <i>prevMonth</i>, <i>nextMonth</i>,{' '}
                 <i>prevDecade</i> and <i>nextDecade</i> keys of the locale aria API. Similarly month picker button uses the <i>chooseMonth</i> and year picker button uses the <i>chooseYear</i> keys.
             </p>
 

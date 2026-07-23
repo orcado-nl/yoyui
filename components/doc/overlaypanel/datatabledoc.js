@@ -11,7 +11,6 @@ import { ProductService } from '../../../service/ProductService';
 export function DataTableDoc(props) {
     const [products, setProducts] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
-
     const selectedProductContent = selectedProduct && (
         <div className="p-5 surface-card shadow-2 border-round">
             <div className="relative">
@@ -24,7 +23,6 @@ export function DataTableDoc(props) {
             <span className="text-600">{selectedProduct.category}</span>
         </div>
     );
-
     const op = useRef(null);
     const toast = useRef(null);
     const isMounted = useRef(false);

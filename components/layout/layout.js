@@ -81,7 +81,7 @@ export default function Layout({ children }) {
             </Head>
             <NewsSection />
             <Topbar showConfigurator showMenuButton onMenuButtonClick={() => setSidebarActive(true)} onConfigButtonClick={() => setConfigActive(true)} onDarkSwitchClick={toggleDarkMode} />
-            <div className={classNames('layout-mask', { 'layout-mask-active': sidebarActive })} onClick={() => setSidebarActive(false)} />
+            <button type="button" aria-label="Close navigation" className={classNames('layout-mask border-none', { 'layout-mask-active': sidebarActive })} onClick={() => setSidebarActive(false)} />
             <Config active={configActive} onHide={() => setConfigActive(false)} onDarkSwitchClick={toggleDarkMode} />
             <div className="layout-content">
                 <Menu active={sidebarActive} />

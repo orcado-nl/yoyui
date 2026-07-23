@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { NodeService } from '../../../service/NodeService';
 
 export function ControlledDoc(props) {
-    const [nodes, setNodes] = useState(null);
+    const [nodes, setNodes] = useState([]);
     const [selectedNodeKey, setSelectedNodeKey] = useState(null);
     const [expandedKeys, setExpandedKeys] = useState({});
 
@@ -25,7 +25,7 @@ export function ControlledDoc(props) {
     };
 
     const expandNode = (node, _expandedKeys) => {
-        if (node.children && node.children.length) {
+        if (node.children?.length) {
             _expandedKeys[node.key] = true;
 
             for (let child of node.children) {
@@ -58,7 +58,7 @@ import { Button } from 'primereact/button';
 import { NodeService } from './service/NodeService';
 
 export default function ControlledDemo() {
-    const [nodes, setNodes] = useState(null);
+    const [nodes, setNodes] = useState([]);
     const [selectedNodeKey, setSelectedNodeKey] = useState(null);
     const [expandedKeys, setExpandedKeys] = useState({});
 

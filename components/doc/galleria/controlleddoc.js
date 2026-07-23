@@ -6,22 +6,12 @@ import { useEffect, useState } from 'react';
 import { PhotoService } from '../../../service/PhotoService';
 
 export function ControlledDoc(props) {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
-
     const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
+        { breakpoint: '991px', numVisible: 4 },
+        { breakpoint: '767px', numVisible: 3 },
+        { breakpoint: '575px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -61,7 +51,7 @@ import { Galleria } from 'primereact/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ControlledDemo() {
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0)
 
     const responsiveOptions = [

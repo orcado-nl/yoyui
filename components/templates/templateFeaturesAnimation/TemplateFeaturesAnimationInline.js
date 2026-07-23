@@ -29,16 +29,16 @@ const TemplateFeaturesAnimationInline = ({ inlineFeaturesData, parentHandleClick
                     <button
                         onMouseEnter={() => enterCardArea(data.id)}
                         onMouseLeave={() => leaveCardArea(data.id)}
-                        className={`${!!(data.id === selectedID) && 'template-features-animation-right-inline-tabs-btnActive'}`}
+                        className={data.id === selectedID ? 'template-features-animation-right-inline-tabs-btnActive' : undefined}
                         onClick={() => handleBtnClick(data.id)}
-                        key={i}
+                        key={data?.id ?? data?.key ?? data?.name ?? data?.label ?? data?.value ?? data?.href ?? data?.src ?? data?.field ?? JSON.stringify(data)}
                     >
                         {data.title}
                     </button>
                 ))}
             </div>
             <div className="template-features-animation-right-inline-image">
-                <img src={inlineFeaturesData[selectedID - 1].src} alt="Animation Inline Feature Image" />
+                <img src={inlineFeaturesData[selectedID - 1].src} alt="Animated inline feature" />
             </div>
         </div>
     );

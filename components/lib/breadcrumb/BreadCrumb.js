@@ -13,12 +13,7 @@ export const BreadCrumb = React.memo(
         const props = BreadCrumbBase.getProps(inProps, context);
         const [idState, setIdState] = React.useState(props.id);
         const elementRef = React.useRef(null);
-        const { ptm, cx, isUnstyled } = BreadCrumbBase.setMetaData({
-            props,
-            state: {
-                id: idState
-            }
-        });
+        const { ptm, cx, isUnstyled } = BreadCrumbBase.setMetaData({ props, state: { id: idState } });
 
         useHandleStyle(BreadCrumbBase.css.styles, isUnstyled, { name: 'breadcrumb' });
 
@@ -30,10 +25,7 @@ export const BreadCrumb = React.memo(
             }
 
             if (item.command) {
-                item.command({
-                    originalEvent: event,
-                    item
-                });
+                item.command({ originalEvent: event, item });
             }
 
             if (!item.url) {
@@ -57,31 +49,10 @@ export const BreadCrumb = React.memo(
                 }
 
                 const { icon: _icon, target, url, disabled, style, className: _className, template, label: _label } = home;
-                const iconProps = mergeProps(
-                    {
-                        className: cx('icon')
-                    },
-                    ptm('icon')
-                );
+                const iconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
                 const icon = IconUtils.getJSXIcon(_icon, { ...iconProps }, { props });
-                const actionProps = mergeProps(
-                    {
-                        href: url || '#',
-                        className: cx('action'),
-                        'aria-disabled': disabled,
-                        'aria-current': isCurrent(url),
-                        target,
-                        onClick: (event) => itemClick(event, home)
-                    },
-                    ptm('action')
-                );
-
-                const labelProps = mergeProps(
-                    {
-                        className: cx('label')
-                    },
-                    ptm('label')
-                );
+                const actionProps = mergeProps({ href: url || '#', className: cx('action'), 'aria-disabled': disabled, 'aria-current': isCurrent(url), target, onClick: (event) => itemClick(event, home) }, ptm('action'));
+                const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
                 const label = _label && <span {...labelProps}>{_label}</span>;
                 let content = (
                     <a {...actionProps}>
@@ -91,26 +62,13 @@ export const BreadCrumb = React.memo(
                 );
 
                 if (template) {
-                    const defaultContentOptions = {
-                        onClick: (event) => itemClick(event, home),
-                        className: 'p-menuitem-link',
-                        labelClassName: 'p-menuitem-text',
-                        element: content,
-                        props
-                    };
+                    const defaultContentOptions = { onClick: (event) => itemClick(event, home), className: 'p-menuitem-link', labelClassName: 'p-menuitem-text', element: content, props };
 
                     content = ObjectUtils.getJSXElement(template, home, defaultContentOptions);
                 }
 
                 const key = idState + '_home';
-                const menuitemProps = mergeProps(
-                    {
-                        id: key,
-                        className: cx('home', { _className, disabled }),
-                        style
-                    },
-                    ptm('home')
-                );
+                const menuitemProps = mergeProps({ id: key, className: cx('home', { _className, disabled }), style }, ptm('home'));
 
                 return (
                     <li {...menuitemProps} key={key}>
@@ -124,23 +82,10 @@ export const BreadCrumb = React.memo(
 
         const createSeparator = (index) => {
             const key = idState + '_sep_' + index;
-            const separatorIconProps = mergeProps(
-                {
-                    className: cx('separatorIcon'),
-                    'aria-hidden': 'true'
-                },
-                ptm('separatorIcon')
-            );
+            const separatorIconProps = mergeProps({ className: cx('separatorIcon'), 'aria-hidden': 'true' }, ptm('separatorIcon'));
             const icon = props.separatorIcon || <ChevronRightIcon {...separatorIconProps} />;
             const separatorIcon = IconUtils.getJSXIcon(icon, { ...separatorIconProps }, { props });
-            const separatorProps = mergeProps(
-                {
-                    id: key,
-                    className: cx('separator'),
-                    role: 'separator'
-                },
-                ptm('separator')
-            );
+            const separatorProps = mergeProps({ id: key, className: cx('separator'), role: 'separator' }, ptm('separator'));
 
             return (
                 <li {...separatorProps} key={key}>
@@ -154,48 +99,22 @@ export const BreadCrumb = React.memo(
                 return null;
             }
 
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                ptm('label')
-            );
+            const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
             const label = item.label && <span {...labelProps}>{item.label}</span>;
             const actionProps = mergeProps(
-                {
-                    href: item.url || '#',
-                    className: cx('action'),
-                    target: item.target,
-                    'aria-current': isCurrent(item.url),
-                    onClick: (event) => itemClick(event, item),
-                    'aria-disabled': item.disabled,
-                    tabIndex: item.disabled ? -1 : undefined
-                },
+                { href: item.url || '#', className: cx('action'), target: item.target, 'aria-current': isCurrent(item.url), onClick: (event) => itemClick(event, item), 'aria-disabled': item.disabled, tabIndex: item.disabled ? -1 : undefined },
                 ptm('action')
             );
             let content = <a {...actionProps}>{label}</a>;
 
             if (item.template) {
-                const defaultContentOptions = {
-                    onClick: (event) => itemClick(event, item),
-                    className: 'p-menuitem-link',
-                    labelClassName: 'p-menuitem-text',
-                    element: content,
-                    props
-                };
+                const defaultContentOptions = { onClick: (event) => itemClick(event, item), className: 'p-menuitem-link', labelClassName: 'p-menuitem-text', element: content, props };
 
                 content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
             }
 
             const key = item.id || idState + '_' + index;
-            const menuitemProps = mergeProps(
-                {
-                    id: key,
-                    className: cx('menuitem', { item }),
-                    style: item.style
-                },
-                ptm('menuitem')
-            );
+            const menuitemProps = mergeProps({ id: key, className: cx('menuitem', { item }), style: item.style }, ptm('menuitem'));
 
             return (
                 <li {...menuitemProps} key={key}>
@@ -234,12 +153,7 @@ export const BreadCrumb = React.memo(
                 setIdState(UniqueComponentId());
             }
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => elementRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
         const home = createHome();
         const items = createMenuitems();
         const separator = createSeparator('home');
