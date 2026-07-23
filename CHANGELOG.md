@@ -1,6 +1,133 @@
 # Changelog
 
-## Unreleased - Repository quality and reliability overhaul (2026-07-23)
+## Unreleased - Optimisation branch fixes (2026-07-23)
+
+This entry records the complete `optimisations` branch delta from `main`: 25 files
+changed, with 762 insertions and 449 deletions. The optimization and SonarQube
+branches currently diverge from the same `main` commit, so both branches must be
+integrated before all unreleased changes described in this file are present in one
+build.
+
+### Public API and accessibility fixes
+
+- Fixed Chips so the documented `ariaLabelledBy` prop is applied to the listbox's
+  `aria-labelledby` attribute. The previous runtime implementation read the
+  incorrectly cased `ariaLabelledby` name even though the default props and
+  TypeScript declaration already exposed `ariaLabelledBy`.
+- Aligned ContextMenu's runtime and default props with its existing
+  `ariaLabelledBy` TypeScript declaration.
+- Corrected the Tree TypeScript declaration from `ariaLabelledby` to
+  `ariaLabelledBy`, matching the existing runtime prop.
+- Corrected the InputOtp TypeScript declaration from `readonly` to `readOnly`,
+  matching its default props and runtime behavior.
+- Fixed Knob's remaining read-only keyboard and tab-order checks to use `readOnly`.
+  A read-only Knob now consistently ignores keyboard changes and is removed from the
+  tab order.
+- Updated Knob accessibility forwarding to use React's standard `aria-label` and
+  `aria-labelledby` DOM props.
+- Corrected DeferredContent's default prop from `onload` to `onLoad`. Its component
+  callback is now consumed by DeferredContent and is no longer also forwarded to the
+  root `<div>` as a native load handler.
+
+### Hook correctness and lifecycle changes
+
+- Updated `useCounter` so its initial value and options are optional in TypeScript,
+  option fields can be supplied independently, and the return value has a concrete
+  type instead of `any`.
+- Changed `useCounter` increments and decrements to functional state updates, added
+  correct support for zero-valued boundaries, clamped steps to `min` and `max`, and
+  made `reset()` restore the supplied initial value instead of always returning to
+  zero.
+- Reworked `useEventListener` to retain the active registration separately from the
+  latest callback. It now invokes the newest callback without unnecessary
+  remove/add cycles and correctly re-registers when the target, event type, options,
+  or `when` state changes.
+- Reworked `useOverlayScrollListener` with the same stable-listener lifecycle,
+  including correct cleanup and rebinding when its target, options, or
+  `hideOverlaysOnDocumentScrolling` configuration changes.
+- Updated `useIntersectionObserver` to avoid recreating the observer when an inline
+  options object is recreated, to preserve scalar and array thresholds, and to
+  return `false` safely when `IntersectionObserver` is unavailable.
+- Updated `useMatchMedia` to be safe during server-side rendering, support both
+  modern and legacy MediaQueryList listener APIs, remove listeners when disabled,
+  and return `false` while `when` is false.
+- Updated `useLocalStorage` and `useSessionStorage` so sequential functional updates
+  use the latest value, key or storage changes rehydrate and rebind correctly,
+  invalid cross-tab JSON falls back safely, and values that serialize to
+  `undefined` remove the storage entry instead of storing an invalid sentinel.
+
+### Component behavior and data integrity
+
+- Fixed type-ahead search timeout cleanup in MegaMenu and TieredMenu by clearing the
+  timer stored in the ref rather than the ref object.
+- Fixed PanelMenu type-ahead timeout cleanup and corrected the misspelled
+  `searchTimeout.currentt` assignment, preventing stale timers and search state.
+- Changed TreeTable recursive single-column and multi-column sorting to replace
+  parent nodes with updated copies instead of mutating nested `children` arrays
+  supplied through the `value` prop.
+
+### Dependencies
+
+- Updated `jspdf` from `4.0.0` to `4.2.1`.
+- Updated `jspdf-autotable` from `5.0.2` to `5.0.8`, including its declared support
+  for jsPDF 4.
+- Regenerated `package-lock.json`, changing 69 resolved package entries. This
+  refresh includes Babel, DOMPurify, PostCSS, Rollup, SVGO, WebSocket, YAML, glob
+  matching, and related transitive packages; no additional direct dependency was
+  introduced.
+
+### Tests
+
+- Added five focused test files containing 13 regression tests.
+- Added coverage for Chips labeling, DeferredContent callback isolation, Knob
+  read-only behavior, immutable nested TreeTable sorting, counter boundaries,
+  event-listener lifecycle, storage updates, IntersectionObserver stability, and
+  match-media cleanup.
+- The branch diff passes Git's whitespace validation.
+
+### Required changes for users
+
+Update affected prop names if your code uses an old or incorrectly cased spelling:
+
+| Previous spelling | Required spelling | Affected API |
+| --- | --- | --- |
+| `readonly` | `readOnly` | InputOtp; any Knob workaround using the lowercase name |
+| `ariaLabelledby` | `ariaLabelledBy` | Chips, ContextMenu, and Tree |
+| `ariaLabel` | `aria-label` | Knob |
+| `ariaLabelledby` | `aria-labelledby` | Knob |
+| `onload` | `onLoad` | DeferredContent |
+
+The Chips and ContextMenu corrections align runtime behavior with declarations that
+already exposed `ariaLabelledBy`; the Tree and InputOtp corrections align their
+declarations with the existing runtime names. Code that already uses `readOnly`,
+`ariaLabelledBy`, `aria-label`, `aria-labelledby`, and `onLoad` needs no prop-name
+changes.
+
+Review the following behavior changes where applicable:
+
+- If code expects `useCounter().reset()` to return to zero regardless of its initial
+  value, update that logic or initialize the counter with zero. Counter steps now
+  clamp at `min` and `max` rather than overshooting or being incorrectly blocked.
+- If code changes the key passed to `useLocalStorage` or `useSessionStorage`, expect
+  the hook to load the new key. Setting a value to `undefined` now removes that key;
+  do not depend on the literal string `"undefined"` being stored.
+- If code relies on `useEventListener` or `useOverlayScrollListener` physically
+  removing and adding a DOM listener whenever only the callback identity changes,
+  move that side effect out of the callback. The hooks retain one registration and
+  invoke the latest callback.
+- If code uses `useMatchMedia(query, false)`, expect the returned match state to be
+  `false` instead of retaining a stale previous match.
+- If code relies on TreeTable sorting to mutate the nested arrays passed in `value`,
+  stop reading sorted data back from that input object. Treat `value` as immutable
+  and use the component's controlled sorting state and callbacks.
+- Run `npm install` after taking the branch so the direct PDF dependencies and
+  refreshed lockfile are installed. Revalidate byte-for-byte PDF snapshots if your
+  tests depend on jsPDF's exact generated output.
+
+No component names, export paths, or event payload shapes changed on the
+`optimisations` branch.
+
+## Unreleased - SonarQube quality and reliability overhaul (2026-07-23)
 
 This entry documents the repository-wide review and SonarQube remediation. It groups
 behavior-preserving edits by purpose so that the full scope is recorded without
@@ -64,9 +191,6 @@ page.
 
 - Replaced non-navigation anchors with semantic buttons where appropriate and
   corrected label, span, link, and interactive-element semantics.
-- Standardized React DOM property casing, including corrections such as
-  `readonly` to `readOnly`, so React applies the intended DOM property without
-  invalid-property warnings.
 - Added or retained valid `href`, ARIA, focus, and keyboard behavior on interactive
   elements.
 - Removed index-only keys from dynamic lists where stable domain values are
@@ -89,22 +213,19 @@ page.
   empty, single, vertical, and nested-panel snapshots.
 - Updated affected snapshots and test fixtures after deterministic key and semantic
   markup changes.
-- No package dependencies, package scripts, public import paths, public component
-  props, or event payload contracts were intentionally changed.
+- The SonarQube remediation branch itself does not change package dependencies,
+  package scripts, public import paths, public component props, or event payload
+  contracts. The separate optimization-branch API corrections and dependency
+  updates are documented above.
 
 ### Required changes for users
 
-For consumers using the supported public component API, **no code changes are
-required**. Existing imports, props, callbacks, and theme configuration remain
-compatible.
+For the SonarQube remediation changes in this section, consumers using the supported
+public component API require no code changes. Apply the optimization-branch
+migrations in the preceding section when those changes are integrated.
 
 Only apply the following changes if the condition describes your project:
 
-- If your own JSX uses lowercase HTML attribute spellings such as `readonly`, change
-  them to React's camel-cased DOM property spelling, for example
-  `readOnly`. Existing code that already uses the public YoYui `readOnly` prop needs
-  no change; the repository edits correct internal JSX rather than rename the public
-  prop.
 - If application tests select exact elements from the YoYui documentation site or
   compare its raw HTML snapshots, update selectors and snapshots for semantic
   button/link markup and deterministic list keys. This does not affect the public
