@@ -48,11 +48,11 @@ const FooterSection = () => {
                                 <path d="M72.5 80 A7.5 7.5 0 0 1 87.5 80 Z" fill="#26C2B4" />
                                 <path d="M72.5 80 A7.5 7.5 0 0 0 87.5 80 Z" fill="#5B4FE0" />
                             </g>
-                            <text x="42" y="28" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="30" fontWeight="700" letterSpacing="-0.7">
+                            <text x="30" y="28" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="30" fontWeight="700" letterSpacing="-0.7">
                                 <tspan fill="#5B4FE0">Y</tspan>
                                 <tspan fill="#F06473">o</tspan>
                             </text>
-                            <text x="72" y="28" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="30" fontWeight="700" letterSpacing="-0.7">
+                            <text x="60" y="28" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="30" fontWeight="700" letterSpacing="-0.7">
                                 <tspan fill="#26C2B4">Y</tspan>
                                 <tspan fill="#F06473">ui</tspan>
                             </text>
