@@ -14,11 +14,10 @@ export function EditDoc(props) {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onEditorValueChange = (options, value) => {
-        let newNodes = JSON.parse(JSON.stringify(nodes));
+        let newNodes = structuredClone(nodes);
         let editedNode = findNodeByKey(newNodes, options.node.key);
 
         editedNode.data[options.field] = value;
-
         setNodes(newNodes);
     };
 
@@ -29,7 +28,7 @@ export function EditDoc(props) {
         while (path.length) {
             let list = node ? node.children : nodes;
 
-            node = list[parseInt(path[0], 10)];
+            node = list[Number.parseInt(path[0], 10)];
             path.shift();
         }
 
@@ -78,7 +77,7 @@ export default function EditDemo() {
     }, []);
 
     const onEditorValueChange = (options, value) => {
-        let newNodes = JSON.parse(JSON.stringify(nodes));
+        let newNodes = structuredClone(nodes);
         let editedNode = findNodeByKey(newNodes, options.node.key);
 
         editedNode.data[options.field] = value;
@@ -93,7 +92,7 @@ export default function EditDemo() {
         while (path.length) {
             let list = node ? node.children : nodes;
 
-            node = list[parseInt(path[0], 10)];
+            node = list[Number.parseInt(path[0], 10)];
             path.shift();
         }
 
@@ -146,7 +145,7 @@ export default function EditDemo() {
     }, []);
 
     const onEditorValueChange = (options: ColumnEditorOptions, value: string) => {
-        let newNodes = JSON.parse(JSON.stringify(nodes));
+        let newNodes = structuredClone(nodes);
         let editedNode = findNodeByKey(newNodes, options.node.key);
 
         editedNode.data[options.field] = value;
@@ -161,7 +160,7 @@ export default function EditDemo() {
         while (path.length) {
             let list = node ? node.children : nodes;
 
-            node = list[parseInt(path[0], 10)];
+            node = list[Number.parseInt(path[0], 10)];
             path.shift();
         }
 

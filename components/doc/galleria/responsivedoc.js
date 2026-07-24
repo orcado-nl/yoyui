@@ -6,24 +6,11 @@ import { PhotoService } from '../../../service/PhotoService';
 
 export function ResponsiveDoc(props) {
     const [images, setImages] = useState(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '960px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+        { breakpoint: '1024px', numVisible: 5 },
+        { breakpoint: '960px', numVisible: 4 },
+        { breakpoint: '768px', numVisible: 3 },
+        { breakpoint: '560px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -142,8 +129,8 @@ export default function ResponsiveDoc() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

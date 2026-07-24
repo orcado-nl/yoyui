@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Tag } from '@/components/lib/tag/Tag';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -17,7 +17,7 @@ export function RowSpanRowGroupDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -30,7 +30,7 @@ export function RowSpanRowGroupDoc(props) {
     const representativeBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${rowData.representative.image}`} width="32" />
+                <img alt={rowData.representative.name} src={`/images/avatar/${rowData.representative.image}`} width="32" />
                 <span className="font-bold">{rowData.representative.name}</span>
             </div>
         );
@@ -40,10 +40,8 @@ export function RowSpanRowGroupDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
 
@@ -85,7 +83,7 @@ export default function RowSpanGroupingDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -98,7 +96,7 @@ export default function RowSpanGroupingDemo() {
     const representativeBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${rowData.representative.image}\`} width="32" />
+                <img alt={rowData.representative.name} src={\`/images/avatar/\${rowData.representative.image}\`} width="32" />
                 <span className="font-bold">{rowData.representative.name}</span>
             </div>
         );
@@ -179,7 +177,7 @@ export default function RowSpanGroupingDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -192,7 +190,7 @@ export default function RowSpanGroupingDemo() {
     const representativeBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${rowData.representative.image}\`} width="32" />
+                <img alt={rowData.representative.name} src={\`/images/avatar/\${rowData.representative.image}\`} width="32" />
                 <span className="font-bold">{rowData.representative.name}</span>
             </div>
         );

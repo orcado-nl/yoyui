@@ -1,18 +1,6 @@
-import { DevelopmentSection } from '@/components/doc/common/developmentsection';
-import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
-import Link from 'next/link';
 
 export function AccessibilityDoc() {
-    const code = {
-        basic: `
-<span id="dd1">Options</span>
-<MultiSelect aria-labelledby="dd1" />
-
-<MultiSelect aria-label="Options" />
-    `
-    };
-
     return (
         <DocSectionText id="accessibility" label="Accessibility">
             <h3>Screen Reader</h3>

@@ -2,7 +2,7 @@
  *
  * Paginator is a generic widget to display content in paged format.
  *
- * [Live Demo](https://www.primereact.org/paginator/)
+ * [Live Demo](https://yoyui.orcado.dev/paginator/)
  *
  * @module paginator
  *
@@ -727,13 +727,13 @@ export interface PaginatorProps extends Omit<React.DetailedHTMLProps<React.HTMLA
 }
 
 /**
- * **PrimeReact - Paginator**
+ * **YoYui - Paginator**
  *
  * _Paginator is a generic widget to display content in paged format._
  *
- * [Live Demo](https://www.primereact.org/paginator/)
+ * [Live Demo](https://yoyui.orcado.dev/paginator/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

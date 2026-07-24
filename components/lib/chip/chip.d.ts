@@ -2,7 +2,7 @@
  *
  * Chip represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primereact.org/chip)
+ * [Live Demo](https://yoyui.orcado.dev/chip)
  *
  * @module chip
  *
@@ -148,13 +148,13 @@ export interface ChipProps extends Omit<React.DetailedHTMLProps<React.HTMLAttrib
 }
 
 /**
- * **PrimeReact - Chip**
+ * **YoYui - Chip**
  *
  * _Chip represents people using icons, labels and images._
  *
- * [Live Demo](https://www.primereact.org/chip/)
+ * [Live Demo](https://yoyui.orcado.dev/chip/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

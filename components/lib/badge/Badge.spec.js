@@ -1,9 +1,15 @@
 import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { Badge } from './Badge';
 
 import { snapshot } from '../../test';
 
 describe('Badge', () => {
+    test('renders its value', () => {
+        const { getByText } = render(<Badge value="4" />);
+
+        expect(getByText('4')).toBeInTheDocument();
+    });
     snapshot(<Badge />, 'default');
     snapshot(<Badge value={22} />, 'value');
     snapshot(<Badge size="large" />, 'size large');

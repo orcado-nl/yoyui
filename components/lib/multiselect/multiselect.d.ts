@@ -2,7 +2,7 @@
  *
  * MultiSelect is used to select multiple items from a collection.
  *
- * [Live Demo](https://www.primereact.org/multiselect/)
+ * [Live Demo](https://yoyui.orcado.dev/multiselect/)
  *
  * @module multiselect
  *
@@ -776,13 +776,13 @@ export interface MultiSelectProps extends Omit<React.DetailedHTMLProps<React.Inp
 }
 
 /**
- * **PrimeReact - MultiSelect**
+ * **YoYui - MultiSelect**
  *
  * _MultiSelect is used to select multiple items from a collection._
  *
- * [Live Demo](https://www.primereact.org/multiselect/)
+ * [Live Demo](https://yoyui.orcado.dev/multiselect/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

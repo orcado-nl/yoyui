@@ -1,10 +1,16 @@
 import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { Badge } from '../badge/Badge';
 import { Avatar } from './Avatar';
 
 import { snapshot } from '../../test';
 
 describe('Avatar', () => {
+    test('renders its label', () => {
+        const { getByText } = render(<Avatar label="AV" />);
+
+        expect(getByText('AV')).toBeInTheDocument();
+    });
     snapshot(<Avatar />, 'default');
     snapshot(<Avatar label="P" />, 'label');
     snapshot(<Avatar icon="pi pi-search" />, 'icon');

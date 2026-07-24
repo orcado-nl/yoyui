@@ -12,7 +12,7 @@ export function AutoResizeDoc(props) {
 
     useEffect(() => {
         CustomerService.getCustomersSmall().then((data) => {
-            data.forEach((d) => (d.nickname = `${d.name.replace(/\s+/g, '').toLowerCase()}_${d.id}`));
+            data.forEach((d) => (d.nickname = `${d.name.replaceAll(/\s+/g, '').toLowerCase()}_${d.id}`));
             setCustomers(data);
         });
     }, []);
@@ -36,7 +36,7 @@ export function AutoResizeDoc(props) {
     };
 
     const itemTemplate = (suggestion) => {
-        const src = 'https://primefaces.org/cdn/primereact/images/avatar/' + suggestion.representative.image;
+        const src = '/images/avatar/' + suggestion.representative.image;
 
         return (
             <div className="flex align-items-center">
@@ -91,7 +91,7 @@ export default function AutoResizeDemo() {
     }
 
     const itemTemplate = (suggestion) => {
-        const src = 'https://primefaces.org/cdn/primereact/images/avatar/' + suggestion.representative.image;
+        const src = '/images/avatar/' + suggestion.representative.image;
 
         return (
             <div className="flex align-items-center">
@@ -149,7 +149,7 @@ export default function AutoResizeDemo() {
     }
 
     const itemTemplate = (suggestion: any) => {
-        const src = 'https://primefaces.org/cdn/primereact/images/avatar/' + suggestion.representative.image;
+        const src = '/images/avatar/' + suggestion.representative.image;
 
         return (
             <div className="flex align-items-center">

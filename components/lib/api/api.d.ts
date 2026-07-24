@@ -1,6 +1,6 @@
 /**
  *
- * API for PrimeReact components.
+ * API for YoYui components.
  *
  * @module api
  *
@@ -155,7 +155,7 @@ export interface FilterMatchModeOptions {
 }
 
 /**
- * Configuration options for the PrimeReact components.
+ * Configuration options for the YoYui components.
  */
 export interface APIOptions {
     /**
@@ -172,7 +172,7 @@ export interface APIOptions {
      */
     autoZIndex?: boolean;
     /**
-     * PrimeReact components utilize "react-transition-group" internally to implement animations. Setting "cssTransition" to "false" disables all animations.
+     * YoYui components utilize "react-transition-group" internally to implement animations. Setting "cssTransition" to "false" disables all animations.
      * @defaultValue true
      */
     cssTransition?: boolean;
@@ -681,6 +681,7 @@ export interface PrimeReactPTOptions {
  * @deprecated since version 9.6.0. Use PrimeReactContext instead.
  */
 declare const PrimeReact: APIOptions;
+declare const PrimeReactConfig: APIOptions;
 
 export default PrimeReact;
 
@@ -699,7 +700,7 @@ type PrimeReactProviderProps = {
 declare const PrimeReactProvider: React.FC<PrimeReactProviderProps>;
 declare const PrimeReactContext: React.Context<APIOptions>;
 
-export { PrimeReactContext, PrimeReactProvider };
+export { PrimeReactConfig, PrimeReactContext, PrimeReactProvider };
 
 // Locale
 /**

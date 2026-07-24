@@ -13,7 +13,7 @@ export function DynamicDoc(props) {
         let _val = value;
 
         interval.current = setInterval(() => {
-            _val = _val + (Math.floor(Math.random() * 10) + 1);
+            _val = _val + ((crypto.getRandomValues(new Uint32Array(1))[0] % 10) + 1);
 
             if (_val >= 100) {
                 _val = 100;
@@ -50,7 +50,7 @@ export default function DynamicDemo() {
         let _val = value;
 
         interval.current = setInterval(() => {
-            _val += Math.floor(Math.random() * 10) + 1;
+            _val += (crypto.getRandomValues(new Uint32Array(1))[0] % 10) + 1;
 
             if (_val >= 100) {
                 _val = 100;
@@ -91,7 +91,7 @@ export default function DynamicDemo() {
         let _val = value;
 
         interval.current = setInterval(() => {
-            _val += Math.floor(Math.random() * 10) + 1;
+            _val += (crypto.getRandomValues(new Uint32Array(1))[0] % 10) + 1;
 
             if (_val >= 100) {
                 _val = 100;

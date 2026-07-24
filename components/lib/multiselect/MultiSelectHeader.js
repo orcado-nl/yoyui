@@ -12,33 +12,21 @@ import { IconUtils, ObjectUtils, UniqueComponentId } from '../utils/Utils';
 export const MultiSelectHeader = React.memo((props) => {
     const mergeProps = useMergeProps();
     const { ptm, cx, isUnstyled } = props;
-    const filterOptions = {
-        filter: (e) => onFilter(e),
-        reset: () => props.resetFilter()
-    };
+    const filterOptions = { filter: (e) => onFilter(e), reset: () => props.resetFilter() };
 
     const getPTOptions = (key, options) => {
-        return ptm(key, {
-            hostName: props.hostName,
-            ...options
-        });
+        return ptm(key, { hostName: props.hostName, ...options });
     };
 
     const onFilter = (event) => {
         if (props.onFilter) {
-            props.onFilter({
-                originalEvent: event,
-                query: event.target.value
-            });
+            props.onFilter({ originalEvent: event, query: event.target.value });
         }
     };
 
     const onToggleAll = (event) => {
         if (props.onSelectAll) {
-            props.onSelectAll({
-                originalEvent: event,
-                checked: props.selectAll
-            });
+            props.onSelectAll({ originalEvent: event, checked: props.selectAll });
         } else {
             const value = props.isAllSelected() ? [] : props.visibleOptions.filter((option) => props.isValidOption(option)).map((option) => props.getOptionValue(option));
 
@@ -47,24 +35,12 @@ export const MultiSelectHeader = React.memo((props) => {
     };
 
     const createFilterElement = () => {
-        const filterIconProps = mergeProps(
-            {
-                className: cx('filterIcon')
-            },
-            getPTOptions('filterIcon')
-        );
-
+        const filterIconProps = mergeProps({ className: cx('filterIcon') }, getPTOptions('filterIcon'));
         const icon = props.filterIcon || <SearchIcon {...filterIconProps} />;
         const filterIcon = IconUtils.getJSXIcon(icon, { ...filterIconProps }, { props });
 
         if (props.filter) {
-            const filterContainerProps = mergeProps(
-                {
-                    className: cx('filterContainer')
-                },
-                getPTOptions('filterContainer')
-            );
-
+            const filterContainerProps = mergeProps({ className: cx('filterContainer') }, getPTOptions('filterContainer'));
             let content = (
                 <div {...filterContainerProps}>
                     <InputText
@@ -80,6 +56,7 @@ export const MultiSelectHeader = React.memo((props) => {
                         unstyled={props.unstyled}
                         __parentMetadata={{ parent: props.metaData }}
                     />
+
                     {filterIcon}
                 </div>
             );
@@ -98,7 +75,7 @@ export const MultiSelectHeader = React.memo((props) => {
                 content = ObjectUtils.getJSXElement(props.filterTemplate, defaultContentOptions);
             }
 
-            return <>{content}</>;
+            return content;
         }
 
         return null;

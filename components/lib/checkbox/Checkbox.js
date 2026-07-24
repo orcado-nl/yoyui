@@ -13,19 +13,9 @@ export const Checkbox = React.memo(
         const context = React.useContext(PrimeReactContext);
         const props = CheckboxBase.getProps(inProps, context);
         const [focusedState, setFocusedState] = React.useState(false);
-        const { ptm, cx, isUnstyled } = CheckboxBase.setMetaData({
-            props,
-            state: {
-                focused: focusedState
-            },
-            context: {
-                checked: props.checked === props.trueValue,
-                disabled: props.disabled
-            }
-        });
+        const { ptm, cx, isUnstyled } = CheckboxBase.setMetaData({ props, state: { focused: focusedState }, context: { checked: props.checked === props.trueValue, disabled: props.disabled } });
 
         useHandleStyle(CheckboxBase.css.styles, isUnstyled, { name: 'checkbox' });
-
         const elementRef = React.useRef(null);
         const inputRef = React.useRef(props.inputRef);
 
@@ -51,18 +41,11 @@ export const Checkbox = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        type: 'checkbox',
-                        name: props.name,
-                        id: props.id,
-                        value: props.value,
-                        checked: value
-                    }
+                    target: { type: 'checkbox', name: props.name, id: props.id, value: props.value, checked: value }
                 };
 
-                props?.onChange?.(eventData);
+                props?.onChange?.(eventData); // do not continue if the user defined click wants to prevent
 
-                // do not continue if the user defined click wants to prevent
                 if (event.defaultPrevented) {
                     return;
                 }
@@ -81,27 +64,18 @@ export const Checkbox = React.memo(
             props?.onBlur?.(event);
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            focus: () => DomHandler.focus(inputRef.current),
-            getElement: () => elementRef.current,
-            getInput: () => inputRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, focus: () => DomHandler.focus(inputRef.current), getElement: () => elementRef.current, getInput: () => inputRef.current }));
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
         }, [inputRef, props.inputRef]);
-
         useUpdateEffect(() => {
             inputRef.current.checked = isChecked();
         }, [props.checked, props.trueValue]);
-
         useMountEffect(() => {
             if (props.autoFocus) {
                 DomHandler.focus(inputRef.current, props.autoFocus);
             }
         });
-
         const checked = isChecked();
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip);
         const otherProps = CheckboxBase.getOtherProps(props);
@@ -145,21 +119,8 @@ export const Checkbox = React.memo(
         };
 
         const createBoxElement = () => {
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                ptm('icon')
-            );
-            const boxProps = mergeProps(
-                {
-                    className: cx('box', { checked }),
-                    'data-p-highlight': checked,
-                    'data-p-disabled': props.disabled
-                },
-                ptm('box')
-            );
-
+            const iconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
+            const boxProps = mergeProps({ className: cx('box', { checked }), 'data-p-highlight': checked, 'data-p-disabled': props.disabled }, ptm('box'));
             const icon = checked ? props.icon || <CheckIcon {...iconProps} /> : null;
             const checkboxIcon = IconUtils.getJSXIcon(icon, { ...iconProps }, { props, checked });
 

@@ -2,7 +2,7 @@
  *
  * Breadcrumb provides contextual information about page hierarchy.
  *
- * [Live Demo](https://www.primereact.org/breadcrumb/)
+ * [Live Demo](https://yoyui.orcado.dev/breadcrumb/)
  *
  * @module breadcrumb
  *
@@ -105,13 +105,13 @@ export interface BreadCrumbProps extends Omit<React.DetailedHTMLProps<React.HTML
 }
 
 /**
- * **PrimeReact - BreadCrumb**
+ * **YoYui - BreadCrumb**
  *
  * _Breadcrumb provides contextual information about page hierarchy._
  *
- * [Live Demo](https://www.primereact.org/breadcrumb/)
+ * [Live Demo](https://yoyui.orcado.dev/breadcrumb/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

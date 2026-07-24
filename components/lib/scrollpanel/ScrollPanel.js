@@ -38,14 +38,19 @@ export const ScrollPanel = React.forwardRef((inProps, ref) => {
     const calculateContainerHeight = () => {
         const containerStyles = getComputedStyle(containerRef.current);
         const xBarStyles = getComputedStyle(xBarRef.current);
-        const pureContainerHeight = DomHandler.getHeight(containerRef.current) - parseInt(xBarStyles.height, 10);
+        const pureContainerHeight = DomHandler.getHeight(containerRef.current) - Number.parseInt(xBarStyles.height, 10);
 
         if (containerStyles['max-height'] !== 'none' && pureContainerHeight === 0) {
-            if (contentRef.current.offsetHeight + parseInt(xBarStyles.height, 10) > parseInt(containerStyles['max-height'], 10)) {
+            if (contentRef.current.offsetHeight + Number.parseInt(xBarStyles.height, 10) > Number.parseInt(containerStyles['max-height'], 10)) {
                 containerRef.current.style.height = containerStyles['max-height'];
             } else {
                 containerRef.current.style.height =
-                    contentRef.current.offsetHeight + parseFloat(containerStyles.paddingTop) + parseFloat(containerStyles.paddingBottom) + parseFloat(containerStyles.borderTopWidth) + parseFloat(containerStyles.borderBottomWidth) + 'px';
+                    contentRef.current.offsetHeight +
+                    Number.parseFloat(containerStyles.paddingTop) +
+                    Number.parseFloat(containerStyles.paddingBottom) +
+                    Number.parseFloat(containerStyles.borderTopWidth) +
+                    Number.parseFloat(containerStyles.borderBottomWidth) +
+                    'px';
             }
         }
     };

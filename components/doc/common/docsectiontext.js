@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -20,21 +19,19 @@ export function DocSectionText(props) {
     const content = (
         <>
             {label}
-            <Link href={router.basePath + router.pathname + '#' + id} target="_self">
-                <a id={id} onClick={onClick}>
-                    #
-                </a>
-            </Link>
+            <a href={router.basePath + router.pathname + '#' + id} target="_self" id={id} onClick={onClick}>
+                #
+            </a>
         </>
     );
 
-    const Title = (titleProps) => {
+    const renderTitle = (titleProps) => {
         return React.createElement(`h${level}`, { className: 'doc-section-label' }, titleProps.children);
     };
 
     return (
         <>
-            <Title>{content}</Title>
+            {renderTitle({ children: content })}
             <div className="doc-section-description">{children}</div>
         </>
     );

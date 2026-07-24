@@ -4,22 +4,22 @@ import { InputOtp } from '@/components/lib/inputotp/InputOtp';
 import { useState } from 'react';
 
 export function MaskDoc(props) {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     const code = {
         basic: `
-<InputOtp value={token} onChange={(e) => setTokens(e.value)} mask/>
+<InputOtp value={token} onChange={(e) => setToken(e.value)} mask/>
         `,
         javascript: `
 import React, { useState } from 'react';
 import { InputOtp } from 'primereact/inputotp';
 
 export default function MaskDemo() {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     return (
         <div className="card flex justify-content-center">
-            <InputOtp value={token} onChange={(e) => setTokens(e.value)} mask/>
+            <InputOtp value={token} onChange={(e) => setToken(e.value)} mask/>
         </div>
     );
 }
@@ -29,11 +29,11 @@ import React, { useState } from 'react';
 import { InputOtp } from 'primereact/inputotp';
 
 export default function MaskDemo() {
-    const [token, setTokens] = useState<string | number | undefined>();
+    const [token, setToken] = useState<string | number | undefined>();
 
     return (
         <div className="card flex justify-content-center">
-            <InputOtp value={token} onChange={(e) => setTokens(e.value)} mask/>
+            <InputOtp value={token} onChange={(e) => setToken(e.value)} mask/>
         </div>
     );
 }
@@ -48,7 +48,7 @@ export default function MaskDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <InputOtp value={token} onChange={(e) => setTokens(e.value)} mask />
+                <InputOtp value={token} onChange={(e) => setToken(e.value)} mask />
             </div>
             <DocSectionCode code={code} />
         </>

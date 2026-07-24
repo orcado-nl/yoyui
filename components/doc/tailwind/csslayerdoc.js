@@ -24,14 +24,12 @@ export function CSSLayerDoc(props) {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    Tailwind CSS can be used with styled or unstyled modes of PrimeReact. In both cases, <a href="https://tailwindcss.com/docs/preflight">preflight</a> mode may break styling of the core functionality so <i>@layer</i> configuration in
-                    your style file that includes tailwind styles is necessary for compatibility.
-                </p>
-                <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                Tailwind CSS can be used with styled or unstyled modes of PrimeReact. In both cases, <a href="https://tailwindcss.com/docs/preflight">preflight</a> mode may break styling of the core functionality so <i>@layer</i> configuration in
+                your style file that includes tailwind styles is necessary for compatibility.
+            </p>
+            <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
+        </DocSectionText>
     );
 }

@@ -3,9 +3,12 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Calendar } from '@/components/lib/calendar/Calendar';
 import { useState } from 'react';
 
+function renderSonarNested1() {
+    return <i className="pi pi-clock" />;
+}
+
 export function IconDoc(props) {
     const [date, setDate] = useState(null);
-
     const code = {
         basic: `
 <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon />
@@ -105,7 +108,7 @@ export default function IconDemo() {
                         Icon Template
                     </label>
 
-                    <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon timeOnly icon={() => <i className="pi pi-clock" />} />
+                    <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon timeOnly icon={() => renderSonarNested1()} />
                 </div>
             </div>
             <DocSectionCode code={code} />

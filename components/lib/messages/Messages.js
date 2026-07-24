@@ -17,14 +17,7 @@ export const Messages = React.memo(
         const props = MessagesBase.getProps(inProps, context);
         const [messagesState, setMessagesState] = React.useState([]);
         const elementRef = React.useRef(null);
-        const metaData = {
-            props,
-            ...props.__parentMetadata,
-            state: {
-                messages: messagesState
-            }
-        };
-
+        const metaData = { props, ...props.__parentMetadata, state: { messages: messagesState } };
         const ptCallbacks = MessagesBase.setMetaData(metaData);
 
         useHandleStyle(MessagesBase.css.styles, ptCallbacks.isUnstyled, { name: 'messages' });
@@ -76,60 +69,32 @@ export const Messages = React.memo(
             const removeMessage = ObjectUtils.isNotEmpty(messageInfo._pId) ? messageInfo._pId : messageInfo.message || messageInfo;
 
             setMessagesState((prev) => prev.filter((msg) => msg._pId !== messageInfo._pId && !ObjectUtils.deepEquals(msg.message, removeMessage)));
-
-            props.onRemove && props.onRemove(messageInfo.message || removeMessage);
+            props.onRemove?.(messageInfo.message || removeMessage);
         };
 
         const onClose = (messageInfo) => {
             remove(messageInfo);
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            show,
-            replace,
-            remove,
-            clear,
-            getElement: () => elementRef.current
-        }));
-
-        const rootProps = mergeProps(
-            {
-                id: props.id,
-                className: props.className,
-                style: props.style
-            },
-            MessagesBase.getOtherProps(props),
-            ptCallbacks.ptm('root')
-        );
-
-        const transitionProps = mergeProps(
-            {
-                classNames: ptCallbacks.cx('uimessage.transition'),
-                unmountOnExit: true,
-                timeout: { enter: 300, exit: 300 },
-                options: props.transitionOptions
-            },
-            ptCallbacks.ptm('transition')
-        );
+        React.useImperativeHandle(ref, () => ({ props, show, replace, remove, clear, getElement: () => elementRef.current }));
+        const rootProps = mergeProps({ id: props.id, className: props.className, style: props.style }, MessagesBase.getOtherProps(props), ptCallbacks.ptm('root'));
+        const transitionProps = mergeProps({ classNames: ptCallbacks.cx('uimessage.transition'), unmountOnExit: true, timeout: { enter: 300, exit: 300 }, options: props.transitionOptions }, ptCallbacks.ptm('transition'));
 
         return (
             <div ref={elementRef} {...rootProps}>
                 <TransitionGroup>
-                    {messagesState &&
-                        messagesState.map((message, index) => {
-                            const messageRef = React.createRef();
+                    {messagesState?.map((message, index) => {
+                        const messageRef = React.createRef();
 
-                            return (
-                                <CSSTransition nodeRef={messageRef} key={message._pId} {...transitionProps}>
-                                    <UIMessage hostName="Messages" ref={messageRef} message={message} onClick={props.onClick} onClose={onClose} ptCallbacks={ptCallbacks} metaData={metaData} index={index} />
-                                </CSSTransition>
-                            );
-                        })}
+                        return (
+                            <CSSTransition nodeRef={messageRef} key={message._pId} {...transitionProps}>
+                                <UIMessage hostName="Messages" ref={messageRef} message={message} onClick={props.onClick} onClose={onClose} ptCallbacks={ptCallbacks} metaData={metaData} index={index} />
+                            </CSSTransition>
+                        );
+                    })}
                 </TransitionGroup>
             </div>
         );
     })
 );
-
 Messages.displayName = 'Messages';

@@ -5,7 +5,6 @@ import { useMergeProps } from '../hooks/Hooks';
 import { classNames, DomHandler } from '../utils/Utils';
 import { OrganizationChartBase } from './OrganizationChartBase';
 import { OrganizationChartNode } from './OrganizationChartNode';
-
 export const OrganizationChart = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
@@ -15,9 +14,11 @@ export const OrganizationChart = React.memo(
             props
         });
 
-        useHandleStyle(OrganizationChartBase.css.styles, isUnstyled, { name: 'orgchart' });
+        useHandleStyle(OrganizationChartBase.css.styles, isUnstyled, {
+            name: 'orgchart'
+        });
         const elementRef = React.useRef(null);
-        const root = props.value && props.value.length ? props.value[0] : null;
+        const root = props.value?.length ? props.value[0] : null;
 
         const onNodeClick = (event, node) => {
             if (props.selectionMode) {
@@ -31,21 +32,37 @@ export const OrganizationChart = React.memo(
                 const selected = index >= 0;
                 let selection;
 
-                if (props.selectionMode === 'single') {
+                const runComplexBranch1 = () => {
                     if (selected) {
                         selection = null;
-                        props.onNodeUnselect && props.onNodeUnselect({ originalEvent: event, node });
+                        props.onNodeUnselect?.({
+                            originalEvent: event,
+                            node
+                        });
                     } else {
                         selection = node;
-                        props.onNodeSelect && props.onNodeSelect({ originalEvent: event, node });
+                        props.onNodeSelect?.({
+                            originalEvent: event,
+                            node
+                        });
                     }
+                };
+
+                if (props.selectionMode === 'single') {
+                    runComplexBranch1();
                 } else if (props.selectionMode === 'multiple') {
                     if (selected) {
                         selection = props.selection.filter((_, i) => i !== index);
-                        props.onNodeUnselect && props.onNodeUnselect({ originalEvent: event, node });
+                        props.onNodeUnselect?.({
+                            originalEvent: event,
+                            node
+                        });
                     } else {
                         selection = [...(props.selection || []), node];
-                        props.onNodeSelect && props.onNodeSelect({ originalEvent: event, node });
+                        props.onNodeSelect?.({
+                            originalEvent: event,
+                            node
+                        });
                     }
                 }
 
@@ -63,7 +80,7 @@ export const OrganizationChart = React.memo(
                 if (props.selectionMode === 'single') {
                     return props.selection === node ? 0 : -1;
                 } else if (props.selectionMode === 'multiple') {
-                    return props.selection.findIndex((selectedNode) => selectedNode === node);
+                    return props.selection.indexOf(node);
                 }
             }
 
@@ -78,7 +95,6 @@ export const OrganizationChart = React.memo(
             props,
             getElement: () => elementRef.current
         }));
-
         const rootProps = mergeProps(
             {
                 id: props.id,
@@ -108,5 +124,4 @@ export const OrganizationChart = React.memo(
         );
     })
 );
-
 OrganizationChart.displayName = 'OrganizationChart';

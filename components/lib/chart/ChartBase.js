@@ -19,14 +19,11 @@ export const ChartBase = ComponentBase.extend({
             root: 'p-chart'
         },
         inlineStyles: {
-            root: ({ props }) =>
-                Object.assign(
-                    {
-                        width: props.width,
-                        height: props.height
-                    },
-                    props.style
-                )
+            root: ({ props }) => ({
+                width: props.width,
+                height: props.height,
+                ...props.style
+            })
         },
         styles: `
         @layer primereact {

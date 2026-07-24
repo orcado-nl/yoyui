@@ -4,7 +4,6 @@ import { useMountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { InputText } from '../inputtext/InputText';
 import { DomHandler, ObjectUtils, classNames } from '../utils/Utils';
 import { InputMaskBase } from './InputMaskBase';
-
 export const InputMask = React.memo(
     React.forwardRef((inProps, ref) => {
         const context = React.useContext(PrimeReactContext);
@@ -20,13 +19,12 @@ export const InputMask = React.memo(
         const focusText = React.useRef(null);
         const isValueChecked = React.useRef(null);
         const partialPosition = React.useRef(null);
-        const defaultBuffer = React.useRef(null);
+        const defaultBuffer = React.useRef('');
         const caretTimeoutId = React.useRef(null);
         const androidChrome = React.useRef(false);
         const metaData = {
             props
         };
-
         const { cx } = InputMaskBase.setMetaData(metaData);
 
         const caret = (first, last) => {
@@ -35,7 +33,7 @@ export const InputMask = React.memo(
             let end;
             let inputEl = elementRef.current;
 
-            if (!inputEl || !inputEl.offsetParent || inputEl !== document.activeElement) {
+            if (!inputEl?.offsetParent || inputEl !== document.activeElement) {
                 return null;
             }
 
@@ -55,13 +53,16 @@ export const InputMask = React.memo(
             } else if (inputEl.setSelectionRange) {
                 begin = inputEl.selectionStart;
                 end = inputEl.selectionEnd;
-            } else if (document.selection && document.selection.createRange) {
+            } else if (document.selection?.createRange) {
                 range = document.selection.createRange();
                 begin = 0 - range.duplicate().moveStart('character', -100000);
                 end = begin + range.text.length;
             }
 
-            return { begin: begin, end: end };
+            return {
+                begin: begin,
+                end: end
+            };
         };
 
         const isCompleted = () => {
@@ -86,17 +87,21 @@ export const InputMask = React.memo(
         );
 
         const getValue = () => {
-            return props.unmask ? getUnmaskedValue() : elementRef.current && elementRef.current.value;
+            return props.unmask ? getUnmaskedValue() : elementRef.current?.value;
         };
 
         const seekNext = (pos) => {
-            while (++pos < len.current && !tests.current[pos]) {}
+            do {
+                pos++;
+            } while (pos < len.current && !tests.current[pos]);
 
             return pos;
         };
 
         const seekPrev = (pos) => {
-            while (--pos >= 0 && !tests.current[pos]) {}
+            do {
+                pos--;
+            } while (pos >= 0 && !tests.current[pos]);
 
             return pos;
         };
@@ -155,7 +160,7 @@ export const InputMask = React.memo(
                 return;
             }
 
-            if (oldVal.current.length && oldVal.current.length > curVal.length) {
+            const runComplexBranch1 = () => {
                 // a deletion or backspace happened
                 checkVal(true);
 
@@ -170,7 +175,9 @@ export const InputMask = React.memo(
                 }
 
                 caret(pos.begin, pos.begin);
-            } else {
+            };
+
+            const runComplexBranch3 = () => {
                 checkVal(true);
 
                 while (pos.begin < len.current && !tests.current[pos.begin]) {
@@ -178,6 +185,12 @@ export const InputMask = React.memo(
                 }
 
                 caret(pos.begin, pos.begin);
+            };
+
+            if (oldVal.current.length && oldVal.current.length > curVal.length) {
+                runComplexBranch1();
+            } else {
+                runComplexBranch3();
             }
 
             if (props.onComplete && isCompleted()) {
@@ -195,14 +208,14 @@ export const InputMask = React.memo(
             checkVal();
             updateModel(e);
             updateFilledState();
-
-            props.onBlur && props.onBlur(e);
+            props.onBlur?.(e);
 
             if (elementRef.current.value !== focusText.current) {
-                let event = document.createEvent('HTMLEvents');
-
-                event.initEvent('change', true, false);
-                elementRef.current.dispatchEvent(event);
+                elementRef.current.dispatchEvent(
+                    new Event('change', {
+                        bubbles: true
+                    })
+                );
             }
         };
 
@@ -230,14 +243,18 @@ export const InputMask = React.memo(
                 end = pos.end;
 
                 if (end - begin === 0) {
-                    begin = k !== 46 ? seekPrev(begin) : (end = seekNext(begin - 1));
-                    end = k === 46 ? seekNext(end) : end;
+                    if (k === 46) {
+                        end = seekNext(begin - 1);
+                        begin = end;
+                        end = seekNext(end);
+                    } else {
+                        begin = seekPrev(begin);
+                    }
                 }
 
                 clearBuffer(begin, end);
                 shiftL(begin, end - 1);
                 updateModel(e);
-
                 e.preventDefault();
             } else if (k === 13) {
                 // enter
@@ -249,10 +266,12 @@ export const InputMask = React.memo(
                 caret(0, checkVal());
                 updateModel(e);
                 e.preventDefault();
+            } else {
+                onCharacterKeyDown(e);
             }
         };
 
-        const onKeyPress = (e) => {
+        const onCharacterKeyDown = (e) => {
             if (props.readOnly) {
                 return;
             }
@@ -280,12 +299,11 @@ export const InputMask = React.memo(
 
                 p = seekNext(pos.begin - 1);
 
-                if (p < len.current) {
-                    c = String.fromCharCode(k);
+                const runComplexBranch4 = () => {
+                    c = String.fromCodePoint(k);
 
                     if (tests.current[p].test(c)) {
                         shiftR(p);
-
                         buffer.current[p] = c;
                         writeBuffer();
                         next = seekNext(p);
@@ -305,6 +323,10 @@ export const InputMask = React.memo(
                             completed = isCompleted();
                         }
                     }
+                };
+
+                if (p < len.current) {
+                    runComplexBranch4();
                 }
 
                 e.preventDefault();
@@ -336,69 +358,94 @@ export const InputMask = React.memo(
             }
         };
 
-        const checkVal = (allow) => {
-            isValueChecked.current = true;
-            //try to place characters where they belong
-            let test = elementRef.current && elementRef.current.value;
-            let lastMatch = -1;
-            let i;
-            let c;
-            let pos;
+        const matchEditablePosition = (test, index, startPosition) => {
+            let position = startPosition;
 
-            for (i = 0, pos = 0; i < len.current; i++) {
-                if (tests.current[i]) {
-                    buffer.current[i] = getPlaceholder(i);
+            buffer.current[index] = getPlaceholder(index);
 
-                    while (pos++ < test.length) {
-                        c = test.charAt(pos - 1);
+            while (position++ < test.length) {
+                const character = test.charAt(position - 1);
 
-                        if (tests.current[i].test(c)) {
-                            buffer.current[i] = c;
-                            lastMatch = i;
-                            break;
-                        }
-                    }
+                if (tests.current[index].test(character)) {
+                    buffer.current[index] = character;
 
-                    if (pos > test.length) {
-                        clearBuffer(i + 1, len.current);
-                        break;
-                    }
-                } else {
-                    if (buffer.current[i] === test.charAt(pos)) {
-                        pos++;
-                    }
-
-                    if (i < partialPosition.current) {
-                        lastMatch = i;
-                    }
+                    return { position, matched: true, exhausted: false };
                 }
             }
 
+            clearBuffer(index + 1, len.current);
+
+            return { position, matched: false, exhausted: true };
+        };
+
+        const matchLiteralPosition = (test, index, startPosition, lastMatch) => {
+            const position = buffer.current[index] === test.charAt(startPosition) ? startPosition + 1 : startPosition;
+
+            return { position, lastMatch: index < partialPosition.current ? index : lastMatch };
+        };
+
+        const parseMaskValue = (test) => {
+            let lastMatch = -1;
+            let position = 0;
+            let index = 0;
+
+            for (; index < len.current; index++) {
+                if (tests.current[index]) {
+                    const result = matchEditablePosition(test, index, position);
+
+                    position = result.position;
+                    lastMatch = result.matched ? index : lastMatch;
+
+                    if (result.exhausted) {
+                        break;
+                    }
+                } else {
+                    ({ position, lastMatch } = matchLiteralPosition(test, index, position, lastMatch));
+                }
+            }
+
+            return { lastMatch, nextPosition: partialPosition.current ? index : firstNonMaskPos.current };
+        };
+
+        const applyCheckedValue = (allow, lastMatch) => {
             if (allow) {
                 writeBuffer();
-            } else if (lastMatch + 1 < partialPosition.current) {
-                if (props.autoClear || buffer.current.join('') === defaultBuffer.current) {
-                    // Invalid value. Remove it and replace it with the
-                    // mask, which is the default behavior.
-                    if (elementRef.current && elementRef.current.value) {
-                        elementRef.current.value = '';
-                    }
 
-                    clearBuffer(0, len.current);
-                } else {
-                    // Invalid value, but we opt to show the value to the
-                    // user and allow them to correct their mistake.
-                    writeBuffer();
-                }
-            } else {
+                return;
+            }
+
+            if (lastMatch + 1 >= partialPosition.current) {
                 writeBuffer();
 
                 if (elementRef.current) {
                     elementRef.current.value = elementRef.current.value.substring(0, lastMatch + 1);
                 }
+
+                return;
             }
 
-            return partialPosition.current ? i : firstNonMaskPos.current;
+            if (props.autoClear || buffer.current.join('') === defaultBuffer.current) {
+                // Invalid value. Remove it and replace it with the mask.
+                if (elementRef.current?.value) {
+                    elementRef.current.value = '';
+                }
+
+                clearBuffer(0, len.current);
+
+                return;
+            }
+
+            // Keep the invalid value visible so the user can correct it.
+            writeBuffer();
+        };
+
+        const checkVal = (allow) => {
+            isValueChecked.current = true;
+            const { lastMatch, nextPosition } = parseMaskValue(elementRef.current?.value || '');
+
+            applyCheckedValue(allow, lastMatch);
+
+            return nextPosition;
         };
 
         const onFocus = (e) => {
@@ -407,7 +454,6 @@ export const InputMask = React.memo(
             }
 
             focus.current = true;
-
             clearTimeout(caretTimeoutId.current);
             let pos;
 
@@ -418,7 +464,6 @@ export const InputMask = React.memo(
             }
 
             pos = checkVal() || 0;
-
             caretTimeoutId.current = setTimeout(() => {
                 if (elementRef.current !== document.activeElement) {
                     return;
@@ -434,8 +479,7 @@ export const InputMask = React.memo(
 
                 updateFilledState();
             }, 100);
-
-            props.onFocus && props.onFocus(e);
+            props.onFocus?.(e);
         };
 
         const onInput = (event) => {
@@ -479,7 +523,7 @@ export const InputMask = React.memo(
 
         const updateModel = (e) => {
             if (props.onChange) {
-                let val = props.unmask ? getUnmaskedValue() : e && e.target.value;
+                let val = props.unmask ? getUnmaskedValue() : e?.target.value;
 
                 props.onChange({
                     originalEvent: e,
@@ -500,7 +544,7 @@ export const InputMask = React.memo(
         };
 
         const updateFilledState = () => {
-            if (elementRef.current && elementRef.current.value && elementRef.current.value.length > 0) {
+            if (elementRef.current?.value && elementRef.current.value.length > 0) {
                 DomHandler.addClass(elementRef.current, 'p-filled');
             } else {
                 DomHandler.removeClass(elementRef.current, 'p-filled');
@@ -516,7 +560,6 @@ export const InputMask = React.memo(
                 } else {
                     elementRef.current.value = props.value;
                     pos = checkVal(allow);
-
                     setTimeout(() => {
                         if (elementRef.current) {
                             writeBuffer();
@@ -539,7 +582,7 @@ export const InputMask = React.memo(
         }, [props.unmask, props.value, getUnmaskedValue]);
 
         const init = () => {
-            if (props.mask) {
+            const runComplexBranch8 = () => {
                 tests.current = [];
                 partialPosition.current = props.mask.length;
                 len.current = props.mask.length;
@@ -551,7 +594,6 @@ export const InputMask = React.memo(
                 };
 
                 androidChrome.current = DomHandler.isChrome() && DomHandler.isAndroid();
-
                 let maskTokens = props.mask.split('');
 
                 for (let i = 0; i < maskTokens.length; i++) {
@@ -580,16 +622,24 @@ export const InputMask = React.memo(
                 for (let i = 0; i < maskTokens.length; i++) {
                     let c = maskTokens[i];
 
-                    if (c !== '?') {
+                    const runComplexBranch1 = () => {
                         if (defs[c]) {
                             buffer.current.push(getPlaceholder(i));
                         } else {
                             buffer.current.push(c);
                         }
+                    };
+
+                    if (c !== '?') {
+                        runComplexBranch1();
                     }
                 }
 
                 defaultBuffer.current = buffer.current.join('');
+            };
+
+            if (props.mask) {
+                runComplexBranch8();
             }
         };
 
@@ -598,16 +648,13 @@ export const InputMask = React.memo(
             focus: () => DomHandler.focus(elementRef.current),
             getElement: () => elementRef.current
         }));
-
         React.useEffect(() => {
             ObjectUtils.combinedRefs(elementRef, ref);
         }, [elementRef, ref]);
-
         useMountEffect(() => {
             init();
             updateValue();
         });
-
         useUpdateEffect(() => {
             init();
             caret(updateValue(true));
@@ -616,19 +663,21 @@ export const InputMask = React.memo(
                 updateModel();
             }
         }, [props.mask]);
-
         useUpdateEffect(() => {
             if (isValueUpdated()) {
                 updateValue();
             }
         }, [isValueUpdated]);
-
         useUpdateEffect(() => {
             updateFilledState();
         }, [props.disabled]);
-
         const otherProps = InputMaskBase.getOtherProps(props);
-        const className = classNames(props.className, cx('root', { context }));
+        const className = classNames(
+            props.className,
+            cx('root', {
+                context
+            })
+        );
 
         return (
             <InputText
@@ -651,7 +700,6 @@ export const InputMask = React.memo(
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
-                onKeyPress={onKeyPress}
                 onInput={onInput}
                 onPaste={(e) => handleInputChange(e, true)}
                 required={props.required}
@@ -659,10 +707,11 @@ export const InputMask = React.memo(
                 tooltipOptions={props.tooltipOptions}
                 pt={props.pt}
                 unstyled={props.unstyled}
-                __parentMetadata={{ parent: metaData }}
+                __parentMetadata={{
+                    parent: metaData
+                }}
             />
         );
     })
 );
-
 InputMask.displayName = 'InputMask';

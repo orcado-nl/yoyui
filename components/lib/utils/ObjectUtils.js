@@ -1,3 +1,4 @@
+import { resolveConditional } from './ConditionalUtils';
 export default class ObjectUtils {
     static equals(obj1, obj2, field) {
         if (field && obj1 && typeof obj1 === 'object' && obj2 && typeof obj2 === 'object') {
@@ -18,99 +19,68 @@ export default class ObjectUtils {
             return true;
         }
 
-        if (a && b && typeof a === 'object' && typeof b === 'object') {
-            let arrA = Array.isArray(a);
-            let arrB = Array.isArray(b);
-            let i;
-            let length;
-            let key;
-
-            if (arrA && arrB) {
-                length = a.length;
-
-                if (length !== b.length) {
-                    return false;
-                }
-
-                for (i = length; i-- !== 0; ) {
-                    if (!this.deepEquals(a[i], b[i])) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-
-            if (arrA !== arrB) {
-                return false;
-            }
-
-            let dateA = a instanceof Date;
-            let dateB = b instanceof Date;
-
-            if (dateA !== dateB) {
-                return false;
-            }
-
-            if (dateA && dateB) {
-                return a.getTime() === b.getTime();
-            }
-
-            let regexpA = a instanceof RegExp;
-            let regexpB = b instanceof RegExp;
-
-            if (regexpA !== regexpB) {
-                return false;
-            }
-
-            if (regexpA && regexpB) {
-                return a.toString() === b.toString();
-            }
-
-            let keys = Object.keys(a);
-
-            length = keys.length;
-
-            if (length !== Object.keys(b).length) {
-                return false;
-            }
-
-            for (i = length; i-- !== 0; ) {
-                if (!Object.prototype.hasOwnProperty.call(b, keys[i])) {
-                    return false;
-                }
-            }
-
-            for (i = length; i-- !== 0; ) {
-                key = keys[i];
-
-                if (!this.deepEquals(a[key], b[key])) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        if (a && b && typeof a === 'object' && typeof b === 'object') return this.deepEqualsObjects(a, b);
 
         /*eslint no-self-compare: "off"*/
         return a !== a && b !== b;
     }
+    static deepEqualsObjects(a, b) {
+        const arrayComparison = this.compareArrays(a, b);
 
+        if (arrayComparison !== null) return arrayComparison;
+        const dateComparison = this.compareTypedValues(a, b, Date, (value) => value.getTime());
+
+        if (dateComparison !== null) return dateComparison;
+        const regexpComparison = this.compareTypedValues(a, b, RegExp, (value) => value.toString());
+
+        if (regexpComparison !== null) return regexpComparison;
+
+        return this.compareRecords(a, b);
+    }
+    static compareArrays(a, b) {
+        const arrayA = Array.isArray(a);
+        const arrayB = Array.isArray(b);
+
+        if (arrayA !== arrayB) return false;
+        if (!arrayA) return null;
+        if (a.length !== b.length) return false;
+
+        return a.every((value, index) => this.deepEquals(value, b[index]));
+    }
+    static compareTypedValues(a, b, Type, normalize) {
+        const matchesA = a instanceof Type;
+        const matchesB = b instanceof Type;
+
+        if (matchesA !== matchesB) return false;
+        if (!matchesA) return null;
+
+        return normalize(a) === normalize(b);
+    }
+    static compareRecords(a, b) {
+        const keys = Object.keys(a);
+
+        if (keys.length !== Object.keys(b).length) return false;
+        if (!keys.every((key) => Object.hasOwn(b, key))) return false;
+
+        return keys.every((key) => this.deepEquals(a[key], b[key]));
+    }
     static resolveFieldData(data, field) {
         if (!data || !field) {
             // short circuit if there is nothing to resolve
             return null;
         }
 
+        let value;
+
         try {
-            const value = data[field];
+            value = data[field];
 
             if (this.isNotEmpty(value)) {
                 return value;
             }
         } catch {
             // Performance optimization: https://github.com/primefaces/primereact/issues/4797
-            // do nothing and continue to other methods to resolve field data
+            value = undefined;
         }
 
         if (Object.keys(data).length) {
@@ -118,7 +88,7 @@ export default class ObjectUtils {
                 return field(data);
             } else if (this.isNotEmpty(data[field])) {
                 return data[field];
-            } else if (field.indexOf('.') === -1) {
+            } else if (!field.includes('.')) {
                 return data[field];
             }
 
@@ -138,7 +108,6 @@ export default class ObjectUtils {
 
         return null;
     }
-
     static findDiffKeys(obj1, obj2) {
         if (!obj1 || !obj2) {
             return {};
@@ -176,7 +145,6 @@ export default class ObjectUtils {
 
         return result;
     }
-
     static reorderArray(value, from, to) {
         if (value && from !== to) {
             if (to >= value.length) {
@@ -187,29 +155,24 @@ export default class ObjectUtils {
             value.splice(to, 0, value.splice(from, 1)[0]);
         }
     }
-
     static findIndexInList(value, list, dataKey) {
         if (list) {
-            return dataKey ? list.findIndex((item) => this.equals(item, value, dataKey)) : list.findIndex((item) => item === value);
+            return dataKey ? list.findIndex((item) => this.equals(item, value, dataKey)) : list.indexOf(value);
         }
 
         return -1;
     }
-
     static getJSXElement(obj, ...params) {
         return this.isFunction(obj) ? obj(...params) : obj;
     }
-
     static getItemValue(obj, ...params) {
         return this.isFunction(obj) ? obj(...params) : obj;
     }
-
     static getProp(props, prop = '', defaultProps = {}) {
         const value = props ? props[prop] : undefined;
 
         return value === undefined ? defaultProps[prop] : value;
     }
-
     static getPropCaseInsensitive(props, prop, defaultProps = {}) {
         const fkey = this.toFlatCase(prop);
 
@@ -227,11 +190,12 @@ export default class ObjectUtils {
 
         return undefined; // Property not found
     }
-
     static getMergedProps(props, defaultProps) {
-        return Object.assign({}, defaultProps, props);
+        return {
+            ...defaultProps,
+            ...props
+        };
     }
-
     static getDiffProps(props, defaultProps) {
         return this.findDiffKeys(props, defaultProps);
     }
@@ -260,21 +224,17 @@ export default class ObjectUtils {
         // Pass all parameters to function
         return obj(...params);
     }
-
     static getComponentProp(component, prop = '', defaultProps = {}) {
         return this.isNotEmpty(component) ? this.getProp(component.props, prop, defaultProps) : undefined;
     }
-
     static getComponentProps(component, defaultProps) {
         return this.isNotEmpty(component) ? this.getMergedProps(component.props, defaultProps) : undefined;
     }
-
     static getComponentDiffProps(component, defaultProps) {
         return this.isNotEmpty(component) ? this.getDiffProps(component.props, defaultProps) : undefined;
     }
-
     static isValidChild(child, type, validTypes) {
-        /* eslint-disable */
+        /* eslint-disable no-console */
         if (child) {
             let childType = this.getComponentProp(child, '__TYPE') || (child.type ? child.type.displayName : undefined);
 
@@ -285,22 +245,18 @@ export default class ObjectUtils {
 
             const isValid = childType === type;
 
-            try {
-                if (process.env.NODE_ENV !== 'production' && !isValid) {
-                    if (validTypes && validTypes.includes(childType)) {
-                        return false;
-                    }
-                    const messageTypes = validTypes ? validTypes : [type];
-
-                    console.error(
-                        `PrimeReact: Unexpected type; '${childType}'. Parent component expects a ${messageTypes.map((t) => `${t}`).join(' or ')} component or a component with the ${messageTypes
-                            .map((t) => `__TYPE="${t}"`)
-                            .join(' or ')} property as a child component.`
-                    );
+            if (process.env.NODE_ENV !== 'production' && !isValid) {
+                if (validTypes?.includes(childType)) {
                     return false;
                 }
-            } catch (error) {
-                // NOOP
+
+                const messageTypes = validTypes ?? [type];
+                const expectedComponents = messageTypes.join(' or ');
+                const expectedTypeProperties = messageTypes.map((messageType) => `__TYPE="${messageType}"`).join(' or ');
+
+                console.error(`PrimeReact: Unexpected type; '${childType}'. Parent component expects a ${expectedComponents} component or a component with the ${expectedTypeProperties} property as a child component.`);
+
+                return false;
             }
 
             return isValid;
@@ -309,7 +265,6 @@ export default class ObjectUtils {
         return false;
         /* eslint-enable */
     }
-
     static getRefElement(ref) {
         if (ref) {
             return typeof ref === 'object' && ref.hasOwnProperty('current') ? ref.current : ref;
@@ -317,7 +272,6 @@ export default class ObjectUtils {
 
         return null;
     }
-
     static combinedRefs(innerRef, forwardRef) {
         if (innerRef && forwardRef) {
             if (typeof forwardRef === 'function') {
@@ -327,86 +281,72 @@ export default class ObjectUtils {
             }
         }
     }
-
     static removeAccents(str) {
         if (str && str.search(/[\xC0-\xFF]/g) > -1) {
             str = str
-                .replace(/[\xC0-\xC5]/g, 'A')
-                .replace(/[\xC6]/g, 'AE')
-                .replace(/[\xC7]/g, 'C')
-                .replace(/[\xC8-\xCB]/g, 'E')
-                .replace(/[\xCC-\xCF]/g, 'I')
-                .replace(/[\xD0]/g, 'D')
-                .replace(/[\xD1]/g, 'N')
-                .replace(/[\xD2-\xD6\xD8]/g, 'O')
-                .replace(/[\xD9-\xDC]/g, 'U')
-                .replace(/[\xDD]/g, 'Y')
-                .replace(/[\xDE]/g, 'P')
-                .replace(/[\xE0-\xE5]/g, 'a')
-                .replace(/[\xE6]/g, 'ae')
-                .replace(/[\xE7]/g, 'c')
-                .replace(/[\xE8-\xEB]/g, 'e')
-                .replace(/[\xEC-\xEF]/g, 'i')
-                .replace(/[\xF1]/g, 'n')
-                .replace(/[\xF2-\xF6\xF8]/g, 'o')
-                .replace(/[\xF9-\xFC]/g, 'u')
-                .replace(/[\xFE]/g, 'p')
-                .replace(/[\xFD\xFF]/g, 'y');
+                .replaceAll(/[\xC0-\xC5]/g, 'A')
+                .replaceAll('\xC6', 'AE')
+                .replaceAll('\xC7', 'C')
+                .replaceAll(/[\xC8-\xCB]/g, 'E')
+                .replaceAll(/[\xCC-\xCF]/g, 'I')
+                .replaceAll('\xD0', 'D')
+                .replaceAll('\xD1', 'N')
+                .replaceAll(/[\xD2-\xD6\xD8]/g, 'O')
+                .replaceAll(/[\xD9-\xDC]/g, 'U')
+                .replaceAll('\xDD', 'Y')
+                .replaceAll('\xDE', 'P')
+                .replaceAll(/[\xE0-\xE5]/g, 'a')
+                .replaceAll('\xE6', 'ae')
+                .replaceAll('\xE7', 'c')
+                .replaceAll(/[\xE8-\xEB]/g, 'e')
+                .replaceAll(/[\xEC-\xEF]/g, 'i')
+                .replaceAll('\xF1', 'n')
+                .replaceAll(/[\xF2-\xF6\xF8]/g, 'o')
+                .replaceAll(/[\xF9-\xFC]/g, 'u')
+                .replaceAll('\xFE', 'p')
+                .replaceAll(/[\xFD\xFF]/g, 'y');
         }
 
         return str;
     }
-
     static toFlatCase(str) {
         // convert snake, kebab, camel and pascal cases to flat case
-        return this.isNotEmpty(str) && this.isString(str) ? str.replace(/(-|_)/g, '').toLowerCase() : str;
+        return this.isNotEmpty(str) && this.isString(str) ? str.replaceAll(/[-_]/g, '').toLowerCase() : str;
     }
-
     static toCapitalCase(str) {
         return this.isNotEmpty(str) && this.isString(str) ? str[0].toUpperCase() + str.slice(1) : str;
     }
-
     static trim(value) {
         // trim only if the value is actually a string
         return this.isNotEmpty(value) && this.isString(value) ? value.trim() : value;
     }
-
     static isEmpty(value) {
         return value === null || value === undefined || value === '' || (Array.isArray(value) && value.length === 0) || (!(value instanceof Date) && typeof value === 'object' && Object.keys(value).length === 0);
     }
-
     static isNotEmpty(value) {
         return !this.isEmpty(value);
     }
-
     static isFunction(value) {
-        return !!(value && value.constructor && value.call && value.apply);
+        return !!(value?.constructor && value.call && value.apply);
     }
-
     static isObject(value) {
         return value !== null && value instanceof Object && value.constructor === Object;
     }
-
     static isDate(value) {
         return value !== null && value instanceof Date && value.constructor === Date;
     }
-
     static isArray(value) {
         return value !== null && Array.isArray(value);
     }
-
     static isString(value) {
         return value !== null && typeof value === 'string';
     }
-
     static isPrintableCharacter(char = '') {
-        return this.isNotEmpty(char) && char.length === 1 && char.match(/\S| /);
+        return this.isNotEmpty(char) && char.length === 1 && /\S| /.exec(char);
     }
-
     static isLetter(char) {
         return /^[a-zA-Z\u00C0-\u017F]$/.test(char);
     }
-
     static isScalar(value) {
         return value != null && (typeof value === 'string' || typeof value === 'number' || typeof value === 'bigint' || typeof value === 'boolean');
     }
@@ -419,10 +359,15 @@ export default class ObjectUtils {
         let item;
 
         if (this.isNotEmpty(arr)) {
-            try {
+            if (typeof arr.findLast === 'function') {
                 item = arr.findLast(callback);
-            } catch {
-                item = [...arr].reverse().find(callback);
+            } else {
+                for (let index = arr.length - 1; index >= 0; index--) {
+                    if (callback(arr[index], index, arr)) {
+                        item = arr[index];
+                        break;
+                    }
+                }
             }
         }
 
@@ -437,17 +382,21 @@ export default class ObjectUtils {
         let index = -1;
 
         if (this.isNotEmpty(arr)) {
-            try {
+            if (typeof arr.findLastIndex === 'function') {
                 index = arr.findLastIndex(callback);
-            } catch {
-                index = arr.lastIndexOf([...arr].reverse().find(callback));
+            } else {
+                for (let currentIndex = arr.length - 1; currentIndex >= 0; currentIndex--) {
+                    if (callback(arr[currentIndex], currentIndex, arr)) {
+                        index = currentIndex;
+                        break;
+                    }
+                }
             }
         }
 
         return index;
     }
-
-    static sort(value1, value2, order = 1, comparator, nullSortOrder = 1) {
+    static sort(value1, value2, order = 1, comparator = null, nullSortOrder = 1) {
         const result = this.compare(value1, value2, comparator, order);
         let finalSortOrder = order;
 
@@ -458,7 +407,6 @@ export default class ObjectUtils {
 
         return finalSortOrder * result;
     }
-
     static compare(value1, value2, comparator, order = 1) {
         let result = -1;
         const emptyValue1 = this.isEmpty(value1);
@@ -473,17 +421,24 @@ export default class ObjectUtils {
         } else if (typeof value1 === 'string' && typeof value2 === 'string') {
             result = comparator(value1, value2);
         } else {
-            result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
+            result =
+                value1 < value2
+                    ? -1
+                    : resolveConditional(
+                          value1 > value2,
+                          () => 1,
+                          () => 0
+                      );
         }
 
         return result;
     }
-
     static localeComparator(locale) {
         //performance gain using Int.Collator. It is not recommended to use localeCompare against large arrays.
-        return new Intl.Collator(locale, { numeric: true }).compare;
+        return new Intl.Collator(locale, {
+            numeric: true
+        }).compare;
     }
-
     static findChildrenByKey(data, key) {
         for (const item of data) {
             if (item.key === key) {
@@ -593,9 +548,7 @@ export default class ObjectUtils {
     static absoluteCompare(objA, objB, maxDepth = 1, currentDepth = 0) {
         if (!objA || !objB) return true;
         if (currentDepth > maxDepth) return true;
-
         if (typeof objA !== typeof objB) return false;
-
         const aKeys = Object.keys(objA);
         const bKeys = Object.keys(objB);
 
@@ -646,7 +599,6 @@ export default class ObjectUtils {
         for (const key of keysToCompare) {
             const aValue = this.getNestedValue(a, key);
             const bValue = this.getNestedValue(b, key);
-
             const isObject = typeof aValue === 'object' && aValue !== null && typeof bValue === 'object' && bValue !== null;
 
             // If the current key is an object, they are compared in one further level only.

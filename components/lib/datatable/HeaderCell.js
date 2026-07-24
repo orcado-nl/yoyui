@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { ColumnBase } from '../column/ColumnBase';
 import { useMergeProps, usePrevious } from '../hooks/Hooks';
@@ -8,7 +9,6 @@ import { Tooltip } from '../tooltip/Tooltip';
 import { DomHandler, IconUtils, ObjectUtils, classNames } from '../utils/Utils';
 import { ColumnFilter } from './ColumnFilter';
 import { HeaderCheckbox } from './HeaderCheckbox';
-
 export const HeaderCell = React.memo((props) => {
     const [styleObjectState, setStyleObjectState] = React.useState({});
     const elementRef = React.useRef(null);
@@ -16,9 +16,13 @@ export const HeaderCell = React.memo((props) => {
     const mergeProps = useMergeProps();
     const { metaData: parentMetaData, ptCallbacks, index } = props;
     const { ptm, ptmo, cx } = props.ptCallbacks;
-
-    const params = { index };
-    const parentParams = { ...parentMetaData, ...params };
+    const params = {
+        index
+    };
+    const parentParams = {
+        ...parentMetaData,
+        ...params
+    };
     const getColumnProps = () => ColumnBase.getCProps(props.column);
 
     const getColumnPTOptions = (key) => {
@@ -39,7 +43,13 @@ export const HeaderCell = React.memo((props) => {
             }
         };
 
-        return mergeProps(ptm(`column.${key}`, { column: columnMetaData }), ptm(`column.${key}`, columnMetaData), ptmo(cProps, key, columnMetaData));
+        return mergeProps(
+            ptm(`column.${key}`, {
+                column: columnMetaData
+            }),
+            ptm(`column.${key}`, columnMetaData),
+            ptmo(cProps, key, columnMetaData)
+        );
     };
 
     const isBadgeVisible = () => {
@@ -51,14 +61,29 @@ export const HeaderCell = React.memo((props) => {
     };
 
     const getColumnProp = (...args) => {
-        return props.column ? (typeof args[0] === 'string' ? ColumnBase.getCProp(props.column, args[0]) : ColumnBase.getCProp(args[0] || props.column, args[1])) : null;
+        return props.column
+            ? resolveConditional(
+                  typeof args[0] === 'string',
+                  () => ColumnBase.getCProp(props.column, args[0]),
+                  () => ColumnBase.getCProp(args[0] || props.column, args[1])
+              )
+            : null;
     };
 
     const getStyle = () => {
         const headerStyle = getColumnProp('headerStyle');
         const columnStyle = getColumnProp('style');
 
-        return getColumnProp('frozen') ? Object.assign({}, columnStyle, headerStyle, styleObjectState) : Object.assign({}, columnStyle, headerStyle);
+        return getColumnProp('frozen')
+            ? {
+                  ...columnStyle,
+                  ...headerStyle,
+                  ...styleObjectState
+              }
+            : {
+                  ...columnStyle,
+                  ...headerStyle
+              };
     };
 
     const getMultiSortMetaIndex = () => {
@@ -82,7 +107,11 @@ export const HeaderCell = React.memo((props) => {
             }
         }
 
-        return { sorted, sortOrder, metaIndex };
+        return {
+            sorted,
+            sortOrder,
+            metaIndex
+        };
     };
 
     const getAriaSort = ({ sorted, sortOrder }) => {
@@ -99,79 +128,81 @@ export const HeaderCell = React.memo((props) => {
         return null;
     };
 
-    const updateStickyPosition = () => {
-        if (getColumnProp('frozen')) {
-            let styleObject = { ...styleObjectState };
-            let align = getColumnProp('alignFrozen');
+    const calculateStickyRight = () => {
+        const next = elementRef.current?.nextElementSibling;
 
-            if (align === 'right') {
-                let right = 0;
-                let next = elementRef.current && elementRef.current.nextElementSibling;
+        return next?.classList.contains('p-frozen-column') ? DomHandler.getOuterWidth(next) + Number.parseFloat(next.style.right || 0) : 0;
+    };
 
-                if (next && next.classList.contains('p-frozen-column')) {
-                    right = DomHandler.getOuterWidth(next) + parseFloat(next.style.right || 0);
-                }
+    const calculateSameRowStickyLeft = () => {
+        let previous = elementRef.current?.previousElementSibling;
 
-                styleObject.right = right + 'px';
-            } else {
-                let left = 0;
-                let prev = elementRef.current?.previousElementSibling;
-
-                const thead = elementRef.current?.closest('thead');
-                const scrollContainer = thead?.parentElement.parentElement;
-                const scrollLeft = scrollContainer?.scrollLeft || 0;
-
-                const isMultiRow = thead && thead.querySelectorAll('tr').length > 1;
-
-                if (elementRef.current) {
-                    if (!isMultiRow) {
-                        while (prev) {
-                            if (prev.classList.contains('p-frozen-column')) {
-                                left = DomHandler.getOuterWidth(prev) + parseFloat(prev.style.left || 0);
-                                break;
-                            }
-
-                            prev = prev.previousElementSibling;
-                        }
-                    } else {
-                        const targetLeft = elementRef.current.offsetLeft - scrollLeft;
-                        const frozenCells = Array.from(thead.querySelectorAll('th.p-frozen-column'));
-
-                        let candidate = null;
-
-                        for (const cell of frozenCells) {
-                            const cellLeft = cell.offsetLeft - scrollLeft;
-                            const cellRight = cellLeft + DomHandler.getOuterWidth(cell);
-
-                            if (cellRight <= targetLeft && (!candidate || cellRight > candidate.offsetLeft + DomHandler.getOuterWidth(candidate))) {
-                                candidate = cell;
-                            }
-                        }
-
-                        if (candidate) {
-                            left = candidate.offsetLeft + DomHandler.getOuterWidth(candidate) - scrollLeft;
-                        }
-                    }
-                }
-
-                styleObject.left = left + 'px';
+        while (previous) {
+            if (previous.classList.contains('p-frozen-column')) {
+                return DomHandler.getOuterWidth(previous) + Number.parseFloat(previous.style.left || 0);
             }
 
-            let filterRow = elementRef.current.parentElement.nextElementSibling;
-
-            if (filterRow) {
-                let index = DomHandler.index(elementRef.current);
-
-                if (filterRow.children[index]) {
-                    filterRow.children[index].style.left = styleObject.left;
-                    filterRow.children[index].style.right = styleObject.right;
-                }
-            }
-
-            const isSameStyle = styleObjectState.left === styleObject.left && styleObjectState.right === styleObject.right;
-
-            !isSameStyle && setStyleObjectState(styleObject);
+            previous = previous.previousElementSibling;
         }
+
+        return 0;
+    };
+
+    const calculateMultiRowStickyLeft = (thead, scrollLeft) => {
+        const targetLeft = elementRef.current.offsetLeft - scrollLeft;
+        let candidate = null;
+
+        for (const cell of thead.querySelectorAll('th.p-frozen-column')) {
+            const cellRight = cell.offsetLeft - scrollLeft + DomHandler.getOuterWidth(cell);
+
+            if (cellRight <= targetLeft && (!candidate || cellRight > candidate.offsetLeft + DomHandler.getOuterWidth(candidate))) {
+                candidate = cell;
+            }
+        }
+
+        return candidate ? candidate.offsetLeft + DomHandler.getOuterWidth(candidate) - scrollLeft : 0;
+    };
+
+    const calculateStickyLeft = () => {
+        const thead = elementRef.current?.closest('thead');
+
+        if (!elementRef.current || !thead) {
+            return 0;
+        }
+
+        const scrollLeft = thead.parentElement?.parentElement?.scrollLeft || 0;
+        const isMultiRow = thead.querySelectorAll('tr').length > 1;
+
+        return isMultiRow ? calculateMultiRowStickyLeft(thead, scrollLeft) : calculateSameRowStickyLeft();
+    };
+
+    const syncFilterCellPosition = (styleObject) => {
+        const filterRow = elementRef.current?.parentElement?.nextElementSibling;
+        const filterCell = filterRow?.children[DomHandler.index(elementRef.current)];
+
+        if (filterCell) {
+            filterCell.style.left = styleObject.left;
+            filterCell.style.right = styleObject.right;
+        }
+    };
+
+    const updateStickyPosition = () => {
+        if (!getColumnProp('frozen')) {
+            return;
+        }
+
+        const styleObject = { ...styleObjectState };
+
+        if (getColumnProp('alignFrozen') === 'right') {
+            styleObject.right = `${calculateStickyRight()}px`;
+        } else {
+            styleObject.left = `${calculateStickyLeft()}px`;
+        }
+
+        syncFilterCellPosition(styleObject);
+        const isSameStyle = styleObjectState.left === styleObject.left && styleObjectState.right === styleObject.right;
+
+        !isSameStyle && setStyleObjectState(styleObject);
     };
 
     const updateSortableDisabled = (prevColumn) => {
@@ -193,7 +224,6 @@ export const HeaderCell = React.memo((props) => {
                 (targetNode.closest('[data-p-sortable-column="true"]') && !targetNode.closest('[data-pc-section="filtermenubutton"]'))
             ) {
                 DomHandler.clearSelection();
-
                 props.onSortChange({
                     originalEvent: event,
                     column: props.column,
@@ -204,35 +234,52 @@ export const HeaderCell = React.memo((props) => {
     };
 
     const onMouseDown = (event) => {
-        props.onColumnMouseDown({ originalEvent: event, column: props.column });
+        props.onColumnMouseDown({
+            originalEvent: event,
+            column: props.column
+        });
     };
 
     const onKeyDown = (event) => {
         if ((event.code == 'Enter' || event.code === 'NumpadEnter' || event.code == 'Space') && event.target === elementRef.current && DomHandler.getAttribute(event.currentTarget, 'data-p-sortable-column') === true) {
             onClick(event);
-
             event.preventDefault();
         }
     };
 
     const onDragStart = (event) => {
-        props.onColumnDragStart({ originalEvent: event, column: props.column });
+        props.onColumnDragStart({
+            originalEvent: event,
+            column: props.column
+        });
     };
 
     const onDragOver = (event) => {
-        props.onColumnDragOver({ originalEvent: event, column: props.column });
+        props.onColumnDragOver({
+            originalEvent: event,
+            column: props.column
+        });
     };
 
     const onDragLeave = (event) => {
-        props.onColumnDragLeave({ originalEvent: event, column: props.column });
+        props.onColumnDragLeave({
+            originalEvent: event,
+            column: props.column
+        });
     };
 
     const onDrop = (event) => {
-        props.onColumnDrop({ originalEvent: event, column: props.column });
+        props.onColumnDrop({
+            originalEvent: event,
+            column: props.column
+        });
     };
 
     const onResizeStart = (event) => {
-        props.onColumnResizeStart({ originalEvent: event, column: props.column });
+        props.onColumnResizeStart({
+            originalEvent: event,
+            column: props.column
+        });
     };
 
     const onResizerClick = (event) => {
@@ -242,7 +289,6 @@ export const HeaderCell = React.memo((props) => {
                 element: event.currentTarget.parentElement,
                 column: props.column
             });
-
             event.preventDefault();
         }
     };
@@ -254,7 +300,6 @@ export const HeaderCell = React.memo((props) => {
                 element: event.currentTarget.parentElement,
                 column: props.column
             });
-
             event.preventDefault();
         }
     };
@@ -287,7 +332,9 @@ export const HeaderCell = React.memo((props) => {
     };
 
     const createTitle = () => {
-        const title = ObjectUtils.getJSXElement(getColumnProp('header'), { props: props.tableProps });
+        const title = ObjectUtils.getJSXElement(getColumnProp('header'), {
+            props: props.tableProps
+        });
         const headerTitleProps = mergeProps(
             {
                 className: cx('headerTitle')
@@ -306,11 +353,27 @@ export const HeaderCell = React.memo((props) => {
                 },
                 getColumnPTOptions('sortIcon')
             );
-
             const sortProps = mergeProps(getColumnPTOptions('sort'));
-
-            let icon = sorted ? sortOrder < 0 ? <SortAmountDownIcon {...sortIconProps} /> : <SortAmountUpAltIcon {...sortIconProps} /> : <SortAltIcon {...sortIconProps} />;
-            let sortIcon = IconUtils.getJSXIcon(props.sortIcon || icon, { ...sortIconProps }, { props, sorted, sortOrder });
+            let icon = sorted ? (
+                resolveConditional(
+                    sortOrder < 0,
+                    () => <SortAmountDownIcon {...sortIconProps} />,
+                    () => <SortAmountUpAltIcon {...sortIconProps} />
+                )
+            ) : (
+                <SortAltIcon {...sortIconProps} />
+            );
+            let sortIcon = IconUtils.getJSXIcon(
+                props.sortIcon || icon,
+                {
+                    ...sortIconProps
+                },
+                {
+                    props,
+                    sorted,
+                    sortOrder
+                }
+            );
 
             return <span {...sortProps}>{sortIcon}</span>;
         }
@@ -408,12 +471,21 @@ export const HeaderCell = React.memo((props) => {
         const headerClassName = getColumnProp('headerClassName');
         const hasTooltip = ObjectUtils.isNotEmpty(headerTooltip);
         const headerTooltipOptions = getColumnProp('headerTooltipOptions');
-
         const resizer = createResizer();
         const header = createHeader(sortMeta);
         const headerCellProps = mergeProps(
             {
-                className: classNames(headerClassName, cx('headerCell', { headerProps: props, frozen, sortMeta, align, _isSortableDisabled, getColumnProp })),
+                className: classNames(
+                    headerClassName,
+                    cx('headerCell', {
+                        headerProps: props,
+                        frozen,
+                        sortMeta,
+                        align,
+                        _isSortableDisabled,
+                        getColumnProp
+                    })
+                ),
                 style,
                 role: 'columnheader',
                 onClick: (e) => onClick(e),
@@ -453,5 +525,4 @@ export const HeaderCell = React.memo((props) => {
 
     return element;
 });
-
 HeaderCell.displayName = 'HeaderCell';

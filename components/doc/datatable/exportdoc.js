@@ -4,21 +4,34 @@ import { Button } from '@/components/lib/button/Button';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Tooltip } from '@/components/lib/tooltip/Tooltip';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ProductService } from '../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
+
+function handleSonarNested1(
+    jsPDFModule,
+    exportColumns,
+    products,
+
+    autoTableModule
+) {
+    const jsPDF = jsPDFModule.default;
+    const autoTable = autoTableModule.default;
+    const doc = new jsPDF(0, 0);
+
+    autoTable(doc, { head: [exportColumns.map((col) => col.title)], body: products.map((product) => exportColumns.map((col) => product[col.dataKey])) });
+    doc.save('products.pdf');
+}
 
 export function ExportDoc(props) {
     const [products, setProducts] = useState([]);
     const dt = useRef(null);
-
     const cols = [
         { field: 'code', header: 'Code' },
         { field: 'name', header: 'Name' },
         { field: 'category', header: 'Category' },
         { field: 'quantity', header: 'Quantity' }
     ];
-
     const exportColumns = cols.map((col) => ({ title: col.header, dataKey: col.field }));
 
     const loadDemoData = () => {
@@ -31,17 +44,7 @@ export function ExportDoc(props) {
 
     const exportPdf = () => {
         import('jspdf').then((jsPDFModule) => {
-            import('jspdf-autotable').then((autoTableModule) => {
-                const jsPDF = jsPDFModule.default;
-                const autoTable = autoTableModule.default;
-                const doc = new jsPDF(0, 0);
-
-                autoTable(doc, {
-                    head: [exportColumns.map((col) => col.title)],
-                    body: products.map((product) => exportColumns.map((col) => product[col.dataKey]))
-                });
-                doc.save('products.pdf');
-            });
+            import('jspdf-autotable').then(handleSonarNested1.bind(null, jsPDFModule, exportColumns, products));
         });
     };
 
@@ -49,10 +52,7 @@ export function ExportDoc(props) {
         import('xlsx').then((xlsx) => {
             const worksheet = xlsx.utils.json_to_sheet(products);
             const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-            const excelBuffer = xlsx.write(workbook, {
-                bookType: 'xlsx',
-                type: 'array'
-            });
+            const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
 
             saveAsExcelFile(excelBuffer, 'products');
         });
@@ -60,14 +60,12 @@ export function ExportDoc(props) {
 
     const saveAsExcelFile = (buffer, fileName) => {
         import('file-saver').then((module) => {
-            if (module && module.default) {
+            if (module?.default) {
                 let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
                 let EXCEL_EXTENSION = '.xlsx';
-                const data = new Blob([buffer], {
-                    type: EXCEL_TYPE
-                });
+                const data = new Blob([buffer], { type: EXCEL_TYPE });
 
-                module.default.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+                module.default.saveAs(data, fileName + '_export_' + Date.now() + EXCEL_EXTENSION);
             }
         });
     };
@@ -317,7 +315,7 @@ export default function ExportDemo() {
 
                     <DataTable ref={dt} value={products} header={header} tableStyle={{ minWidth: '50rem' }}>
                         {cols.map((col, index) => (
-                            <Column key={index} field={col.field} header={col.header} />
+                            <Column key={col?.id ?? col?.key ?? col?.name ?? col?.label ?? col?.value ?? col?.href ?? col?.src ?? col?.field ?? JSON.stringify(col)} field={col.field} header={col.header} />
                         ))}
                     </DataTable>
                 </div>

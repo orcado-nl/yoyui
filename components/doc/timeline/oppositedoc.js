@@ -2,6 +2,10 @@ import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Timeline } from '@/components/lib/timeline/Timeline';
 
+function renderSonarNested1(item) {
+    return <small className="text-color-secondary">{item.date}</small>;
+}
+
 export function OppositeDoc(props) {
     const events = [
         { status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0', image: 'game-controller.jpg' },
@@ -9,7 +13,6 @@ export function OppositeDoc(props) {
         { status: 'Shipped', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
         { status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' }
     ];
-
     const code = {
         basic: `
 <Timeline value={events} opposite={(item) => item.status} 
@@ -71,7 +74,7 @@ export default function OppositeDemo() {
                 </p>
             </DocSectionText>
             <div className="card">
-                <Timeline value={events} opposite={(item) => item.status} content={(item) => <small className="text-color-secondary">{item.date}</small>} />
+                <Timeline value={events} opposite={(item) => item.status} content={(item) => renderSonarNested1(item)} />
             </div>
             <DocSectionCode code={code} />
         </>

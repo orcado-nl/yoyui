@@ -1,8 +1,15 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { ColumnBase } from '../column/ColumnBase';
 import { useEventListener, useMergeProps, useUnmountEffect } from '../hooks/Hooks';
 import { OverlayService } from '../overlayservice/OverlayService';
 import { DomHandler, ObjectUtils, classNames } from '../utils/Utils';
+
+function canStartCellEdit(callback, params, event) {
+    if (!callback) return true;
+
+    return callback(params) !== false && !event?.defaultPrevented;
+}
 
 export const TreeTableBodyCell = (props) => {
     const [editingState, setEditingState] = React.useState(false);
@@ -37,7 +44,13 @@ export const TreeTableBodyCell = (props) => {
             }
         };
 
-        return mergeProps(ptm(`column.${key}`, { column: columnMetadata }), ptm(`column.${key}`, columnMetadata), ptmo(cProps, key, columnMetadata));
+        return mergeProps(
+            ptm(`column.${key}`, {
+                column: columnMetadata
+            }),
+            ptm(`column.${key}`, columnMetadata),
+            ptmo(cProps, key, columnMetadata)
+        );
     };
 
     const field = getColumnProp('field') || `field_${props.index}`;
@@ -81,39 +94,18 @@ export const TreeTableBodyCell = (props) => {
     });
 
     const onClick = (event) => {
-        if (getColumnProp('editor') && !editingState && (props.selectOnEdit || (!props.selectOnEdit && props.selected))) {
-            selfClick.current = true;
+        const evaluateComplexCondition1 = () => getColumnProp('editor') && !editingState && (props.selectOnEdit || (!props.selectOnEdit && props.selected));
 
+        if (evaluateComplexCondition1()) {
+            selfClick.current = true;
             const params = getCellCallbackParams(event);
             const onBeforeCellEditShow = getColumnProp('onBeforeCellEditShow');
 
-            if (onBeforeCellEditShow) {
-                // if user returns false do not show the editor
-                if (onBeforeCellEditShow(params) === false) {
-                    return;
-                }
-
-                // if user prevents default stop the editor
-                if (event && event.defaultPrevented) {
-                    return;
-                }
-            }
-
+            if (!canStartCellEdit(onBeforeCellEditShow, params, event)) return;
             setEditingState(true);
-
             const onCellEditInit = getColumnProp('onCellEditInit');
 
-            if (onCellEditInit) {
-                if (onCellEditInit(params) === false) {
-                    return;
-                }
-
-                // if user prevents default stop the editor
-                if (event && event.defaultPrevented) {
-                    return;
-                }
-            }
-
+            if (!canStartCellEdit(onCellEditInit, params, event)) return;
             bindDocumentClickListener();
 
             overlayEventListener.current = (e) => {
@@ -166,7 +158,13 @@ export const TreeTableBodyCell = (props) => {
     };
 
     const isSelected = () => {
-        return props.selection ? (props.selection instanceof Array ? findIndex(props.selection) > -1 : equals(props.selection)) : false;
+        return props.selection
+            ? resolveConditional(
+                  Array.isArray(props.selection),
+                  () => findIndex(props.selection) > -1,
+                  () => equals(props.selection)
+              )
+            : false;
     };
 
     React.useEffect(() => {
@@ -176,8 +174,8 @@ export const TreeTableBodyCell = (props) => {
             if (editingState) {
                 let focusable = DomHandler.findSingle(elementRef.current, 'input');
 
-                if (focusable && document.activeElement !== focusable && !focusable.hasAttribute('data-isCellEditing')) {
-                    focusable.setAttribute('data-isCellEditing', true);
+                if (focusable && document.activeElement !== focusable && focusable.dataset.isCellEditing !== 'true') {
+                    focusable.dataset.isCellEditing = true;
                     focusable.focus();
                 }
 
@@ -191,27 +189,40 @@ export const TreeTableBodyCell = (props) => {
             }
         }
     });
-
     useUnmountEffect(() => {
         if (overlayEventListener.current) {
             OverlayService.off('overlay-click', overlayEventListener.current);
             overlayEventListener.current = null;
         }
     });
-
-    const bodyClassName = ObjectUtils.getPropValue(props.bodyClassName, props.node.data, { field: props.field, rowIndex: props.rowIndex, props: props });
+    const bodyClassName = ObjectUtils.getPropValue(props.bodyClassName, props.node.data, {
+        field: props.field,
+        rowIndex: props.rowIndex,
+        props: props
+    });
     const style = props.bodyStyle || props.style;
     const columnEditor = getColumnProp('editor');
     let content;
 
     if (editingState) {
         if (columnEditor) {
-            content = ObjectUtils.getJSXElement(columnEditor, { node: props.node, rowData: props.rowData, value: ObjectUtils.resolveFieldData(props.node.data, props.field), field: props.field, rowIndex: props.rowIndex, props });
+            content = ObjectUtils.getJSXElement(columnEditor, {
+                node: props.node,
+                rowData: props.rowData,
+                value: ObjectUtils.resolveFieldData(props.node.data, props.field),
+                field: props.field,
+                rowIndex: props.rowIndex,
+                props
+            });
         } else {
             throw new Error('Editor is not found on column.');
         }
     } else if (props.body) {
-        content = ObjectUtils.getJSXElement(props.body, props.node, { field: props.field, rowIndex: props.rowIndex, props });
+        content = ObjectUtils.getJSXElement(props.body, props.node, {
+            field: props.field,
+            rowIndex: props.rowIndex,
+            props
+        });
     } else {
         content = ObjectUtils.resolveFieldData(props.node.data, props.field);
     }
@@ -225,9 +236,8 @@ export const TreeTableBodyCell = (props) => {
         },
         getColumnPTOptions('editorKeyHelperLabel')
     );
-
     const editorKeyHelperLabelProps = mergeProps(getColumnPTOptions('editorKeyHelper'));
-    /* eslint-disable */
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     const editorKeyHelper = columnEditor && (
         <a {...editorKeyHelperProps}>
             <span {...editorKeyHelperLabelProps}></span>
@@ -238,7 +248,14 @@ export const TreeTableBodyCell = (props) => {
     const bodyCellProps = mergeProps(
         {
             role: 'cell',
-            className: classNames(bodyClassName || props.className, cx('bodyCell', { bodyProps: props, editingState, align })),
+            className: classNames(
+                bodyClassName || props.className,
+                cx('bodyCell', {
+                    bodyProps: props,
+                    editingState,
+                    align
+                })
+            ),
             style,
             onClick: (e) => onClick(e),
             onKeyDown: (e) => onKeyDown(e)

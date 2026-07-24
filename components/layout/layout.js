@@ -73,15 +73,15 @@ export default function Layout({ children }) {
                 <meta name="twitter:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="PrimeReact | React UI Component Library" />
-                <meta property="og:url" content="https://primereact.org" />
+                <meta property="og:url" content="https://yoyui.orcado.dev" />
                 <meta property="og:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
-                <meta property="og:image" content="https://www.primefaces.org/static/social/primereact-preview.jpg" />
+                <meta property="og:image" content="https://yoyui.orcado.dev/yoyui-icon.svg" />
                 <meta property="og:ttl" content="604800" />
-                <link rel="icon" href="https://primefaces.org/cdn/primereact/images/favicon.ico" type="image/x-icon" />
+                <link rel="icon" href="/yoyui-icon.svg" type="image/svg+xml" />
             </Head>
             <NewsSection />
             <Topbar showConfigurator showMenuButton onMenuButtonClick={() => setSidebarActive(true)} onConfigButtonClick={() => setConfigActive(true)} onDarkSwitchClick={toggleDarkMode} />
-            <div className={classNames('layout-mask', { 'layout-mask-active': sidebarActive })} onClick={() => setSidebarActive(false)} />
+            <button type="button" aria-label="Close navigation" className={classNames('layout-mask border-none', { 'layout-mask-active': sidebarActive })} onClick={() => setSidebarActive(false)} />
             <Config active={configActive} onHide={() => setConfigActive(false)} onDarkSwitchClick={toggleDarkMode} />
             <div className="layout-content">
                 <Menu active={sidebarActive} />

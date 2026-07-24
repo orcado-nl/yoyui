@@ -165,13 +165,11 @@ export default function TemplateDemo() {
 }
         `
     };
-
     const meter = (props, attr) => <span {...attr} key={props.index} style={{ background: `linear-gradient(to right, ${props.color1}, ${props.color2})`, width: props.percentage + '%' }} />;
-
     const labelList = ({ values }) => (
         <div className="flex flex-wrap gap-3">
             {values.map((item, index) => (
-                <Card className="flex-1" key={index}>
+                <Card className="flex-1" key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)}>
                     <div className="flex justify-content-between gap-5">
                         <div className="flex flex-column gap-1">
                             <span className="text-secondary text-sm">{item.label}</span>
@@ -185,7 +183,6 @@ export default function TemplateDemo() {
             ))}
         </div>
     );
-
     const start = ({ totalPercent }) => (
         <div className="flex justify-content-between mt-3 mb-2 relative">
             <span>Storage</span>
@@ -195,14 +192,12 @@ export default function TemplateDemo() {
             <span className="font-medium">1TB</span>
         </div>
     );
-
     const end = (
         <div className="flex justify-content-between mt-3">
             <Button label="Manage Storage" outlined size="small" />
             <Button label="Update Plan" size="small" />
         </div>
     );
-
     const values = [
         { label: 'Apps', color1: '#34d399', color2: '#fbbf24', value: 25, icon: 'pi pi-table' },
         { label: 'Messages', color1: '#fbbf24', color2: '#60a5fa', value: 15, icon: 'pi pi-inbox' },

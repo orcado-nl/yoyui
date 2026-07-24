@@ -1,5 +1,6 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { CSSTransition } from '../csstransition/CSSTransition';
 import { useEventListener, useMatchMedia, useMergeProps, useMountEffect, useResizeListener, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
@@ -14,7 +15,6 @@ export const TieredMenu = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = TieredMenuBase.getProps(inProps, context);
-
         const [idState, setIdState] = React.useState(props.id);
         const [visibleState, setVisibleState] = React.useState(!props.popup);
         const [activeItemPath, setActiveItemPath] = React.useState([]);
@@ -26,19 +26,10 @@ export const TieredMenu = React.memo(
         const [visibleItems, setVisibleItems] = React.useState([]);
         const [focusTrigger, setFocusTrigger] = React.useState(false);
         const [attributeSelectorState, setAttributeSelectorState] = React.useState(null);
-        const metaData = {
-            props,
-            ...props.__parentMetadata,
-            state: {
-                id: idState,
-                visible: visibleState,
-                attributeSelector: attributeSelectorState
-            }
-        };
+        const metaData = { props, ...props.__parentMetadata, state: { id: idState, visible: visibleState, attributeSelector: attributeSelectorState } };
         const { ptm, cx, sx, isUnstyled } = TieredMenuBase.setMetaData(metaData);
 
         useHandleStyle(TieredMenuBase.css.styles, isUnstyled, { name: 'tieredmenu' });
-
         const containerRef = React.useRef(null);
         const menuRef = React.useRef(null);
         const targetRef = React.useRef(null);
@@ -47,7 +38,6 @@ export const TieredMenu = React.memo(
         const searchValue = React.useRef(null);
         const searchTimeout = React.useRef(null);
         const isMobileMode = useMatchMedia(`screen and (max-width: ${props.breakpoint})`, !!props.breakpoint);
-
         const [bindDocumentClickListener, unbindDocumentClickListener] = useEventListener({
             type: 'click',
             listener: (event) => {
@@ -59,19 +49,15 @@ export const TieredMenu = React.memo(
                 }
             }
         });
-
         const [bindDocumentResizeListener, unbindDocumentResizeListener] = useResizeListener({
-            listener: () => {
+            listener: (event) => {
                 !isMobileMode && hide(event, true);
             }
         });
 
         const onPanelClick = (event) => {
             if (props.popup) {
-                OverlayService.emit('overlay-click', {
-                    originalEvent: event,
-                    target: targetRef.current
-                });
+                OverlayService.emit('overlay-click', { originalEvent: event, target: targetRef.current });
             }
         };
 
@@ -85,7 +71,7 @@ export const TieredMenu = React.memo(
             if (props.popup) {
                 targetRef.current = event.currentTarget;
                 setVisibleState(true);
-                props.onShow && props.onShow(event);
+                props.onShow?.(event);
                 relatedTarget.current = event.relatedTarget || null;
             }
 
@@ -95,14 +81,13 @@ export const TieredMenu = React.memo(
         const hide = (event, isFocus) => {
             if (props.popup) {
                 setVisibleState(false);
-                props.onHide && props.onHide(event);
+                props.onHide?.(event);
             }
 
             const menuElement = getMenuElement();
 
             setActiveItemPath([]);
             setFocusedItemInfo({ index: -1, level: 0, parentKey: '' });
-
             isFocus && DomHandler.focus(relatedTarget.current || targetRef.current || menuElement);
             setDirty(false);
         };
@@ -110,8 +95,7 @@ export const TieredMenu = React.memo(
         const onFocus = (event) => {
             setFocused(true);
             setFocusedItemInfo(focusedItemInfo.index !== -1 ? focusedItemInfo : { index: findFirstFocusedItemIndex(), level: 0, parentKey: '' });
-
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onBlur = (event) => {
@@ -119,7 +103,7 @@ export const TieredMenu = React.memo(
             setFocusedItemInfo({ index: -1, level: 0, parentKey: '' });
             searchValue.current = '';
             setDirty(false);
-            props.onBlur && props.onBlur(event);
+            props.onBlur?.(event);
         };
 
         const onKeyDown = (event) => {
@@ -129,53 +113,41 @@ export const TieredMenu = React.memo(
                 case 'ArrowDown':
                     onArrowDownKey(event);
                     break;
-
                 case 'ArrowUp':
                     onArrowUpKey(event);
                     break;
-
                 case 'ArrowLeft':
                     onArrowLeftKey(event);
                     break;
-
                 case 'ArrowRight':
                     onArrowRightKey(event);
                     break;
-
                 case 'Home':
                     onHomeKey(event);
                     break;
-
                 case 'End':
                     onEndKey(event);
                     break;
-
                 case 'Space':
                     onSpaceKey(event);
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                     onEnterKey(event);
                     break;
-
                 case 'Escape':
                     props.popup && DomHandler.focus(targetRef.current);
                     onEscapeKey(event);
                     break;
-
                 case 'Tab':
                     onTabKey(event);
                     break;
-
                 case 'PageDown':
                 case 'PageUp':
                 case 'Backspace':
                 case 'ShiftLeft':
-                case 'ShiftRight':
-                    //NOOP
+                case 'ShiftRight': //NOOP
                     break;
-
                 default:
                     if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
                         searchItems(event.key);
@@ -194,7 +166,6 @@ export const TieredMenu = React.memo(
 
             const { index, key, level, parentKey, items } = processedItem;
             const grouped = ObjectUtils.isNotEmpty(items);
-
             const _activeItemPath = activeItemPath.filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
             if (grouped) {
@@ -203,7 +174,6 @@ export const TieredMenu = React.memo(
 
             setFocusedItemInfo({ index, level, parentKey });
             setActiveItemPath(_activeItemPath);
-
             grouped && setDirty(true);
             isFocus && DomHandler.focus(getMenuElement());
         };
@@ -305,7 +275,6 @@ export const TieredMenu = React.memo(
             }
 
             setActiveItemPath(activeItemPath.filter((p) => p.parentKey !== focusedItemInfo.parentKey));
-
             event.preventDefault();
         };
 
@@ -335,11 +304,11 @@ export const TieredMenu = React.memo(
 
         const onEnterKey = (event) => {
             if (focusedItemInfo.index !== -1) {
-                const element = DomHandler.findSingle(getMenuElement(), `li[id="${`${focusedItemId}`}"]`);
+                const element = DomHandler.findSingle(getMenuElement(), `li[id="${focusedItemId}"]`);
                 const anchorElement = element && DomHandler.findSingle(element, '[data-pc-section="action"]');
 
                 props.popup && DomHandler.focus(targetRef.current);
-                anchorElement ? anchorElement.click() : element && element.click();
+                anchorElement ? anchorElement.click() : element?.click();
             }
 
             event.preventDefault();
@@ -352,7 +321,6 @@ export const TieredMenu = React.memo(
         const onEscapeKey = (event) => {
             hide(event, true);
             !props.popup && setFocusedItemInfo({ ...focusedItemInfo, index: findFirstFocusedItemIndex() });
-
             event.preventDefault();
         };
 
@@ -449,7 +417,6 @@ export const TieredMenu = React.memo(
 
         const searchItems = (char) => {
             searchValue.current = (searchValue.current || '') + char;
-
             let itemIndex = -1;
             let matched = false;
 
@@ -473,7 +440,7 @@ export const TieredMenu = React.memo(
             }
 
             if (searchTimeout.current) {
-                clearTimeout(searchTimeout);
+                clearTimeout(searchTimeout.current);
             }
 
             searchTimeout.current = setTimeout(() => {
@@ -496,38 +463,30 @@ export const TieredMenu = React.memo(
             const element = DomHandler.findSingle(getMenuElement(), `li[id="${id}"]`);
 
             if (element) {
-                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+                element.scrollIntoView?.({ block: 'nearest', inline: 'start' });
             }
         };
 
         const createProcessedItems = React.useCallback((items, level = 0, parent = {}, parentKey = '') => {
             const processedItems = [];
 
-            items &&
-                items.forEach((item, index) => {
-                    const key = (parentKey !== '' ? parentKey + '_' : '') + index;
-                    const newItem = {
-                        item,
-                        index,
-                        level,
-                        key,
-                        parent,
-                        parentKey
-                    };
+            items?.forEach((item, index) => {
+                const key = (parentKey !== '' ? parentKey + '_' : '') + index;
+                const newItem = { item, index, level, key, parent, parentKey };
 
-                    newItem.items = createProcessedItems(item.items, level + 1, newItem, key);
-                    processedItems.push(newItem);
-                });
+                newItem.items = createProcessedItems(item.items, level + 1, newItem, key);
+                processedItems.push(newItem);
+            });
 
             return processedItems;
         }, []);
 
         const createStyle = () => {
             if (!styleElementRef.current) {
-                styleElementRef.current = DomHandler.createInlineStyle((context && context.nonce) || PrimeReact.nonce, context && context.styleContainer);
-
+                styleElementRef.current = DomHandler.createInlineStyle(context?.nonce || PrimeReactConfig.nonce, context?.styleContainer);
                 const selector = `${attributeSelectorState}`;
-                const innerHTML = `
+                const fullWidthStyle = props.popup ? '' : `.p-tieredmenu[${selector}] { width: 100%; }`;
+                const innerHTML = String.raw`
 @media screen and (max-width: ${props.breakpoint}) {
     .p-tieredmenu[${selector}] > ul {
         max-height: ${props.scrollHeight};
@@ -542,7 +501,7 @@ export const TieredMenu = React.memo(
         left: 0;
         box-shadow: none;
         border-radius: 0;
-        padding: 0 0 0 calc(var(--inline-spacing) * 2); /* @todo */
+        padding: 0 0 0 calc(var(--inline-spacing) * 2);
     }
 
     .p-tieredmenu[${selector}] .p-menuitem-active > .p-menuitem-link > .p-submenu-icon {
@@ -553,7 +512,7 @@ export const TieredMenu = React.memo(
         content: "\\e930";
     }
 
-    ${!props.popup ? `.p-tieredmenu[${selector}] { width: 100%; }` : ''}
+    ${fullWidthStyle}
 }
 `;
 
@@ -573,7 +532,7 @@ export const TieredMenu = React.memo(
 
         const onEnter = () => {
             if (props.autoZIndex) {
-                ZIndexUtils.set('menu', containerRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, props.baseZIndex || (context && context.zIndex.menu) || PrimeReact.zIndex.menu);
+                ZIndexUtils.set('menu', containerRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, props.baseZIndex || context?.zIndex.menu || PrimeReactConfig.zIndex.menu);
             }
 
             DomHandler.addStyles(containerRef.current, { position: 'absolute', top: '0', left: '0' });
@@ -612,27 +571,30 @@ export const TieredMenu = React.memo(
                 !attributeSelectorState && setAttributeSelectorState(uniqueId);
             }
         });
-
         React.useEffect(() => {
             const itemsToProcess = props.model || [];
             const processed = createProcessedItems(itemsToProcess);
 
             setProcessedItems(processed);
         }, [props.model, createProcessedItems]);
-
         useUpdateEffect(() => {
             const processedItem = activeItemPath.find((p) => p.key === focusedItemInfo.parentKey);
             const processed = processedItem ? processedItem.items : processedItems;
 
             setVisibleItems(processed);
         }, [activeItemPath, focusedItemInfo, processedItems]);
-
         useUpdateEffect(() => {
-            const focusedId = focusedItemInfo.index !== -1 ? `${idState}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+            const focusedId =
+                focusedItemInfo.index !== -1
+                    ? `${idState}${resolveConditional(
+                          ObjectUtils.isNotEmpty(focusedItemInfo.parentKey),
+                          () => '_' + focusedItemInfo.parentKey,
+                          () => ''
+                      )}_${focusedItemInfo.index}`
+                    : null;
 
             setFocusedItemId(focusedId);
         }, [focusedItemInfo]);
-
         useUpdateEffect(() => {
             if (!props.popup) {
                 if (ObjectUtils.isNotEmpty(activeItemPath)) {
@@ -644,18 +606,15 @@ export const TieredMenu = React.memo(
                 }
             }
         }, [activeItemPath]);
-
         useUpdateEffect(() => {
             if (focusTrigger) {
                 const itemIndex = focusedItemInfo.index !== -1 ? findNextItemIndex(focusedItemInfo.index) : findFirstFocusedItemIndex();
 
                 changeFocusedItemIndex(itemIndex);
-
                 setActiveItemPath(activeItemPath.filter((p) => p.parentKey !== focusedItemInfo.parentKey));
                 setFocusTrigger(false);
             }
         }, [focusTrigger]);
-
         useUpdateEffect(() => {
             if (attributeSelectorState && containerRef.current) {
                 containerRef.current.setAttribute(attributeSelectorState, '');
@@ -666,46 +625,14 @@ export const TieredMenu = React.memo(
                 destroyStyle();
             };
         }, [attributeSelectorState, props.breakpoint]);
-
         useUnmountEffect(() => {
             ZIndexUtils.clear(containerRef.current);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            toggle,
-            show,
-            hide,
-            getElement: () => containerRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, toggle, show, hide, getElement: () => containerRef.current }));
 
         const createElement = () => {
-            const rootProps = mergeProps(
-                {
-                    ref: containerRef,
-                    id: props.id,
-                    className: classNames(props.className, cx('root')),
-                    style: props.style,
-                    onClick: onPanelClick
-                },
-                TieredMenuBase.getOtherProps(props),
-                ptm('root')
-            );
-
-            const transitionProps = mergeProps(
-                {
-                    classNames: cx('transition'),
-                    in: visibleState,
-                    timeout: { enter: 120, exit: 100 },
-                    options: props.transitionOptions,
-                    unmountOnExit: true,
-                    onEnter,
-                    onEntered,
-                    onExit,
-                    onExited
-                },
-                ptm('transition')
-            );
+            const rootProps = mergeProps({ ref: containerRef, id: props.id, className: classNames(props.className, cx('root')), style: props.style, onClick: onPanelClick }, TieredMenuBase.getOtherProps(props), ptm('root'));
+            const transitionProps = mergeProps({ classNames: cx('transition'), in: visibleState, timeout: { enter: 120, exit: 100 }, options: props.transitionOptions, unmountOnExit: true, onEnter, onEntered, onExit, onExited }, ptm('transition'));
 
             return (
                 <CSSTransition nodeRef={containerRef} {...transitionProps}>
@@ -749,5 +676,4 @@ export const TieredMenu = React.memo(
         return props.popup ? <Portal element={element} appendTo={props.appendTo} /> : element;
     })
 );
-
 TieredMenu.displayName = 'TieredMenu';

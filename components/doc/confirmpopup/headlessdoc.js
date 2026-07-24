@@ -5,6 +5,36 @@ import { ConfirmPopup, confirmPopup } from '@/components/lib/confirmpopup/Confir
 import { Toast } from '@/components/lib/toast/Toast';
 import { useRef } from 'react';
 
+function renderSonarNested1(message, acceptBtnRef, accept, hide, rejectBtnRef, reject) {
+    return (
+        <div className="bg-gray-900 text-white border-round p-3">
+            <span>{message}</span>
+            <div className="flex align-items-center gap-2 mt-3">
+                <Button
+                    ref={acceptBtnRef}
+                    label="Save"
+                    onClick={() => {
+                        accept();
+                        hide();
+                    }}
+                    className="p-button-sm p-button-outlined"
+                />
+
+                <Button
+                    ref={rejectBtnRef}
+                    label="Cancel"
+                    outlined
+                    onClick={() => {
+                        reject();
+                        hide();
+                    }}
+                    className="p-button-sm p-button-text"
+                />
+            </div>
+        </div>
+    );
+}
+
 export function HeadlessDoc(props) {
     const toast = useRef(null);
 
@@ -17,28 +47,11 @@ export function HeadlessDoc(props) {
     };
 
     const confirm1 = (event) => {
-        confirmPopup({
-            group: 'headless',
-            target: event.currentTarget,
-            message: 'Are you sure you want to proceed?',
-            icon: 'pi pi-exclamation-triangle',
-            defaultFocus: 'accept',
-            accept,
-            reject
-        });
+        confirmPopup({ group: 'headless', target: event.currentTarget, message: 'Are you sure you want to proceed?', icon: 'pi pi-exclamation-triangle', defaultFocus: 'accept', accept, reject });
     };
 
     const confirm2 = (event) => {
-        confirmPopup({
-            group: 'headless',
-            target: event.currentTarget,
-            message: 'Do you want to delete this record?',
-            icon: 'pi pi-info-circle',
-            acceptClassName: 'p-button-danger',
-            defaultFocus: 'reject',
-            accept,
-            reject
-        });
+        confirmPopup({ group: 'headless', target: event.currentTarget, message: 'Do you want to delete this record?', icon: 'pi pi-info-circle', acceptClassName: 'p-button-danger', defaultFocus: 'reject', accept, reject });
     };
 
     const code = {
@@ -201,35 +214,7 @@ export default function HeadlessDemo() {
                 </p>
             </DocSectionText>
             <Toast ref={toast} />
-            <ConfirmPopup
-                group="headless"
-                content={({ message, acceptBtnRef, rejectBtnRef, hide }) => (
-                    <div className="bg-gray-900 text-white border-round p-3">
-                        <span>{message}</span>
-                        <div className="flex align-items-center gap-2 mt-3">
-                            <Button
-                                ref={acceptBtnRef}
-                                label="Save"
-                                onClick={() => {
-                                    accept();
-                                    hide();
-                                }}
-                                className="p-button-sm p-button-outlined"
-                            />
-                            <Button
-                                ref={rejectBtnRef}
-                                label="Cancel"
-                                outlined
-                                onClick={() => {
-                                    reject();
-                                    hide();
-                                }}
-                                className="p-button-sm p-button-text"
-                            />
-                        </div>
-                    </div>
-                )}
-            />
+            <ConfirmPopup group="headless" content={({ message, acceptBtnRef, rejectBtnRef, hide }) => renderSonarNested1(message, acceptBtnRef, accept, hide, rejectBtnRef, reject)} />
             <div className="card flex flex-wrap gap-2 justify-content-center">
                 <Button onClick={confirm1} icon="pi pi-check" label="Confirm" />
                 <Button onClick={confirm2} icon="pi pi-times" label="Delete" className="p-button-danger" />

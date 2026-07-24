@@ -9,15 +9,15 @@ export function TemplateDoc(props) {
     const itemRenderer = (item) => {
         if (item.root) {
             return (
-                <a className="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase p-ripple" style={{ borderRadius: '2rem' }}>
+                <button type="button" className="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase p-ripple" style={{ borderRadius: '2rem' }}>
                     <span className={item.icon} />
                     <span className="ml-2">{item.label}</span>
                     <Ripple />
-                </a>
+                </button>
             );
         } else if (!item.image) {
             return (
-                <a className="flex align-items-center p-3 cursor-pointer mb-2 gap-2 ">
+                <button type="button" className="flex align-items-center p-3 cursor-pointer mb-2 gap-2 ">
                     <span className="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
                         <i className={`${item.icon} text-lg`} />
                     </span>
@@ -25,7 +25,7 @@ export function TemplateDoc(props) {
                         <span className="font-medium text-lg text-900">{item.label}</span>
                         <span className="white-space-nowrap">{item.subtext}</span>
                     </span>
-                </a>
+                </button>
             );
         }
 
@@ -71,9 +71,10 @@ export function TemplateDoc(props) {
                         ]
                     }
                 ],
+
                 [
                     {
-                        items: [{ image: 'https://primefaces.org/cdn/primereact/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.', template: itemRenderer }]
+                        items: [{ image: '/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.', template: itemRenderer }]
                     }
                 ]
             ]
@@ -112,7 +113,8 @@ export function TemplateDoc(props) {
             <path d="M12.1762 10.1789L8.4462 9.794L10.8145 7.09967H13.5378L12.1762 10.1789Z" fill="var(--primary-color)" />
         </svg>
     );
-    const end = <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />;
+
+    const end = <Avatar image="/images/avatar/amyelsner.png" shape="circle" />;
 
     const code = {
         basic: `
@@ -193,7 +195,7 @@ export default function TemplateDemo() {
                 ],
                 [
                     {
-                        items: [{ image: 'https://primefaces.org/cdn/primereact/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.', template: itemRenderer }]
+                        items: [{ image: '/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.', template: itemRenderer }]
                     }
                 ]
             ]
@@ -237,7 +239,7 @@ export default function TemplateDemo() {
             <path d="M12.1762 10.1789L8.4462 9.794L10.8145 7.09967H13.5378L12.1762 10.1789Z" fill="var(--primary-color)" />
         </svg>
     );
-    const end = <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />;
+    const end = <Avatar image="/images/avatar/amyelsner.png" shape="circle" />;
 
     return (
         <div className="card">
@@ -322,7 +324,7 @@ export default function TemplateDemo() {
                 ],
                 [
                     {
-                        items: [{ image: 'https://primefaces.org/cdn/primereact/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.', template: itemRenderer }]
+                        items: [{ image: '/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.', template: itemRenderer }]
                     }
                 ]
             ]
@@ -361,7 +363,7 @@ export default function TemplateDemo() {
             <path d="M12.1762 10.1789L8.4462 9.794L10.8145 7.09967H13.5378L12.1762 10.1789Z" fill="var(--primary-color)" />
         </svg>
     );
-    const end = <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />;
+    const end = <Avatar image="/images/avatar/amyelsner.png" shape="circle" />;
 
     return (
         <div className="card">

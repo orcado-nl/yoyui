@@ -1,4 +1,4 @@
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -14,7 +14,7 @@ const classes = {
     container: ({ props, context }) =>
         classNames('p-autocomplete-multiple-container p-component p-inputtext', {
             'p-disabled': props.disabled,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     loadingIcon: 'p-autocomplete-loader',
     dropdownButton: 'p-autocomplete-dropdown',
@@ -25,11 +25,11 @@ const classes = {
     input: ({ props, context }) =>
         classNames('p-autocomplete-input', {
             'p-autocomplete-dd-input': props.dropdown,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     panel: ({ context }) =>
         classNames('p-autocomplete-panel p-component', {
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     listWrapper: 'p-autocomplete-items-wrapper',
     list: ({ virtualScrollerOptions, options }) => (virtualScrollerOptions ? classNames('p-autocomplete-items', options.className) : 'p-autocomplete-items'),

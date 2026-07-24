@@ -138,8 +138,7 @@ export default function FitModeDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i>
-                    that does not change the overall table width.
+                    Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.
                 </p>
             </DocSectionText>
             <div className="card">

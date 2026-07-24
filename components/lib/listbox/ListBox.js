@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { FilterService, PrimeReactContext, localeOption } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -9,12 +10,16 @@ import { ListBoxBase } from './ListBoxBase';
 import { ListBoxHeader } from './ListBoxHeader';
 import { ListBoxItem } from './ListBoxItem';
 
+function renderSonarNested1(listProps, options) {
+    return <ul {...listProps}>{options.children}</ul>;
+}
+
 export const ListBox = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = ListBoxBase.getProps(inProps, context);
-        const [focusedOptionIndex, setFocusedOptionIndex] = React.useState(null);
+        const [focusedOptionIndex, setFocusedOptionIndex] = React.useState(-1);
         const searchTimeout = React.useRef(null);
         const firstHiddenFocusableElement = React.useRef(null);
         const lastHiddenFocusableElement = React.useRef(null);
@@ -29,17 +34,17 @@ export const ListBox = React.memo(
         const optionTouched = React.useRef(false);
         const filteredValue = (props.onFilterValueChange ? props.filterValue : filterValueState) || '';
         const hasFilter = filteredValue && filteredValue.trim().length > 0;
-
         const metaData = {
             props,
             state: {
                 filterValue: filteredValue
             }
         };
-
         const ptCallbacks = ListBoxBase.setMetaData(metaData);
 
-        useHandleStyle(ListBoxBase.css.styles, ptCallbacks.isUnstyled, { name: 'listbox' });
+        useHandleStyle(ListBoxBase.css.styles, ptCallbacks.isUnstyled, {
+            name: 'listbox'
+        });
 
         const onOptionSelect = (event, option, index = -1) => {
             if (props.disabled || isOptionDisabled(option)) {
@@ -80,7 +85,6 @@ export const ListBox = React.memo(
 
                 if (selected) {
                     if (metaKey) {
-                        value = null;
                         valueChanged = true;
                     }
                 } else {
@@ -103,7 +107,7 @@ export const ListBox = React.memo(
             let value = null;
             let metaSelection = optionTouched ? false : props.metaKeySelection;
 
-            if (metaSelection) {
+            const runComplexBranch1 = () => {
                 let metaKey = event.metaKey || event.ctrlKey;
 
                 if (selected) {
@@ -119,7 +123,9 @@ export const ListBox = React.memo(
                     value = [...value, getOptionValue(option)];
                     valueChanged = true;
                 }
-            } else {
+            };
+
+            const runComplexBranch4 = () => {
                 if (selected) {
                     value = removeOption(option);
                 } else {
@@ -127,6 +133,12 @@ export const ListBox = React.memo(
                 }
 
                 valueChanged = true;
+            };
+
+            if (metaSelection) {
+                runComplexBranch1();
+            } else {
+                runComplexBranch4();
             }
 
             if (valueChanged) {
@@ -237,7 +249,6 @@ export const ListBox = React.memo(
 
         const searchOptions = (event, char) => {
             setSearchValue((searchValue || '') + char);
-
             let optionIndex = -1;
 
             if (ObjectUtils.isNotEmpty(searchValue)) {
@@ -276,7 +287,7 @@ export const ListBox = React.memo(
         const findPrevSelectedOptionIndex = (index) => {
             const matchedOptionIndex = hasSelectedOption() && index > 0 ? ObjectUtils.findLastIndex(visibleOptions.slice(0, index), (option) => isValidSelectedOption(option)) : -1;
 
-            return matchedOptionIndex > -1 ? matchedOptionIndex : -1;
+            return Math.max(matchedOptionIndex, -1);
         };
 
         const onOptionSelectRange = (event, start = -1, end = -1) => {
@@ -416,49 +427,39 @@ export const ListBox = React.memo(
                 case 'ArrowDown':
                     onArrowDownKey(event);
                     break;
-
                 case 'ArrowUp':
                     onArrowUpKey(event);
                     break;
-
                 case 'Home':
                     onHomeKey(event);
                     break;
-
                 case 'End':
                     onEndKey(event);
                     break;
-
                 case 'PageDown':
                     onPageDownKey(event);
                     break;
-
                 case 'PageUp':
                     onPageUpKey(event);
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                 case 'Space':
                     onSpaceKey(event);
                     event.preventDefault();
                     break;
-
                 case 'Tab':
                     // NOOP
                     break;
-
                 case 'ShiftLeft':
                 case 'ShiftRight':
-                    onShiftKey(event);
+                    onShiftKey();
                     break;
-
                 default:
                     if (props.multiple && event.key === 'a' && metaKey) {
                         const value = visibleOptions.filter((option) => isValidOption(option)).map((option) => getOptionValue(option));
 
                         updateModel(event, value);
-
                         event.preventDefault();
                         break;
                     }
@@ -482,16 +483,19 @@ export const ListBox = React.memo(
                 const element = listRef.current.querySelector(`li[id="${idx}"]`);
 
                 if (element) {
-                    element.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+                    element.scrollIntoView({
+                        block: 'nearest',
+                        inline: 'nearest',
+                        behavior: 'smooth'
+                    });
                 } else if (props.virtualScrollerOptions) {
-                    virtualScrollerRef.current && virtualScrollerRef.current.scrollToIndex(index !== -1 ? index : focusedOptionIndex);
+                    virtualScrollerRef.current?.scrollToIndex(index !== -1 ? index : focusedOptionIndex);
                 }
             }, 0);
         };
 
         const onFilter = (event) => {
-            virtualScrollerRef.current && virtualScrollerRef.current.scrollToIndex(0);
-
+            virtualScrollerRef.current?.scrollToIndex(0);
             const { originalEvent, value } = event;
 
             if (props.onFilterValueChange) {
@@ -506,7 +510,9 @@ export const ListBox = React.memo(
 
         const resetFilter = () => {
             setFilterValueState('');
-            props.onFilter && props.onFilter({ filter: '' });
+            props.onFilter?.({
+                filter: ''
+            });
         };
 
         const autoUpdateModel = (isFocus = focused) => {
@@ -549,7 +555,10 @@ export const ListBox = React.memo(
                         let selectedOptionIndex = findOptionIndexInList(props.value, getOptionGroupChildren(visibleOptions[i]));
 
                         if (selectedOptionIndex !== -1) {
-                            return { group: i, option: selectedOptionIndex };
+                            return {
+                                group: i,
+                                option: selectedOptionIndex
+                            };
                         }
                     }
                 } else {
@@ -585,11 +594,23 @@ export const ListBox = React.memo(
         };
 
         const getOptionLabel = (option) => {
-            return props.optionLabel ? ObjectUtils.resolveFieldData(option, props.optionLabel) : option && option.label !== undefined ? option.label : option;
+            return props.optionLabel
+                ? ObjectUtils.resolveFieldData(option, props.optionLabel)
+                : resolveConditional(
+                      option?.label !== undefined,
+                      () => option.label,
+                      () => option
+                  );
         };
 
         const getOptionValue = (option) => {
-            return props.optionValue ? ObjectUtils.resolveFieldData(option, props.optionValue) : option && option.value !== undefined ? option.value : option;
+            return props.optionValue
+                ? ObjectUtils.resolveFieldData(option, props.optionValue)
+                : resolveConditional(
+                      option?.value !== undefined,
+                      () => option.value,
+                      () => option
+                  );
         };
 
         const getOptionRenderKey = (option) => {
@@ -601,12 +622,11 @@ export const ListBox = React.memo(
                 return ObjectUtils.isFunction(props.optionDisabled) ? props.optionDisabled(option) : ObjectUtils.resolveFieldData(option, props.optionDisabled);
             }
 
-            return option && option.disabled !== undefined ? option.disabled : false;
+            return option?.disabled !== undefined ? option.disabled : false;
         };
 
         const onFirstHiddenFocus = () => {
             DomHandler.focus(listRef.current);
-
             const firstFocusableEl = DomHandler.getFirstFocusableElement(elementRef.current, ':not([data-p-hidden-focusable="true"])');
 
             lastHiddenFocusableElement.current.tabIndex = DomHandler.isElement(firstFocusableEl) ? undefined : -1;
@@ -631,7 +651,15 @@ export const ListBox = React.memo(
 
         const onListFocus = () => {
             setFocused(true);
-            setFocusedOptionIndex(focusedOptionIndex !== -1 ? focusedOptionIndex : props.autoOptionFocus ? findFirstFocusedOptionIndex() : findSelectedOptionIndex());
+            setFocusedOptionIndex(
+                focusedOptionIndex !== -1
+                    ? focusedOptionIndex
+                    : resolveConditional(
+                          props.autoOptionFocus,
+                          () => findFirstFocusedOptionIndex(),
+                          () => findSelectedOptionIndex()
+                      )
+            );
             autoUpdateModel(true);
         };
 
@@ -656,11 +684,16 @@ export const ListBox = React.memo(
 
         const flatOptions = (options) => {
             return (options || []).reduce((result, option, index) => {
-                result.push({ optionGroup: option, group: true, index, code: option.code, label: option.label });
-
+                result.push({
+                    optionGroup: option,
+                    group: true,
+                    index,
+                    code: option.code,
+                    label: option.label
+                });
                 const optionGroupChildren = getOptionGroupChildren(option);
 
-                optionGroupChildren && optionGroupChildren.forEach((o) => result.push(o));
+                optionGroupChildren?.forEach((o) => result.push(o));
 
                 return result;
             }, []);
@@ -679,8 +712,11 @@ export const ListBox = React.memo(
                     for (let optgroup of props.options) {
                         let filteredSubOptions = FilterService.filter(getOptionGroupChildren(optgroup), searchFields, filterValue, props.filterMatchMode, props.filterLocale);
 
-                        if (filteredSubOptions && filteredSubOptions.length) {
-                            filteredGroups.push({ ...optgroup, ...{ items: filteredSubOptions } });
+                        if (filteredSubOptions?.length) {
+                            filteredGroups.push({
+                                ...optgroup,
+                                items: filteredSubOptions
+                            });
                         }
                     }
 
@@ -709,7 +745,6 @@ export const ListBox = React.memo(
             getElement: () => elementRef.current,
             getVirtualScroller: () => virtualScrollerRef.current
         }));
-
         useMountEffect(() => {
             scrollToSelectedIndex();
             id.current = UniqueComponentId();
@@ -734,7 +769,9 @@ export const ListBox = React.memo(
         };
 
         const createItem = (option, index, scrollerOptions = {}) => {
-            const style = { height: scrollerOptions.props ? scrollerOptions.props.itemSize : undefined };
+            const style = {
+                height: scrollerOptions.props ? scrollerOptions.props.itemSize : undefined
+            };
 
             if (option.group && option.optionGroup && props.optionGroupLabel) {
                 const groupContent = props.optionGroupTemplate ? ObjectUtils.getJSXElement(props.optionGroupTemplate, option, index) : getOptionGroupLabel(option);
@@ -742,7 +779,9 @@ export const ListBox = React.memo(
                 const itemGroupProps = mergeProps(
                     {
                         className: ptCallbacks.cx('itemGroup'),
-                        style: ptCallbacks.sx('itemGroup', { scrollerOptions }),
+                        style: ptCallbacks.sx('itemGroup', {
+                            scrollerOptions
+                        }),
                         role: 'group'
                     },
                     ptCallbacks.ptm('itemGroup')
@@ -800,7 +839,6 @@ export const ListBox = React.memo(
                 },
                 ptCallbacks.ptm('emptyMessage')
             );
-
             const message = ObjectUtils.getJSXElement(emptyMessage, props) || localeOption(isFilter ? 'emptyFilterMessage' : 'emptyMessage');
 
             return <li {...emptyMessageProps}>{message}</li>;
@@ -810,29 +848,35 @@ export const ListBox = React.memo(
             if (props.virtualScrollerOptions) {
                 const virtualScrollerProps = {
                     ...props.virtualScrollerOptions,
-                    ...{
-                        items: visibleOptions,
-                        onLazyLoad: (event) => props.virtualScrollerOptions.onLazyLoad({ ...event, ...{ filter: visibleOptions } }),
-                        itemTemplate: (item, options) => item && createItem(item, options.index, options),
-                        contentTemplate: (options) => {
-                            const listProps = mergeProps(
-                                {
-                                    ref: listRef,
-                                    style: ptCallbacks.sx('list', { options }),
-                                    className: ptCallbacks.cx('list', { options }),
-                                    role: 'listbox',
-                                    tabIndex: '-1',
-                                    'aria-multiselectable': props.multiple,
-                                    onFocus: onListFocus,
-                                    onBlur: onListBlur,
-                                    onKeyDown: onListKeyDown,
-                                    ...ariaProps
-                                },
-                                ptCallbacks.ptm('list')
-                            );
+                    items: visibleOptions,
+                    onLazyLoad: (event) =>
+                        props.virtualScrollerOptions.onLazyLoad({
+                            ...event,
+                            filter: visibleOptions
+                        }),
+                    itemTemplate: (item, options) => item && createItem(item, options.index, options),
+                    contentTemplate: (options) => {
+                        const listProps = mergeProps(
+                            {
+                                ref: listRef,
+                                style: ptCallbacks.sx('list', {
+                                    options
+                                }),
+                                className: ptCallbacks.cx('list', {
+                                    options
+                                }),
+                                role: 'listbox',
+                                tabIndex: '-1',
+                                'aria-multiselectable': props.multiple,
+                                onFocus: onListFocus,
+                                onBlur: onListBlur,
+                                onKeyDown: onListKeyDown,
+                                ...ariaProps
+                            },
+                            ptCallbacks.ptm('list')
+                        );
 
-                            return <ul {...listProps}>{options.children}</ul>;
-                        }
+                        return renderSonarNested1(listProps, options);
                     }
                 };
 
@@ -840,7 +884,6 @@ export const ListBox = React.memo(
             }
 
             const items = createItems();
-
             const listProps = mergeProps(
                 {
                     ref: listRef,
@@ -860,13 +903,11 @@ export const ListBox = React.memo(
         };
 
         const visibleOptions = getVisibleOptions();
-
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip);
         const otherProps = ListBoxBase.getOtherProps(props);
         const ariaProps = ObjectUtils.reduceKeys(otherProps, DomHandler.ARIA_PROPS);
         const list = createList();
         const header = createHeader();
-
         const wrapperProps = mergeProps(
             {
                 className: ptCallbacks.cx('wrapper'),
@@ -874,7 +915,6 @@ export const ListBox = React.memo(
             },
             ptCallbacks.ptm('wrapper')
         );
-
         const rootProps = mergeProps(
             {
                 ref: elementRef,
@@ -885,7 +925,6 @@ export const ListBox = React.memo(
             ListBoxBase.getOtherProps(props),
             ptCallbacks.ptm('root')
         );
-
         const hiddenFirstElement = mergeProps(
             {
                 ref: firstHiddenFocusableElement,
@@ -899,7 +938,6 @@ export const ListBox = React.memo(
             },
             ptCallbacks.ptm('hiddenFirstFocusableEl')
         );
-
         const hiddenLastElement = mergeProps(
             {
                 ref: lastHiddenFocusableElement,
@@ -927,5 +965,4 @@ export const ListBox = React.memo(
         );
     })
 );
-
 ListBox.displayName = 'ListBox';

@@ -11,7 +11,6 @@ export function DynamicDoc(props) {
         { name: 'Research', key: 'R' }
     ];
     const [selectedCategory, setSelectedCategory] = useState(categories[1]);
-
     const code = {
         basic: `
 {categories.map((category) => {

@@ -10,10 +10,7 @@ export const ProgressBar = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = ProgressBarBase.getProps(inProps, context);
-        const { ptm, cx, isUnstyled } = ProgressBarBase.setMetaData({
-            props,
-            ...props.__parentMetadata
-        });
+        const { ptm, cx, isUnstyled } = ProgressBarBase.setMetaData({ props, ...props.__parentMetadata });
 
         useHandleStyle(ProgressBarBase.css.styles, isUnstyled, { name: 'progressbar' });
         const elementRef = React.useRef(null);
@@ -31,31 +28,12 @@ export const ProgressBar = React.memo(
         const createDeterminate = () => {
             const label = createLabel();
             const rootProps = mergeProps(
-                {
-                    className: classNames(props.className, cx('root')),
-                    style: props.style,
-                    role: 'progressbar',
-                    'aria-valuemin': '0',
-                    'aria-valuenow': props.value,
-                    'aria-valuemax': '100'
-                },
+                { className: classNames(props.className, cx('root')), style: props.style, role: 'progressbar', 'aria-valuemin': '0', 'aria-valuenow': props.value, 'aria-valuemax': '100' },
                 ProgressBarBase.getOtherProps(props),
                 ptm('root')
             );
-            const valueProps = mergeProps(
-                {
-                    className: cx('value'),
-                    style: { width: props.value + '%', display: 'flex', backgroundColor: props.color }
-                },
-                ptm('value')
-            );
-
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                ptm('label')
-            );
+            const valueProps = mergeProps({ className: cx('value'), style: { width: props.value + '%', display: 'flex', backgroundColor: props.color } }, ptm('value'));
+            const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
 
             return (
                 <div id={props.id} ref={elementRef} {...rootProps}>
@@ -66,32 +44,12 @@ export const ProgressBar = React.memo(
 
         const createIndeterminate = () => {
             const rootProps = mergeProps(
-                {
-                    className: classNames(props.className, cx('root')),
-                    style: props.style,
-                    role: 'progressbar',
-                    'aria-valuemin': '0',
-                    'aria-valuenow': props.value,
-                    'aria-valuemax': '100'
-                },
+                { className: classNames(props.className, cx('root')), style: props.style, role: 'progressbar', 'aria-valuemin': '0', 'aria-valuenow': props.value, 'aria-valuemax': '100' },
                 ProgressBarBase.getOtherProps(props),
                 ptm('root')
             );
-
-            const containerProps = mergeProps(
-                {
-                    className: cx('container')
-                },
-                ptm('container')
-            );
-
-            const valueProps = mergeProps(
-                {
-                    className: cx('value'),
-                    style: { backgroundColor: props.color }
-                },
-                ptm('value')
-            );
+            const containerProps = mergeProps({ className: cx('container') }, ptm('container'));
+            const valueProps = mergeProps({ className: cx('value'), style: { backgroundColor: props.color } }, ptm('value'));
 
             return (
                 <div id={props.id} ref={elementRef} {...rootProps}>
@@ -102,10 +60,7 @@ export const ProgressBar = React.memo(
             );
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => elementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
 
         if (props.mode === 'determinate') {
             return createDeterminate();

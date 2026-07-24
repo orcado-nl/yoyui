@@ -2,7 +2,7 @@
  *
  * ConfirmDialog uses a Dialog UI with confirmDialog method or <ConfirmDialog> tag.
  *
- * [Live Demo](https://www.primereact.org/confirmdialog)
+ * [Live Demo](https://yoyui.orcado.dev/confirmdialog)
  *
  * @module confirmdialog
  *
@@ -273,13 +273,13 @@ interface ConfirmDialogReturn {
 }
 
 /**
- * **PrimeReact - ConfirmDialog**
+ * **YoYui - ConfirmDialog**
  *
  * _ConfirmDialog uses a Dialog UI with confirmDialog method or <ConfirmDialog> tag._
  *
- * [Live Demo](https://www.primereact.org/confirmdialog/)
+ * [Live Demo](https://yoyui.orcado.dev/confirmdialog/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

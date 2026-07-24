@@ -178,7 +178,7 @@ export const Knob = React.memo(
         };
 
         const onKeyDown = (event) => {
-            if (!props.disabled && !props.readonly) {
+            if (!props.disabled && !props.readOnly) {
                 switch (event.code) {
                     case 'ArrowRight':
                     case 'ArrowUp':
@@ -258,15 +258,15 @@ export const Knob = React.memo(
                 'aria-valuemin': props.min,
                 'aria-valuemax': props.max,
                 'aria-valuenow': props.value,
-                'aria-labelledby': props.ariaLabelledby,
-                'aria-label': props.ariaLabel,
+                'aria-labelledby': props['aria-labelledby'],
+                'aria-label': props['aria-label'],
                 role: 'slider',
-                tabIndex: props.readonly || props.disabled ? -1 : props.tabIndex,
+                tabIndex: props.readOnly || props.disabled ? -1 : props.tabIndex,
                 onClick: (e) => onClick(e),
                 onMouseDown: (e) => onMouseDown(e),
-                onMouseUp: (e) => onMouseUp(e),
-                onTouchStart: (e) => onTouchStart(e),
-                onTouchEnd: (e) => onTouchEnd(e),
+                onMouseUp: (e) => onMouseUp(),
+                onTouchStart: (e) => onTouchStart(),
+                onTouchEnd: (e) => onTouchEnd(),
                 onKeyDown: (e) => onKeyDown(e)
             },
             ptm('svg')

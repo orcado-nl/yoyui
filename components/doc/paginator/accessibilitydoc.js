@@ -24,8 +24,8 @@ export function AccessibilityDoc() {
             </p>
 
             <p>
-                Rows per page dropdown internally uses a dropdown component, refer to the <Link href="/dropdown">dropdown</Link> documentation for accessibility details. Additionally, the dropdown uses an <i>aria-label</i>
-                from the <i>aria.rowsPerPage</i> property of the <Link href="/locale">locale</Link> API.
+                Rows per page dropdown internally uses a dropdown component, refer to the <Link href="/dropdown">dropdown</Link> documentation for accessibility details. Additionally, the dropdown uses an <i>aria-label</i> from the{' '}
+                <i>aria.rowsPerPage</i> property of the <Link href="/locale">locale</Link> API.
             </p>
 
             <p>

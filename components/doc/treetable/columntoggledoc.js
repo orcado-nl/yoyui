@@ -26,7 +26,6 @@ export function ColumnToggleDoc(props) {
     };
 
     const header = <MultiSelect value={visibleColumns} options={columns} onChange={onColumnToggle} optionLabel="header" className="w-full sm:w-16rem" display="chip" />;
-
     const code = {
         basic: `
 <TreeTable value={nodes} header={header} tableStyle={{ minWidth: '50rem' }}>

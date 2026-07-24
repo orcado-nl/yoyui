@@ -12,7 +12,6 @@ export const Splitter = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = SplitterBase.getProps(inProps, context);
-
         const idState = React.useRef('');
         const elementRef = React.useRef(null);
         const gutterRef = React.useRef();
@@ -32,10 +31,10 @@ export const Splitter = React.memo(
         const [panelSizes, setPanelSizes] = React.useState([]);
         const [nested, setNested] = React.useState(false);
         const isStateful = props.stateKey != null;
-        const childrenLength = (props.children && props.children.length) || 1;
-        const panelSize = (sizes, index) => (index in sizes ? sizes[index] : (props.children && [].concat(props.children)[index].props.size) || 100 / childrenLength);
+        const normalizedChildren = React.Children.toArray(props.children);
+        const childrenLength = normalizedChildren.length || 1;
+        const panelSize = (sizes, index) => (index in sizes ? sizes[index] : normalizedChildren[index]?.props.size || 100 / childrenLength);
         const horizontal = props.layout === 'horizontal';
-
         const metaData = {
             props,
             state: {
@@ -43,12 +42,13 @@ export const Splitter = React.memo(
                 nested: DomHandler.getAttribute(elementRef.current && elementRef.current.parentElement, 'data-p-splitter-panel-nested') === true
             }
         };
-
         const { ptm, cx, isUnstyled } = SplitterBase.setMetaData({
             ...metaData
         });
 
-        useHandleStyle(SplitterBase.css.styles, isUnstyled, { name: 'splitter' });
+        useHandleStyle(SplitterBase.css.styles, isUnstyled, {
+            name: 'splitter'
+        });
 
         const getPanelPT = (key) => {
             return ptm(key, {
@@ -58,7 +58,10 @@ export const Splitter = React.memo(
             });
         };
 
-        const [bindDocumentMouseMoveListener, unbindDocumentMouseMoveListener] = useEventListener({ type: 'mousemove', listener: (event) => onResize(event) });
+        const [bindDocumentMouseMoveListener, unbindDocumentMouseMoveListener] = useEventListener({
+            type: 'mousemove',
+            listener: (event) => onResize(event)
+        });
         const [bindDocumentMouseUpListener, unbindDocumentMouseUpListener] = useEventListener({
             type: 'mouseup',
             listener: (event) => {
@@ -90,11 +93,11 @@ export const Splitter = React.memo(
                 return false;
             }
 
-            if (props.children[prevPanelIndex.current].props && props.children[prevPanelIndex.current].props.minSize && props.children[prevPanelIndex.current].props.minSize > newPrevPanelSize) {
+            if (props.children[prevPanelIndex.current].props?.minSize && props.children[prevPanelIndex.current].props.minSize > newPrevPanelSize) {
                 return false;
             }
 
-            if (props.children[prevPanelIndex.current + 1].props && props.children[prevPanelIndex.current + 1].props.minSize && props.children[prevPanelIndex.current + 1].props.minSize > newNextPanelSize) {
+            if (props.children[prevPanelIndex.current + 1].props?.minSize && props.children[prevPanelIndex.current + 1].props.minSize > newNextPanelSize) {
                 return false;
             }
 
@@ -118,10 +121,8 @@ export const Splitter = React.memo(
             switch (props.stateStorage) {
                 case 'local':
                     return window.localStorage;
-
                 case 'session':
                     return window.sessionStorage;
-
                 default:
                     throw new Error(props.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
             }
@@ -152,21 +153,29 @@ export const Splitter = React.memo(
             prevPanelElement.current = gutterRef.current.previousElementSibling;
             nextPanelElement.current = gutterRef.current.nextElementSibling;
 
-            if (isKeyDown) {
+            const runComplexBranch1 = () => {
                 prevPanelSize.current = horizontal ? DomHandler.getOuterWidth(prevPanelElement.current, true) : DomHandler.getOuterHeight(prevPanelElement.current, true);
                 nextPanelSize.current = horizontal ? DomHandler.getOuterWidth(nextPanelElement.current, true) : DomHandler.getOuterHeight(nextPanelElement.current, true);
-            } else {
+            };
+
+            const runComplexBranch2 = () => {
                 prevPanelSize.current = (100 * (horizontal ? DomHandler.getOuterWidth(prevPanelElement.current, true) : DomHandler.getOuterHeight(prevPanelElement.current, true))) / size.current;
                 nextPanelSize.current = (100 * (horizontal ? DomHandler.getOuterWidth(nextPanelElement.current, true) : DomHandler.getOuterHeight(nextPanelElement.current, true))) / size.current;
+            };
+
+            if (isKeyDown) {
+                runComplexBranch1();
+            } else {
+                runComplexBranch2();
             }
 
             prevPanelSizeNew.current = prevPanelSize.current;
             nextPanelSizeNew.current = nextPanelSize.current;
             prevPanelIndex.current = index;
             !isUnstyled() && DomHandler.addClass(gutterRef.current, 'p-splitter-gutter-resizing');
-            gutterRef.current.setAttribute('data-p-splitter-gutter-resizing', true);
+            gutterRef.current.dataset.pSplitterGutterResizing = true;
             !isUnstyled() && DomHandler.addClass(elementRef.current, 'p-splitter-resizing');
-            elementRef.current.setAttribute('data-p-splitter-resizing', true);
+            elementRef.current.dataset.pSplitterResizing = true;
         };
 
         const onResize = (event, step = 0, isKeyDown = false) => {
@@ -216,11 +225,10 @@ export const Splitter = React.memo(
             }
 
             setPanelSizes(sizes);
-
             !isUnstyled() && DomHandler.removeClass(gutterRef.current, 'p-splitter-gutter-resizing');
-            gutterRefs.current && Object.keys(gutterRefs.current).forEach((key) => gutterRefs.current[key].setAttribute('data-p-splitter-gutter-resizing', false));
+            gutterRefs.current && Object.keys(gutterRefs.current).forEach((key) => (gutterRefs.current[key].dataset.pSplitterGutterResizing = false));
             !isUnstyled() && DomHandler.removeClass(elementRef.current, 'p-splitter-resizing');
-            elementRef.current.setAttribute('data-p-splitter-resizing', false);
+            elementRef.current.dataset.pSplitterResizing = false;
             clear();
         };
 
@@ -230,7 +238,7 @@ export const Splitter = React.memo(
         };
 
         const onGutterKeyDown = (event, index) => {
-            const minSize = (props.children[index].props && props.children[index].props.minSize) || 0;
+            const minSize = props.children[index].props?.minSize || 0;
 
             switch (event.code) {
                 case 'ArrowLeft': {
@@ -271,14 +279,12 @@ export const Splitter = React.memo(
 
                 case 'Home': {
                     resizePanel(index, 100 - minSize, minSize);
-
                     event.preventDefault();
                     break;
                 }
 
                 case 'End': {
                     resizePanel(index, minSize, 100 - minSize);
-
                     event.preventDefault();
                     break;
                 }
@@ -314,7 +320,7 @@ export const Splitter = React.memo(
                 nextPanelSizeNew.current = newNextPanelSize;
                 prevPanelElement.current.style.flexBasis = 'calc(' + newPrevPanelSize + '% - ' + (props.children.length - 1) * props.gutterSize + 'px)';
                 nextPanelElement.current.style.flexBasis = 'calc(' + newNextPanelSize + '% - ' + (props.children.length - 1) * props.gutterSize + 'px)';
-                prevSize.current = parseFloat(newPrevPanelSize).toFixed(4);
+                prevSize.current = Number.parseFloat(newPrevPanelSize).toFixed(4);
             }
         };
 
@@ -345,8 +351,10 @@ export const Splitter = React.memo(
 
         const onGutterTouchStart = (event, index) => {
             onResizeStart(event, index, false);
-
-            window.addEventListener('touchmove', onGutterTouchMove, { passive: false, cancelable: false });
+            window.addEventListener('touchmove', onGutterTouchMove, {
+                passive: false,
+                cancelable: false
+            });
             window.addEventListener('touchend', onGutterTouchEnd);
         };
 
@@ -364,33 +372,27 @@ export const Splitter = React.memo(
             props,
             getElement: () => elementRef.current
         }));
-
         useMountEffect(() => {
             if (elementRef.current) {
                 idState.current = UniqueComponentId();
             }
         });
-
         React.useEffect(() => {
             const panelElements = [...elementRef.current.children].filter((child) => DomHandler.getAttribute(child, 'data-pc-section') === 'splitterpanel.root');
-
             let _panelSizes = [];
 
-            panelElements.map((panelElement, i) => {
+            panelElements.forEach((panelElement, i) => {
                 prevSize.current = panelSize(panelSizes, 0);
                 _panelSizes[i] = panelSize(panelSizes, i);
 
                 if (panelElement.childNodes && ObjectUtils.isNotEmpty(DomHandler.find(panelElement, "[data-pc-name='splitter']")) && ObjectUtils.isNotEmpty(DomHandler.find(panelElement, "[data-pc-section='root']"))) {
                     !isUnstyled() && DomHandler.addClass(panelElement, 'p-splitter-panel-nested');
-                    panelElement.setAttribute('data-p-splitter-panel-nested', true);
+                    panelElement.dataset.pSplitterPanelNested = true;
                     setNested(true);
                 }
             });
-
-            setPanelSizes(_panelSizes);
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+            setPanelSizes(_panelSizes); // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
-
         React.useEffect(() => {
             if (isStateful) {
                 restoreState();
@@ -400,12 +402,17 @@ export const Splitter = React.memo(
         const createPanel = (panel, index) => {
             const panelId = getPanelProp(panel, 'id') || `${idState.current}_${index}`;
             const panelClassName = classNames(getPanelProp(panel, 'className'), cx('panel.root'));
-
             const gutterProps = mergeProps(
                 {
                     ref: (el) => (gutterRefs.current[index] = el),
                     className: cx('gutter'),
-                    style: horizontal ? { width: props.gutterSize + 'px' } : { height: props.gutterSize + 'px' },
+                    style: horizontal
+                        ? {
+                              width: props.gutterSize + 'px'
+                          }
+                        : {
+                              height: props.gutterSize + 'px'
+                          },
                     onMouseDown: (event) => onGutterMouseDown(event, index),
                     onKeyDown: (event) => onGutterKeyDown(event, index),
                     onKeyUp: onGutterKeyUp,
@@ -416,7 +423,6 @@ export const Splitter = React.memo(
                 },
                 ptm('gutter')
             );
-
             const gutterHandlerProps = mergeProps(
                 {
                     tabIndex: getPanelProp(panel, 'tabIndex') || 0,
@@ -427,27 +433,27 @@ export const Splitter = React.memo(
                     'aria-label': getPanelProp(panel, 'aria-label'),
                     'aria-labelledby': getPanelProp(panel, 'aria-labelledby'),
                     'aria-valuenow': prevSize.current,
-                    'aria-valuetext': parseFloat(prevSize.current).toFixed(0) + '%',
+                    'aria-valuetext': Number.parseFloat(prevSize.current).toFixed(0) + '%',
                     'aria-valuemin': getPanelProp(panel, 'minSize') || '0',
                     'aria-valuemax': '100'
                 },
                 ptm('gutterHandler')
             );
-
             const gutter = index !== props.children.length - 1 && (
                 <div {...gutterProps}>
                     <div {...gutterHandlerProps} />
                 </div>
             );
-
             const flexBasis = 'calc(' + panelSize(panelSizes, index) + '% - ' + (childrenLength - 1) * props.gutterSize + 'px)';
-
             const rootProps = mergeProps(
                 {
                     key: index,
                     id: panelId,
                     className: panelClassName,
-                    style: { ...getPanelProp(panel, 'style'), flexBasis },
+                    style: {
+                        ...getPanelProp(panel, 'style'),
+                        flexBasis
+                    },
                     role: 'presentation',
                     'data-p-splitter-panel-nested': false,
                     onClick: getPanelProp(panel, 'onClick')
@@ -477,7 +483,6 @@ export const Splitter = React.memo(
             SplitterBase.getOtherProps(props),
             ptm('root')
         );
-
         const panels = createPanels();
 
         return (
@@ -487,7 +492,5 @@ export const Splitter = React.memo(
         );
     })
 );
-
 SplitterPanel.displayName = 'SplitterPanel';
-
 Splitter.displayName = 'Splitter';

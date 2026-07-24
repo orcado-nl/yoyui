@@ -9,46 +9,10 @@ export function SelectionDoc(props) {
         {
             expanded: true,
             type: 'person',
-            data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
-                name: 'Amy Elsner',
-                title: 'CEO'
-            },
+            data: { image: '/images/avatar/amyelsner.png', name: 'Amy Elsner', title: 'CEO' },
             children: [
-                {
-                    expanded: true,
-                    type: 'person',
-                    data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                        name: 'Anna Fali',
-                        title: 'CMO'
-                    },
-                    children: [
-                        {
-                            label: 'Sales'
-                        },
-                        {
-                            label: 'Marketing'
-                        }
-                    ]
-                },
-                {
-                    expanded: true,
-                    type: 'person',
-                    data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                        name: 'Stephen Shaw',
-                        title: 'CTO'
-                    },
-                    children: [
-                        {
-                            label: 'Development'
-                        },
-                        {
-                            label: 'UI/UX Design'
-                        }
-                    ]
-                }
+                { expanded: true, type: 'person', data: { image: '/images/avatar/annafali.png', name: 'Anna Fali', title: 'CMO' }, children: [{ label: 'Sales' }, { label: 'Marketing' }] },
+                { expanded: true, type: 'person', data: { image: '/images/avatar/stephenshaw.png', name: 'Stephen Shaw', title: 'CTO' }, children: [{ label: 'Development' }, { label: 'UI/UX Design' }] }
             ]
         }
     ]);
@@ -84,7 +48,7 @@ export default function SelectionDemo() {
             expanded: true,
             type: 'person',
             data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                image: '/images/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -93,7 +57,7 @@ export default function SelectionDemo() {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        image: '/images/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -110,7 +74,7 @@ export default function SelectionDemo() {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        image: '/images/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },
@@ -162,7 +126,7 @@ export default function SelectionDemo() {
             expanded: true,
             type: 'person',
             data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                image: '/images/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -171,7 +135,7 @@ export default function SelectionDemo() {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        image: '/images/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -188,7 +152,7 @@ export default function SelectionDemo() {
                     expanded: true,
                     type: 'person',
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        image: '/images/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },
@@ -234,8 +198,8 @@ export default function SelectionDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> and <i>onSelectionChange</i> properties. By default only one node can be selected, set <i>selectionMode</i>
-                    as <i>multiple</i> to select more than one.
+                    Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> and <i>onSelectionChange</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i>{' '}
+                    to select more than one.
                 </p>
             </DocSectionText>
             <div className="card overflow-x-auto">

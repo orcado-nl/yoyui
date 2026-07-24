@@ -8,7 +8,7 @@ export function FilledDoc(props) {
 
     const code = {
         basic: `
-<Password variant="filled" value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+<Password variant="filled" value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={0} />
         `,
         javascript: `
 import React, { useState } from "react";
@@ -19,7 +19,7 @@ export default function FilledDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Password variant="filled" value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+            <Password variant="filled" value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={0} />
         </div>
     )
 }
@@ -33,7 +33,7 @@ export default function FilledDemo() {
 
     return (
         <div className="card flex justify-content-center">
-            <Password variant="filled" value={value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+            <Password variant="filled" value={value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} feedback={false} tabIndex={0} />
         </div>
     )
 }
@@ -48,7 +48,7 @@ export default function FilledDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <Password variant="filled" value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+                <Password variant="filled" value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={0} />
             </div>
             <DocSectionCode code={code} />
         </>

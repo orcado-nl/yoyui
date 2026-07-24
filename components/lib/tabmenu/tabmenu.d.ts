@@ -2,7 +2,7 @@
  *
  * TabMenu is a navigation/command component that displays items as tab headers.
  *
- * [Live Demo](https://www.primereact.org/tabmenu/)
+ * [Live Demo](https://yoyui.orcado.dev/tabmenu/)
  *
  * @module tabmenu
  *
@@ -151,13 +151,13 @@ export interface TabMenuProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - TabMenu**
+ * **YoYui - TabMenu**
  *
  * _TabMenu is a navigation/command component that displays items as tab headers._
  *
- * [Live Demo](https://www.primereact.org/tabmenu/)
+ * [Live Demo](https://yoyui.orcado.dev/tabmenu/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

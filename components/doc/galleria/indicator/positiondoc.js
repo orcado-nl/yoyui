@@ -11,22 +11,10 @@ export function PositionDoc(props) {
     const [inside, setInside] = useState(false);
     const [position, setPosition] = useState('bottom');
     const positionOptions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Top', value: 'top' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
     ];
 
     useEffect(() => {
@@ -168,8 +156,8 @@ export default function PositionDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

@@ -15,7 +15,7 @@ export function PaginatorBasicDoc(props) {
                 key: i,
                 data: {
                     name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
@@ -23,7 +23,7 @@ export function PaginatorBasicDoc(props) {
                         key: i + ' - 0',
                         data: {
                             name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'Type ' + i
                         }
                     }
@@ -60,7 +60,7 @@ export default function PaginatorBasicDemo() {
                 key: i,
                 data: {
                     name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
@@ -68,7 +68,7 @@ export default function PaginatorBasicDemo() {
                         key: i + ' - 0',
                         data: {
                             name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'Type ' + i
                         }
                     }
@@ -109,7 +109,7 @@ export default function PaginatorBasicDemo() {
                 key: i,
                 data: {
                     name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
@@ -117,7 +117,7 @@ export default function PaginatorBasicDemo() {
                         key: i + ' - 0',
                         data: {
                             name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'Type ' + i
                         }
                     }

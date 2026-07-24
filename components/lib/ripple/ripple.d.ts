@@ -2,7 +2,7 @@
  *
  * Ripple component adds ripple effect to the host element.
  *
- * [Live Demo](https://www.primereact.org/ripple)
+ * [Live Demo](https://yoyui.orcado.dev/ripple)
  *
  * @module ripple
  *
@@ -59,13 +59,13 @@ export interface RippleProps {
 }
 
 /**
- * **PrimeReact - Ripple**
+ * **YoYui - Ripple**
  *
  * _Ripple component adds ripple effect to the host element._
  *
- * [Live Demo](https://www.primereact.org/ripple/)
+ * [Live Demo](https://yoyui.orcado.dev/ripple/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

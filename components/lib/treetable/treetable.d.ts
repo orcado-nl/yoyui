@@ -2,7 +2,7 @@
  *
  * TreeTable is used to display hierarchical data in tabular format.
  *
- * [Live Demo](https://www.primereact.org/treetable/)
+ * [Live Demo](https://yoyui.orcado.dev/treetable/)
  *
  * @module treetable
  *
@@ -1013,13 +1013,13 @@ export interface TreeTableProps extends Omit<React.DetailedHTMLProps<React.Input
 }
 
 /**
- * **PrimeReact - TreeTable**
+ * **YoYui - TreeTable**
  *
  * _TreeTable is used to display hierarchical data in tabular format._
  *
- * [Live Demo](https://www.primereact.org/treetable/)
+ * [Live Demo](https://yoyui.orcado.dev/treetable/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

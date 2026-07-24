@@ -3,36 +3,30 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Button } from '@/components/lib/button/Button';
 import { Menu } from '@/components/lib/menu/Menu';
 import { Toast } from '@/components/lib/toast/Toast';
-import { useRouter } from 'next/router';
 import { useRef } from 'react';
+
+function renderSonarNested1(options) {
+    return (
+        <div className="p-menuitem-content" data-pc-section="content" onMouseMove={(e) => options.onMouseMove(e)}>
+            <span className="p-menuitem-link">Lorem ipsum</span>
+        </div>
+    );
+}
 
 export function PopupDoc(props) {
     const menuLeft = useRef(null);
     const menuRight = useRef(null);
-    const router = useRouter();
     const toast = useRef(null);
     const items = [
         {
             label: 'Options',
             items: [
-                {
-                    label: 'Refresh',
-                    icon: 'pi pi-refresh'
-                },
-                {
-                    label: 'Export',
-                    icon: 'pi pi-upload'
-                },
+                { label: 'Refresh', icon: 'pi pi-refresh' },
+                { label: 'Export', icon: 'pi pi-upload' },
                 {
                     label: 'Custom template',
                     template: (item, options) => {
-                        return (
-                            <div className="p-menuitem-content" data-pc-section="content" onMouseMove={(e) => options.onMouseMove(e)}>
-                                <a href="#" className="p-menuitem-link">
-                                    Lorem ipsum
-                                </a>
-                            </div>
-                        );
+                        return renderSonarNested1(options);
                     }
                 }
             ]

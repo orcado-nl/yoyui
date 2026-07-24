@@ -1,6 +1,7 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { getStorage } from '../../utils/utils';
-import PrimeReact, { FilterMatchMode, FilterService, PrimeReactContext } from '../api/Api';
+import { FilterMatchMode, FilterService, PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { ColumnBase } from '../column/ColumnBase';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useEventListener, useMergeProps, useMountEffect, useUpdateEffect } from '../hooks/Hooks';
@@ -14,7 +15,6 @@ import { TreeTableBody } from './TreeTableBody';
 import { TreeTableFooter } from './TreeTableFooter';
 import { TreeTableHeader } from './TreeTableHeader';
 import { TreeTableScrollableView } from './TreeTableScrollableView';
-
 export const TreeTable = React.forwardRef((inProps, ref) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
@@ -45,7 +45,9 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
     const ptCallbacks = TreeTableBase.setMetaData(metaData);
 
-    useHandleStyle(TreeTableBase.css.styles, ptCallbacks.isUnstyled, { name: 'treetable' });
+    useHandleStyle(TreeTableBase.css.styles, ptCallbacks.isUnstyled, {
+        name: 'treetable'
+    });
     const elementRef = React.useRef(null);
     const tableRef = React.useRef(null);
     const resizerHelperRef = React.useRef(null);
@@ -59,12 +61,11 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     const iconHeight = React.useRef(0);
     const draggedColumnEl = React.useRef(null);
     const draggedColumn = React.useRef(null);
-    const dropPosition = React.useRef(null);
+    const dropPosition = React.useRef(0);
     const columnSortable = React.useRef(null);
     const columnSortFunction = React.useRef(null);
     const columnField = React.useRef(null);
     const childFocusEvent = React.useRef(null);
-
     const [bindDocumentMouseMoveListener, unbindDocumentMouseMoveListener] = useEventListener({
         type: 'mousemove',
         listener: (event) => {
@@ -73,7 +74,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             }
         }
     });
-
     const [bindDocumentMouseUpListener, unbindDocumentMouseUpListener] = useEventListener({
         type: 'mouseup',
         listener: (event) => {
@@ -180,26 +180,30 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         _restoreState(restoredState);
     };
 
+    const createPageParams = (first, rows) => {
+        const totalRecords = getTotalRecords(processedData());
+        const pageCount = Math.ceil(totalRecords / rows) || 1;
+        const page = Math.floor(first / rows);
+
+        return { first, rows, page, pageCount };
+    };
+
     const _restoreState = (restoredState = {}) => {
-        if (ObjectUtils.isNotEmpty(restoredState)) {
-            if (props.paginator) {
+        const runComplexBranch1 = () => {
+            const runComplexBranch2 = () => {
                 if (props.onPage) {
-                    const getOnPageParams = (first, rows) => {
-                        const totalRecords = getTotalRecords(processedData());
-                        const pageCount = Math.ceil(totalRecords / rows) || 1;
-                        const page = Math.floor(first / rows);
-
-                        return { first, rows, page, pageCount };
-                    };
-
-                    props.onPage(createEvent(getOnPageParams(restoredState.first, restoredState.rows)));
+                    props.onPage(createEvent(createPageParams(restoredState.first, restoredState.rows)));
                 } else {
                     setFirstState(restoredState.first);
                     setRowsState(restoredState.rows);
                 }
+            };
+
+            if (props.paginator) {
+                runComplexBranch2();
             }
 
-            if (restoredState.sortField) {
+            const runComplexBranch3 = () => {
                 if (props.onSort) {
                     props.onSort(
                         createEvent({
@@ -211,9 +215,13 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                     setSortFieldState(restoredState.sortField);
                     setSortOrderState(restoredState.sortOrder);
                 }
+            };
+
+            if (restoredState.sortField) {
+                runComplexBranch3();
             }
 
-            if (restoredState.multiSortMeta) {
+            const runComplexBranch4 = () => {
                 if (props.onSort) {
                     props.onSort(
                         createEvent({
@@ -223,9 +231,13 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 } else {
                     setMultiSortMetaState(restoredState.multiSortMeta);
                 }
+            };
+
+            if (restoredState.multiSortMeta) {
+                runComplexBranch4();
             }
 
-            if (restoredState.filters) {
+            const runComplexBranch5 = () => {
                 if (props.onFilter) {
                     props.onFilter(
                         createEvent({
@@ -235,13 +247,17 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 } else {
                     setFiltersState(cloneFilters(restoredState.filters));
                 }
+            };
+
+            if (restoredState.filters) {
+                runComplexBranch5();
             }
 
             if (props.reorderableColumns) {
                 setColumnOrderState(restoredState.columnOrder);
             }
 
-            if (restoredState.expandedKeysState) {
+            const runComplexBranch6 = () => {
                 if (props.onToggle) {
                     props.onRowToggle({
                         data: restoredState.expandedKeysState
@@ -249,6 +265,10 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 } else {
                     setExpandedKeysState(restoredState.expandedKeysState);
                 }
+            };
+
+            if (restoredState.expandedKeysState) {
+                runComplexBranch6();
             }
 
             if (restoredState.selectionKeys && props.onSelectionChange) {
@@ -260,6 +280,10 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             if (props.onStateRestore) {
                 props.onStateRestore(restoredState);
             }
+        };
+
+        if (ObjectUtils.isNotEmpty(restoredState)) {
+            runComplexBranch1();
         }
     };
 
@@ -267,7 +291,10 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         const { originalEvent, value, navigateFocusToChild } = event;
 
         if (props.onToggle) {
-            props.onToggle({ originalEvent, value });
+            props.onToggle({
+                originalEvent,
+                value
+            });
         } else {
             if (navigateFocusToChild) {
                 childFocusEvent.current = originalEvent;
@@ -300,18 +327,21 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         columnSortFunction.current = event.sortFunction;
         columnField.current = event.sortField;
 
-        if (props.sortMode === 'multiple') {
+        const runComplexBranch7 = () => {
             const metaKey = event.originalEvent.metaKey || event.originalEvent.ctrlKey;
 
             multiSortMeta = [...getMultiSortMeta()];
 
-            if (multiSortMeta && multiSortMeta instanceof Array) {
+            if (Array.isArray(multiSortMeta)) {
                 const sortMeta = multiSortMeta.find((sortMeta) => sortMeta.field === sortField);
 
                 sortOrder = sortMeta ? getCalculatedSortOrder(sortMeta.order) : sortOrder;
             }
 
-            const newMetaData = { field: sortField, order: sortOrder };
+            const newMetaData = {
+                field: sortField,
+                order: sortOrder
+            };
 
             if (sortOrder) {
                 if (!multiSortMeta || !metaKey) {
@@ -326,7 +356,9 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             eventMeta = {
                 multiSortMeta
             };
-        } else {
+        };
+
+        const runComplexBranch10 = () => {
             sortOrder = getSortField() === sortField ? getCalculatedSortOrder(getSortOrder()) : sortOrder;
 
             if (props.removableSort) {
@@ -337,6 +369,12 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 sortField,
                 sortOrder
             };
+        };
+
+        if (props.sortMode === 'multiple') {
+            runComplexBranch7();
+        } else {
+            runComplexBranch10();
         }
 
         if (props.onSort) {
@@ -360,7 +398,13 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const getCalculatedSortOrder = (currentOrder) => {
-        return props.removableSort ? (props.defaultSortOrder === currentOrder ? currentOrder * -1 : 0) : currentOrder * -1;
+        return props.removableSort
+            ? resolveConditional(
+                  props.defaultSortOrder === currentOrder,
+                  () => currentOrder * -1,
+                  () => 0
+              )
+            : currentOrder * -1;
     };
 
     const addSortMeta = (meta, multiSortMeta) => {
@@ -393,19 +437,21 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         if (index >= 0) {
             multiSortMeta.splice(index, 1);
         }
-
-        multiSortMeta = multiSortMeta.length > 0 ? multiSortMeta : null;
     };
 
     const sortSingle = ({ data, field, order }) => {
         let value = [...data];
 
         if (columnSortable.current && columnSortFunction.current) {
-            value = columnSortFunction.current({ data, field, order });
+            value = columnSortFunction.current({
+                data,
+                field,
+                order
+            });
         } else {
             // performance optimization to prevent resolving field data in each loop
             const lookupMap = new Map();
-            const comparator = ObjectUtils.localeComparator((context && context.locale) || PrimeReact.locale);
+            const comparator = ObjectUtils.localeComparator(context?.locale || PrimeReactConfig.locale);
 
             for (let node of data) {
                 lookupMap.set(node.data, ObjectUtils.resolveFieldData(node.data, field));
@@ -418,9 +464,16 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 return compareValuesOnSort(value1, value2, comparator, order);
             });
 
-            for (let i = 0; i < value.length; i++) {
-                if (value[i].children && value[i].children.length) {
-                    value[i].children = sortSingle({ data: value[i].children, field, order });
+            for (const [index, node] of value.entries()) {
+                if (node.children?.length) {
+                    value[index] = {
+                        ...node,
+                        children: sortSingle({
+                            data: node.children,
+                            field,
+                            order
+                        })
+                    };
                 }
             }
         }
@@ -430,16 +483,21 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
 
     const sortMultiple = ({ data, multiSortMeta = [] }) => {
         let value = [...data];
-
-        const comparator = ObjectUtils.localeComparator((context && context.locale) || PrimeReact.locale);
+        const comparator = ObjectUtils.localeComparator(context?.locale || PrimeReactConfig.locale);
 
         value.sort((node1, node2) => {
             return multisortField(node1, node2, multiSortMeta, 0, comparator);
         });
 
-        for (let i = 0; i < value.length; i++) {
-            if (value[i].children && value[i].children.length) {
-                value[i].children = sortMultiple({ data: value[i].children, multiSortMeta });
+        for (const [index, node] of value.entries()) {
+            if (node.children?.length) {
+                value[index] = {
+                    ...node,
+                    children: sortMultiple({
+                        data: node.children,
+                        multiSortMeta
+                    })
+                };
             }
         }
 
@@ -447,14 +505,13 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const multisortField = (node1, node2, multiSortMeta, index, comparator) => {
-        if (!multiSortMeta || !multiSortMeta[index]) {
+        if (!multiSortMeta?.[index]) {
             return;
         }
 
         const value1 = ObjectUtils.resolveFieldData(node1.data, multiSortMeta[index].field);
-        const value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field);
+        const value2 = ObjectUtils.resolveFieldData(node2.data, multiSortMeta[index].field); // check if they are equal handling dates and locales
 
-        // check if they are equal handling dates and locales
         if (ObjectUtils.compare(value1, value2, comparator) === 0) {
             return multiSortMeta.length - 1 > index ? multisortField(node1, node2, multiSortMeta, index + 1, comparator) : 0;
         }
@@ -463,7 +520,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const compareValuesOnSort = (value1, value2, comparator, order) => {
-        return ObjectUtils.sort(value1, value2, order, comparator, (context && context.nullSortOrder) || PrimeReact.nullSortOrder);
+        return ObjectUtils.sort(value1, value2, order, comparator, context?.nullSortOrder || PrimeReactConfig.nullSortOrder);
     };
 
     const filter = (value, field, mode) => {
@@ -477,10 +534,17 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     const onFilter = (event) => {
         setFiltersState((prevFilters) => {
             const filters = props.onFilter ? props.filters : prevFilters;
-            const newFilters = filters ? { ...filters } : {};
+            const newFilters = filters
+                ? {
+                      ...filters
+                  }
+                : {};
 
             if (!isFilterBlank(event.value)) {
-                newFilters[event.field] = { value: event.value, matchMode: event.matchMode };
+                newFilters[event.field] = {
+                    value: event.value,
+                    matchMode: event.matchMode
+                };
             } else if (newFilters[event.field]) {
                 delete newFilters[event.field];
             }
@@ -494,7 +558,11 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             }
 
             if (props.onValueChange) {
-                props.onValueChange(processedData({ filters: newFilters }));
+                props.onValueChange(
+                    processedData({
+                        filters: newFilters
+                    })
+                );
             }
 
             return newFilters;
@@ -518,13 +586,18 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 const dataType = getColumnProp(col, 'dataType');
                 const matchMode =
                     getColumnProp(col, 'filterMatchMode') ||
-                    ((context && context.filterMatchModeOptions[dataType]) || PrimeReact.filterMatchModeOptions[dataType]
-                        ? (context && context.filterMatchModeOptions[dataType][0]) || PrimeReact.filterMatchModeOptions[dataType][0]
-                        : FilterMatchMode.STARTS_WITH);
-                let constraint = { value: null, matchMode };
+                    (context?.filterMatchModeOptions[dataType] || PrimeReactConfig.filterMatchModeOptions[dataType] ? context?.filterMatchModeOptions[dataType][0] || PrimeReactConfig.filterMatchModeOptions[dataType][0] : FilterMatchMode.STARTS_WITH);
+                let constraint = {
+                    value: null,
+                    matchMode
+                };
 
                 if (filterFunction) {
-                    FilterService.register(`custom_${field}`, (...args) => filterFunction(...args, { column: col }));
+                    FilterService.register(`custom_${field}`, (...args) =>
+                        filterFunction(...args, {
+                            column: col
+                        })
+                    );
                 }
 
                 filters[field] = constraint;
@@ -541,15 +614,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const isFilterBlank = (filter) => {
-        if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length === 0) || (filter instanceof Array && filter.length === 0)) {
-                return true;
-            }
-
-            return false;
-        }
-
-        return true;
+        return filter == null || (typeof filter === 'string' && filter.trim().length === 0) || (Array.isArray(filter) && filter.length === 0);
     };
 
     const onColumnResizeStart = (event) => {
@@ -559,7 +624,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         resizeColumnProps.current = event.column;
         columnResizing.current = true;
         lastResizerHelperX.current = event.originalEvent.pageX - containerLeft + elementRef.current.scrollLeft;
-
         bindColumnResizeEvents();
     };
 
@@ -570,7 +634,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         resizerHelperRef.current.style.height = elementRef.current.offsetHeight + 'px';
         resizerHelperRef.current.style.top = 0 + 'px';
         resizerHelperRef.current.style.left = event.pageX - containerLeft + elementRef.current.scrollLeft + 'px';
-
         resizerHelperRef.current.style.display = 'block';
     };
 
@@ -580,8 +643,8 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         let newColumnWidth = columnWidth + delta;
         let minWidth = resizeColumn.current.style.minWidth || 15;
 
-        if (columnWidth + delta > parseInt(minWidth, 10)) {
-            if (props.columnResizeMode === 'fit') {
+        const runComplexBranch12 = () => {
+            const runComplexBranch7 = () => {
                 let nextColumn = resizeColumn.current.nextElementSibling;
                 let nextColumnWidth = nextColumn.offsetWidth - delta;
 
@@ -604,8 +667,12 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                         }
                     }
                 }
+            };
+
+            if (props.columnResizeMode === 'fit') {
+                runComplexBranch7();
             } else if (props.columnResizeMode === 'expand') {
-                if (props.scrollable) {
+                const runComplexBranch10 = () => {
                     let scrollableView = findParentScrollableView(resizeColumn.current);
                     let scrollableBodyTable = DomHandler.findSingle(scrollableView, 'table[data-pc-section="scrollablebodytable"]');
                     let scrollableHeaderTable = DomHandler.findSingle(scrollableView, 'table[data-pc-section="scrollableheadertable"]');
@@ -623,6 +690,10 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                     resizeColGroup(scrollableHeaderTable, resizeColumnIndex, newColumnWidth, null);
                     resizeColGroup(scrollableBodyTable, resizeColumnIndex, newColumnWidth, null);
                     resizeColGroup(scrollableFooterTable, resizeColumnIndex, newColumnWidth, null);
+                };
+
+                if (props.scrollable) {
+                    runComplexBranch10();
                 } else {
                     tableRef.current.style.width = tableRef.current.offsetWidth + delta + 'px';
                     resizeColumn.current.style.width = newColumnWidth + 'px';
@@ -640,13 +711,16 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             if (isStateful()) {
                 saveState();
             }
+        };
+
+        if (columnWidth + delta > Number.parseInt(minWidth, 10)) {
+            runComplexBranch12();
         }
 
         resizerHelperRef.current.style.display = 'none';
         resizeColumn.current = null;
         resizeColumnProps.current = null;
         DomHandler.removeClass(elementRef.current, 'p-unselectable-text');
-
         unbindColumnResizeEvents();
     };
 
@@ -704,7 +778,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
 
         iconWidth.current = DomHandler.getHiddenElementOuterWidth(reorderIndicatorUpRef.current);
         iconHeight.current = DomHandler.getHiddenElementOuterHeight(reorderIndicatorUpRef.current);
-
         draggedColumnEl.current = findParentHeader(event.currentTarget);
         draggedColumn.current = column;
         event.dataTransfer.setData('text', 'b'); // Firefox requires this to make dragging possible
@@ -720,8 +793,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (draggedColumnEl.current !== dropHeader) {
-                let targetLeft = dropHeaderOffset.left - containerOffset.left;
-                //let targetTop =  containerOffset.top - dropHeaderOffset.top;
+                let targetLeft = dropHeaderOffset.left - containerOffset.left; //let targetTop =  containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 reorderIndicatorUpRef.current.style.top = dropHeaderOffset.top - containerOffset.top - (iconHeight.current - 1) + 'px';
@@ -753,12 +825,16 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         }
     };
 
+    const matchesColumn = (target, column) => {
+        return getColumnProp(target, 'columnKey') || getColumnProp(column, 'columnKey') ? ObjectUtils.equals(target, column, 'props.columnKey') : ObjectUtils.equals(target, column, 'props.field');
+    };
+
     const onColumnDrop = (e) => {
         const { originalEvent: event, column } = e;
 
         event.preventDefault();
 
-        if (draggedColumnEl.current) {
+        const runComplexBranch17 = () => {
             let dragIndex = DomHandler.index(draggedColumnEl.current);
             let dropIndex = DomHandler.index(findParentHeader(event.currentTarget));
             let allowDrop = dragIndex !== dropIndex;
@@ -767,11 +843,10 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 allowDrop = false;
             }
 
-            if (allowDrop) {
+            const runComplexBranch11 = () => {
                 let columns = columnOrderState ? getColumns() : React.Children.toArray(props.children);
-                let isSameColumn = (col1, col2) => (getColumnProp(col1, 'columnKey') || getColumnProp(col2, 'columnKey') ? ObjectUtils.equals(col1, col2, 'props.columnKey') : ObjectUtils.equals(col1, col2, 'props.field'));
-                let dragColIndex = columns.findIndex((child) => isSameColumn(child, draggedColumn.current));
-                let dropColIndex = columns.findIndex((child) => isSameColumn(child, column));
+                let dragColIndex = columns.findIndex(matchesColumn.bind(null, draggedColumn.current));
+                let dropColIndex = columns.findIndex(matchesColumn.bind(null, column));
 
                 if (dropColIndex < dragColIndex && dropPosition.current === 1) {
                     dropColIndex++;
@@ -782,7 +857,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 }
 
                 ObjectUtils.reorderArray(columns, dragColIndex, dropColIndex);
-
                 let columnOrder = [];
 
                 for (let column of columns) {
@@ -798,13 +872,21 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                         columns: columns
                     });
                 }
+            };
+
+            if (allowDrop) {
+                runComplexBranch11();
             }
 
             reorderIndicatorUpRef.current.style.display = 'none';
             reorderIndicatorDownRef.current.style.display = 'none';
             draggedColumnEl.current.draggable = false;
             draggedColumnEl.current = null;
-            dropPosition.current = null;
+            dropPosition.current = 0;
+        };
+
+        if (draggedColumnEl.current) {
+            runComplexBranch17();
         }
     };
 
@@ -859,9 +941,9 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const findColumnByKey = (columns, key) => {
-        if (columns && columns.length) {
-            for (let i = 0; i < columns.length; i++) {
-                let child = columns[i];
+        if (columns?.length) {
+            for (const _item3 of columns) {
+                let child = _item3;
 
                 if (getColumnProp(child, 'columnKey') === key || getColumnProp(child, 'field') === key) {
                     return child;
@@ -875,7 +957,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     const getColumns = () => {
         let columns = React.Children.toArray(props.children);
 
-        if (columns && columns.length) {
+        if (columns?.length) {
             if (props.reorderableColumns && columnOrderState) {
                 let orderedColumns = [];
 
@@ -890,7 +972,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 return [
                     ...orderedColumns,
                     ...columns.filter((item) => {
-                        return orderedColumns.indexOf(item) < 0;
+                        return !orderedColumns.includes(item);
                     })
                 ];
             }
@@ -902,7 +984,13 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const getTotalRecords = (data) => {
-        return props.lazy ? props.totalRecords : data ? data.length : 0;
+        return props.lazy
+            ? props.totalRecords
+            : resolveConditional(
+                  data,
+                  () => data.length,
+                  () => 0
+              );
     };
 
     const isSingleSelectionMode = () => {
@@ -943,87 +1031,81 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         return scrollableColumns;
     };
 
-    const filterLocal = (value) => {
-        let filteredNodes = [];
-        let filters = getFilters();
-        let columns = React.Children.toArray(props.children);
-        const isStrictMode = props.filterMode === 'strict';
+    const matchesTreeNode = (node, params, isStrictMode) => {
+        return isStrictMode ? findFilteredNodes(node, params) || isFilterMatched(node, params) : isFilterMatched(node, params) || findFilteredNodes(node, params);
+    };
 
-        for (let node of value) {
-            let copyNode = { ...node };
-            let localMatch = true;
-            let globalMatch = false;
+    const getLocalFilterParams = (node, column, filters, isStrictMode) => {
+        const filterField = getColumnProp(column, 'field');
+        const filterMeta = filters?.[filterField];
 
-            for (let j = 0; j < columns.length; j++) {
-                let col = columns[j];
-                let filterMeta = filters ? filters[getColumnProp(col, 'field')] : null;
-                let filterField = getColumnProp(col, 'field');
-                let filterValue;
-                let filterConstraint;
-                let paramsWithoutNode;
-                let options;
+        if (!filterMeta) {
+            return null;
+        }
 
-                //local
-                if (filterMeta) {
-                    let filterMatchMode = filterMeta.matchMode || getColumnProp(col, 'filterMatchMode') || 'startsWith';
+        const filterMatchMode = filterMeta.matchMode || getColumnProp(column, 'filterMatchMode') || 'startsWith';
 
-                    filterValue = filterMeta.value;
-                    filterConstraint = filterMatchMode === 'custom' ? getColumnProp(col, 'filterFunction') : FilterService.filters[filterMatchMode];
-                    options = {
-                        rowData: node,
-                        filters,
-                        props,
-                        column: {
-                            filterMeta,
-                            filterField,
-                            props: ColumnBase.getCProps(col)
-                        }
-                    };
-
-                    paramsWithoutNode = { filterField, filterValue, filterConstraint, isStrictMode, options };
-
-                    if (
-                        (isStrictMode && !(findFilteredNodes(copyNode, paramsWithoutNode) || isFilterMatched(copyNode, paramsWithoutNode))) ||
-                        (!isStrictMode && !(isFilterMatched(copyNode, paramsWithoutNode) || findFilteredNodes(copyNode, paramsWithoutNode)))
-                    ) {
-                        localMatch = false;
-                    }
-
-                    if (!localMatch) {
-                        break;
-                    }
-                }
-
-                //global
-                if (props.globalFilter && !globalMatch) {
-                    let copyNodeForGlobal = { ...copyNode };
-
-                    filterValue = props.globalFilter;
-                    filterConstraint = FilterService.filters[props.globalFilterMatchMode];
-                    paramsWithoutNode = { filterField, filterValue, filterConstraint, isStrictMode };
-
-                    if (
-                        (isStrictMode && (findFilteredNodes(copyNodeForGlobal, paramsWithoutNode) || isFilterMatched(copyNodeForGlobal, paramsWithoutNode))) ||
-                        (!isStrictMode && (isFilterMatched(copyNodeForGlobal, paramsWithoutNode) || findFilteredNodes(copyNodeForGlobal, paramsWithoutNode)))
-                    ) {
-                        globalMatch = true;
-                        copyNode = copyNodeForGlobal;
-                    }
+        return {
+            filterField,
+            filterValue: filterMeta.value,
+            filterConstraint: filterMatchMode === 'custom' ? getColumnProp(column, 'filterFunction') : FilterService.filters[filterMatchMode],
+            isStrictMode,
+            options: {
+                rowData: node,
+                filters,
+                props,
+                column: {
+                    filterMeta,
+                    filterField,
+                    props: ColumnBase.getCProps(column)
                 }
             }
+        };
+    };
 
-            let matches = localMatch;
+    const applyGlobalTreeFilter = (node, filterField, isStrictMode) => {
+        const copy = { ...node };
+        const params = {
+            filterField,
+            filterValue: props.globalFilter,
+            filterConstraint: FilterService.filters[props.globalFilterMatchMode],
+            isStrictMode
+        };
 
-            if (props.globalFilter) {
-                matches = localMatch && globalMatch;
+        return matchesTreeNode(copy, params, isStrictMode) ? copy : null;
+    };
+
+    const filterTreeNode = (node, columns, filters, isStrictMode) => {
+        let copy = { ...node };
+        let globalMatch = false;
+
+        for (const column of columns) {
+            const filterField = getColumnProp(column, 'field');
+            const localParams = getLocalFilterParams(node, column, filters, isStrictMode);
+
+            if (localParams && !matchesTreeNode(copy, localParams, isStrictMode)) {
+                return null;
             }
 
-            if (matches) {
-                filteredNodes.push(copyNode);
+            if (props.globalFilter && !globalMatch) {
+                const globalCopy = applyGlobalTreeFilter(copy, filterField, isStrictMode);
+
+                if (globalCopy) {
+                    globalMatch = true;
+                    copy = globalCopy;
+                }
             }
         }
 
-        return filteredNodes;
+        return props.globalFilter && !globalMatch ? null : copy;
+    };
+
+    const filterLocal = (value) => {
+        const filters = getFilters();
+        const columns = React.Children.toArray(props.children);
+        const isStrictMode = props.filterMode === 'strict';
+
+        return value.map((node) => filterTreeNode(node, columns, filters, isStrictMode)).filter(Boolean);
     };
 
     const findFilteredNodes = (node, paramsWithoutNode) => {
@@ -1036,7 +1118,9 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 node.children = [];
 
                 for (let childNode of childNodes) {
-                    let copyChildNode = { ...childNode };
+                    let copyChildNode = {
+                        ...childNode
+                    };
 
                     if (isFilterMatched(copyChildNode, paramsWithoutNode)) {
                         matched = true;
@@ -1060,25 +1144,31 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         }
 
         if (!matched || (isStrictMode && !isNodeLeaf(node))) {
-            matched = findFilteredNodes(node, { filterField, filterValue, filterConstraint, isStrictMode }) || matched;
+            matched =
+                findFilteredNodes(node, {
+                    filterField,
+                    filterValue,
+                    filterConstraint,
+                    isStrictMode
+                }) || matched;
         }
 
         return matched;
     };
 
     const isNodeLeaf = (node) => {
-        return node.leaf === false ? false : !(node.children && node.children.length);
+        return node.leaf === false ? false : !node.children?.length;
     };
 
     const processedData = (localState) => {
         let data = props.value || [];
 
-        if (!props.lazy) {
-            if (data && data.length) {
-                const filters = (localState && localState.filters) || getFilters();
-                const sortField = (localState && localState.sortField) || getSortField();
-                const sortOrder = (localState && localState.sortOrder) || getSortOrder();
-                const multiSortMeta = (localState && localState.multiSortMeta) || getMultiSortMeta();
+        const runComplexBranch21 = () => {
+            if (data?.length) {
+                const filters = localState?.filters || getFilters();
+                const sortField = localState?.sortField || getSortField();
+                const sortOrder = localState?.sortOrder || getSortOrder();
+                const multiSortMeta = localState?.multiSortMeta || getMultiSortMeta();
                 const columns = getColumns();
                 const sortColumn = columns.find((col) => getColumnProp(col, 'field') === sortField);
 
@@ -1088,17 +1178,28 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 }
 
                 if (ObjectUtils.isNotEmpty(filters) || props.globalFilter) {
-                    data = filterLocal(data, filters);
+                    data = filterLocal(data);
                 }
 
                 if (sortField || ObjectUtils.isNotEmpty(multiSortMeta)) {
                     if (props.sortMode === 'single') {
-                        data = sortSingle({ data, field: sortField, order: sortOrder });
+                        data = sortSingle({
+                            data,
+                            field: sortField,
+                            order: sortOrder
+                        });
                     } else if (props.sortMode === 'multiple') {
-                        data = sortMultiple({ data, multiSortMeta });
+                        data = sortMultiple({
+                            data,
+                            multiSortMeta
+                        });
                     }
                 }
             }
+        };
+
+        if (!props.lazy) {
+            runComplexBranch21();
         }
 
         return data;
@@ -1109,13 +1210,11 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             restoreState();
         }
     });
-
     useUpdateEffect(() => {
         if (isStateful()) {
             saveState();
         }
     });
-
     useUpdateEffect(() => {
         if (childFocusEvent.current) {
             const nodeElement = childFocusEvent.current.target;
@@ -1128,7 +1227,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             }
         }
     }, [expandedKeysState]);
-
     React.useImperativeHandle(ref, () => ({
         props,
         clearState,
@@ -1250,7 +1348,9 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 dropdownAppendTo={props.paginatorDropdownAppendTo}
                 pt={ptCallbacks.ptm('paginator')}
                 unstyled={props.unstyled}
-                __parentMetadata={{ parent: metaData }}
+                __parentMetadata={{
+                    parent: metaData
+                }}
             />
         );
     };
@@ -1297,14 +1397,12 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         const header = createTableHeader(columns, props.headerColumnGroup);
         const footer = createTableFooter(columns, props.footerColumnGroup);
         const body = createTableBody(value, columns);
-
         const wrapperProps = mergeProps(
             {
                 className: ptCallbacks.cx('wrapper')
             },
             ptCallbacks.ptm('wrapper')
         );
-
         const tableProps = mergeProps(
             {
                 role: 'table',
@@ -1338,14 +1436,21 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 ptCallbacks.ptm('loadingIcon')
             );
             const icon = props.loadingIcon || <SpinnerIcon {...loadingIconProps} spin />;
-            const loadingIcon = IconUtils.getJSXIcon(icon, { ...loadingIconProps }, { props });
+            const loadingIcon = IconUtils.getJSXIcon(
+                icon,
+                {
+                    ...loadingIconProps
+                },
+                {
+                    props
+                }
+            );
             const loadingWrapperProps = mergeProps(
                 {
                     className: ptCallbacks.cx('loadingWrapper')
                 },
                 ptCallbacks.ptm('loadingWrapper')
             );
-
             const loadingOverlayProps = mergeProps(
                 {
                     className: ptCallbacks.cx('loadingOverlay')
@@ -1364,7 +1469,6 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     };
 
     const data = processedData();
-
     const table = createTable(data);
     const totalRecords = getTotalRecords(data);
     const headerProps = mergeProps(
@@ -1382,11 +1486,12 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     const resizeHelperProps = mergeProps(
         {
             className: ptCallbacks.cx('resizeHelper'),
-            style: { display: 'none' }
+            style: {
+                display: 'none'
+            }
         },
         ptCallbacks.ptm('resizeHelper')
     );
-
     const headerFacet = props.header && <div {...headerProps}>{props.header}</div>;
     const footerFacet = props.footer && <div {...footerProps}>{props.footer}</div>;
     const paginatorTop = props.paginator && props.paginatorPosition !== 'bottom' && createPaginator('top', totalRecords);
@@ -1396,31 +1501,62 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
     const reorderIndicatorUpProps = mergeProps(
         {
             className: ptCallbacks.cx('reorderIndicatorUp'),
-            style: { position: 'absolute', display: 'none' }
+            style: {
+                position: 'absolute',
+                display: 'none'
+            }
         },
         ptCallbacks.ptm('reorderIndicatorUp')
     );
     const reorderIndicatorUpIconProps = mergeProps(ptCallbacks.ptm('reorderIndicatorUpIcon'));
-    const reorderIndicatorUpIcon = props.reorderableColumns && IconUtils.getJSXIcon(props.reorderIndicatorUpIcon || <ArrowDownIcon {...reorderIndicatorUpIconProps} />, { ...reorderIndicatorUpIconProps }, { props });
+    const reorderIndicatorUpIcon =
+        props.reorderableColumns &&
+        IconUtils.getJSXIcon(
+            props.reorderIndicatorUpIcon || <ArrowDownIcon {...reorderIndicatorUpIconProps} />,
+            {
+                ...reorderIndicatorUpIconProps
+            },
+            {
+                props
+            }
+        );
     const reorderIndicatorUp = props.reorderableColumns && (
         <span ref={reorderIndicatorUpRef} {...reorderIndicatorUpProps}>
             {reorderIndicatorUpIcon}
         </span>
     );
-    const reorderIndicatorDownProps = { className: ptCallbacks.sx('reorderIndicatorDown'), style: { position: 'absolute', display: 'none' } };
+    const reorderIndicatorDownProps = {
+        className: ptCallbacks.sx('reorderIndicatorDown'),
+        style: {
+            position: 'absolute',
+            display: 'none'
+        }
+    };
     const reorderIndicatorDownIconProps = mergeProps(ptCallbacks.ptm('reorderIndicatorDownIcon'));
-    const reorderIndicatorDownIcon = IconUtils.getJSXIcon(props.reorderIndicatorDownIcon || <ArrowUpIcon {...reorderIndicatorDownIconProps} />, { ...reorderIndicatorDownIconProps }, { props });
+    const reorderIndicatorDownIcon = IconUtils.getJSXIcon(
+        props.reorderIndicatorDownIcon || <ArrowUpIcon {...reorderIndicatorDownIconProps} />,
+        {
+            ...reorderIndicatorDownIconProps
+        },
+        {
+            props
+        }
+    );
     const reorderIndicatorDown = props.reorderableColumns && (
         <span ref={reorderIndicatorDownRef} {...reorderIndicatorDownProps}>
             {reorderIndicatorDownIcon}
         </span>
     );
-
     const rootProps = mergeProps(
         {
             role: 'table',
             id: props.id,
-            className: classNames(props.className, ptCallbacks.cx('root', { isRowSelectionMode })),
+            className: classNames(
+                props.className,
+                ptCallbacks.cx('root', {
+                    isRowSelectionMode
+                })
+            ),
             style: props.style,
             'data-scrollselectors': '.p-treetable-wrapper'
         },
@@ -1442,5 +1578,4 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
         </div>
     );
 });
-
 TreeTable.displayName = 'TreeTable';

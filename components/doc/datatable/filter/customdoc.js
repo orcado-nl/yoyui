@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 
 // The rule argument should be a string in the format "custom_[field]".
+
 FilterService.register('custom_activity', (value, filters) => {
     const [from, to] = filters ?? [null, null];
 
@@ -41,8 +42,7 @@ export function CustomFilterDoc(props) {
         global: { value: null, matchMode: FilterMatchMode.CONTAINS },
         name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
         'country.name': { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-        representative: { value: null, matchMode: FilterMatchMode.IN },
-        // For using custom filters, you must set FilterMatchMode.CUSTOM to matchMode.
+        representative: { value: null, matchMode: FilterMatchMode.IN }, // For using custom filters, you must set FilterMatchMode.CUSTOM to matchMode.
         activity: { value: null, matchMode: FilterMatchMode.CUSTOM },
         status: { value: null, matchMode: FilterMatchMode.EQUALS },
         verified: { value: null, matchMode: FilterMatchMode.EQUALS }
@@ -67,16 +67,12 @@ export function CustomFilterDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -102,7 +98,6 @@ export function CustomFilterDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
         setGlobalFilterValue(value);
     };
@@ -121,7 +116,7 @@ export function CustomFilterDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -132,7 +127,7 @@ export function CustomFilterDoc(props) {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
+                <img alt={representative.name} src={`/images/avatar/${representative.image}`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -141,7 +136,7 @@ export function CustomFilterDoc(props) {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+                <img alt={option.name} src={`/images/avatar/${option.image}`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -197,7 +192,6 @@ export function CustomFilterDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 // The rule argument should be a string in the format "custom_[field]".
@@ -331,7 +325,7 @@ export default function CustomFilterDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -342,7 +336,7 @@ export default function CustomFilterDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -351,7 +345,7 @@ export default function CustomFilterDemo() {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -560,7 +554,7 @@ export default function CustomFilterDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -571,7 +565,7 @@ export default function CustomFilterDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -580,7 +574,7 @@ export default function CustomFilterDemo() {
     const representativesItemTemplate = (option: Representative) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -710,6 +704,7 @@ export default function CustomFilterDemo() {
                             filter
                             filterElement={representativeRowFilterTemplate}
                         />
+
                         <Column header="Activity(Custom Filter)" field="activity" showFilterMenu={false} showClearButton={false} style={{ minWidth: '14rem' }} filter filterElement={activityRowFilterTemplate} />
                         <Column field="status" header="Status" showFilterMenu={false} filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusRowFilterTemplate} />
                         <Column field="verified" header="Verified" dataType="boolean" style={{ minWidth: '6rem' }} body={verifiedBodyTemplate} filter filterElement={verifiedRowFilterTemplate} />

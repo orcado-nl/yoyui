@@ -5,6 +5,26 @@ import { Toast } from '@/components/lib/toast/Toast';
 import { ProgressBar } from '@/components/lib/progressbar/ProgressBar';
 import { useState, useRef } from 'react';
 
+function renderSonarNested1(message, progress, clear) {
+    return (
+        <section className="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2 fadeindown" style={{ borderRadius: '10px' }}>
+            <i className="pi pi-cloud-upload text-primary-500 text-2xl" />
+            <div className="flex flex-column gap-3 w-full">
+                <p className="m-0 font-semibold text-base text-white">{message.summary}</p>
+                <p className="m-0 text-base text-700">{message.detail}</p>
+                <div className="flex flex-column gap-2">
+                    <ProgressBar value={progress} showValue={false} style={{ height: '4px' }} />
+                    <label className="text-right text-xs text-white">{progress}% uploaded...</label>
+                </div>
+                <div className="flex gap-3 mb-3">
+                    <Button label="Another Upload?" text className="p-0" onClick={clear} />
+                    <Button label="Cancel" text className="text-white p-0" onClick={clear} />
+                </div>
+            </div>
+        </section>
+    );
+}
+
 export function HeadlessDoc(props) {
     const toast = useRef(null);
     const [progress, setProgress] = useState(0);
@@ -19,10 +39,7 @@ export function HeadlessDoc(props) {
 
     const show = () => {
         if (!interval.current) {
-            toast.current.show({
-                summary: 'Uploading your files.'
-            });
-
+            toast.current.show({ summary: 'Uploading your files.' });
             setProgress(0);
 
             if (interval.current) {
@@ -222,27 +239,7 @@ export default function HeadlessDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <Toast
-                    ref={toast}
-                    position="top-center"
-                    content={({ message }) => (
-                        <section className="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2 fadeindown" style={{ borderRadius: '10px' }}>
-                            <i className="pi pi-cloud-upload text-primary-500 text-2xl" />
-                            <div className="flex flex-column gap-3 w-full">
-                                <p className="m-0 font-semibold text-base text-white">{message.summary}</p>
-                                <p className="m-0 text-base text-700">{message.detail}</p>
-                                <div className="flex flex-column gap-2">
-                                    <ProgressBar value={progress} showValue={false} style={{ height: '4px' }} />
-                                    <label className="text-right text-xs text-white">{progress}% uploaded...</label>
-                                </div>
-                                <div className="flex gap-3 mb-3">
-                                    <Button label="Another Upload?" text className="p-0" onClick={clear} />
-                                    <Button label="Cancel" text className="text-white p-0" onClick={clear} />
-                                </div>
-                            </div>
-                        </section>
-                    )}
-                />
+                <Toast ref={toast} position="top-center" content={({ message }) => renderSonarNested1(message, progress, clear)} />
                 <Button onClick={show} label="View" />
             </div>
             <DocSectionCode code={code} />

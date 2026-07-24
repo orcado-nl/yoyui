@@ -192,12 +192,12 @@ export declare function useUnmountEffect(effect: React.EffectCallback): void;
  */
 export declare function useEventListener(options: EventOptions): any[];
 /**
- * Custom hook to listen to overlay event. It can be used when an overlay is desired to behave like the overlays in PrimeReact.
+ * Custom hook to listen to overlay event. It can be used when an overlay is desired to behave like the overlays in YoYui.
  * @param {OverlayEventOptions} options - The event options.
  */
 export declare function useOverlayListener(options: OverlayEventOptions): any[];
 /**
- * Custom hook to listen to overlay scroll. It can be used when an overlay is desired to behave like the overlays in PrimeReact.
+ * Custom hook to listen to overlay scroll. It can be used when an overlay is desired to behave like the overlays in YoYui.
  * @param {EventOptions} options - The event options.
  */
 export declare function useOverlayScrollListener(options: EventOptions): any[];
@@ -243,7 +243,7 @@ export declare function useSessionStorage<S, K extends string = string>(initialV
  * @param {number} [initialValue=0] - The value to counter.
  * @param {{ min: number; max: number; step: number }} [options=&#123; step: 1 &#125;]  - The options of the counter.
  */
-export declare function useCounter(initialValue: number, options: { min: number; max: number; step: number }): any;
+export declare function useCounter(initialValue?: number, options?: { min?: number; max?: number; step?: number }): { count: number; increment: () => void; decrement: () => void; reset: () => void };
 /**
  * Custom hook to use a debounced value.
  * @param {*} initialValue - The initial value for debounce.

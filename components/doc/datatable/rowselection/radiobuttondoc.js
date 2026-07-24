@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { InputSwitch } from '@/components/lib/inputswitch/InputSwitch';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -129,8 +129,8 @@ export default function RadioButtonRowSelectionDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Specifying <i>selectionMode</i> as <i>single</i> on a Column, displays a radio button inside that column for selection. By default, row clicks also trigger selection, set <i>selectionMode</i>
-                    of DataTable to <i>radiobutton</i> to only trigger selection using the radio buttons.
+                    Specifying <i>selectionMode</i> as <i>single</i> on a Column, displays a radio button inside that column for selection. By default, row clicks also trigger selection, set <i>selectionMode</i> of DataTable to <i>radiobutton</i> to
+                    only trigger selection using the radio buttons.
                 </p>
             </DocSectionText>
             <DeferredDemo onLoad={loadDemoData}>

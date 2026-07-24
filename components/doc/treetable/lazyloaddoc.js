@@ -27,7 +27,7 @@ export function LazyLoadDoc(props) {
                 key: first + i,
                 data: {
                     name: 'Item ' + (first + i),
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + (first + i)
                 },
                 leaf: false
@@ -51,14 +51,14 @@ export function LazyLoadDoc(props) {
                     {
                         data: {
                             name: lazyNode.data.name + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'File'
                         }
                     },
                     {
                         data: {
                             name: lazyNode.data.name + ' - 1',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'File'
                         }
                     }
@@ -127,7 +127,7 @@ export default function LazyLoadDemo() {
                 key: first + i,
                 data: {
                     name: 'Item ' + (first + i),
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + (first + i)
                 },
                 leaf: false
@@ -151,14 +151,14 @@ export default function LazyLoadDemo() {
                     {
                         data: {
                             name: lazyNode.data.name + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'File'
                         }
                     },
                     {
                         data: {
                             name: lazyNode.data.name + ' - 1',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'File'
                         }
                     }
@@ -231,7 +231,7 @@ export default function LazyLoadDemo() {
                 key: first + i,
                 data: {
                     name: 'Item ' + (first + i),
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + (first + i)
                 },
                 leaf: false
@@ -255,14 +255,14 @@ export default function LazyLoadDemo() {
                     {
                         data: {
                             name: lazyNode.data.name + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'File'
                         }
                     },
                     {
                         data: {
                             name: lazyNode.data.name + ' - 1',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'File'
                         }
                     }

@@ -28,10 +28,10 @@ export function RegexWordDoc(props) {
     };
 
     const code = {
-        basic: `
+        basic: String.raw`
 <InputText id="numkeys" keyfilter={/^[+]?(\\d{1,12})?$/} validateOnly onInput={validateInput} />
         `,
-        javascript: `
+        javascript: String.raw`
 import React, { useState }  from 'react'; 
 import { InputText } from 'primereact/inputtext';
 
@@ -71,7 +71,7 @@ export default function RegexDemo() {
     )
 }
         `,
-        typescript: `
+        typescript: String.raw`
 import React, { useState }  from 'react'; 
 import { InputText } from 'primereact/inputtext';
 

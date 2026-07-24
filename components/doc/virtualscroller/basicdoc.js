@@ -8,9 +8,7 @@ export function BasicDoc(props) {
     const [items] = useState(Array.from({ length: 100000 }).map((_, i) => `Item #${i}`));
 
     const itemTemplate = (item, options) => {
-        const className = classNames('flex align-items-center p-2', {
-            'surface-hover': options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { 'surface-hover': options.odd });
 
         return (
             <div className={className} style={{ height: options.props.itemSize + 'px' }}>
@@ -84,8 +82,8 @@ export default function BasicDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    VirtualScroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and <i>itemTemplate</i> to define the content per item. Size of the viewport is configured using
-                    <i>scrollWidth</i>, <i>scrollHeight</i> properties directly or with CSS <i>width</i> and <i>height</i> styles.
+                    VirtualScroller requires <i>items</i> as the data to display, <i>itemSize</i> for the dimensions of an item and <i>itemTemplate</i> to define the content per item. Size of the viewport is configured using <i>scrollWidth</i>,{' '}
+                    <i>scrollHeight</i> properties directly or with CSS <i>width</i> and <i>height</i> styles.
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">

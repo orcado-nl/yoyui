@@ -25,7 +25,10 @@ const useCodeSandbox = (props) => {
         const sandboxParameters = getSandboxParameters(sourceType);
 
         if (!sandboxParameters) {
-            errorCallback && errorCallback({ summary: 'Not Available', detail: 'That code sandbox demonstration is not available!' });
+            errorCallback?.({
+                summary: 'Not Available',
+                detail: 'That code sandbox demonstration is not available!'
+            });
 
             return;
         }
@@ -50,7 +53,10 @@ export const useStackBlitz = (props) => {
         const stackBlitzParameters = getStackBlitzParameters(sourceType);
 
         if (!stackBlitzParameters) {
-            errorCallback && errorCallback({ summary: 'Not Available', detail: 'That code sandbox demonstration is not available!' });
+            errorCallback?.({
+                summary: 'Not Available',
+                detail: 'That code sandbox demonstration is not available!'
+            });
 
             return;
         }
@@ -87,7 +93,7 @@ export const useStackBlitz = (props) => {
 };
 
 /**
- * @todo Write the documentation.
+ * Renders an embedded code editor for the selected project template.
  * @param {string} props.template - valid values are 'vite'.
  * @returns
  */

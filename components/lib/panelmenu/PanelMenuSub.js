@@ -13,22 +13,11 @@ export const PanelMenuSub = React.memo(
         const elementRef = React.useRef(null);
 
         const _ptm = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
+            return ptm(key, { hostName: props.hostName, ...options });
         };
 
         const getPTOptions = (processedItem, key, index) => {
-            return _ptm(key, {
-                context: {
-                    item: processedItem,
-                    index,
-                    active: isItemActive(processedItem),
-                    focused: isItemFocused(processedItem),
-                    disabled: isItemDisabled(processedItem)
-                }
-            });
+            return _ptm(key, { context: { item: processedItem, index, active: isItemActive(processedItem), focused: isItemFocused(processedItem), disabled: isItemDisabled(processedItem) } });
         };
 
         const getItemId = (processedItem) => {
@@ -36,15 +25,11 @@ export const PanelMenuSub = React.memo(
         };
 
         const getItemProp = (processedItem, name, params) => {
-            return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
-        };
-
-        const getItemLabel = (processedItem) => {
-            return getItemProp(processedItem, 'label');
+            return processedItem?.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
         };
 
         const isItemActive = (processedItem) => {
-            return (props.activeItemPath && props.activeItemPath.some((path) => path.key === processedItem.key)) || !!processedItem.item?.expanded;
+            return props.activeItemPath?.some((path) => path.key === processedItem.key) || !!processedItem.item?.expanded;
         };
 
         const isItemVisible = (processedItem) => {
@@ -84,45 +69,21 @@ export const PanelMenuSub = React.memo(
             return index - props.model.slice(0, index).filter((processedItem) => isItemVisible(processedItem) && getItemProp(processedItem, 'separator')).length + 1;
         };
 
-        React.useImperativeHandle(ref, () => ({
-            getElement: () => elementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ getElement: () => elementRef.current }));
 
         const createSeparator = (index) => {
             const key = props.id + '_sep_' + index;
-
-            const separatorProps = mergeProps(
-                {
-                    id: key,
-                    className: cx('separator'),
-                    role: 'separator'
-                },
-                _ptm('separator')
-            );
+            const separatorProps = mergeProps({ id: key, className: cx('separator'), role: 'separator' }, _ptm('separator'));
 
             return <li {...separatorProps} key={key} />;
         };
 
         const createSubmenu = (processedItem, active) => {
             const submenuRef = React.createRef();
-
-            const toggleableContentProps = mergeProps(
-                {
-                    className: cx('toggleableContent', { active })
-                },
-                _ptm('toggleableContent')
-            );
+            const toggleableContentProps = mergeProps({ className: cx('toggleableContent', { active }) }, _ptm('toggleableContent'));
 
             if (isItemVisible(processedItem) && isItemGroup(processedItem)) {
-                const transitionProps = mergeProps(
-                    {
-                        classNames: cx('transition'),
-                        timeout: { enter: 1000, exit: 450 },
-                        in: active,
-                        unmountOnExit: true
-                    },
-                    _ptm('transition')
-                );
+                const transitionProps = mergeProps({ classNames: cx('transition'), timeout: { enter: 1000, exit: 450 }, in: active, unmountOnExit: true }, _ptm('transition'));
 
                 return (
                     <CSSTransition nodeRef={submenuRef} {...transitionProps}>
@@ -163,42 +124,15 @@ export const PanelMenuSub = React.memo(
             const disabled = isItemDisabled(item);
             const linkClassName = classNames('p-menuitem-link', { 'p-disabled': item.disabled });
             const iconClassName = classNames('p-menuitem-icon', item.icon);
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon', { item })
-                },
-                getPTOptions(processedItem, 'icon', index)
-            );
+            const iconProps = mergeProps({ className: cx('icon', { item }) }, getPTOptions(processedItem, 'icon', index));
             const icon = IconUtils.getJSXIcon(item.icon, { ...iconProps }, { props: props.menuProps });
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                getPTOptions(processedItem, 'label', index)
-            );
+            const labelProps = mergeProps({ className: cx('label') }, getPTOptions(processedItem, 'label', index));
             const label = item.label && <span {...labelProps}>{item.label}</span>;
             const submenuIconClassName = 'p-panelmenu-icon';
-            const submenuIconProps = mergeProps(
-                {
-                    className: cx('submenuicon')
-                },
-                getPTOptions(processedItem, 'submenuicon', index)
-            );
-
+            const submenuIconProps = mergeProps({ className: cx('submenuicon') }, getPTOptions(processedItem, 'submenuicon', index));
             const submenuIcon = item.items && IconUtils.getJSXIcon(active ? props.collapseIcon || <ChevronDownIcon {...submenuIconProps} /> : props.expandIcon || <ChevronRightIcon {...submenuIconProps} />);
-
             const submenu = createSubmenu(processedItem, active);
-            const actionProps = mergeProps(
-                {
-                    href: item.url || '#',
-                    className: cx('action', { item }),
-                    target: item.target,
-                    onFocus: (event) => event.stopPropagation(),
-                    tabIndex: '-1'
-                },
-                getPTOptions(processedItem, 'action', index)
-            );
-
+            const actionProps = mergeProps({ href: item.url || '#', className: cx('action', { item }), target: item.target, onFocus: (event) => event.stopPropagation(), tabIndex: '-1' }, getPTOptions(processedItem, 'action', index));
             let content = (
                 <a {...actionProps}>
                     {submenuIcon}
@@ -209,28 +143,12 @@ export const PanelMenuSub = React.memo(
             );
 
             if (item.template) {
-                const defaultContentOptions = {
-                    className: linkClassName,
-                    labelClassName: 'p-menuitem-text',
-                    iconClassName,
-                    submenuIconClassName,
-                    element: content,
-                    props,
-                    leaf: !item.items,
-                    active
-                };
+                const defaultContentOptions = { className: linkClassName, labelClassName: 'p-menuitem-text', iconClassName, submenuIconClassName, element: content, props, leaf: !item.items, active };
 
                 content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
             }
 
-            const contentProps = mergeProps(
-                {
-                    onClick: (event) => onItemClick(event, processedItem),
-                    className: cx('content')
-                },
-                getPTOptions(processedItem, 'content', index)
-            );
-
+            const contentProps = mergeProps({ onClick: (event) => onItemClick(event, processedItem), className: cx('content') }, getPTOptions(processedItem, 'content', index));
             const menuitemProps = mergeProps(
                 {
                     id: key,
@@ -269,7 +187,6 @@ export const PanelMenuSub = React.memo(
         };
 
         const menu = createMenu();
-
         const ptKey = props.root ? 'menu' : 'submenu';
         const menuProps = mergeProps(
             {

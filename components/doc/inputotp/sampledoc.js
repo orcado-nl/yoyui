@@ -5,7 +5,7 @@ import { InputOtp } from '@/components/lib/inputotp/InputOtp';
 import { useState } from 'react';
 
 export function SampleDoc(props) {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     const customInput = ({ events, props: attr }) => {
         return (
@@ -25,7 +25,7 @@ export function SampleDoc(props) {
 <div className="flex flex-column align-items-center">
     <p className="font-bold text-xl mb-2">Authenticate Your Account</p>
     <p className="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
-    <InputOtp value={token} onChange={(e) => setTokens(e.value)} length={6} inputTemplate={customInput} style={{gap: 0}}/>
+    <InputOtp value={token} onChange={(e) => setToken(e.value)} length={6} inputTemplate={customInput} style={{gap: 0}}/>
     <div className="flex justify-content-between mt-5 align-self-stretch">
         <Button label="Resend Code" link className="p-0"></Button>
         <Button label="Submit Code"></Button>
@@ -38,7 +38,7 @@ import { InputOtp } from 'primereact/inputotp';
 import { Button } from 'primereact/button';
 
 export default function SampleDemo() {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     const customInput = ({events, props}) => {
         return <><input {...events} {...props} type="text" className="custom-otp-input-sample" />
@@ -92,7 +92,7 @@ export default function SampleDemo() {
             <div className="flex flex-column align-items-center">
                 <p className="font-bold text-xl mb-2">Authenticate Your Account</p>
                 <p className="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
-                <InputOtp value={token} onChange={(e) => setTokens(e.value)} length={6} inputTemplate={customInput} style={{gap: 0}}/>
+                <InputOtp value={token} onChange={(e) => setToken(e.value)} length={6} inputTemplate={customInput} style={{gap: 0}}/>
                 <div className="flex justify-content-between mt-5 align-self-stretch">
                     <Button label="Resend Code" link className="p-0"></Button>
                     <Button label="Submit Code"></Button>
@@ -113,7 +113,7 @@ interface CustomInputProps extends InputOtpProps {
 }
 
 export default function SampleDemo() {
-    const [token, setTokens] = useState<string | number | undefined>();
+    const [token, setToken] = useState<string | number | undefined>();
 
     const customInput: FunctionComponent<CustomInputProps> = ({ events, props }) => {
         return (
@@ -172,7 +172,7 @@ export default function SampleDemo() {
             <div className="flex flex-column align-items-center">
                 <p className="font-bold text-xl mb-2">Authenticate Your Account</p>
                 <p className="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
-                <InputOtp value={token} onChange={(e) => setTokens(e.value)} length={6} inputTemplate={customInput} style={{gap: 0}}/>
+                <InputOtp value={token} onChange={(e) => setToken(e.value)} length={6} inputTemplate={customInput} style={{gap: 0}}/>
                 <div className="flex justify-content-between mt-5 align-self-stretch">
                     <Button label="Resend Code" link className="p-0"></Button>
                     <Button label="Submit Code"></Button>
@@ -189,7 +189,7 @@ export default function SampleDemo() {
                 <p>A sample UI implementation with templating and additional elements.</p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <style scoped>
+                <style>
                     {`
                         .custom-otp-input-sample {
                             width: 48px;
@@ -231,7 +231,7 @@ export default function SampleDemo() {
                 <div className="flex flex-column align-items-center">
                     <p className="font-bold text-xl mb-2">Authenticate Your Account</p>
                     <p className="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
-                    <InputOtp value={token} onChange={(e) => setTokens(e.value)} length={6} inputTemplate={customInput} style={{ gap: 0 }} />
+                    <InputOtp value={token} onChange={(e) => setToken(e.value)} length={6} inputTemplate={customInput} style={{ gap: 0 }} />
                     <div className="flex justify-content-between mt-5 align-self-stretch">
                         <Button label="Resend Code" link className="p-0"></Button>
                         <Button label="Submit Code"></Button>

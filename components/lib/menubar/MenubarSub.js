@@ -11,18 +11,7 @@ export const MenubarSub = React.memo(
         const { ptm, cx } = props;
 
         const getPTOptions = (processedItem, key, index) => {
-            return ptm(key, {
-                props,
-                hostName: props.hostName,
-                context: {
-                    item: processedItem,
-                    index,
-                    active: isItemActive(processedItem),
-                    focused: isItemFocused(processedItem),
-                    disabled: isItemDisabled(processedItem),
-                    level: props.level
-                }
-            });
+            return ptm(key, { props, hostName: props.hostName, context: { item: processedItem, index, active: isItemActive(processedItem), focused: isItemFocused(processedItem), disabled: isItemDisabled(processedItem), level: props.level } });
         };
 
         const onItemMouseEnter = (event, item) => {
@@ -32,7 +21,7 @@ export const MenubarSub = React.memo(
                 return;
             }
 
-            props.onItemMouseEnter && props.onItemMouseEnter({ originalEvent: event, processedItem: item });
+            props.onItemMouseEnter?.({ originalEvent: event, processedItem: item });
         };
 
         const onItemClick = (event, processedItem) => {
@@ -45,10 +34,7 @@ export const MenubarSub = React.memo(
             }
 
             if (item.command) {
-                item.command({
-                    originalEvent: event,
-                    item: item
-                });
+                item.command({ originalEvent: event, item: item });
             }
 
             onLeafClick({ originalEvent: event, processedItem, isFocus: true });
@@ -60,7 +46,7 @@ export const MenubarSub = React.memo(
         };
 
         const onLeafClick = (event) => {
-            props.onLeafClick && props.onLeafClick(event);
+            props.onLeafClick?.(event);
         };
 
         const getItemId = (processedItem) => {
@@ -72,7 +58,7 @@ export const MenubarSub = React.memo(
         };
 
         const getItemProp = (processedItem, name, params) => {
-            return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+            return processedItem?.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
         };
 
         const isItemActive = (processedItem) => {
@@ -105,20 +91,13 @@ export const MenubarSub = React.memo(
 
         const createSeparator = (processedItem, index) => {
             const key = props.id + '_separator_' + index + '_' + processedItem.key;
-            const separatorProps = mergeProps(
-                {
-                    'data-id': key,
-                    className: cx('separator'),
-                    role: 'separator'
-                },
-                ptm('separator', { hostName: props.hostName })
-            );
+            const separatorProps = mergeProps({ 'data-id': key, className: cx('separator'), role: 'separator' }, ptm('separator', { hostName: props.hostName }));
 
             return <li {...separatorProps} key={key} />;
         };
 
         const createSubmenu = (processedItem) => {
-            const items = processedItem && processedItem.items;
+            const items = processedItem?.items;
 
             if (items) {
                 return (
@@ -156,31 +135,15 @@ export const MenubarSub = React.memo(
             const focused = isItemFocused(processedItem);
             const disabled = isItemDisabled(processedItem) || false;
             const group = isItemGroup(processedItem);
-
             const linkClassName = classNames('p-menuitem-link', { 'p-disabled': disabled });
             const iconClassName = classNames('p-menuitem-icon', getItemProp(processedItem, 'icon'));
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                getPTOptions(processedItem, 'icon', index)
-            );
+            const iconProps = mergeProps({ className: cx('icon') }, getPTOptions(processedItem, 'icon', index));
             const icon = IconUtils.getJSXIcon(item.icon, { ...iconProps }, { props: props.menuProps });
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                getPTOptions(processedItem, 'label', index)
-            );
+            const labelProps = mergeProps({ className: cx('label') }, getPTOptions(processedItem, 'label', index));
             const label = item.label && <span {...labelProps}>{item.label}</span>;
             const items = getItemProp(processedItem, 'items');
             const submenuIconClassName = 'p-submenu-icon';
-            const submenuIconProps = mergeProps(
-                {
-                    className: cx('submenuIcon')
-                },
-                getPTOptions(processedItem, 'submenuIcon', index)
-            );
+            const submenuIconProps = mergeProps({ className: cx('submenuIcon') }, getPTOptions(processedItem, 'submenuIcon', index));
             const submenuIcon =
                 items &&
                 IconUtils.getJSXIcon(
@@ -190,17 +153,9 @@ export const MenubarSub = React.memo(
                 );
             const submenu = createSubmenu(processedItem);
             const actionProps = mergeProps(
-                {
-                    href: item.url || '#',
-                    tabIndex: '-1',
-                    className: cx('action', { disabled }),
-                    onFocus: (event) => event.stopPropagation(),
-                    target: getItemProp(processedItem, 'target'),
-                    'aria-haspopup': items != null
-                },
+                { href: item.url || '#', tabIndex: '-1', className: cx('action', { disabled }), onFocus: (event) => event.stopPropagation(), target: getItemProp(processedItem, 'target'), 'aria-haspopup': items != null },
                 getPTOptions(processedItem, 'action', index)
             );
-
             let content = (
                 <a {...actionProps}>
                     {icon}
@@ -211,29 +166,13 @@ export const MenubarSub = React.memo(
             );
 
             if (item.template) {
-                const defaultContentOptions = {
-                    className: linkClassName,
-                    labelClassName: 'p-menuitem-text',
-                    iconClassName,
-                    submenuIconClassName,
-                    element: content,
-                    props
-                };
+                const defaultContentOptions = { className: linkClassName, labelClassName: 'p-menuitem-text', iconClassName, submenuIconClassName, element: content, props };
 
                 content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
             }
 
-            const contentProps = mergeProps(
-                {
-                    onClick: (event) => onItemClick(event, processedItem),
-                    onMouseEnter: (event) => onItemMouseEnter(event, processedItem),
-                    className: cx('content')
-                },
-                getPTOptions(processedItem, 'content', index)
-            );
-
+            const contentProps = mergeProps({ onClick: (event) => onItemClick(event, processedItem), onMouseEnter: (event) => onItemMouseEnter(event, processedItem), className: cx('content') }, getPTOptions(processedItem, 'content', index));
             const itemClassName = getItemProp(processedItem, 'className');
-
             const menuitemProps = mergeProps(
                 {
                     id,
@@ -248,8 +187,7 @@ export const MenubarSub = React.memo(
                     'data-p-highlight': active,
                     'data-p-focused': focused,
                     'data-p-disabled': disabled,
-                    className: classNames(itemClassName, cx('menuitem', { active, focused, disabled })),
-                    'data-p-disabled': disabled || false
+                    className: classNames(itemClassName, cx('menuitem', { active, focused, disabled }))
                 },
                 getPTOptions(processedItem, 'menuitem', index)
             );

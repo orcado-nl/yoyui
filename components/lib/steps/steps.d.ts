@@ -2,7 +2,7 @@
  *
  * Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.
  *
- * [Live Demo](https://www.primereact.org/steps/)
+ * [Live Demo](https://yoyui.orcado.dev/steps/)
  *
  * @module steps
  *
@@ -173,13 +173,13 @@ export interface StepsProps extends Omit<React.DetailedHTMLProps<React.HTMLAttri
 }
 
 /**
- * **PrimeReact - Steps**
+ * **YoYui - Steps**
  *
  * _Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design._
  *
- * [Live Demo](https://www.primereact.org/steps/)
+ * [Live Demo](https://yoyui.orcado.dev/steps/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

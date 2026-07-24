@@ -13,15 +13,7 @@ export const ContextMenuSub = React.memo(
         const { ptm, cx } = props;
 
         const getPTOptions = (processedItem, key, index) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                context: {
-                    active: isItemActive(processedItem),
-                    focused: isItemFocused(processedItem),
-                    disabled: isItemDisabled(processedItem),
-                    index
-                }
-            });
+            return ptm(key, { hostName: props.hostName, context: { active: isItemActive(processedItem), focused: isItemFocused(processedItem), disabled: isItemDisabled(processedItem), index } });
         };
 
         const onItemMouseEnter = (event, item) => {
@@ -44,10 +36,7 @@ export const ContextMenuSub = React.memo(
             }
 
             if (item.command) {
-                item.command({
-                    originalEvent: event,
-                    item
-                });
+                item.command({ originalEvent: event, item });
             }
 
             props.onItemClick({ originalEvent: event, processedItem, isFocus: true });
@@ -69,7 +58,7 @@ export const ContextMenuSub = React.memo(
                 const viewport = DomHandler.getViewport();
                 const sublistWidth = submenuRef.current.offsetParent ? submenuRef.current.offsetWidth : DomHandler.getHiddenElementOuterWidth(submenuRef.current);
                 const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-                const top = parseInt(containerOffset.top, 10) + submenuRef.current.offsetHeight - DomHandler.getWindowScrollTop();
+                const top = Number.parseInt(containerOffset.top, 10) + submenuRef.current.offsetHeight - DomHandler.getWindowScrollTop();
 
                 if (top > viewport.height) {
                     submenuRef.current.style.top = viewport.height - top + 'px';
@@ -77,7 +66,7 @@ export const ContextMenuSub = React.memo(
                     submenuRef.current.style.top = '0px';
                 }
 
-                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+                if (Number.parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
                     submenuRef.current.style.left = -1 * sublistWidth + 'px';
                 } else {
                     submenuRef.current.style.left = itemOuterWidth + 'px';
@@ -98,15 +87,11 @@ export const ContextMenuSub = React.memo(
         };
 
         const getItemProp = (processedItem, name, params) => {
-            return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
-        };
-
-        const getItemLabel = (processedItem) => {
-            return getItemProp(processedItem, 'label');
+            return processedItem?.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
         };
 
         const isItemActive = (processedItem) => {
-            return props.activeItemPath && props.activeItemPath.some((path) => path.key === processedItem.key);
+            return props.activeItemPath?.some((path) => path.key === processedItem.key);
         };
 
         const isItemVisible = (processedItem) => {
@@ -133,21 +118,11 @@ export const ContextMenuSub = React.memo(
             return index - props.model.slice(0, index).filter((processedItem) => isItemVisible(processedItem) && getItemProp(processedItem, 'separator')).length + 1;
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => submenuRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => submenuRef.current }));
 
         const createSeparator = (index) => {
             const key = props.id + '_separator_' + index;
-            const separatorProps = mergeProps(
-                {
-                    id: key,
-                    className: cx('separator'),
-                    role: 'separator'
-                },
-                ptm('separator', { hostName: props.hostName })
-            );
+            const separatorProps = mergeProps({ id: key, className: cx('separator'), role: 'separator' }, ptm('separator', { hostName: props.hostName }));
 
             return <li {...separatorProps} key={key} />;
         };
@@ -192,42 +167,15 @@ export const ContextMenuSub = React.memo(
             const focused = isItemFocused(processedItem);
             const isGroup = isItemGroup(processedItem);
             const key = getItemId(processedItem);
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                getPTOptions(processedItem, 'icon', index)
-            );
+            const iconProps = mergeProps({ className: cx('icon') }, getPTOptions(processedItem, 'icon', index));
             const icon = IconUtils.getJSXIcon(item.icon, { ...iconProps }, { props: props.menuProps });
-            const submenuIconProps = mergeProps(
-                {
-                    className: cx('submenuIcon')
-                },
-                getPTOptions(processedItem, 'submenuIcon', index)
-            );
-
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                getPTOptions(processedItem, 'label', index)
-            );
-
+            const submenuIconProps = mergeProps({ className: cx('submenuIcon') }, getPTOptions(processedItem, 'submenuIcon', index));
+            const labelProps = mergeProps({ className: cx('label') }, getPTOptions(processedItem, 'label', index));
             const items = getItemProp(processedItem, 'items');
-
             const submenuIcon = items && IconUtils.getJSXIcon(props.submenuIcon || <AngleRightIcon {...submenuIconProps} />, { ...submenuIconProps }, { props: props.menuProps });
             const label = item.label && <span {...labelProps}>{item.label}</span>;
             const submenu = createSubmenu(processedItem, index);
-            const actionProps = mergeProps(
-                {
-                    href: item.url || '#',
-                    tabIndex: -1,
-                    className: cx('action', { item }),
-                    target: item.target
-                },
-                getPTOptions(processedItem, 'action', index)
-            );
-
+            const actionProps = mergeProps({ href: item.url || '#', tabIndex: -1, className: cx('action', { item }), target: item.target }, getPTOptions(processedItem, 'action', index));
             let content = (
                 <a {...actionProps}>
                     {icon}
@@ -238,28 +186,12 @@ export const ContextMenuSub = React.memo(
             );
 
             if (item.template) {
-                const defaultContentOptions = {
-                    className: 'p-menuitem-link',
-                    labelClassName: 'p-menuitem-text',
-                    iconClassName: 'p-menuitem-icon',
-                    submenuIconClassName: cx('submenuIcon'),
-                    element: content,
-                    props,
-                    active
-                };
+                const defaultContentOptions = { className: 'p-menuitem-link', labelClassName: 'p-menuitem-text', iconClassName: 'p-menuitem-icon', submenuIconClassName: cx('submenuIcon'), element: content, props, active };
 
                 content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
             }
 
-            const contentProps = mergeProps(
-                {
-                    onClick: (event) => onItemClick(event, processedItem, index),
-                    onMouseEnter: (event) => onItemMouseEnter(event, processedItem),
-                    className: cx('content')
-                },
-                getPTOptions(processedItem, 'content', index)
-            );
-
+            const contentProps = mergeProps({ onClick: (event) => onItemClick(event, processedItem), onMouseEnter: (event) => onItemMouseEnter(event, processedItem), className: cx('content') }, getPTOptions(processedItem, 'content', index));
             const menuitemProps = mergeProps(
                 {
                     id: key,

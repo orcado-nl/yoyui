@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -11,7 +12,6 @@ export const TabMenu = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = TabMenuBase.getProps(inProps, context);
-
         const [idState, setIdState] = React.useState(props.id);
         const [activeIndexState, setActiveIndexState] = React.useState(props.activeIndex);
         const elementRef = React.useRef(null);
@@ -19,26 +19,11 @@ export const TabMenu = React.memo(
         const navRef = React.useRef(null);
         const tabsRef = React.useRef({});
         const activeIndex = props.onTabChange ? props.activeIndex : activeIndexState;
-        const metaData = {
-            props,
-            state: {
-                id: idState,
-                activeIndex: activeIndex
-            }
-        };
-
-        const { ptm, cx, isUnstyled } = TabMenuBase.setMetaData({
-            ...metaData
-        });
+        const metaData = { props, state: { id: idState, activeIndex: activeIndex } };
+        const { ptm, cx, isUnstyled } = TabMenuBase.setMetaData({ ...metaData });
 
         const getPTOptions = (key, item, index) => {
-            return ptm(key, {
-                parent: metaData,
-                context: {
-                    item,
-                    index
-                }
-            });
+            return ptm(key, { parent: metaData, context: { item, index } });
         };
 
         useHandleStyle(TabMenuBase.css.styles, isUnstyled, { name: 'tabmenu' });
@@ -51,18 +36,11 @@ export const TabMenu = React.memo(
             }
 
             if (item.command) {
-                item.command({
-                    originalEvent: event,
-                    item: item
-                });
+                item.command({ originalEvent: event, item: item });
             }
 
             if (props.onTabChange) {
-                props.onTabChange({
-                    originalEvent: event,
-                    value: item,
-                    index
-                });
+                props.onTabChange({ originalEvent: event, value: item, index });
             } else {
                 setActiveIndexState(index);
             }
@@ -82,8 +60,8 @@ export const TabMenu = React.memo(
                 let tabs = navRef.current.children;
                 let inkHighlighted = false;
 
-                for (let i = 0; i < tabs.length; i++) {
-                    let tab = tabs[i];
+                for (const _item of tabs) {
+                    let tab = _item;
 
                     if (DomHandler.getAttribute(tab, 'data-p-highlight')) {
                         inkbarRef.current.style.width = DomHandler.getWidth(tab) + 'px';
@@ -104,12 +82,7 @@ export const TabMenu = React.memo(
                 setIdState(UniqueComponentId());
             }
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getElement: () => elementRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
         React.useEffect(() => {
             updateInkBar();
         });
@@ -120,33 +93,27 @@ export const TabMenu = React.memo(
                     navigateToNextItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'ArrowLeft':
                     navigateToPrevItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'Home':
                     navigateToFirstItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'End':
                     navigateToLastItem(event.target);
                     event.preventDefault();
                     break;
-
                 case 'Space':
                 case 'Enter':
                 case 'NumpadEnter':
                     itemClick(event, item, index);
                     event.preventDefault();
                     break;
-
                 case 'Tab':
                     onTabKey();
                     break;
-
                 default:
                     break;
             }
@@ -165,13 +132,13 @@ export const TabMenu = React.memo(
         };
 
         const navigateToFirstItem = (target) => {
-            const firstItem = findFirstItem(target);
+            const firstItem = findFirstItem();
 
             firstItem && setFocusToMenuitem(target, firstItem);
         };
 
         const navigateToLastItem = (target) => {
-            const lastItem = findLastItem(target);
+            const lastItem = findLastItem();
 
             lastItem && setFocusToMenuitem(target, lastItem);
         };
@@ -179,13 +146,25 @@ export const TabMenu = React.memo(
         const findNextItem = (item) => {
             const nextItem = item.parentElement.nextElementSibling;
 
-            return nextItem ? (DomHandler.getAttribute(nextItem, 'data-p-disabled') === true ? findNextItem(nextItem.children[0]) : nextItem.children[0]) : null;
+            return nextItem
+                ? resolveConditional(
+                      DomHandler.getAttribute(nextItem, 'data-p-disabled') === true,
+                      () => findNextItem(nextItem.children[0]),
+                      () => nextItem.children[0]
+                  )
+                : null;
         };
 
         const findPrevItem = (item) => {
             const prevItem = item.parentElement.previousElementSibling;
 
-            return prevItem ? (DomHandler.getAttribute(prevItem, 'data-p-disabled') === true ? findPrevItem(prevItem.children[0]) : prevItem.children[0]) : null;
+            return prevItem
+                ? resolveConditional(
+                      DomHandler.getAttribute(prevItem, 'data-p-disabled') === true,
+                      () => findPrevItem(prevItem.children[0]),
+                      () => prevItem.children[0]
+                  )
+                : null;
         };
 
         const findFirstItem = () => {
@@ -197,7 +176,7 @@ export const TabMenu = React.memo(
         const findLastItem = () => {
             const siblings = DomHandler.find(navRef.current, '[data-pc-section="menuitem"][data-p-disabled="false"]');
 
-            return siblings ? siblings[siblings.length - 1].children[0] : null;
+            return siblings ? siblings.at(-1).children[0] : null;
         };
 
         const setFocusToMenuitem = (target, focusableItem) => {
@@ -225,37 +204,14 @@ export const TabMenu = React.memo(
             const key = item.id || idState + '_' + index;
             const active = isSelected(index);
             const iconClassName = classNames('p-menuitem-icon', _icon);
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon', { _icon })
-                },
-                getPTOptions('icon', item, index)
-            );
-
+            const iconProps = mergeProps({ className: cx('icon', { _icon }) }, getPTOptions('icon', item, index));
             const icon = IconUtils.getJSXIcon(_icon, { ...iconProps }, { props });
-
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                getPTOptions('label', item, index)
-            );
-
+            const labelProps = mergeProps({ className: cx('label') }, getPTOptions('label', item, index));
             const label = _label && <span {...labelProps}>{_label}</span>;
-
             const actionProps = mergeProps(
-                {
-                    href: url || '#',
-                    role: 'menuitem',
-                    'aria-label': _label,
-                    tabIndex: active ? '0' : '-1',
-                    className: cx('action'),
-                    target: target,
-                    onClick: (event) => itemClick(event, item, index)
-                },
+                { href: url || '#', role: 'menuitem', 'aria-label': _label, tabIndex: active ? '0' : '-1', className: cx('action'), target: target, onClick: (event) => itemClick(event, item, index) },
                 getPTOptions('action', item, index)
             );
-
             let content = (
                 <a {...actionProps}>
                     {icon}
@@ -265,17 +221,7 @@ export const TabMenu = React.memo(
             );
 
             if (template) {
-                const defaultContentOptions = {
-                    onClick: (event) => itemClick(event, item, index),
-                    className: 'p-menuitem-link',
-                    labelClassName: 'p-menuitem-text',
-                    iconClassName,
-                    element: content,
-                    props,
-                    active,
-                    index,
-                    disabled
-                };
+                const defaultContentOptions = { onClick: (event) => itemClick(event, item, index), className: 'p-menuitem-link', labelClassName: 'p-menuitem-text', iconClassName, element: content, props, active, index, disabled };
 
                 content = ObjectUtils.getJSXElement(template, item, defaultContentOptions);
             }
@@ -308,7 +254,6 @@ export const TabMenu = React.memo(
 
         if (props.model) {
             const items = createItems();
-
             const inkbarProps = mergeProps(
                 {
                     ref: inkbarRef,

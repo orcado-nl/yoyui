@@ -49,10 +49,7 @@ export function TemplateDoc(props) {
         }
 
         const expanded = options.expanded;
-        const iconClassName = classNames('p-tree-toggler-icon pi pi-fw', {
-            'pi-caret-right': !expanded,
-            'pi-caret-down': expanded
-        });
+        const iconClassName = classNames('p-tree-toggler-icon pi pi-fw', { 'pi-caret-right': !expanded, 'pi-caret-down': expanded });
 
         return (
             <button type="button" data-pc-section="toggler" className="p-tree-toggler p-link" tabIndex={-1} onClick={options.onClick}>

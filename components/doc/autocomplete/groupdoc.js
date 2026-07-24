@@ -42,7 +42,7 @@ export function GroupDoc(props) {
     const groupedItemTemplate = (item) => {
         return (
             <div className="flex align-items-center">
-                <img alt={item.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${item.code.toLowerCase()} mr-2`} style={{ width: '18px' }} />
+                <img alt={item.label} src="/images/flag/flag_placeholder.png" className={`flag flag-${item.code.toLowerCase()} mr-2`} style={{ width: '18px' }} />
                 <div>{item.label}</div>
             </div>
         );
@@ -53,10 +53,10 @@ export function GroupDoc(props) {
         let _filteredCities = [];
 
         for (let country of groupedCities) {
-            let filteredItems = country.items.filter((item) => item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+            let filteredItems = country.items.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
 
-            if (filteredItems && filteredItems.length) {
-                _filteredCities.push({ ...country, ...{ items: filteredItems } });
+            if (filteredItems?.length) {
+                _filteredCities.push({ ...country, items: filteredItems });
             }
         }
 
@@ -113,7 +113,7 @@ export default function GroupDemo() {
             <div className="flex align-items-center">
                 <img
                     alt={item.label}
-                    src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+                    src="/images/flag/flag_placeholder.png"
                     className={\`flag flag-\${item.code.toLowerCase()} mr-2\`}
                     style={{width: '18px'}}
                 />
@@ -205,7 +205,7 @@ export default function GroupDemo() {
       <div className="flex align-items-center">
         <img
           alt={item.label}
-          src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+          src="/images/flag/flag_placeholder.png"
           className={\`flag flag-\${item.code.toLowerCase()} mr-2\`}
           style={{ width: "18px" }}
         />

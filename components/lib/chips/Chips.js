@@ -15,16 +15,9 @@ export const Chips = React.memo(
         const props = ChipsBase.getProps(inProps, context);
         const [focusedState, setFocusedState] = React.useState(false);
         const [focusedIndex, setFocusedIndex] = React.useState(null);
-
-        const { ptm, cx, isUnstyled } = ChipsBase.setMetaData({
-            props,
-            state: {
-                focused: focusedState
-            }
-        });
+        const { ptm, cx, isUnstyled } = ChipsBase.setMetaData({ props, state: { focused: focusedState } });
 
         useHandleStyle(ChipsBase.css.styles, isUnstyled, { name: 'chips' });
-
         const elementRef = React.useRef(null);
         const listRef = React.useRef(null);
         const inputRef = React.useRef(props.inputRef);
@@ -42,10 +35,7 @@ export const Chips = React.memo(
             }
 
             if (props.onRemove) {
-                props.onRemove({
-                    originalEvent: event,
-                    value: removedItem
-                });
+                props.onRemove({ originalEvent: event, value: removedItem });
             }
 
             if (props.onChange) {
@@ -58,27 +48,20 @@ export const Chips = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: values
-                    }
+                    target: { name: props.name, id: props.id, value: values }
                 });
             }
         };
 
         const addItem = (event, item, preventDefault) => {
-            if (item && item.trim().length) {
+            if (item?.trim().length) {
                 let values = props.value ? [...props.value] : [];
 
-                if (props.allowDuplicate || values.indexOf(item) === -1) {
+                if (props.allowDuplicate || !values.includes(item)) {
                     let allowAddition = true;
 
                     if (props.onAdd) {
-                        allowAddition = props.onAdd({
-                            originalEvent: event,
-                            value: item
-                        });
+                        allowAddition = props.onAdd({ originalEvent: event, value: item });
                     }
 
                     if (allowAddition !== false) {
@@ -97,17 +80,14 @@ export const Chips = React.memo(
         const onContainerKeyDown = (event) => {
             switch (event.code) {
                 case 'ArrowLeft':
-                    onArrowLeftKeyOn(event);
+                    onArrowLeftKeyOn();
                     break;
-
                 case 'ArrowRight':
-                    onArrowRightKeyOn(event);
+                    onArrowRightKeyOn();
                     break;
-
                 case 'Backspace':
                     onBackspaceKeyOn(event);
                     break;
-
                 default:
                     break;
             }
@@ -131,7 +111,7 @@ export const Chips = React.memo(
             let focusIndex = focusedIndex;
 
             if (inputRef.current.value.length === 0 && props.value && props.value.length > 0) {
-                if (focusIndex === props.value.length - 1) {
+                if (Object.is(focusIndex, props.value.length - 1)) {
                     focusIndex = null;
                     inputRef.current.focus();
                 } else {
@@ -152,7 +132,7 @@ export const Chips = React.memo(
             const inputValue = event.target.value;
             const values = props.value || [];
 
-            props.onKeyDown && props.onKeyDown(event);
+            props.onKeyDown?.(event);
 
             if (event.defaultPrevented) {
                 return;
@@ -165,25 +145,21 @@ export const Chips = React.memo(
                     }
 
                     break;
-
                 case 'Enter':
-                    if (inputValue && inputValue.trim().length && (!props.max || props.max > values.length)) {
+                    if (inputValue?.trim().length && (!props.max || props.max > values.length)) {
                         addItem(event, inputValue, true);
                     }
 
                     break;
-
                 case 'ArrowLeft':
                     if (inputValue.length === 0 && values && values.length > 0) {
                         DomHandler.focus(listRef.current);
                     }
 
                     break;
-
                 case 'ArrowRight':
                     event.stopPropagation();
                     break;
-
                 default:
                     if (props.keyfilter) {
                         KeyFilter.onKeyPress(event, props.keyfilter);
@@ -208,11 +184,7 @@ export const Chips = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: items
-                    }
+                    target: { name: props.name, id: props.id, value: items }
                 });
             }
 
@@ -238,7 +210,10 @@ export const Chips = React.memo(
 
         const onPaste = (event) => {
             if (props.separator) {
-                let separator = props.separator.replace('\\n', '\n').replace('\\r', '\r').replace('\\t', '\t');
+                let separator = props.separator
+                    .replace(String.raw`\n`, '\n')
+                    .replace(String.raw`\r`, '\r')
+                    .replace(String.raw`\t`, '\t');
                 let pastedData = (event.clipboardData || window.clipboardData).getData('Text');
 
                 if (props.keyfilter) {
@@ -249,9 +224,8 @@ export const Chips = React.memo(
                     let values = props.value || [];
                     let pastedValues = pastedData.split(separator);
 
-                    pastedValues = pastedValues.filter((val) => (props.allowDuplicate || values.indexOf(val) === -1) && val.trim().length);
+                    pastedValues = pastedValues.filter((val) => (props.allowDuplicate || !values.includes(val)) && val.trim().length);
                     values = [...values, ...pastedValues];
-
                     updateInput(event, values, true);
                 }
             }
@@ -269,7 +243,7 @@ export const Chips = React.memo(
         const onFocus = (event) => {
             setFocusedState(true);
             setFocusedIndex(null);
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onBlur = (event) => {
@@ -277,37 +251,30 @@ export const Chips = React.memo(
                 const inputValue = event.target.value;
                 const values = props.value || [];
 
-                if (inputValue && inputValue.trim().length && (!props.max || props.max > values.length)) {
+                if (inputValue?.trim().length && (!props.max || props.max > values.length)) {
                     addItem(event, inputValue, true);
                 }
             }
 
             setFocusedState(false);
-            props.onBlur && props.onBlur(event);
+            props.onBlur?.(event);
         };
 
         const isMaxedOut = () => {
             return props.max && props.value && props.max === props.value.length;
         };
 
-        const currentValue = inputRef.current && inputRef.current.value;
+        const currentValue = inputRef.current?.value;
         const isFilled = React.useMemo(() => ObjectUtils.isNotEmpty(props.value) || ObjectUtils.isNotEmpty(currentValue), [props.value, currentValue]);
 
         const isRemovable = (value, index) => {
             return ObjectUtils.getPropValue(props.removable, { value, index, props });
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            focus: () => DomHandler.focus(inputRef.current),
-            getElement: () => elementRef.current,
-            getInput: () => inputRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, focus: () => DomHandler.focus(inputRef.current), getElement: () => elementRef.current, getInput: () => inputRef.current }));
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
         }, [inputRef, props.inputRef]);
-
         useMountEffect(() => {
             if (props.autoFocus) {
                 DomHandler.focus(inputRef.current, props.autoFocus);
@@ -320,14 +287,7 @@ export const Chips = React.memo(
 
         const createRemoveIcon = (value, index) => {
             if (!props.disabled && !props.readOnly && isRemovable(value, index)) {
-                const iconProps = mergeProps(
-                    {
-                        className: cx('removeTokenIcon'),
-                        onClick: (event) => removeItem(event, index),
-                        'aria-hidden': 'true'
-                    },
-                    ptm('removeTokenIcon')
-                );
+                const iconProps = mergeProps({ className: cx('removeTokenIcon'), onClick: (event) => removeItem(event, index), 'aria-hidden': 'true' }, ptm('removeTokenIcon'));
                 const icon = props.removeIcon || <TimesCircleIcon {...iconProps} key={`${index}_icon`} />;
                 const removeIcon = IconUtils.getJSXIcon(icon, { ...iconProps }, { props });
 
@@ -339,12 +299,7 @@ export const Chips = React.memo(
 
         const createItem = (value, index) => {
             const content = props.itemTemplate ? props.itemTemplate(value) : value;
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                ptm('label')
-            );
+            const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
             const label = (
                 <span {...labelProps} key={`${index}_${value}_span`}>
                     {content}
@@ -375,13 +330,7 @@ export const Chips = React.memo(
         };
 
         const createInput = () => {
-            const inputTokenProps = mergeProps(
-                {
-                    className: cx('inputToken')
-                },
-                ptm('inputToken')
-            );
-
+            const inputTokenProps = mergeProps({ className: cx('inputToken') }, ptm('inputToken'));
             const inputProps = mergeProps(
                 {
                     id: props.inputId,
@@ -420,12 +369,12 @@ export const Chips = React.memo(
                 {
                     ref: listRef,
                     className: cx('container', { context }),
-                    onClick: (e) => onWrapperClick(e),
+                    onClick: (e) => onWrapperClick(),
                     onKeyDown: (e) => onContainerKeyDown(e),
                     tabIndex: -1,
                     role: 'listbox',
                     'aria-orientation': 'horizontal',
-                    'aria-labelledby': props.ariaLabelledby,
+                    'aria-labelledby': props.ariaLabelledBy,
                     'aria-label': props.ariaLabel,
                     'aria-activedescendant': focusedState ? focusedOptionId() : undefined,
                     'data-p-disabled': props.disabled,
@@ -448,15 +397,7 @@ export const Chips = React.memo(
         const otherProps = ChipsBase.getOtherProps(props);
         const ariaProps = ObjectUtils.reduceKeys(otherProps, DomHandler.ARIA_PROPS);
         const list = createList();
-        const rootProps = mergeProps(
-            {
-                id: props.id,
-                ref: elementRef,
-                className: classNames(props.className, cx('root', { isFilled, focusedState, disabled: props.disabled, invalid: props.invalid })),
-                style: props.style
-            },
-            ptm('root')
-        );
+        const rootProps = mergeProps({ id: props.id, ref: elementRef, className: classNames(props.className, cx('root', { isFilled, focusedState, disabled: props.disabled, invalid: props.invalid })), style: props.style }, ptm('root'));
 
         return (
             <>

@@ -6,20 +6,10 @@ import { PhotoService } from '../../../service/PhotoService';
 
 export function CaptionDoc(props) {
     const [images, setImages] = useState(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
+        { breakpoint: '991px', numVisible: 4 },
+        { breakpoint: '767px', numVisible: 3 },
+        { breakpoint: '575px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -153,8 +143,8 @@ export default function CaptionDoc() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

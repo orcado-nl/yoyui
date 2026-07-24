@@ -22,7 +22,6 @@ export function StatefulDoc(props) {
         representative: { value: null, matchMode: FilterMatchMode.IN },
         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
     });
-
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const representatives = [
         { name: 'Amy Elsner', image: 'amyelsner.png' },
@@ -42,16 +41,12 @@ export function StatefulDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -64,7 +59,7 @@ export function StatefulDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.code} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt={rowData.country.code} src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -75,7 +70,7 @@ export function StatefulDoc(props) {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
+                <img alt={representative.name} src={`/images/avatar/${representative.image}`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -88,7 +83,7 @@ export function StatefulDoc(props) {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+                <img alt={option.name} src={`/images/avatar/${option.image}`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -111,7 +106,6 @@ export function StatefulDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
     };
 
@@ -127,7 +121,6 @@ export function StatefulDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <DataTable value={customers} paginator rows={5} header={header} filters={filters} onFilter={(e) => setFilters(e.filters)}
@@ -204,7 +197,7 @@ export default function BasicDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.code} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.code} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -215,7 +208,7 @@ export default function BasicDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -228,7 +221,7 @@ export default function BasicDemo() {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -365,7 +358,7 @@ export default function BasicDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.code} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.code} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -376,7 +369,7 @@ export default function BasicDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -389,7 +382,7 @@ export default function BasicDemo() {
     const representativesItemTemplate = (option: RepresentativeOption) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -509,6 +502,7 @@ export default function BasicDemo() {
                             filterMenuStyle={{ width: '14rem' }}
                             style={{ width: '25%' }}
                         />
+
                         <Column field="status" header="Status" body={statusBodyTemplate} sortable filter filterElement={statusFilterTemplate} filterMenuStyle={{ width: '14rem' }} style={{ width: '25%' }} />
                     </DataTable>
                 </div>

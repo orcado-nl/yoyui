@@ -9,21 +9,14 @@ import { InplaceBase } from './InplaceBase';
 
 export const InplaceDisplay = (props) => props.children;
 export const InplaceContent = (props) => props.children;
-
 export const Inplace = React.forwardRef((inProps, ref) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
     const props = InplaceBase.getProps(inProps, context);
-
     const [activeState, setActiveState] = React.useState(props.active);
     const elementRef = React.useRef(null);
     const active = props.onToggle ? props.active : activeState;
-    const metaData = {
-        props,
-        state: {
-            active: activeState
-        }
-    };
+    const metaData = { props, state: { active: activeState } };
     const { ptm, cx, isUnstyled } = InplaceBase.setMetaData(metaData);
 
     useHandleStyle(InplaceBase.css.styles, isUnstyled, { name: 'inplace' });
@@ -33,13 +26,10 @@ export const Inplace = React.forwardRef((inProps, ref) => {
             return;
         }
 
-        props.onOpen && props.onOpen(event);
+        props.onOpen?.(event);
 
         if (props.onToggle) {
-            props.onToggle({
-                originalEvent: event,
-                value: true
-            });
+            props.onToggle({ originalEvent: event, value: true });
         } else {
             setActiveState(true);
         }
@@ -50,13 +40,10 @@ export const Inplace = React.forwardRef((inProps, ref) => {
             return;
         }
 
-        props.onClose && props.onClose(event);
+        props.onClose?.(event);
 
         if (props.onToggle) {
-            props.onToggle({
-                originalEvent: event,
-                value: false
-            });
+            props.onToggle({ originalEvent: event, value: false });
         } else {
             setActiveState(false);
         }
@@ -70,17 +57,7 @@ export const Inplace = React.forwardRef((inProps, ref) => {
     };
 
     const createDisplay = (content) => {
-        const displayProps = mergeProps(
-            {
-                onClick: open,
-                className: cx('display'),
-                onKeyDown: onDisplayKeyDown,
-                tabIndex: props.tabIndex || '0',
-                role: 'button',
-                'aria-label': props.ariaLabel
-            },
-            ptm('display')
-        );
+        const displayProps = mergeProps({ onClick: open, className: cx('display'), onKeyDown: onDisplayKeyDown, tabIndex: props.tabIndex || '0', role: 'button', 'aria-label': props.ariaLabel }, ptm('display'));
 
         return <div {...displayProps}>{content}</div>;
     };
@@ -91,17 +68,7 @@ export const Inplace = React.forwardRef((inProps, ref) => {
         const closeAriaLabel = localeOption('aria') ? localeOption('aria').close : undefined;
 
         if (props.closable) {
-            const closeButtonProps = mergeProps({
-                className: cx('closeButton'),
-                icon: closeIcon,
-                type: 'button',
-                onClick: close,
-                'aria-label': closeAriaLabel,
-                pt: ptm('closeButton'),
-                __parentMetadata: {
-                    parent: metaData
-                }
-            });
+            const closeButtonProps = mergeProps({ className: cx('closeButton'), icon: closeIcon, type: 'button', onClick: close, 'aria-label': closeAriaLabel, pt: ptm('closeButton'), __parentMetadata: { parent: metaData } });
 
             return <Button {...closeButtonProps} />;
         }
@@ -111,13 +78,7 @@ export const Inplace = React.forwardRef((inProps, ref) => {
 
     const createContent = (content) => {
         const closeButton = createCloseButton();
-
-        const contentProps = mergeProps(
-            {
-                className: cx('content')
-            },
-            ptm('content')
-        );
+        const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
 
         return (
             <div {...contentProps}>

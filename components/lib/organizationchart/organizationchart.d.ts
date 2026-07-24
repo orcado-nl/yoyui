@@ -2,7 +2,7 @@
  *
  * OrganizationChart visualizes hierarchical organization data.
  *
- * [Live Demo](https://www.primereact.org/organizationchart/)
+ * [Live Demo](https://yoyui.orcado.dev/organizationchart/)
  *
  * @module organizationchart
  *
@@ -250,13 +250,13 @@ export interface OrganizationChartProps extends Omit<React.DetailedHTMLProps<Rea
 }
 
 /**
- * **PrimeReact - OrganizationChart**
+ * **YoYui - OrganizationChart**
  *
  * _OrganizationChart visualizes hierarchical organization data._
  *
- * [Live Demo](https://www.primereact.org/organizationchart/)
+ * [Live Demo](https://yoyui.orcado.dev/organizationchart/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Tag } from '@/components/lib/tag/Tag';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -18,7 +18,7 @@ export function ExpandableRowGroupDoc(props) {
     const headerTemplate = (data) => {
         return (
             <React.Fragment>
-                <img alt={data.representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${data.representative.image}`} width="32" style={{ verticalAlign: 'middle' }} className="ml-2" />
+                <img alt={data.representative.name} src={`/images/avatar/${data.representative.image}`} width="32" style={{ verticalAlign: 'middle' }} className="ml-2" />
                 <span className="vertical-align-middle ml-2 font-bold line-height-3">{data.representative.name}</span>
             </React.Fragment>
         );
@@ -26,18 +26,16 @@ export function ExpandableRowGroupDoc(props) {
 
     const footerTemplate = (data) => {
         return (
-            <React.Fragment>
-                <td colSpan={5}>
-                    <div className="flex justify-content-end font-bold w-full">Total Customers: {calculateCustomerTotal(data.representative.name)}</div>
-                </td>
-            </React.Fragment>
+            <td colSpan={5}>
+                <div className="flex justify-content-end font-bold w-full">Total Customers: {calculateCustomerTotal(data.representative.name)}</div>
+            </td>
         );
     };
 
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -111,7 +109,7 @@ export default function ExpandableRowGroupDemo() {
     const headerTemplate = (data) => {
         return (
             <React.Fragment>
-                <img alt={data.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${data.representative.image}\`} width="32" style={{ verticalAlign: 'middle' }} className="ml-2" />
+                <img alt={data.representative.name} src={\`/images/avatar/\${data.representative.image}\`} width="32" style={{ verticalAlign: 'middle' }} className="ml-2" />
                 <span className="vertical-align-middle ml-2 font-bold line-height-3">{data.representative.name}</span>
             </React.Fragment>
         );
@@ -130,7 +128,7 @@ export default function ExpandableRowGroupDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -230,7 +228,7 @@ export default function ExpandableRowGroupDemo() {
     const headerTemplate = (data: Customer) => {
         return (
             <React.Fragment>
-                <img alt={data.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${data.representative.image}\`} width="32" style={{ verticalAlign: 'middle' }} className="ml-2" />
+                <img alt={data.representative.name} src={\`/images/avatar/\${data.representative.image}\`} width="32" style={{ verticalAlign: 'middle' }} className="ml-2" />
                 <span className="vertical-align-middle ml-2 font-bold line-height-3">{data.representative.name}</span>
             </React.Fragment>
         );
@@ -249,7 +247,7 @@ export default function ExpandableRowGroupDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );

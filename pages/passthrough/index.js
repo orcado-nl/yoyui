@@ -36,7 +36,7 @@ const PassThroughDemo = () => {
 
     return (
         <DocComponent
-            title="PrimeReact - PassThrough"
+            title="YoYui - PassThrough"
             header="Pass Through"
             description="The Pass Through props is an API to access the internal DOM Structure of the components."
             componentDocs={docs}

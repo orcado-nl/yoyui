@@ -10,9 +10,7 @@ export function LoadingDoc(props) {
     const [items] = useState(Array.from({ length: 100000 }).map((_, i) => `Item #${i}`));
 
     const itemTemplate = (item, options) => {
-        const className = classNames('flex align-items-center p-2', {
-            'surface-hover': options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { 'surface-hover': options.odd });
 
         return (
             <div className={className} style={{ height: options.props.itemSize + 'px' }}>
@@ -22,9 +20,7 @@ export function LoadingDoc(props) {
     };
 
     const loadingTemplate = (options) => {
-        const className = classNames('flex align-items-center p-2', {
-            odd: options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { odd: options.odd });
 
         return (
             <div className={className} style={{ height: '50px' }}>

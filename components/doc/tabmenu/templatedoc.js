@@ -6,18 +6,13 @@ import { useState } from 'react';
 export function TemplateDoc(props) {
     const [activeIndex, setActiveIndex] = useState(0);
     const itemRenderer = (item, itemIndex) => (
-        <a className="p-menuitem-link flex align-items-center gap-2" onClick={() => setActiveIndex(itemIndex)}>
-            <img alt={item.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${item.image}`} style={{ width: '32px' }} />
+        <button type="button" className="p-menuitem-link flex align-items-center gap-2 border-none bg-transparent" onClick={() => setActiveIndex(itemIndex)}>
+            <img alt={item.name} src={`/images/avatar/${item.image}`} style={{ width: '32px' }} />
             <span className="font-bold">{item.name}</span>
-        </a>
+        </button>
     );
-
     const items = [
-        {
-            name: 'Amy Elsner',
-            image: 'amyelsner.png',
-            template: (item) => itemRenderer(item, 0)
-        },
+        { name: 'Amy Elsner', image: 'amyelsner.png', template: (item) => itemRenderer(item, 0) },
         {
             name: 'Anna Fali',
             image: 'annafali.png',
@@ -42,7 +37,7 @@ export default function TemplateDemo() {
     const [activeIndex, setActiveIndex] = useState(0);
     const itemRenderer = (item, itemIndex) => (
         <a className="p-menuitem-link flex align-items-center gap-2" onClick={() => setActiveIndex(itemIndex)}>
-            <img alt={item.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${item.image}\`} style={{ width: '32px' }} />
+            <img alt={item.name} src={\`/images/avatar/\${item.image}\`} style={{ width: '32px' }} />
             <span className="font-bold">{item.name}</span>
         </a>
     );
@@ -81,7 +76,7 @@ export default function TemplateDemo() {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const itemRenderer = (item, itemIndex) => (
         <a className="p-menuitem-link flex align-items-center gap-2" onClick={() => setActiveIndex(itemIndex)}>
-            <img alt={item.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${item.image}\`} style={{ width: '32px' }} />
+            <img alt={item.name} src={\`/images/avatar/\${item.image}\`} style={{ width: '32px' }} />
             <span className="font-bold">{item.name}</span>
         </a>
     );

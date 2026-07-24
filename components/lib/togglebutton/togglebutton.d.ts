@@ -2,7 +2,7 @@
  *
  * ToggleButton is used to select a boolean value using a button.
  *
- * [Live Demo](https://www.primereact.org/togglebutton/)
+ * [Live Demo](https://yoyui.orcado.dev/togglebutton/)
  *
  * @module togglebutton
  *
@@ -200,13 +200,13 @@ export interface ToggleButtonProps extends Omit<React.DetailedHTMLProps<React.In
 }
 
 /**
- * **PrimeReact - ToggleButton**
+ * **YoYui - ToggleButton**
  *
  * _ToggleButton is used to select a boolean value using a button._
  *
- * [Live Demo](https://www.primereact.org/togglebutton/)
+ * [Live Demo](https://yoyui.orcado.dev/togglebutton/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

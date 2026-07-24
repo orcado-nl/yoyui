@@ -7,13 +7,14 @@ import { Sidebar } from '@/components/lib/sidebar/Sidebar';
 import { classNames } from '@/components/lib/utils/Utils';
 import { useContext, useEffect, useState } from 'react';
 
+const scales = [12, 13, 14, 15, 16];
+
 export default function Config(props) {
     const [scale, setScale] = useState(14);
-    const [scales, setScales] = useState([12, 13, 14, 15, 16]);
     const [compactMaterial, setCompactMaterial] = useState(false);
     const { theme, darkMode, changeTheme } = useContext(AppContentContext);
     const { ripple, inputStyle, setRipple, setInputStyle } = useContext(PrimeReactContext);
-    const lightOnlyThemes = ['fluent-light', 'mira', 'nano'];
+    const lightOnlyThemes = new Set(['fluent-light', 'mira', 'nano']);
 
     const decrementScale = () => {
         setScale((prevScale) => --prevScale);
@@ -29,11 +30,11 @@ export default function Config(props) {
     ];
 
     const darkToggleDisabled = () => {
-        return lightOnlyThemes.includes(theme);
+        return lightOnlyThemes.has(theme);
     };
 
     const switchTheme = (themeName, color) => {
-        if (lightOnlyThemes.includes(themeName)) {
+        if (lightOnlyThemes.has(themeName)) {
             changeTheme(themeName, false);
         } else {
             let newTheme = themeName + '-' + (darkMode ? 'dark' : 'light');
@@ -54,7 +55,7 @@ export default function Config(props) {
         let themeName;
         let themePrefix = themeFamily === 'md' && compactMaterial ? 'mdc' : themeFamily;
 
-        if (lightOnlyThemes.includes(themePrefix)) {
+        if (lightOnlyThemes.has(themePrefix)) {
             themeName = themePrefix;
         } else {
             themeName = themePrefix + (darkMode ? '-dark' : '-light');
@@ -70,7 +71,6 @@ export default function Config(props) {
     useEffect(() => {
         document.documentElement.style.fontSize = scale + 'px';
     }, [scale]); // eslint-disable-line react-hooks/exhaustive-deps
-
     useEffect(() => {
         if (theme.startsWith('md')) {
             let tokens = theme.split('-');
@@ -89,7 +89,7 @@ export default function Config(props) {
                         {scales.map((s) => {
                             return <i className={classNames('pi pi-circle-fill text-sm text-200', { 'text-lg text-primary': s === scale })} key={s} />;
                         })}
-                        <Button icon="pi pi-plus" onClick={incrementScale} text rounded className="w-2rem h-2rem" disabled={scale === scales[scales.length - 1]} />
+                        <Button icon="pi pi-plus" onClick={incrementScale} text rounded className="w-2rem h-2rem" disabled={scale === scales.at(-1)} />
                     </div>
                 </section>
 
@@ -113,7 +113,7 @@ export default function Config(props) {
                 <section className="py-4 border-bottom-1 surface-border">
                     <div className="text-xl font-semibold mb-3">Themes</div>
                     <div className="flex align-items-center gap-2 mb-3">
-                        <img src="https://primefaces.org/cdn/primereact/images/themes/lara-light-teal.png" alt="Lara Light Teal" className="border-circle" style={{ width: '1.5rem' }} />
+                        <img src="/images/themes/lara-light-teal.png" alt="Lara Light Teal" className="border-circle" style={{ width: '1.5rem' }} />
                         <span className="font-medium">Lara</span>
                     </div>
                     <div className="flex align-items-center justify-content-between gap-3 mb-3">
@@ -204,7 +204,7 @@ export default function Config(props) {
 
                 <section className="py-4 border-bottom-1 surface-border">
                     <div className="flex align-items-center gap-2 mb-3">
-                        <img src="https://primefaces.org/cdn/primereact/images/themes/md-light-indigo.svg" alt="Material Design" className="border-circle" style={{ width: '1.5rem' }} />
+                        <img src="/images/themes/md-light-indigo.svg" alt="Material Design" className="border-circle" style={{ width: '1.5rem' }} />
                         <span className="font-medium">Material Design</span>
                         <div className="ml-auto flex align-items-center gap-2">
                             <label htmlFor="material-condensed" className="text-sm">
@@ -241,7 +241,7 @@ export default function Config(props) {
 
                 <section className="py-4 border-bottom-1 surface-border">
                     <div className="flex align-items-center gap-2 mb-3">
-                        <img src="https://primefaces.org/cdn/primereact/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap" className="border-circle" style={{ width: '1.5rem' }} />
+                        <img src="/images/themes/bootstrap4-light-blue.svg" alt="Bootstrap" className="border-circle" style={{ width: '1.5rem' }} />
                         <span className="font-medium">Bootstrap</span>
                     </div>
                     <div className="flex align-items-center justify-content-between gap-3">
@@ -274,7 +274,7 @@ export default function Config(props) {
                     <div className="flex gap-3">
                         <div className="w-3">
                             <div className="flex align-items-center gap-2 mb-3">
-                                <img src="https://primefaces.org/cdn/primereact/images/themes/soho-light.png" alt="Soho" className="border-circle" style={{ width: '1.5rem' }} />
+                                <img src="/images/themes/soho-light.png" alt="Soho" className="border-circle" style={{ width: '1.5rem' }} />
                                 <span className="font-medium">Soho</span>
                             </div>
                             <button
@@ -290,7 +290,7 @@ export default function Config(props) {
                         </div>
                         <div className="w-3">
                             <div className="flex align-items-center gap-2 mb-3">
-                                <img src="https://primefaces.org/cdn/primereact/images/themes/viva-light.svg" alt="Viva" className="border-circle" style={{ width: '1.5rem' }} />
+                                <img src="/images/themes/viva-light.svg" alt="Viva" className="border-circle" style={{ width: '1.5rem' }} />
                                 <span className="font-medium">Viva</span>
                             </div>
                             <button
@@ -313,7 +313,7 @@ export default function Config(props) {
                     <div className="flex gap-3">
                         <div className="w-3">
                             <div className="flex align-items-center gap-2 mb-3">
-                                <img src="https://primefaces.org/cdn/primereact/images/themes/fluent-light.png" alt="Fluent" className="border-circle" style={{ width: '1.5rem' }} />
+                                <img src="/images/themes/fluent-light.png" alt="Fluent" className="border-circle" style={{ width: '1.5rem' }} />
                                 <span className="font-medium">Fluent</span>
                             </div>
                             <button
@@ -329,7 +329,7 @@ export default function Config(props) {
                         </div>
                         <div className="w-3">
                             <div className="flex align-items-center gap-2 mb-3">
-                                <img src="https://primefaces.org/cdn/primereact/images/themes/mira.jpg" alt="Mira" className="border-circle" style={{ width: '1.5rem' }} />
+                                <img src="/images/themes/mira.jpg" alt="Mira" className="border-circle" style={{ width: '1.5rem' }} />
                                 <span className="font-medium">Mira</span>
                             </div>
                             <button
@@ -345,7 +345,7 @@ export default function Config(props) {
                         </div>
                         <div className="w-3">
                             <div className="flex align-items-center gap-2 mb-3">
-                                <img src="https://primefaces.org/cdn/primereact/images/themes/nano.jpg" alt="Nano" className="border-circle" style={{ width: '1.5rem' }} />
+                                <img src="/images/themes/nano.jpg" alt="Nano" className="border-circle" style={{ width: '1.5rem' }} />
                                 <span className="font-medium">Nano</span>
                             </div>
                             <button

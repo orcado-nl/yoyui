@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext, localeOption } from '../api/Api';
+import { PrimeReactContext, localeOption, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { CSSTransition } from '../csstransition/CSSTransition';
 import { useInterval, useMergeProps, useUnmountEffect, ESC_KEY_HANDLING_PRIORITIES, useGlobalOnEscapeKey } from '../hooks/Hooks';
@@ -16,7 +16,6 @@ export const Galleria = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = GalleriaBase.getProps(inProps, context);
-
         const [visibleState, setVisibleState] = React.useState(false);
         const [numVisibleState, setNumVisibleState] = React.useState(props.numVisible);
         const [slideShowActiveState, setSlideShowActiveState] = React.useState(false);
@@ -27,19 +26,9 @@ export const Galleria = React.memo(
         const activeItemIndex = props.onItemChange ? props.activeIndex : activeIndexState;
         const isVertical = props.thumbnailsPosition === 'left' || props.thumbnailsPosition === 'right';
         const id = props.id || UniqueComponentId();
-
-        const { ptm, cx, sx, isUnstyled } = GalleriaBase.setMetaData({
-            props,
-            state: {
-                visible: visibleState,
-                numVisible: numVisibleState,
-                slideShowActive: slideShowActiveState,
-                activeIndex: activeIndexState
-            }
-        });
+        const { ptm, cx, sx, isUnstyled } = GalleriaBase.setMetaData({ props, state: { visible: visibleState, numVisible: numVisibleState, slideShowActive: slideShowActiveState, activeIndex: activeIndexState } });
 
         useHandleStyle(GalleriaBase.css.styles, isUnstyled, { name: 'galleria' });
-
         useGlobalOnEscapeKey({
             callback: () => {
                 hide();
@@ -47,7 +36,6 @@ export const Galleria = React.memo(
             when: props.closeOnEscape && props.fullScreen,
             priority: [ESC_KEY_HANDLING_PRIORITIES.IMAGE, 0]
         });
-
         useInterval(
             () => {
                 onActiveItemChange({ index: props.circular && props.value.length - 1 === activeItemIndex ? 0 : activeItemIndex + 1 });
@@ -84,12 +72,12 @@ export const Galleria = React.memo(
         };
 
         const onEntering = () => {
-            ZIndexUtils.set('modal', maskRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, props.baseZIndex || (context && context.zIndex.modal) || PrimeReact.zIndex.modal);
+            ZIndexUtils.set('modal', maskRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, props.baseZIndex || context?.zIndex.modal || PrimeReactConfig.zIndex.modal);
             !isUnstyled() && DomHandler.addMultipleClasses(maskRef.current, 'p-component-overlay p-component-overlay-enter');
         };
 
         const onEntered = () => {
-            props.onShow && props.onShow();
+            props.onShow?.();
         };
 
         const onExit = () => {
@@ -99,8 +87,7 @@ export const Galleria = React.memo(
 
         const onExited = () => {
             ZIndexUtils.clear(maskRef.current);
-
-            props.onHide && props.onHide();
+            props.onHide?.();
         };
 
         const isAutoPlayActive = () => {
@@ -127,11 +114,9 @@ export const Galleria = React.memo(
                 setNumVisibleState(props.value.length);
             }
         }, [props.value, numVisibleState]);
-
         React.useEffect(() => {
             setNumVisibleState(props.numVisible);
         }, [props.numVisible]);
-
         useUnmountEffect(() => {
             if (slideShowActiveState) {
                 stopSlideShow();
@@ -139,25 +124,10 @@ export const Galleria = React.memo(
 
             ZIndexUtils.clear(maskRef.current);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            show,
-            hide,
-            isAutoPlayActive,
-            startSlideShow,
-            stopSlideShow,
-            getElement: () => elementRef.current,
-            getPreviewContent: () => previewContentRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, show, hide, isAutoPlayActive, startSlideShow, stopSlideShow, getElement: () => elementRef.current, getPreviewContent: () => previewContentRef.current }));
 
         const createHeader = () => {
-            const headerProps = mergeProps(
-                {
-                    className: cx('header')
-                },
-                ptm('header')
-            );
+            const headerProps = mergeProps({ className: cx('header') }, ptm('header'));
 
             if (props.header) {
                 return <div {...headerProps}>{props.header}</div>;
@@ -167,12 +137,7 @@ export const Galleria = React.memo(
         };
 
         const createFooter = () => {
-            const footerProps = mergeProps(
-                {
-                    className: cx('footer')
-                },
-                ptm('footer')
-            );
+            const footerProps = mergeProps({ className: cx('footer') }, ptm('footer'));
 
             if (props.footer) {
                 return <div {...footerProps}>{props.footer}</div>;
@@ -184,57 +149,24 @@ export const Galleria = React.memo(
         const createElement = () => {
             const thumbnailsPosClassName = props.showThumbnails && getPositionClassName('p-galleria-thumbnails', props.thumbnailsPosition);
             const indicatorPosClassName = props.showIndicators && getPositionClassName('p-galleria-indicators', props.indicatorsPosition);
-
-            const closeIconProps = mergeProps(
-                {
-                    className: cx('closeIcon'),
-                    'aria-hidden': true
-                },
-                ptm('closeIcon')
-            );
+            const closeIconProps = mergeProps({ className: cx('closeIcon'), 'aria-hidden': true }, ptm('closeIcon'));
             const icon = props.closeIcon || <TimesIcon {...closeIconProps} />;
             const closeIcon = IconUtils.getJSXIcon(icon, { ...closeIconProps }, { props });
-
-            const closeButtonProps = mergeProps(
-                {
-                    type: 'button',
-                    className: cx('closeButton'),
-                    'aria-label': localeOption('aria') ? localeOption('aria').close : undefined,
-                    onClick: hide
-                },
-                ptm('closeButton')
-            );
-
+            const closeButtonProps = mergeProps({ type: 'button', className: cx('closeButton'), 'aria-label': localeOption('aria') ? localeOption('aria').close : undefined, onClick: hide }, ptm('closeButton'));
             const closeButton = props.fullScreen && (
                 <button {...closeButtonProps}>
                     {closeIcon}
                     <Ripple />
                 </button>
             );
-
             const header = createHeader();
             const footer = createFooter();
-
             const rootProps = mergeProps(
-                {
-                    ref: elementRef,
-                    id: id,
-                    className: classNames(props.className, cx('root', { context, thumbnailsPosClassName, indicatorPosClassName })),
-                    style: props.style,
-                    role: 'region'
-                },
+                { ref: elementRef, id: id, className: classNames(props.className, cx('root', { context, thumbnailsPosClassName, indicatorPosClassName })), style: props.style, role: 'region' },
                 GalleriaBase.getOtherProps(props),
                 ptm('root')
             );
-
-            const contentProps = mergeProps(
-                {
-                    className: cx('content'),
-                    'aria-live': props.autoPlay ? 'polite' : 'off'
-                },
-                ptm('content')
-            );
-
+            const contentProps = mergeProps({ className: cx('content'), 'aria-live': props.autoPlay ? 'polite' : 'off' }, ptm('content'));
             const element = (
                 <div {...rootProps}>
                     {closeButton}
@@ -301,32 +233,11 @@ export const Galleria = React.memo(
             const element = createElement();
 
             if (props.fullScreen) {
-                const maskProps = mergeProps(
-                    {
-                        className: cx('mask', { visibleState }),
-                        role: 'dialog',
-                        'aria-modal': 'true'
-                    },
-                    ptm('mask')
-                );
-
+                const maskProps = mergeProps({ className: cx('mask', { visibleState }), role: 'dialog', 'aria-modal': 'true' }, ptm('mask'));
                 const transitionProps = mergeProps(
-                    {
-                        classNames: cx('transition'),
-                        in: visibleState,
-                        timeout: { enter: 150, exit: 150 },
-                        options: props.transitionOptions,
-                        unmountOnExit: true,
-                        appear: true,
-                        onEnter,
-                        onEntering,
-                        onEntered,
-                        onExit,
-                        onExited
-                    },
+                    { classNames: cx('transition'), in: visibleState, timeout: { enter: 150, exit: 150 }, options: props.transitionOptions, unmountOnExit: true, appear: true, onEnter, onEntering, onEntered, onExit, onExited },
                     ptm('transition')
                 );
-
                 const galleriaWrapper = (
                     <div ref={maskRef} {...maskProps}>
                         <CSSTransition nodeRef={elementRef} {...transitionProps}>
@@ -344,5 +255,4 @@ export const Galleria = React.memo(
         return ObjectUtils.isNotEmpty(props.value) && createGalleria();
     })
 );
-
 Galleria.displayName = 'Galleria';

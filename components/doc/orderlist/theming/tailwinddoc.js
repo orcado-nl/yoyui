@@ -113,7 +113,7 @@ export default function UnstyledDemo() {
     const itemTemplate = (item) => {
         return (
             <div className="flex flex-wrap p-2 items-center gap-3">
-                <img className="w-16 shadow-md shrink-0 rounded" src={\`https://primefaces.org/cdn/primereact/images/product/\${item.image}\`} alt={item.name} />
+                <img className="w-16 shadow-md shrink-0 rounded" src={\`/images/product/\${item.image}\`} alt={item.name} />
                 <div className="flex-1 flex flex-col gap-2 xl:mr-8">
                     <span className="font-bold text-gray-700 dark:text-white/80">{item.name}</span>
                     <div className="flex items-center gap-2">
@@ -136,16 +136,14 @@ export default function UnstyledDemo() {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
-                    <Link href="/tailwind">Tailwind Customization</Link> section for an example.
-                </p>
-                <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
-                <p>A playground sample with the pre-built Tailwind theme.</p>
-                <DocSectionCode code={code2} embedded service={['ProductService']} />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                <Link href="/tailwind">Tailwind Customization</Link> section for an example.
+            </p>
+            <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
+            <p>A playground sample with the pre-built Tailwind theme.</p>
+            <DocSectionCode code={code2} embedded service={['ProductService']} />
+        </DocSectionText>
     );
 }

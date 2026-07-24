@@ -177,7 +177,7 @@ describe('FilterService', () => {
 
     describe('between filter test', () => {
         checkParametersNullOrUndefined('between');
-        it('When value has getTime func and smaller than filter[0]', () => {
+        it('When numeric value is within the filter range', () => {
             const filterGetTime = jest.fn(() => 1);
             const filterGetTime1 = jest.fn(() => 3);
             const valueGetTime = jest.fn(() => 2);

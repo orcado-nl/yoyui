@@ -9,7 +9,7 @@ import { IconUtils } from '../utils/Utils';
 
 export const RowTogglerButton = React.memo((props) => {
     const mergeProps = useMergeProps();
-    const { ptm, ptmo, cx, isUnstyled } = props.ptCallbacks;
+    const { ptm, ptmo, cx } = props.ptCallbacks;
 
     const onClick = (event) => {
         props.onClick({

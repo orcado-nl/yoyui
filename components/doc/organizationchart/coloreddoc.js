@@ -10,33 +10,17 @@ export function ColoredDoc(props) {
             type: 'person',
             className: 'bg-indigo-500 text-white',
             style: { borderRadius: '12px' },
-            data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
-                name: 'Amy Elsner',
-                title: 'CEO'
-            },
+            data: { image: '/images/avatar/amyelsner.png', name: 'Amy Elsner', title: 'CEO' },
             children: [
                 {
                     expanded: true,
                     type: 'person',
                     className: 'bg-purple-500 text-white',
                     style: { borderRadius: '12px' },
-                    data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                        name: 'Anna Fali',
-                        title: 'CMO'
-                    },
+                    data: { image: '/images/avatar/annafali.png', name: 'Anna Fali', title: 'CMO' },
                     children: [
-                        {
-                            label: 'Sales',
-                            className: 'bg-purple-500 text-white',
-                            style: { borderRadius: '12px' }
-                        },
-                        {
-                            label: 'Marketing',
-                            className: 'bg-purple-500 text-white',
-                            style: { borderRadius: '12px' }
-                        }
+                        { label: 'Sales', className: 'bg-purple-500 text-white', style: { borderRadius: '12px' } },
+                        { label: 'Marketing', className: 'bg-purple-500 text-white', style: { borderRadius: '12px' } }
                     ]
                 },
                 {
@@ -44,22 +28,10 @@ export function ColoredDoc(props) {
                     type: 'person',
                     className: 'bg-teal-500 text-white',
                     style: { borderRadius: '12px' },
-                    data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                        name: 'Stephen Shaw',
-                        title: 'CTO'
-                    },
+                    data: { image: '/images/avatar/stephenshaw.png', name: 'Stephen Shaw', title: 'CTO' },
                     children: [
-                        {
-                            label: 'Development',
-                            className: 'bg-teal-500 text-white',
-                            style: { borderRadius: '12px' }
-                        },
-                        {
-                            label: 'UI/UX Design',
-                            className: 'bg-teal-500 text-white',
-                            style: { borderRadius: '12px' }
-                        }
+                        { label: 'Development', className: 'bg-teal-500 text-white', style: { borderRadius: '12px' } },
+                        { label: 'UI/UX Design', className: 'bg-teal-500 text-white', style: { borderRadius: '12px' } }
                     ]
                 }
             ]
@@ -98,7 +70,7 @@ export default function ColoredDemo() {
             className: 'bg-indigo-500 text-white',
             style: { borderRadius: '12px' },
             data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                image: '/images/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -109,7 +81,7 @@ export default function ColoredDemo() {
                     className: 'bg-purple-500 text-white',
                     style: { borderRadius: '12px' },
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        image: '/images/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -132,7 +104,7 @@ export default function ColoredDemo() {
                     className: 'bg-teal-500 text-white',
                     style: { borderRadius: '12px' },
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        image: '/images/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },
@@ -189,7 +161,7 @@ export default function ColoredDemo() {
             className: 'bg-indigo-500 text-white',
             style: { borderRadius: '12px' },
             data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
+                image: '/images/avatar/amyelsner.png',
                 name: 'Amy Elsner',
                 title: 'CEO'
             },
@@ -200,7 +172,7 @@ export default function ColoredDemo() {
                     className: 'bg-purple-500 text-white',
                     style: { borderRadius: '12px' },
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
+                        image: '/images/avatar/annafali.png',
                         name: 'Anna Fali',
                         title: 'CMO'
                     },
@@ -223,7 +195,7 @@ export default function ColoredDemo() {
                     className: 'bg-teal-500 text-white',
                     style: { borderRadius: '12px' },
                     data: {
-                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
+                        image: '/images/avatar/stephenshaw.png',
                         name: 'Stephen Shaw',
                         title: 'CTO'
                     },

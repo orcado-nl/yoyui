@@ -1,6 +1,6 @@
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
-import PrimeReact, { PrimeReactContext } from '@/components/lib/api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '@/components/lib/api/Api';
 import { Dialog } from '@/components/lib/dialog/Dialog';
 import { Dock } from '@/components/lib/dock/Dock';
 import { Galleria } from '@/components/lib/galleria/Galleria';
@@ -14,6 +14,34 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { NodeService } from '../../../service/NodeService';
 import { PhotoService } from '../../../service/PhotoService';
 
+function renderSonarNested1Element() {
+    return <img alt="Settings" src="/images/dock/github.svg" width="100%" />;
+}
+
+function renderSonarNested1() {
+    return <img alt="Finder" src="/images/dock/finder.svg" width="100%" />;
+}
+
+function renderSonarNested2() {
+    return <img alt="Finder" src="/images/dock/terminal.svg" width="100%" />;
+}
+
+function renderSonarNested3() {
+    return <img alt="App Store" src="/images/dock/appstore.svg" width="100%" />;
+}
+
+function renderSonarNested4() {
+    return <img alt="Finder" src="/images/dock/safari.svg" width="100%" />;
+}
+
+function renderSonarNested5() {
+    return <img alt="Photos" src="/images/dock/photos.svg" width="100%" />;
+}
+
+function renderSonarNested6() {
+    return <img alt="trash" src="/images/dock/trash.png" width="100%" />;
+}
+
 export function AdvancedDoc(props) {
     const [displayTerminal, setDisplayTerminal] = useState(false);
     const [displayFinder, setDisplayFinder] = useState(false);
@@ -23,50 +51,46 @@ export function AdvancedDoc(props) {
     const toast2 = useRef(null);
     const galleria = useRef(null);
     const context = useContext(PrimeReactContext);
-
     const dockItems = [
         {
             label: 'Finder',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />,
+            icon: () => renderSonarNested1(),
             command: () => {
                 setDisplayFinder(true);
             }
         },
         {
             label: 'Terminal',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/terminal.svg" width="100%" />,
+            icon: () => renderSonarNested2(),
             command: () => {
                 setDisplayTerminal(true);
             }
         },
         {
             label: 'App Store',
-            icon: () => <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />,
+            icon: () => renderSonarNested3(),
             command: () => {
                 toast2.current.show({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
             }
         },
         {
             label: 'Safari',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/safari.svg" width="100%" />,
+            icon: () => renderSonarNested4(),
             command: () => {
                 toast2.current.show({ severity: 'warn', summary: 'Safari has stopped working' });
             }
         },
         {
             label: 'Photos',
-            icon: () => <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />,
+            icon: () => renderSonarNested5(),
             command: () => {
                 galleria.current.show();
             }
         },
-        {
-            label: 'GitHub',
-            icon: () => <img alt="Settings" src="https://primefaces.org/cdn/primereact/images/dock/github.svg" width="100%" />
-        },
+        { label: 'GitHub', icon: () => renderSonarNested1Element() },
         {
             label: 'Trash',
-            icon: () => <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />,
+            icon: () => renderSonarNested6(),
             command: () => {
                 toast.current.show({ severity: 'info', summary: 'Empty Trash' });
             }
@@ -74,10 +98,7 @@ export function AdvancedDoc(props) {
     ];
 
     const menubarItems = [
-        {
-            label: 'Finder',
-            className: 'menubar-root'
-        },
+        { label: 'Finder', className: 'menubar-root' },
         {
             label: 'File',
             items: [
@@ -85,79 +106,35 @@ export function AdvancedDoc(props) {
                     label: 'New',
                     icon: 'pi pi-fw pi-plus',
                     items: [
-                        {
-                            label: 'Bookmark',
-                            icon: 'pi pi-fw pi-bookmark'
-                        },
-                        {
-                            label: 'Video',
-                            icon: 'pi pi-fw pi-video'
-                        }
+                        { label: 'Bookmark', icon: 'pi pi-fw pi-bookmark' },
+                        { label: 'Video', icon: 'pi pi-fw pi-video' }
                     ]
                 },
-                {
-                    label: 'Delete',
-                    icon: 'pi pi-fw pi-trash'
-                },
-                {
-                    separator: true
-                },
-                {
-                    label: 'Export',
-                    icon: 'pi pi-fw pi-external-link'
-                }
+                { label: 'Delete', icon: 'pi pi-fw pi-trash' },
+                { separator: true },
+                { label: 'Export', icon: 'pi pi-fw pi-external-link' }
             ]
         },
         {
             label: 'Edit',
             items: [
-                {
-                    label: 'Left',
-                    icon: 'pi pi-fw pi-align-left'
-                },
-                {
-                    label: 'Right',
-                    icon: 'pi pi-fw pi-align-right'
-                },
-                {
-                    label: 'Center',
-                    icon: 'pi pi-fw pi-align-center'
-                },
-                {
-                    label: 'Justify',
-                    icon: 'pi pi-fw pi-align-justify'
-                }
+                { label: 'Left', icon: 'pi pi-fw pi-align-left' },
+                { label: 'Right', icon: 'pi pi-fw pi-align-right' },
+                { label: 'Center', icon: 'pi pi-fw pi-align-center' },
+                { label: 'Justify', icon: 'pi pi-fw pi-align-justify' }
             ]
         },
         {
             label: 'Users',
             items: [
-                {
-                    label: 'New',
-                    icon: 'pi pi-fw pi-user-plus'
-                },
-                {
-                    label: 'Delete',
-                    icon: 'pi pi-fw pi-user-minus'
-                },
+                { label: 'New', icon: 'pi pi-fw pi-user-plus' },
+                { label: 'Delete', icon: 'pi pi-fw pi-user-minus' },
                 {
                     label: 'Search',
                     icon: 'pi pi-fw pi-users',
                     items: [
-                        {
-                            label: 'Filter',
-                            icon: 'pi pi-fw pi-filter',
-                            items: [
-                                {
-                                    label: 'Print',
-                                    icon: 'pi pi-fw pi-print'
-                                }
-                            ]
-                        },
-                        {
-                            icon: 'pi pi-fw pi-bars',
-                            label: 'List'
-                        }
+                        { label: 'Filter', icon: 'pi pi-fw pi-filter', items: [{ label: 'Print', icon: 'pi pi-fw pi-print' }] },
+                        { icon: 'pi pi-fw pi-bars', label: 'List' }
                     ]
                 }
             ]
@@ -169,46 +146,20 @@ export function AdvancedDoc(props) {
                     label: 'Edit',
                     icon: 'pi pi-fw pi-pencil',
                     items: [
-                        {
-                            label: 'Save',
-                            icon: 'pi pi-fw pi-calendar-plus'
-                        },
-                        {
-                            label: 'Delete',
-                            icon: 'pi pi-fw pi-calendar-minus'
-                        }
+                        { label: 'Save', icon: 'pi pi-fw pi-calendar-plus' },
+                        { label: 'Delete', icon: 'pi pi-fw pi-calendar-minus' }
                     ]
                 },
-                {
-                    label: 'Archive',
-                    icon: 'pi pi-fw pi-calendar-times',
-                    items: [
-                        {
-                            label: 'Remove',
-                            icon: 'pi pi-fw pi-calendar-minus'
-                        }
-                    ]
-                }
+                { label: 'Archive', icon: 'pi pi-fw pi-calendar-times', items: [{ label: 'Remove', icon: 'pi pi-fw pi-calendar-minus' }] }
             ]
         },
-        {
-            label: 'Quit'
-        }
+        { label: 'Quit' }
     ];
 
     const responsiveOptions = [
-        {
-            breakpoint: '1024px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 2
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+        { breakpoint: '1024px', numVisible: 3 },
+        { breakpoint: '768px', numVisible: 2 },
+        { breakpoint: '560px', numVisible: 1 }
     ];
 
     const itemTemplate = (item) => {
@@ -230,7 +181,7 @@ export function AdvancedDoc(props) {
                 break;
 
             case 'random':
-                response = Math.floor(Math.random() * 100);
+                response = crypto.getRandomValues(new Uint32Array(1))[0] % 100;
                 break;
 
             case 'clear':
@@ -258,7 +209,7 @@ export function AdvancedDoc(props) {
         if (context) {
             context.setAppendTo('self');
         } else {
-            PrimeReact.appendTo = 'self';
+            PrimeReactConfig.appendTo = 'self';
         }
 
         return () => {
@@ -268,7 +219,7 @@ export function AdvancedDoc(props) {
             if (context) {
                 context.setAppendTo(null);
             } else {
-                PrimeReact.appendTo = null;
+                PrimeReactConfig.appendTo = null;
             }
         };
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -284,6 +235,7 @@ export function AdvancedDoc(props) {
             <i className="pi pi-bars" />
         </React.Fragment>
     );
+
     const code = {
         basic: `
 <Tooltip className="dark-tooltip" target=".dock-advanced .p-dock-action" my="center+15 bottom-15" at="center top" showDelay={150} />
@@ -329,46 +281,46 @@ export default function AdvanceDemo() {
     const dockItems = [
         {
             label: 'Finder',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/finder.svg" width="100%" />,
             command: () => {
                 setDisplayFinder(true);
             }
         },
         {
             label: 'Terminal',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/terminal.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/terminal.svg" width="100%" />,
             command: () => {
                 setDisplayTerminal(true);
             }
         },
         {
             label: 'App Store',
-            icon: () => <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />,
+            icon: () => <img alt="App Store" src="/images/dock/appstore.svg" width="100%" />,
             command: () => {
                 toast2.current.show({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
             }
         },
         {
             label: 'Safari',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/safari.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/safari.svg" width="100%" />,
             command: () => {
                 toast2.current.show({ severity: 'warn', summary: 'Safari has stopped working' });
             }
         },
         {
             label: 'Photos',
-            icon: () => <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />,
+            icon: () => <img alt="Photos" src="/images/dock/photos.svg" width="100%" />,
             command: () => {
                 galleria.current.show();
             }
         },
         {
             label: 'GitHub',
-            icon: () => <img alt="Settings" src="https://primefaces.org/cdn/primereact/images/dock/github.svg" width="100%" />
+            icon: () => <img alt="Settings" src="/images/dock/github.svg" width="100%" />
         },
         {
             label: 'Trash',
-            icon: () => <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />,
+            icon: () => <img alt="trash" src="/images/dock/trash.png" width="100%" />,
             command: () => {
                 toast.current.show({ severity: 'info', summary: 'Empty Trash' });
             }
@@ -532,7 +484,7 @@ export default function AdvanceDemo() {
                 break;
 
             case 'random':
-                response = Math.floor(Math.random() * 100);
+                response = (crypto.getRandomValues(new Uint32Array(1))[0] % 100);
                 break;
 
             case 'clear':
@@ -627,46 +579,46 @@ export default function AdvanceDemo() {
     const dockItems = [
         {
             label: 'Finder',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/finder.svg" width="100%" />,
             command: () => {
                 setDisplayFinder(true);
             }
         },
         {
             label: 'Terminal',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/terminal.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/terminal.svg" width="100%" />,
             command: () => {
                 setDisplayTerminal(true);
             }
         },
         {
             label: 'App Store',
-            icon: () => <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />,
+            icon: () => <img alt="App Store" src="/images/dock/appstore.svg" width="100%" />,
             command: () => {
                 toast2.current.show({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
             }
         },
         {
             label: 'Safari',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/safari.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/safari.svg" width="100%" />,
             command: () => {
                 toast2.current.show({ severity: 'warn', summary: 'Safari has stopped working' });
             }
         },
         {
             label: 'Photos',
-            icon: () => <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />,
+            icon: () => <img alt="Photos" src="/images/dock/photos.svg" width="100%" />,
             command: () => {
                 galleria.current.show();
             }
         },
         {
             label: 'GitHub',
-            icon: () => <img alt="Settings" src="https://primefaces.org/cdn/primereact/images/dock/github.svg" width="100%" />
+            icon: () => <img alt="Settings" src="/images/dock/github.svg" width="100%" />
         },
         {
             label: 'Trash',
-            icon: () => <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />,
+            icon: () => <img alt="trash" src="/images/dock/trash.png" width="100%" />,
             command: () => {
                 toast.current.show({ severity: 'info', summary: 'Empty Trash' });
             }
@@ -830,7 +782,7 @@ export default function AdvanceDemo() {
                 break;
 
             case 'random':
-                response = Math.floor(Math.random() * 100);
+                response = (crypto.getRandomValues(new Uint32Array(1))[0] % 100);
                 break;
 
             case 'clear':
@@ -905,7 +857,7 @@ export default function AdvanceDemo() {
     width: 100%;
     height: 450px;
     position: relative;
-    background-image: url('https://primefaces.org/cdn/primereact/images/dock/window.jpg');
+    background-image: url('/images/dock/window.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -1010,8 +962,8 @@ export default function AdvanceDemo() {
 
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

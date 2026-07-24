@@ -26,8 +26,7 @@ export default function MyApp({ Component }) {
         <>
             <DocSectionText {...props}>
                 <p>
-                    To establish the default locale for your entire application, you can utilize the
-                    <i> PrimeReactProvider</i>.
+                    To establish the default locale for your entire application, you can utilize the <i>PrimeReactProvider</i>.
                 </p>
 
                 <p>
@@ -50,8 +49,7 @@ export default function MyApp({ Component }) {
                 </ul>
 
                 <p>
-                    This means that once <b>PrimeReactProvider</b> is present, calling
-                    <code> locale()</code> alone is not sufficient. The locale must be provided explicitly through the provider.
+                    This means that once <b>PrimeReactProvider</b> is present, calling <code>locale()</code> alone is not sufficient. The locale must be provided explicitly through the provider.
                 </p>
             </DocSectionText>
 

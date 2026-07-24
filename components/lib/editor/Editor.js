@@ -19,9 +19,7 @@ export const Editor = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = EditorBase.getProps(inProps, context);
-        const { ptm, cx, isUnstyled } = EditorBase.setMetaData({
-            props
-        });
+        const { ptm, cx, isUnstyled } = EditorBase.setMetaData({ props });
 
         useHandleStyle(EditorBase.css.styles, isUnstyled, { name: 'editor' });
         const elementRef = React.useRef(null);
@@ -29,21 +27,11 @@ export const Editor = React.memo(
         const toolbarRef = React.useRef(null);
         const quill = React.useRef(null);
         const isQuillLoaded = React.useRef(false);
-
         const [quillCreated, setQuillCreated] = React.useState(false);
 
         useMountEffect(() => {
             if (!isQuillLoaded.current) {
-                const configuration = {
-                    modules: {
-                        toolbar: props.showHeader ? toolbarRef.current : false,
-                        ...props.modules
-                    },
-                    placeholder: props.placeholder,
-                    readOnly: props.readOnly,
-                    theme: props.theme,
-                    formats: props.formats
-                };
+                const configuration = { modules: { toolbar: props.showHeader ? toolbarRef.current : false, ...props.modules }, placeholder: props.placeholder, readOnly: props.readOnly, theme: props.theme, formats: props.formats };
 
                 if (QuillJS) {
                     // GitHub #3097 loaded by script only
@@ -77,16 +65,14 @@ export const Editor = React.memo(
 
             if (html === '<p><br></p>') {
                 html = null;
-            }
+            } // GitHub #2271 prevent infinite loop on clipboard paste of HTML
 
-            // GitHub #2271 prevent infinite loop on clipboard paste of HTML
             if (source === 'api') {
                 const htmlValue = contentRef.current.children[0];
                 const editorValue = document.createElement('div');
 
-                editorValue.innerHTML = props.value || '';
+                editorValue.innerHTML = props.value || ''; // this is necessary because Quill rearranged style elements
 
-                // this is necessary because Quill rearranged style elements
                 if (DomHandler.isEqualElement(htmlValue, editorValue)) {
                     return;
                 }
@@ -101,22 +87,13 @@ export const Editor = React.memo(
             }
 
             if (props.onTextChange) {
-                props.onTextChange({
-                    htmlValue: html,
-                    textValue: text,
-                    delta: delta,
-                    source: source
-                });
+                props.onTextChange({ htmlValue: html, textValue: text, delta: delta, source: source });
             }
         };
 
         const onSelectionChange = (range, oldRange, source) => {
             if (props.onSelectionChange) {
-                props.onSelectionChange({
-                    range: range,
-                    oldRange: oldRange,
-                    source: source
-                });
+                props.onSelectionChange({ range: range, oldRange: oldRange, source: source });
             }
         };
 
@@ -128,12 +105,7 @@ export const Editor = React.memo(
             quill.current = quillInstance;
 
             if (initValue.current) {
-                quillInstance.setContents(
-                    quillInstance.clipboard.convert({
-                        html: initValue.current,
-                        text: ''
-                    })
-                );
+                quillInstance.setContents(quillInstance.clipboard.convert({ html: initValue.current, text: '' }));
             }
 
             setQuillCreated(true);
@@ -150,46 +122,26 @@ export const Editor = React.memo(
                 };
             }
         });
-
         useUpdateEffect(() => {
             if (quillCreated) {
-                if (quill.current && quill.current.getModule('toolbar')) {
-                    props.onLoad && props.onLoad(quill.current);
+                if (quill.current?.getModule('toolbar')) {
+                    props.onLoad?.(quill.current);
                 }
             }
         }, [quillCreated]);
-
         useUpdateEffect(() => {
             if (quill.current && !quill.current.hasFocus()) {
                 if (props.value) {
-                    quill.current.setContents(
-                        quill.current.clipboard.convert({
-                            html: props.value,
-                            text: ''
-                        })
-                    );
+                    quill.current.setContents(quill.current.clipboard.convert({ html: props.value, text: '' }));
                 } else {
                     quill.current.setText('');
                 }
             }
         }, [props.value]);
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getQuill: () => quill.current,
-            getElement: () => elementRef.current,
-            getContent: () => contentRef.current,
-            getToolbar: () => toolbarRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, getQuill: () => quill.current, getElement: () => elementRef.current, getContent: () => contentRef.current, getToolbar: () => toolbarRef.current }));
 
         const createToolbarHeader = () => {
-            const toolbarProps = mergeProps(
-                {
-                    ref: toolbarRef,
-                    className: cx('toolbar')
-                },
-                ptm('toolbar')
-            );
+            const toolbarProps = mergeProps({ ref: toolbarRef, className: cx('toolbar') }, ptm('toolbar'));
 
             if (props.showHeader === false) {
                 return null;
@@ -198,7 +150,6 @@ export const Editor = React.memo(
             }
 
             const getMergeProps = (params, key) => mergeProps(params && { ...params }, ptm(key));
-
             const formatsProps = mergeProps({ className: 'ql-formats' }, ptm('formats'));
 
             return (
@@ -247,22 +198,9 @@ export const Editor = React.memo(
         };
 
         const header = createToolbarHeader();
-        const contentProps = mergeProps(
-            {
-                ref: contentRef,
-                className: cx('content'),
-                style: props.style
-            },
-            ptm('content')
-        );
+        const contentProps = mergeProps({ ref: contentRef, className: cx('content'), style: props.style }, ptm('content'));
         const content = <div {...contentProps} />;
-        const rootProps = mergeProps(
-            {
-                className: classNames(props.className, cx('root'))
-            },
-            EditorBase.getOtherProps(props),
-            ptm('root')
-        );
+        const rootProps = mergeProps({ className: classNames(props.className, cx('root')) }, EditorBase.getOtherProps(props), ptm('root'));
 
         return (
             <div id={props.id} ref={elementRef} {...rootProps}>
@@ -272,5 +210,4 @@ export const Editor = React.memo(
         );
     })
 );
-
 Editor.displayName = 'Editor';

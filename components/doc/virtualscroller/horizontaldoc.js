@@ -8,9 +8,7 @@ export function HorizontalDoc(props) {
     const [items] = useState(Array.from({ length: 100000 }).map((_, i) => `Item #${i}`));
 
     const itemTemplate = (item, options) => {
-        const className = classNames('flex align-items-center p-2', {
-            'surface-hover': options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { 'surface-hover': options.odd });
 
         return (
             <div className={className} style={{ width: options.props.itemSize + 'px', writingMode: 'vertical-lr' }}>

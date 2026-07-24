@@ -17,14 +17,8 @@ export function LazyLoadDoc(props) {
         page: 1,
         sortField: null,
         sortOrder: null,
-        filters: {
-            name: { value: '', matchMode: 'contains' },
-            'country.name': { value: '', matchMode: 'contains' },
-            company: { value: '', matchMode: 'contains' },
-            'representative.name': { value: '', matchMode: 'contains' }
-        }
+        filters: { name: { value: '', matchMode: 'contains' }, 'country.name': { value: '', matchMode: 'contains' }, company: { value: '', matchMode: 'contains' }, 'representative.name': { value: '', matchMode: 'contains' } }
     });
-
     let networkTimeout = null;
 
     useEffect(() => {
@@ -36,9 +30,8 @@ export function LazyLoadDoc(props) {
 
         if (networkTimeout) {
             clearTimeout(networkTimeout);
-        }
+        } //imitate delay of a backend call
 
-        //imitate delay of a backend call
         networkTimeout = setTimeout(
             () => {
                 CustomerService.getCustomers({ lazyEvent: JSON.stringify(lazyState) }).then((data) => {
@@ -47,7 +40,7 @@ export function LazyLoadDoc(props) {
                     setLoading(false);
                 });
             },
-            Math.random() * 1000 + 250
+            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
         );
     };
 
@@ -88,7 +81,7 @@ export function LazyLoadDoc(props) {
     const representativeBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${rowData.representative.image}`} width={32} />
+                <img alt={rowData.representative.name} src={`/images/avatar/${rowData.representative.image}`} width={32} />
                 <span>{rowData.representative.name}</span>
             </div>
         );
@@ -97,7 +90,7 @@ export function LazyLoadDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -163,7 +156,7 @@ export default function LazyLoadDemo() {
                 setCustomers(data.customers);
                 setLoading(false);
             });
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const onPage = (event) => {
@@ -203,7 +196,7 @@ export default function LazyLoadDemo() {
     const representativeBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${rowData.representative.image}\`} width={32} />
+                <img alt={rowData.representative.name} src={\`/images/avatar/\${rowData.representative.image}\`} width={32} />
                 <span>{rowData.representative.name}</span>
             </div>
         );
@@ -212,7 +205,7 @@ export default function LazyLoadDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -314,7 +307,7 @@ export default function LazyLoadDemo() {
                 setCustomers(data.customers);
                 setLoading(false);
             });
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const onPage = (event: DataTablePageEvent) => {
@@ -354,7 +347,7 @@ export default function LazyLoadDemo() {
     const representativeBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${rowData.representative.image}\`} width={32} />
+                <img alt={rowData.representative.name} src={\`/images/avatar/\${rowData.representative.image}\`} width={32} />
                 <span>{rowData.representative.name}</span>
             </div>
         );
@@ -363,7 +356,7 @@ export default function LazyLoadDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );

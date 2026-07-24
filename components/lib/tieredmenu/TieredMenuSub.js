@@ -11,12 +11,7 @@ export const TieredMenuSub = React.memo(
         const { ptm, cx, sx } = props;
 
         const getPTOptions = (item, key) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                context: {
-                    active: isItemActive(item)
-                }
-            });
+            return ptm(key, { hostName: props.hostName, context: { active: isItemActive(item) } });
         };
 
         const position = () => {
@@ -26,7 +21,7 @@ export const TieredMenuSub = React.memo(
                 const viewport = DomHandler.getViewport();
                 const sublistWidth = elementRef.current.offsetParent ? elementRef.current.offsetWidth : DomHandler.getHiddenElementOuterWidth(elementRef.current);
                 const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-                const top = parseInt(containerOffset.top, 10) + elementRef.current.offsetHeight - DomHandler.getWindowScrollTop();
+                const top = Number.parseInt(containerOffset.top, 10) + elementRef.current.offsetHeight - DomHandler.getWindowScrollTop();
 
                 if (top > viewport.height) {
                     elementRef.current.style.top = viewport.height - top + 'px';
@@ -34,7 +29,7 @@ export const TieredMenuSub = React.memo(
                     elementRef.current.style.top = '0px';
                 }
 
-                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+                if (Number.parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
                     DomHandler.addClass(elementRef.current, 'p-submenu-list-flipped');
                 }
             }
@@ -50,13 +45,10 @@ export const TieredMenuSub = React.memo(
             }
 
             if (item.command) {
-                item.command({
-                    originalEvent: event,
-                    item: item
-                });
+                item.command({ originalEvent: event, item: item });
             }
 
-            props.onItemClick && props.onItemClick({ originalEvent: event, processedItem });
+            props.onItemClick?.({ originalEvent: event, processedItem });
 
             if (!item.url) {
                 event.preventDefault();
@@ -65,7 +57,7 @@ export const TieredMenuSub = React.memo(
         };
 
         const getItemId = (processedItem) => {
-            if (processedItem.item && processedItem.item.id) {
+            if (processedItem.item?.id) {
                 return processedItem.item.id;
             }
 
@@ -73,7 +65,7 @@ export const TieredMenuSub = React.memo(
         };
 
         const getItemProp = (processedItem, name, params) => {
-            return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+            return processedItem?.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
         };
 
         const isItemActive = (processedItem) => {
@@ -97,7 +89,7 @@ export const TieredMenuSub = React.memo(
         };
 
         const onItemMouseEnter = (event, processedItem) => {
-            props.onItemMouseEnter && props.onItemMouseEnter({ originalEvent: event, processedItem });
+            props.onItemMouseEnter?.({ originalEvent: event, processedItem });
         };
 
         const getAriaSetSize = () => {
@@ -113,21 +105,11 @@ export const TieredMenuSub = React.memo(
                 position();
             }
         }, [props.parentActive]);
-
-        React.useImperativeHandle(ref, () => ({
-            getElement: () => elementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ getElement: () => elementRef.current }));
 
         const createSeparator = (index) => {
             const key = 'separator_' + index;
-
-            const separatorProps = mergeProps(
-                {
-                    className: cx('separator'),
-                    role: 'separator'
-                },
-                ptm('separator', { hostName: props.hostName })
-            );
+            const separatorProps = mergeProps({ className: cx('separator'), role: 'separator' }, ptm('separator', { hostName: props.hostName }));
 
             return <li {...separatorProps} key={key} />;
         };
@@ -178,40 +160,15 @@ export const TieredMenuSub = React.memo(
             const grouped = isItemGroup(processedItem);
             const linkClassName = classNames('p-menuitem-link');
             const iconClassName = classNames('p-menuitem-icon', _icon);
-            const iconProps = mergeProps(
-                {
-                    className: classNames(item.icon, 'p-menuitem-icon', 'icon')
-                },
-                getPTOptions(processedItem, 'icon')
-            );
+            const iconProps = mergeProps({ className: classNames(item.icon, 'p-menuitem-icon', 'icon') }, getPTOptions(processedItem, 'icon'));
             const icon = IconUtils.getJSXIcon(_icon, { ...iconProps }, { props: props.menuProps });
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                getPTOptions(processedItem, 'label')
-            );
+            const labelProps = mergeProps({ className: cx('label') }, getPTOptions(processedItem, 'label'));
             const label = item.label && <span {...labelProps}>{item.label}</span>;
             const submenuIconClassName = 'p-submenu-icon';
-            const submenuIconProps = mergeProps(
-                {
-                    className: cx('submenuIcon')
-                },
-                getPTOptions(processedItem, 'submenuIcon')
-            );
+            const submenuIconProps = mergeProps({ className: cx('submenuIcon') }, getPTOptions(processedItem, 'submenuIcon'));
             const submenuIcon = grouped && IconUtils.getJSXIcon(props.submenuIcon || <AngleRightIcon {...submenuIconProps} />, { ...submenuIconProps }, { props: props.menuProps });
             const submenu = createSubmenu(processedItem, index);
-            const actionProps = mergeProps(
-                {
-                    href: url || '#',
-                    tabIndex: '-1',
-                    onFocus: (event) => event.stopPropagation(),
-                    className: cx('action'),
-                    target: target
-                },
-                getPTOptions(processedItem, 'action')
-            );
-
+            const actionProps = mergeProps({ href: url || '#', tabIndex: '-1', onFocus: (event) => event.stopPropagation(), className: cx('action'), target: target }, getPTOptions(processedItem, 'action'));
             let content = (
                 <a {...actionProps}>
                     {icon}
@@ -222,29 +179,12 @@ export const TieredMenuSub = React.memo(
             );
 
             if (item.template) {
-                const defaultContentOptions = {
-                    className: linkClassName,
-                    labelClassName: 'p-menuitem-text',
-                    iconClassName,
-                    submenuIconClassName,
-                    element: content,
-                    props,
-                    active: active,
-                    disabled: disabled
-                };
+                const defaultContentOptions = { className: linkClassName, labelClassName: 'p-menuitem-text', iconClassName, submenuIconClassName, element: content, props, active: active, disabled: disabled };
 
                 content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
             }
 
-            const contentProps = mergeProps(
-                {
-                    onClick: (event) => onItemClick(event, processedItem, index),
-                    onMouseEnter: (event) => onItemMouseEnter(event, processedItem),
-                    className: cx('content')
-                },
-                getPTOptions(processedItem, 'content')
-            );
-
+            const contentProps = mergeProps({ onClick: (event) => onItemClick(event, processedItem), onMouseEnter: (event) => onItemMouseEnter(event, processedItem), className: cx('content') }, getPTOptions(processedItem, 'content'));
             const menuitemProps = mergeProps(
                 {
                     id: key,

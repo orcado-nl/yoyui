@@ -2,7 +2,7 @@
  *
  * Dialog is a container to display content in an overlay window.
  *
- * [Live Demo](https://www.primereact.org/dialog)
+ * [Live Demo](https://yoyui.orcado.dev/dialog)
  *
  * @module dialog
  *
@@ -440,13 +440,13 @@ export interface DialogProps {
 }
 
 /**
- * **PrimeReact - Dialog**
+ * **YoYui - Dialog**
  *
  * _Dialog is a container to display content in an overlay window._
  *
- * [Live Demo](https://www.primereact.org/dialog/)
+ * [Live Demo](https://yoyui.orcado.dev/dialog/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

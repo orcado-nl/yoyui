@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -108,8 +109,42 @@ const styles = `
 
 const inlineStyles = {
     root: ({ props }) => ({
-        justifyContent: props.layout === 'horizontal' ? (props.align === 'center' || props.align === null ? 'center' : props.align === 'left' ? 'flex-start' : props.align === 'right' ? 'flex-end' : null) : null,
-        alignItems: props.layout === 'vertical' ? (props.align === 'center' || props.align === null ? 'center' : props.align === 'top' ? 'flex-start' : props.align === 'bottom' ? 'flex-end' : null) : null
+        justifyContent:
+            props.layout === 'horizontal'
+                ? resolveConditional(
+                      props.align === 'center' || props.align === null,
+                      () => 'center',
+                      () =>
+                          resolveConditional(
+                              props.align === 'left',
+                              () => 'flex-start',
+                              () =>
+                                  resolveConditional(
+                                      props.align === 'right',
+                                      () => 'flex-end',
+                                      () => null
+                                  )
+                          )
+                  )
+                : null,
+        alignItems:
+            props.layout === 'vertical'
+                ? resolveConditional(
+                      props.align === 'center' || props.align === null,
+                      () => 'center',
+                      () =>
+                          resolveConditional(
+                              props.align === 'top',
+                              () => 'flex-start',
+                              () =>
+                                  resolveConditional(
+                                      props.align === 'bottom',
+                                      () => 'flex-end',
+                                      () => null
+                                  )
+                          )
+                  )
+                : null
     })
 };
 

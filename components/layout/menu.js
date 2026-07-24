@@ -9,7 +9,7 @@ const Menu = memo((props) => {
     const menu = MenuData.data.map((data) => {
         const rootItem = { ...data };
 
-        rootItem.expanded = rootItem.children && rootItem.children.some((item) => item.to === router.pathname || (item.children && item.children.some((it) => it.to === router.pathname)));
+        rootItem.expanded = rootItem.children?.some((item) => item.to === router.pathname || item.children?.some((it) => it.to === router.pathname));
 
         return rootItem;
     });
@@ -25,7 +25,6 @@ const Menu = memo((props) => {
     useEffect(() => {
         scrollToActiveItem();
     }, []);
-
     const sidebarClassName = classNames('layout-sidebar', { active: props.active });
 
     return (
@@ -33,7 +32,7 @@ const Menu = memo((props) => {
             <nav>
                 <ol className="layout-menu">
                     {menu.map((item, index) => (
-                        <MenuItem menuItem={item} root={true} key={`_root${index}`} />
+                        <MenuItem menuItem={item} root={true} key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)} />
                     ))}
                 </ol>
             </nav>

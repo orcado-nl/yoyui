@@ -43,16 +43,12 @@ export function AdvancedFilterDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -75,11 +71,7 @@ export function AdvancedFilterDoc(props) {
     };
 
     const formatDate = (value) => {
-        return value.toLocaleDateString('en-US', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        return value.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
 
     const formatCurrency = (value) => {
@@ -95,7 +87,6 @@ export function AdvancedFilterDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
         setGlobalFilterValue(value);
     };
@@ -130,7 +121,7 @@ export function AdvancedFilterDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -153,7 +144,7 @@ export function AdvancedFilterDoc(props) {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
+                <img alt={representative.name} src={`/images/avatar/${representative.image}`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -166,7 +157,7 @@ export function AdvancedFilterDoc(props) {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+                <img alt={option.name} src={`/images/avatar/${option.image}`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -232,7 +223,6 @@ export function AdvancedFilterDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id" 
@@ -381,7 +371,7 @@ export default function AdvancedFilterDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -404,7 +394,7 @@ export default function AdvancedFilterDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -417,7 +407,7 @@ export default function AdvancedFilterDemo() {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -677,7 +667,7 @@ export default function AdvancedFilterDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -700,7 +690,7 @@ export default function AdvancedFilterDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -713,7 +703,7 @@ export default function AdvancedFilterDemo() {
     const representativesItemTemplate = (option: Representative) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -858,6 +848,7 @@ export default function AdvancedFilterDemo() {
                             filterApply={filterApplyTemplate}
                             filterFooter={filterFooterTemplate}
                         />
+
                         <Column
                             header="Agent"
                             filterField="representative"
@@ -868,6 +859,7 @@ export default function AdvancedFilterDemo() {
                             filter
                             filterElement={representativeFilterTemplate}
                         />
+
                         <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate} filter filterElement={dateFilterTemplate} />
                         <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />
                         <Column field="status" header="Status" filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusFilterTemplate} />

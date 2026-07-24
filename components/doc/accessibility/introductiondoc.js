@@ -30,7 +30,7 @@ export function IntroductionDoc(props) {
                 and{' '}
                 <a href="https://www.chromevox.com" alt="ChromeVox Reader">
                     ChromeVox
-                </a>
+                </a>{' '}
                 .
             </p>
 

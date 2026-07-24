@@ -20,7 +20,7 @@ export function TailwindDoc(props) {
     return (
         <DocSectionText {...props}>
             <p>
-                Tailwind CSS includes a reset utility in base called&nbsp;
+                Tailwind CSS includes a reset utility in base called&nbsp;{' '}
                 <a href="https://tailwindcss.com/docs/preflight" target="_blank" rel="noopener noreferrer">
                     preflight
                 </a>

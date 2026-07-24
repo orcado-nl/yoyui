@@ -4,7 +4,7 @@ import { Button } from '@/components/lib/button/Button';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 

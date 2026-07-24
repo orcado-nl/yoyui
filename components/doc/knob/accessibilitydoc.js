@@ -18,8 +18,8 @@ export function AccessibilityDoc() {
         <DocSectionText id="accessibility" label="Accessibility">
             <h3>Screen Reader</h3>
             <p>
-                Knob element component uses <i>slider</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined using
-                <i>aria-labelledby</i> and <i>aria-label</i> props.
+                Knob element component uses <i>slider</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined using <i>aria-labelledby</i> and{' '}
+                <i>aria-label</i> props.
             </p>
 
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

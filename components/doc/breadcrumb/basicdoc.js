@@ -4,7 +4,7 @@ import { BreadCrumb } from '@/components/lib/breadcrumb/BreadCrumb';
 
 export function BasicDoc(props) {
     const items = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
-    const home = { icon: 'pi pi-home', url: 'https://primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     const code = {
         basic: `
@@ -16,7 +16,7 @@ import { BreadCrumb } from 'primereact/breadcrumb';
 
 export default function BasicDemo() {
     const items = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
-    const home = { icon: 'pi pi-home', url: 'https://primereact.org' }
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' }
 
     return (
         <BreadCrumb model={items} home={home} />
@@ -30,7 +30,7 @@ import { MenuItem } from 'primereact/menuitem';
 
 export default function BasicDemo() {
     const items: MenuItem[] = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
-    const home: MenuItem = { icon: 'pi pi-home', url: 'https://primereact.org' }
+    const home: MenuItem = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' }
 
     return (
         <BreadCrumb model={items} home={home} />

@@ -8,7 +8,7 @@ export function ForceSelectionDoc(props) {
     const [items, setItems] = useState([]);
 
     const search = (event) => {
-        setItems([...Array(10).keys()].map((item) => event.query + '-' + item));
+        setItems([...new Array(10).keys()].map((item) => event.query + '-' + item));
     };
 
     const code = {

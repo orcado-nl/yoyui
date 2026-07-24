@@ -34,7 +34,7 @@ export function CustomContentDoc(props) {
                 () => {setActiveIndex(index); galleria.current.show()}
             } />
             return (
-                <div className="col-3" key={index}>
+                <div className="col-3" key={image.thumbnailImageSrc}>
                     {imgEl}
                 </div>
             )
@@ -76,7 +76,7 @@ export default function CustomContentDemo() {
                             () => {setActiveIndex(index); galleria.current.show()}
                         } />
                         return (
-                            <div className="col-3" key={index}>
+                            <div className="col-3" key={image.thumbnailImageSrc}>
                                 {imgEl}
                             </div>
                         )
@@ -121,7 +121,7 @@ export default function CustomContentDemo() {
                             () => {setActiveIndex(index); galleria.current.show()}
                         } />
                         return (
-                            <div className="col-4" key={index}>
+                            <div className="col-4" key={image.thumbnailImageSrc}>
                                 {imgEl}
                             </div>
                         )
@@ -135,8 +135,8 @@ export default function CustomContentDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
@@ -166,23 +166,25 @@ export default function CustomContentDemo() {
                     item={itemTemplate}
                     thumbnail={thumbnailTemplate}
                 />
+
                 <div className="grid" style={{ maxWidth: '400px' }}>
-                    {images &&
-                        images.map((image, index) => {
-                            return (
-                                <div className="col-4" key={index}>
-                                    <img
-                                        src={image.thumbnailImageSrc}
-                                        alt={image.alt}
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => {
-                                            setActiveIndex(index);
-                                            galleria.current.show();
-                                        }}
-                                    />
-                                </div>
-                            );
-                        })}
+                    {images?.map((image, index) => {
+                        return (
+                            <div className="col-4" key={image.thumbnailImageSrc}>
+                                <button
+                                    type="button"
+                                    className="border-none bg-transparent p-0 cursor-pointer"
+                                    aria-label={`View ${image.alt}`}
+                                    onClick={() => {
+                                        setActiveIndex(index);
+                                        galleria.current.show();
+                                    }}
+                                >
+                                    <img src={image.thumbnailImageSrc} alt={image.alt} />
+                                </button>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
             <DocSectionCode code={code} service={['PhotoService']} />

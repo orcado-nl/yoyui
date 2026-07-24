@@ -19,22 +19,22 @@ const services = {
         let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
         for (let i = 0; i < 5; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
+            text += possible.charAt((crypto.getRandomValues(new Uint32Array(1))[0] % possible.length));
         }
 
         return text;
     },
 
     generateBrand() {
-        return this.brands[Math.floor(Math.random() * Math.floor(10))];
+        return this.brands[(crypto.getRandomValues(new Uint32Array(1))[0] % 10)];
     },
 
     generateColor() {
-        return this.colors[Math.floor(Math.random() * Math.floor(7))];
+        return this.colors[(crypto.getRandomValues(new Uint32Array(1))[0] % 7)];
     },
 
     generateYear() {
-        return 2000 + Math.floor(Math.random() * Math.floor(19));
+        return 2000 + (crypto.getRandomValues(new Uint32Array(1))[0] % 19);
     }
 };
     `,
@@ -9320,7 +9320,7 @@ const services = {
                       .join('&')
                 : '';
 
-            return fetch('https://www.primefaces.org/data/customers?' + queryParams).then((res) => res.json());
+            return fetch('/api/data/customers?' + queryParams).then((res) => res.json());
         }
     };
     `,
@@ -9783,92 +9783,92 @@ const services = {
         getData() {
             return [
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+                    itemImageSrc: '/images/galleria/galleria1.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
                     alt: 'Description for Image 1',
                     title: 'Title 1'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria2.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria2s.jpg',
+                    itemImageSrc: '/images/galleria/galleria2.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria2s.jpg',
                     alt: 'Description for Image 2',
                     title: 'Title 2'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria3.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria3s.jpg',
+                    itemImageSrc: '/images/galleria/galleria3.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria3s.jpg',
                     alt: 'Description for Image 3',
                     title: 'Title 3'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria4.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria4s.jpg',
+                    itemImageSrc: '/images/galleria/galleria4.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria4s.jpg',
                     alt: 'Description for Image 4',
                     title: 'Title 4'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria5.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria5s.jpg',
+                    itemImageSrc: '/images/galleria/galleria5.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria5s.jpg',
                     alt: 'Description for Image 5',
                     title: 'Title 5'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria6.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria6s.jpg',
+                    itemImageSrc: '/images/galleria/galleria6.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria6s.jpg',
                     alt: 'Description for Image 6',
                     title: 'Title 6'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria7.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria7s.jpg',
+                    itemImageSrc: '/images/galleria/galleria7.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria7s.jpg',
                     alt: 'Description for Image 7',
                     title: 'Title 7'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria8.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria8s.jpg',
+                    itemImageSrc: '/images/galleria/galleria8.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria8s.jpg',
                     alt: 'Description for Image 8',
                     title: 'Title 8'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria9.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria9s.jpg',
+                    itemImageSrc: '/images/galleria/galleria9.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria9s.jpg',
                     alt: 'Description for Image 9',
                     title: 'Title 9'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria10s.jpg',
+                    itemImageSrc: '/images/galleria/galleria10.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria10s.jpg',
                     alt: 'Description for Image 10',
                     title: 'Title 10'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria11.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria11s.jpg',
+                    itemImageSrc: '/images/galleria/galleria11.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria11s.jpg',
                     alt: 'Description for Image 11',
                     title: 'Title 11'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria12.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria12s.jpg',
+                    itemImageSrc: '/images/galleria/galleria12.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria12s.jpg',
                     alt: 'Description for Image 12',
                     title: 'Title 12'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria13.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria13s.jpg',
+                    itemImageSrc: '/images/galleria/galleria13.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria13s.jpg',
                     alt: 'Description for Image 13',
                     title: 'Title 13'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria14.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria14s.jpg',
+                    itemImageSrc: '/images/galleria/galleria14.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria14s.jpg',
                     alt: 'Description for Image 14',
                     title: 'Title 14'
                 },
                 {
-                    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria15.jpg',
-                    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria15s.jpg',
+                    itemImageSrc: '/images/galleria/galleria15.jpg',
+                    thumbnailImageSrc: '/images/galleria/galleria15s.jpg',
                     alt: 'Description for Image 15',
                     title: 'Title 15'
                 }

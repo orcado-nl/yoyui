@@ -20,24 +20,13 @@ import React, { useRef, useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 
 export function ProductsDoc(props) {
-    let emptyProduct = {
-        id: null,
-        name: '',
-        image: null,
-        description: '',
-        category: null,
-        price: 0,
-        quantity: 0,
-        rating: 0,
-        inventoryStatus: 'INSTOCK'
-    };
-
-    const [products, setProducts] = useState(null);
+    let emptyProduct = { id: null, name: '', image: null, description: '', category: '', price: 0, quantity: 0, rating: 0, inventoryStatus: 'INSTOCK' };
+    const [products, setProducts] = useState([]);
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
-    const [selectedProducts, setSelectedProducts] = useState(null);
+    const [selectedProducts, setSelectedProducts] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
@@ -132,7 +121,7 @@ export function ProductsDoc(props) {
         let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
         for (let i = 0; i < 5; i++) {
-            id = id + chars.charAt(Math.floor(Math.random() * chars.length));
+            id = id + chars.charAt(crypto.getRandomValues(new Uint32Array(1))[0] % chars.length);
         }
 
         return id;
@@ -151,7 +140,7 @@ export function ProductsDoc(props) {
 
         setProducts(_products);
         setDeleteProductsDialog(false);
-        setSelectedProducts(null);
+        setSelectedProducts([]);
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
     };
 
@@ -163,11 +152,10 @@ export function ProductsDoc(props) {
     };
 
     const onInputChange = (e, name) => {
-        const val = (e.target && e.target.value) || '';
+        const val = e.target?.value || '';
         let _product = { ...product };
 
         _product[`${name}`] = val;
-
         setProduct(_product);
     };
 
@@ -176,7 +164,6 @@ export function ProductsDoc(props) {
         let _product = { ...product };
 
         _product[`${name}`] = val;
-
         setProduct(_product);
     };
 
@@ -184,7 +171,7 @@ export function ProductsDoc(props) {
         return (
             <div className="flex flex-wrap gap-2">
                 <Button label="New" icon="pi pi-plus" severity="success" onClick={openNew} />
-                <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+                <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts?.length} />
             </div>
         );
     };
@@ -194,7 +181,7 @@ export function ProductsDoc(props) {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
+        return <img src={`/images/product/${rowData.image}`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -222,10 +209,8 @@ export function ProductsDoc(props) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
 
@@ -243,18 +228,21 @@ export function ProductsDoc(props) {
             </IconField>
         </div>
     );
+
     const productDialogFooter = (
         <React.Fragment>
             <Button label="Cancel" icon="pi pi-times" outlined onClick={hideDialog} />
             <Button label="Save" icon="pi pi-check" onClick={saveProduct} />
         </React.Fragment>
     );
+
     const deleteProductDialogFooter = (
         <React.Fragment>
             <Button label="No" icon="pi pi-times" outlined onClick={hideDeleteProductDialog} />
             <Button label="Yes" icon="pi pi-check" severity="danger" onClick={deleteProduct} />
         </React.Fragment>
     );
+
     const deleteProductsDialogFooter = (
         <React.Fragment>
             <Button label="No" icon="pi pi-times" outlined onClick={hideDeleteProductsDialog} />
@@ -313,12 +301,12 @@ export default function ProductsDemo() {
         inventoryStatus: 'INSTOCK'
     };
 
-    const [products, setProducts] = useState(null);
+    const [products, setProducts] = useState([]);
     const [productDialog, setProductDialog] = useState(false);
     const [deleteProductDialog, setDeleteProductDialog] = useState(false);
     const [deleteProductsDialog, setDeleteProductsDialog] = useState(false);
     const [product, setProduct] = useState(emptyProduct);
-    const [selectedProducts, setSelectedProducts] = useState(null);
+    const [selectedProducts, setSelectedProducts] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
     const toast = useRef(null);
@@ -413,7 +401,7 @@ export default function ProductsDemo() {
         let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
         for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
+            id += chars.charAt((crypto.getRandomValues(new Uint32Array(1))[0] % chars.length));
         }
 
         return id;
@@ -432,7 +420,7 @@ export default function ProductsDemo() {
 
         setProducts(_products);
         setDeleteProductsDialog(false);
-        setSelectedProducts(null);
+        setSelectedProducts([]);
         toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
     };
 
@@ -465,7 +453,7 @@ export default function ProductsDemo() {
         return (
             <div className="flex flex-wrap gap-2">
                 <Button label="New" icon="pi pi-plus" severity="success" onClick={openNew} />
-                <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+                <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts?.length} />
             </div>
         );
     };
@@ -475,7 +463,7 @@ export default function ProductsDemo() {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -566,7 +554,7 @@ export default function ProductsDemo() {
             </div>
 
             <Dialog visible={productDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Product Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
-                {product.image && <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.image} className="product-image block m-auto pb-3" />}
+                {product.image && <img src={\`/images/product/\${product.image}\`} alt={product.image} className="product-image block m-auto pb-3" />}
                 <div className="field">
                     <label htmlFor="name" className="font-bold">
                         Name
@@ -582,7 +570,7 @@ export default function ProductsDemo() {
                 </div>
 
                 <div className="field">
-                    <label className="mb-3 font-bold">Category</label>
+                    <span className="mb-3 font-bold">Category</span>
                     <div className="formgrid grid">
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />
@@ -787,7 +775,7 @@ export default function ProductsDemo() {
         let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
         for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
+            id += chars.charAt((crypto.getRandomValues(new Uint32Array(1))[0] % chars.length));
         }
 
         return id;
@@ -851,7 +839,7 @@ export default function ProductsDemo() {
         return (
             <div className="flex flex-wrap gap-2">
                 <Button label="New" icon="pi pi-plus" severity="success" onClick={openNew} />
-                <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts || !selectedProducts.length} />
+                <Button label="Delete" icon="pi pi-trash" severity="danger" onClick={confirmDeleteSelected} disabled={!selectedProducts?.length} />
             </div>
         );
     };
@@ -861,7 +849,7 @@ export default function ProductsDemo() {
     };
 
     const imageBodyTemplate = (rowData: Product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image!} className="shadow-2 border-round" style={{ width: '64px' }} />;
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image!} className="shadow-2 border-round" style={{ width: '64px' }} />;
     };
 
     const priceBodyTemplate = (rowData: Product) => {
@@ -959,7 +947,7 @@ export default function ProductsDemo() {
             </div>
 
             <Dialog visible={productDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Product Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
-                {product.image && <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.image} className="product-image block m-auto pb-3" />}
+                {product.image && <img src={\`/images/product/\${product.image}\`} alt={product.image} className="product-image block m-auto pb-3" />}
                 <div className="field">
                     <label htmlFor="name" className="font-bold">
                         Name
@@ -975,7 +963,7 @@ export default function ProductsDemo() {
                 </div>
 
                 <div className="field">
-                    <label className="mb-3 font-bold">Category</label>
+                    <span className="mb-3 font-bold">Category</span>
                     <div className="formgrid grid">
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />
@@ -1089,7 +1077,7 @@ export default function ProductsDemo() {
             </DeferredDemo>
 
             <Dialog visible={productDialog} style={{ width: '32rem' }} breakpoints={{ '960px': '75vw', '641px': '90vw' }} header="Product Details" modal className="p-fluid" footer={productDialogFooter} onHide={hideDialog}>
-                {product.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.image} className="product-image block m-auto pb-3" />}
+                {product.image && <img src={`/images/product/${product.image}`} alt={product.image} className="product-image block m-auto pb-3" />}
                 <div className="field">
                     <label htmlFor="name" className="font-bold">
                         Name
@@ -1105,7 +1093,7 @@ export default function ProductsDemo() {
                 </div>
 
                 <div className="field">
-                    <label className="mb-3 font-bold">Category</label>
+                    <span className="mb-3 font-bold">Category</span>
                     <div className="formgrid grid">
                         <div className="field-radiobutton col-6">
                             <RadioButton inputId="category1" name="category" value="Accessories" onChange={onCategoryChange} checked={product.category === 'Accessories'} />

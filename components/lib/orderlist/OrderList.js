@@ -1,5 +1,6 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import PrimeReact, { FilterService, PrimeReactContext } from '../api/Api';
+import { FilterService, PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useMergeProps, useMountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { DomHandler, ObjectUtils, UniqueComponentId, classNames } from '../utils/Utils';
@@ -51,7 +52,7 @@ export const OrderList = React.memo(
         const visibleList = getVisibleList();
 
         const getListElement = () => {
-            return listElementRef.current && listElementRef.current.getElement();
+            return listElementRef.current?.getElement();
         };
 
         const onItemClick = (event) => {
@@ -68,15 +69,13 @@ export const OrderList = React.memo(
 
             if (selected) {
                 newSelection = metaKey ? selectionState.filter((_, i) => i !== selectedIndex) : [value];
-            } else {
-                if (metaKey) {
-                    const merged = [...selectionState, value];
-                    const list = props.value || [];
+            } else if (metaKey) {
+                const merged = [...selectionState, value];
+                const list = props.value || [];
 
-                    newSelection = merged.sort((a, b) => list.indexOf(a) - list.indexOf(b));
-                } else {
-                    newSelection = [value];
-                }
+                newSelection = merged.toSorted((a, b) => list.indexOf(a) - list.indexOf(b));
+            } else {
+                newSelection = [value];
             }
 
             setSelectionState(newSelection);
@@ -95,7 +94,7 @@ export const OrderList = React.memo(
 
         const findCurrentFocusedIndex = (listElement) => {
             if (focusedOptionIndex === -1) {
-                const itemList = listElement && listElement.children ? [...listElement.children] : [];
+                const itemList = listElement?.children ? [...listElement.children] : [];
                 let selectedOptionIndex = findFirstSelectedOptionIndex(listElement, itemList);
 
                 if (props.autoOptionFocus && selectedOptionIndex === -1) {
@@ -132,13 +131,13 @@ export const OrderList = React.memo(
 
             changeFocusedOptionIndex(currentFocusedIndex);
 
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onListBlur = (event) => {
             setFocused(false);
             setFocusedOptionIndex(-1);
-            props.onBlur && props.onBlur(event);
+            props.onBlur?.(event);
         };
 
         const onListKeyDown = (event) => {
@@ -173,6 +172,8 @@ export const OrderList = React.memo(
                         setSelectionState(visibleList);
                         event.preventDefault();
                     }
+
+                    break;
 
                 default:
                     break;
@@ -212,7 +213,7 @@ export const OrderList = React.memo(
                 const listElement = getListElement();
                 const items = DomHandler.find(listElement, '[data-pc-section="item"]');
                 const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-                const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+                const matchedOptionIndex = [...items].indexOf(focusedItem);
 
                 setSelectionState([...visibleList].slice(0, matchedOptionIndex + 1));
             } else {
@@ -228,7 +229,7 @@ export const OrderList = React.memo(
             if (event.ctrlKey && event.shiftKey) {
                 const items = DomHandler.find(listElement, '[data-pc-section="item"]');
                 const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-                const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+                const matchedOptionIndex = [...items].indexOf(focusedItem);
 
                 setSelectionState([...visibleList].slice(matchedOptionIndex, items.length));
             } else {
@@ -242,7 +243,7 @@ export const OrderList = React.memo(
             const listElement = getListElement();
             const items = DomHandler.find(listElement, '[data-pc-section="item"]');
             const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-            const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+            const matchedOptionIndex = [...items].indexOf(focusedItem);
 
             onItemClick({ originalEvent: event, value: visibleList[matchedOptionIndex], index: matchedOptionIndex });
 
@@ -258,7 +259,7 @@ export const OrderList = React.memo(
                 const items = DomHandler.find(listElement, '[data-pc-section="item"]');
                 const selectedItemIndex = ObjectUtils.findIndexInList(selectionState[0], [...visibleList]);
                 const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-                const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+                const matchedOptionIndex = [...items].indexOf(focusedItem);
 
                 setSelectionState([...visibleList].slice(Math.min(selectedItemIndex, matchedOptionIndex), Math.max(selectedItemIndex, matchedOptionIndex) + 1));
             } else {
@@ -308,7 +309,10 @@ export const OrderList = React.memo(
             const element = DomHandler.findSingle(listElement, `[data-pc-section="item"][id="${id}"]`);
 
             if (element) {
-                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+                element.scrollIntoView?.({
+                    block: 'nearest',
+                    inline: 'start'
+                });
             }
         };
 
@@ -360,7 +364,9 @@ export const OrderList = React.memo(
 
         const resetFilter = () => {
             setFilterValueState('');
-            props.onFilter && props.onFilter({ filter: '' });
+            props.onFilter?.({
+                filter: ''
+            });
         };
 
         const onFilterInputChange = (event) => {
@@ -379,13 +385,25 @@ export const OrderList = React.memo(
         const findNextItem = (item) => {
             const nextItem = item.nextElementSibling;
 
-            return nextItem ? (!DomHandler.getAttribute(nextItem, 'data-pc-section') === 'item' ? findNextItem(nextItem) : nextItem) : null;
+            return nextItem
+                ? resolveConditional(
+                      DomHandler.getAttribute(nextItem, 'data-pc-section') !== 'item',
+                      () => findNextItem(nextItem),
+                      () => nextItem
+                  )
+                : null;
         };
 
         const findPrevItem = (item) => {
             const prevItem = item.previousElementSibling;
 
-            return prevItem ? (!DomHandler.getAttribute(prevItem, 'data-pc-section') === 'item' ? findPrevItem(prevItem) : prevItem) : null;
+            return prevItem
+                ? resolveConditional(
+                      DomHandler.getAttribute(prevItem, 'data-pc-section') !== 'item',
+                      () => findPrevItem(prevItem),
+                      () => prevItem
+                  )
+                : null;
         };
 
         const onReorder = (event) => {
@@ -402,7 +420,7 @@ export const OrderList = React.memo(
 
         const createStyle = () => {
             if (!styleElementRef.current) {
-                styleElementRef.current = DomHandler.createInlineStyle((context && context.nonce) || PrimeReact.nonce, context && context.styleContainer);
+                styleElementRef.current = DomHandler.createInlineStyle(context?.nonce || PrimeReactConfig.nonce, context?.styleContainer);
 
                 let innerHTML = `
 @media screen and (max-width: ${props.breakpoint}) {
@@ -496,6 +514,7 @@ export const OrderList = React.memo(
                     unstyled={props.unstyled}
                     metaData={metaData}
                 />
+
                 <OrderListSubList
                     ref={listElementRef}
                     hostName="OrderList"

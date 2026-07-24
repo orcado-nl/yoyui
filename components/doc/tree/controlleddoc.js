@@ -24,7 +24,7 @@ export function ControlledDoc(props) {
     };
 
     const expandNode = (node, _expandedKeys) => {
-        if (node.children && node.children.length) {
+        if (node.children?.length) {
             _expandedKeys[node.key] = true;
 
             for (let child of node.children) {

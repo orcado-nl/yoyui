@@ -121,8 +121,8 @@ export default function ContentDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Children are rendered within the boundaries of the divider where location of the content is configured with the <i>align</i> property. In horizontal layout, alignment options are <i>left</i>, <i>center</i> and
-                    <i>right</i> whereas vertical mode supports <i>top</i>, <i>center</i> and <i>bottom</i>.
+                    Children are rendered within the boundaries of the divider where location of the content is configured with the <i>align</i> property. In horizontal layout, alignment options are <i>left</i>, <i>center</i> and <i>right</i> whereas
+                    vertical mode supports <i>top</i>, <i>center</i> and <i>bottom</i>.
                 </p>
             </DocSectionText>
             <div className="card">

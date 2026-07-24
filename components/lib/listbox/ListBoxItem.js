@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { useMergeProps } from '../hooks/Hooks';
 import { Ripple } from '../ripple/Ripple';
@@ -43,13 +44,25 @@ export const ListBoxItem = React.memo((props) => {
     const findNextItem = (item) => {
         const nextItem = item.nextElementSibling;
 
-        return nextItem ? (DomHandler.isAttributeEquals(nextItem, 'data-p-disabled', true) || DomHandler.isAttributeEquals(nextItem, 'data-pc-section', 'itemgroup') ? findNextItem(nextItem) : nextItem) : null;
+        return nextItem
+            ? resolveConditional(
+                  DomHandler.isAttributeEquals(nextItem, 'data-p-disabled', true) || DomHandler.isAttributeEquals(nextItem, 'data-pc-section', 'itemgroup'),
+                  () => findNextItem(nextItem),
+                  () => nextItem
+              )
+            : null;
     };
 
     const findPrevItem = (item) => {
         const prevItem = item.previousElementSibling;
 
-        return prevItem ? (DomHandler.isAttributeEquals(prevItem, 'data-p-disabled', true) || DomHandler.isAttributeEquals(prevItem, 'data-pc-section', 'itemgroup') ? findPrevItem(prevItem) : prevItem) : null;
+        return prevItem
+            ? resolveConditional(
+                  DomHandler.isAttributeEquals(prevItem, 'data-p-disabled', true) || DomHandler.isAttributeEquals(prevItem, 'data-pc-section', 'itemgroup'),
+                  () => findPrevItem(prevItem),
+                  () => prevItem
+              )
+            : null;
     };
 
     const content = props.template ? ObjectUtils.getJSXElement(props.template, props.option) : props.label;

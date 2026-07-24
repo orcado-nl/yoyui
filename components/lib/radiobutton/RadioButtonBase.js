@@ -7,7 +7,7 @@ const classes = {
             'p-highlight': props.checked,
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     box: 'p-radiobutton-box',
     input: 'p-radiobutton-input',

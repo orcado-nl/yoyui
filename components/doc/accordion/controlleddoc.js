@@ -143,9 +143,9 @@ export default function ControlledDoc() {
             <div className="accordion-demo">
                 <div className="card">
                     <div className="flex flex-wrap justify-content-end gap-2 mb-3">
-                        <Button outlined={activeIndex !== 0} rounded label="1" onClick={() => setActiveIndex(0)} className="w-2rem h-2rem p-0" />
-                        <Button outlined={activeIndex !== 1} rounded label="2" onClick={() => setActiveIndex(1)} className="w-2rem h-2rem p-0" />
-                        <Button outlined={activeIndex !== 2} rounded label="3" onClick={() => setActiveIndex(2)} className="w-2rem h-2rem p-0" />
+                        <Button outlined={!Object.is(activeIndex, 0)} rounded label="1" onClick={() => setActiveIndex(0)} className="w-2rem h-2rem p-0" />
+                        <Button outlined={!Object.is(activeIndex, 1)} rounded label="2" onClick={() => setActiveIndex(1)} className="w-2rem h-2rem p-0" />
+                        <Button outlined={!Object.is(activeIndex, 2)} rounded label="3" onClick={() => setActiveIndex(2)} className="w-2rem h-2rem p-0" />
                     </div>
                     <Accordion multiple activeIndex={activeIndex} onTabChange={(e) => setActiveIndex(e.index)}>
                         <AccordionTab header="Header I">

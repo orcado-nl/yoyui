@@ -14,13 +14,13 @@ export function ConditionalStyleDoc(props) {
 
     const sizeTemplate = (node) => {
         let size = node.data.size;
-        let fontWeight = parseInt(size, 10) > 75 ? 'bold' : 'normal';
+        let fontWeight = Number.parseInt(size, 10) > 75 ? 'bold' : 'normal';
 
         return <span style={{ fontWeight: fontWeight }}>{size}</span>;
     };
 
     const rowClassName = (node) => {
-        return { 'p-highlight': node.children && node.children.length === 3 };
+        return { 'p-highlight': node.children?.length === 3 };
     };
 
     const code = {
@@ -46,7 +46,7 @@ export default function ConditionalStyleDemo() {
 
     const sizeTemplate = (node) => {
         let size = node.data.size;
-        let fontWeight = parseInt(size, 10) > 75 ? 'bold' : 'normal';
+        let fontWeight = Number.parseInt(size, 10) > 75 ? 'bold' : 'normal';
 
         return <span style={{ fontWeight: fontWeight }}>{size}</span>;
     }
@@ -82,7 +82,7 @@ export default function ConditionalStyleDemo() {
 
     const sizeTemplate = (node: TreeNode) => {
         let size = node.data.size;
-        let fontWeight = parseInt(size, 10) > 75 ? 'bold' : 'normal';
+        let fontWeight = Number.parseInt(size, 10) > 75 ? 'bold' : 'normal';
 
         return <span style={{ fontWeight: fontWeight }}>{size}</span>;
     }

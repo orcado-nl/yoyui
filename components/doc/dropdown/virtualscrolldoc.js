@@ -8,10 +8,6 @@ export function VirtualScrollDoc(props) {
     const [selectedItem, setSelectedItem] = useState(null);
     const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
 
-    const onItemChange = (e) => {
-        setSelectedItem(e.value);
-    };
-
     const code = {
         basic: `
 <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={items} virtualScrollerOptions={{ itemSize: 38 }} 

@@ -45,7 +45,7 @@ export function LazyDoc(props) {
 
                 let value = [...nodes];
 
-                value[parseInt(event.node.key, 10)] = node;
+                value[Number.parseInt(event.node.key, 10)] = node;
                 setNodes(value);
                 setLoading(false);
             }, 200);
@@ -109,7 +109,7 @@ export default function LazyDemo() {
 
                 let value = [...nodes];
                 
-                value[parseInt(event.node.key, 10)] = node;
+                value[Number.parseInt(event.node.key, 10)] = node;
                 setNodes(value);
                 setLoading(false);
             }, 200);
@@ -177,7 +177,7 @@ export default function LazyDemo() {
 
                 let value = [...nodes];
                 
-                value[parseInt(event.node.key, 10)] = node;
+                value[Number.parseInt(event.node.key, 10)] = node;
                 setNodes(value);
                 setLoading(false);
             }, 200);

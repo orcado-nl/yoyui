@@ -1,10 +1,6 @@
-import BlockSection from '@/components/landing/blocksection';
 import FeaturesSection from '@/components/landing/featuressection';
 import FooterSection from '@/components/landing/footersection';
 import HeroSection from '@/components/landing/herosection';
-import TemplateSection from '@/components/landing/templatesection';
-import ThemeSection from '@/components/landing/themesection';
-import UsersSection from '@/components/landing/userssection';
 import AppContentContext from '@/components/layout/appcontentcontext';
 import Topbar from '@/components/layout/topbar';
 import { useMountEffect } from '@/components/lib/primereact.all';
@@ -30,7 +26,7 @@ export default function Home() {
     return (
         <div className={landingClass}>
             <Head>
-                <title>PrimeReact - React UI Component Library</title>
+                <title>YoYui - React UI Component Library</title>
                 <meta charSet="UTF-8" />
                 <meta name="description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
                 <meta name="robots" content="index, follow" />
@@ -41,19 +37,15 @@ export default function Home() {
                 <meta name="twitter:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="PrimeReact | React UI Component Library" />
-                <meta property="og:url" content="https://primereact.org" />
+                <meta property="og:url" content="https://yoyui.orcado.dev" />
                 <meta property="og:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
-                <meta property="og:image" content="https://primefaces.org/static/social/primereact-preview.jpg" />
+                <meta property="og:image" content="https://yoyui.orcado.dev/yoyui-icon.svg" />
                 <meta property="og:ttl" content="604800" />
             </Head>
             {/* <NewsSection /> */}
             <Topbar onDarkSwitchClick={toggleDarkMode} />
             <HeroSection />
             <FeaturesSection />
-            <UsersSection />
-            <ThemeSection />
-            <BlockSection />
-            <TemplateSection />
             <FooterSection />
         </div>
     );

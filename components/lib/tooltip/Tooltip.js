@@ -1,5 +1,6 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { ESC_KEY_HANDLING_PRIORITIES, useDisplayOrder, useGlobalOnEscapeKey, useMergeProps, useMountEffect, useOverlayScrollListener, useResizeListener, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { Portal } from '../portal/Portal';
@@ -19,19 +20,9 @@ export const Tooltip = React.memo(
         const overlayDisplayOrder = useDisplayOrder('tooltip', isCloseOnEscape);
         const metaData = {
             props,
-            state: {
-                visible: visibleState,
-                position: positionState,
-                className: classNameState
-            },
-            context: {
-                right: positionState === 'right',
-                left: positionState === 'left',
-                top: positionState === 'top',
-                bottom: positionState === 'bottom'
-            }
+            state: { visible: visibleState, position: positionState, className: classNameState },
+            context: { right: positionState === 'right', left: positionState === 'left', top: positionState === 'top', bottom: positionState === 'bottom' }
         };
-
         const { ptm, cx, sx, isUnstyled } = TooltipBase.setMetaData(metaData);
 
         useHandleStyle(TooltipBase.css.styles, isUnstyled, { name: 'tooltip' });
@@ -49,13 +40,11 @@ export const Tooltip = React.memo(
         const allowHide = React.useRef(true);
         const timeouts = React.useRef({});
         const currentMouseEvent = React.useRef(null);
-
         const [bindWindowResizeListener, unbindWindowResizeListener] = useResizeListener({
             listener: (event) => {
                 !DomHandler.isTouchDevice() && hide(event);
             }
         });
-
         const [bindOverlayScrollListener, unbindOverlayScrollListener] = useOverlayScrollListener({
             target: currentTargetRef.current,
             listener: (event) => {
@@ -93,7 +82,7 @@ export const Tooltip = React.memo(
         };
 
         const hasTargetOption = (target, option) => {
-            return target && target.hasAttribute(option);
+            return target?.hasAttribute(option);
         };
 
         const getEvents = (target) => {
@@ -150,13 +139,12 @@ export const Tooltip = React.memo(
                 const { pageX: x, pageY: y } = currentMouseEvent.current;
 
                 if (props.autoZIndex && !ZIndexUtils.get(elementRef.current)) {
-                    ZIndexUtils.set('tooltip', elementRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, props.baseZIndex || (context && context.zIndex.tooltip) || PrimeReact.zIndex.tooltip);
+                    ZIndexUtils.set('tooltip', elementRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, props.baseZIndex || context?.zIndex.tooltip || PrimeReactConfig.zIndex.tooltip);
                 }
 
                 elementRef.current.style.left = '';
-                elementRef.current.style.top = '';
+                elementRef.current.style.top = ''; // GitHub #2695 disable pointer events when autohiding
 
-                // GitHub #2695 disable pointer events when autohiding
                 if (isAutoHide()) {
                     elementRef.current.style.pointerEvents = 'none';
                 }
@@ -164,10 +152,7 @@ export const Tooltip = React.memo(
                 const mouseTrackCheck = isMouseTrack(currentTargetRef.current) || position === 'mouse';
 
                 if ((mouseTrackCheck && !containerSize.current) || mouseTrackCheck) {
-                    containerSize.current = {
-                        width: DomHandler.getOuterWidth(elementRef.current),
-                        height: DomHandler.getOuterHeight(elementRef.current)
-                    };
+                    containerSize.current = { width: DomHandler.getOuterWidth(elementRef.current), height: DomHandler.getOuterHeight(elementRef.current) };
                 }
 
                 align(currentTargetRef.current, { x, y }, position);
@@ -176,7 +161,6 @@ export const Tooltip = React.memo(
 
         const show = (e) => {
             if (e.type && e.type === 'focus') setMultipleFocusEvents(true);
-
             currentTargetRef.current = e.currentTarget;
             const disabled = isDisabled(currentTargetRef.current);
             const empty = isContentEmpty(isShowOnDisabled(currentTargetRef.current) && disabled ? currentTargetRef.current.firstChild : currentTargetRef.current);
@@ -203,8 +187,7 @@ export const Tooltip = React.memo(
         };
 
         const hide = (e) => {
-            if (e && e.type === 'blur') setMultipleFocusEvents(false);
-
+            if (e?.type === 'blur') setMultipleFocusEvents(false);
             clearTimeouts();
 
             if (visibleState) {
@@ -218,7 +201,6 @@ export const Tooltip = React.memo(
 
                         ZIndexUtils.clear(elementRef.current);
                         DomHandler.removeClass(elementRef.current, 'p-tooltip-active');
-
                         setVisibleState(false);
                         sendCallback(props.onHide, { originalEvent: e, target: currentTargetRef.current });
                     });
@@ -235,14 +217,10 @@ export const Tooltip = React.memo(
             let currentPosition = position || positionState;
 
             if ((isMouseTrack(target) || currentPosition == 'mouse') && coordinate) {
-                const _containerSize = {
-                    width: DomHandler.getOuterWidth(elementRef.current),
-                    height: DomHandler.getOuterHeight(elementRef.current)
-                };
+                const _containerSize = { width: DomHandler.getOuterWidth(elementRef.current), height: DomHandler.getOuterHeight(elementRef.current) };
 
                 left = coordinate.x;
                 top = coordinate.y;
-
                 let { top: mouseTrackTop, left: mouseTrackLeft } = getMouseTrackPosition(target);
 
                 switch (currentPosition) {
@@ -283,14 +261,18 @@ export const Tooltip = React.memo(
                 const at = getTargetOption(target, 'at') || props.at || pos.at;
 
                 elementRef.current.style.padding = '0px';
-
                 DomHandler.flipfitCollision(elementRef.current, target, my, at, (calculatedPosition) => {
                     const { x: atX, y: atY } = calculatedPosition.at;
                     const { x: myX } = calculatedPosition.my;
-                    const newPosition = props.at ? (atX !== 'center' && atX !== myX ? atX : atY) : calculatedPosition.at[`${pos.axis}`];
+                    const newPosition = props.at
+                        ? resolveConditional(
+                              atX !== 'center' && atX !== myX,
+                              () => atX,
+                              () => atY
+                          )
+                        : calculatedPosition.at[`${pos.axis}`];
 
                     elementRef.current.style.padding = '';
-
                     setPositionState(newPosition);
                     updateContainerPosition(newPosition);
                     DomHandler.addClass(elementRef.current, 'p-tooltip-active');
@@ -303,9 +285,9 @@ export const Tooltip = React.memo(
                 const style = getComputedStyle(elementRef.current);
 
                 if (position === 'left') {
-                    elementRef.current.style.left = parseFloat(style.left) - parseFloat(style.paddingLeft) * 2 + 'px';
+                    elementRef.current.style.left = Number.parseFloat(style.left) - Number.parseFloat(style.paddingLeft) * 2 + 'px';
                 } else if (position === 'top') {
-                    elementRef.current.style.top = parseFloat(style.top) - parseFloat(style.paddingTop) * 2 + 'px';
+                    elementRef.current.style.top = Number.parseFloat(style.top) - Number.parseFloat(style.paddingTop) * 2 + 'px';
                 }
             }
         };
@@ -349,10 +331,10 @@ export const Tooltip = React.memo(
 
         const applyDelay = (delayProp, callback) => {
             clearTimeouts();
-
             const delay = getDelay(delayProp);
 
-            delay ? (timeouts.current[`${delayProp}`] = setTimeout(() => callback(), delay)) : callback();
+            if (delay) timeouts.current[delayProp] = setTimeout(callback, delay);
+            else callback();
         };
 
         const sendCallback = (callback, ...params) => {
@@ -433,7 +415,7 @@ export const Tooltip = React.memo(
                         });
                     };
 
-                    if (target instanceof Array) {
+                    if (Array.isArray(target)) {
                         target.forEach((t) => {
                             setEvent(t);
                         });
@@ -449,7 +431,6 @@ export const Tooltip = React.memo(
                 hide();
             }
         });
-
         useUpdateEffect(() => {
             loadTargetEvents();
 
@@ -457,7 +438,6 @@ export const Tooltip = React.memo(
                 unloadTargetEvents();
             };
         }, [show, hide, props.target]);
-
         useUpdateEffect(() => {
             if (visibleState) {
                 const position = getPosition(currentTargetRef.current);
@@ -472,7 +452,6 @@ export const Tooltip = React.memo(
                 }
 
                 updateTooltipState(position);
-
                 bindWindowResizeListener();
                 bindOverlayScrollListener();
             } else {
@@ -488,7 +467,6 @@ export const Tooltip = React.memo(
                 unbindOverlayScrollListener();
             };
         }, [visibleState]);
-
         useUpdateEffect(() => {
             const position = getPosition(currentTargetRef.current);
 
@@ -500,22 +478,11 @@ export const Tooltip = React.memo(
                 });
             }
         }, [props.content]);
-
         useUnmountEffect(() => {
             hide();
             ZIndexUtils.clear(elementRef.current);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            updateTargetEvents,
-            loadTargetEvents,
-            unloadTargetEvents,
-            show,
-            hide,
-            getElement: () => elementRef.current,
-            getTarget: () => currentTargetRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, updateTargetEvents, loadTargetEvents, unloadTargetEvents, show, hide, getElement: () => elementRef.current, getTarget: () => currentTargetRef.current }));
 
         const createElement = () => {
             const empty = isTargetContentEmpty(currentTargetRef.current);
@@ -526,27 +493,14 @@ export const Tooltip = React.memo(
                     style: props.style,
                     role: 'tooltip',
                     'aria-hidden': visibleState,
-                    onMouseEnter: (e) => onMouseEnter(e),
+                    onMouseEnter: (e) => onMouseEnter(),
                     onMouseLeave: (e) => onMouseLeave(e)
                 },
                 TooltipBase.getOtherProps(props),
                 ptm('root')
             );
-
-            const arrowProps = mergeProps(
-                {
-                    className: cx('arrow'),
-                    style: sx('arrow', { ...metaData })
-                },
-                ptm('arrow')
-            );
-
-            const textProps = mergeProps(
-                {
-                    className: cx('text')
-                },
-                ptm('text')
-            );
+            const arrowProps = mergeProps({ className: cx('arrow'), style: sx('arrow', { ...metaData }) }, ptm('arrow'));
+            const textProps = mergeProps({ className: cx('text') }, ptm('text'));
 
             return (
                 <div ref={elementRef} {...rootProps}>
@@ -567,5 +521,4 @@ export const Tooltip = React.memo(
         return null;
     })
 );
-
 Tooltip.displayName = 'Tooltip';

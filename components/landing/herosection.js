@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Next 12 Link requires an anchor child; the explicit href also satisfies static accessibility analysis. */
 import AppContentContext from '@/components/layout/appcontentcontext';
 import { Badge } from '@/components/lib/badge/Badge';
 import { Button } from '@/components/lib/button/Button';
@@ -20,15 +21,13 @@ const HeroSection = () => {
         { name: 'Styled', value: 1 },
         { name: 'Unstyled', value: 2 }
     ];
-
     const items = [
         { label: 'Home', icon: 'pi pi-fw pi-home' },
         { label: 'Calendar', icon: 'pi pi-fw pi-calendar' }
     ];
-
     const [value1, setValue1] = useState(24);
     const [category, setCategory] = useState('S');
-    const [dateValue, setDateValue] = useState(null);
+    const dateValue = null;
     const [chartOptions, setChartOptions] = useState({});
     const [chartData, setChartData] = useState({});
     const [checked, setChecked] = useState(true);
@@ -45,7 +44,7 @@ const HeroSection = () => {
     const userTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${rowData.image}`} width="32" />
+                <img alt={rowData.name} src={`/images/avatar/${rowData.image}`} width="32" />
                 <span>{rowData.name}</span>
             </div>
         );
@@ -114,16 +113,12 @@ const HeroSection = () => {
                         Elevate your web applications with PrimeReact's comprehensive suite of customizable, feature-rich UI components. With PrimeReact, turning your development vision into reality has never been easier.
                     </p>
                     <div className="flex align-items-center gap-3">
-                        <Link href="/installation">
-                            <a className="linkbox active font-semibold py-3 px-4">
+                        <Link href="/installation" passHref>
+                            <a href="/installation" className="linkbox active font-semibold py-3 px-4">
                                 <span>Get Started</span>
                                 <i className="pi pi-arrow-right ml-3" />
                             </a>
                         </Link>
-                        <a href="https://github.com/primefaces/primereact" target="_blank" rel="noopener noreferrer" className="linkbox font-semibold py-3 px-4">
-                            <span>Give a Star</span>
-                            <i className="pi pi-star-fill ml-3 text-yellow-500" />
-                        </a>
                     </div>
                 </div>
                 <div className="w-full xl:w-6 pt-7 xl:pt-0 hidden md:block">
@@ -179,7 +174,7 @@ const HeroSection = () => {
                         <div className="flex flex-column w-6 gap-5 pl-3">
                             <div className="box p-4 fadein animation-duration-500">
                                 <div className="surface-card mb-4 w-full text-center p-5" style={{ borderRadius: '10px' }}>
-                                    <img src="https://primefaces.org/cdn/primereact/images/landing/air-jordan.png" alt="Watch" className="w-14rem" />
+                                    <img src="/images/product/bamboo-watch.jpg" alt="Watch" className="w-14rem" />
                                 </div>
                                 <div className="flex align-items-center mb-4">
                                     <div className="flex flex-column">
@@ -194,7 +189,7 @@ const HeroSection = () => {
                                 <ul className="list-none p-0 m-0">
                                     <li className="flex align-items-center mb-3">
                                         <span className="mr-3">
-                                            <img src="https://primefaces.org/cdn/primereact/images/landing/avatar.png" alt="Avatar" className="w-3rem h-3rem" />
+                                            <img src="/images/landing-new/avatar.png" alt="Avatar" className="w-3rem h-3rem" />
                                         </span>
                                         <div className="flex flex-column">
                                             <span className="font-bold mb-1">Amanda Williams</span>
@@ -202,23 +197,23 @@ const HeroSection = () => {
                                         </div>
                                     </li>
                                     <li className="flex">
-                                        <a className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
+                                        <button type="button" className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
                                             <i className="pi pi-home text-xl mr-3" />
                                             <span className="flex flex-column">
                                                 <span className="font-bold mb-1">Dashboard</span>
                                                 <span className="m-0 text-secondary">Control Panel</span>
                                             </span>
-                                        </a>
+                                        </button>
                                     </li>
                                     <li className="flex">
-                                        <a className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
+                                        <button type="button" className="flex align-items-center p-3 border-round w-full hover:surface-hover transition-colors transition-duration-150 cursor-pointer" style={{ borderRadius: '10px' }}>
                                             <i className="pi pi-envelope text-xl mr-3" />
                                             <span className="flex flex-column">
                                                 <span className="font-bold mb-1">Inbox</span>
                                                 <span className="m-0 text-secondary">View Messages</span>
                                             </span>
                                             <Badge value="3" className="ml-auto" />
-                                        </a>
+                                        </button>
                                     </li>
                                 </ul>
                             </div>

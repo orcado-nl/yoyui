@@ -5,9 +5,9 @@ import { BreadCrumb } from '@/components/lib/breadcrumb/BreadCrumb';
 export function TemplateDoc(props) {
     const iconItemTemplate = (item, options) => {
         return (
-            <a className={options.className}>
+            <button type="button" className={options.className}>
                 <span className={item.icon} />
-            </a>
+            </button>
         );
     };
 
@@ -19,7 +19,7 @@ export function TemplateDoc(props) {
         { icon: 'pi pi-calculator', template: iconItemTemplate }
     ];
 
-    const home = { icon: 'pi pi-home', url: 'https://www.primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     const code = {
         basic: `
@@ -46,7 +46,7 @@ export default function TemplateDemo() {
         { icon: 'pi pi-calculator', template: iconItemTemplate }
     ];
 
-    const home = { icon: 'pi pi-home', url: 'https://www.primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     return (
         <BreadCrumb model={items} home={home} />
@@ -75,7 +75,7 @@ export default function TemplateDoc() {
         { icon: 'pi pi-calculator', template: iconItemTemplate }
     ];
 
-    const home: MenuItem = { icon: 'pi pi-home', url: 'https://www.primereact.org' };
+    const home: MenuItem = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     return (
         <BreadCrumb model={items} home={home} />

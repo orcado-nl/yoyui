@@ -2,7 +2,7 @@
  *
  * AutoComplete is an input component that provides real-time suggestions while being typed.
  *
- * [Live Demo](https://www.primereact.org/autocomplete/)
+ * [Live Demo](https://yoyui.orcado.dev/autocomplete/)
  *
  * @module autocomplete
  *
@@ -558,13 +558,13 @@ export interface AutoCompleteProps<T = any, M extends boolean = false> extends O
 }
 
 /**
- * **PrimeReact - AutoComplete**
+ * **YoYui - AutoComplete**
  *
  * _AutoComplete is an input component that provides real-time suggestions while being typed._
  *
- * [Live Demo](https://www.primereact.org/autocomplete/)
+ * [Live Demo](https://yoyui.orcado.dev/autocomplete/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

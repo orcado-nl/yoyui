@@ -7,7 +7,7 @@ import { useRef } from 'react';
 export function BasicDoc(props) {
     const toast = useRef(null);
 
-    const [clearTimeout] = useTimeout(() => {
+    const [,] = useTimeout(() => {
         toast.current.show({ severity: 'info', summary: 'Loaded' });
     }, 3000);
 

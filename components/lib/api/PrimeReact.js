@@ -1,9 +1,6 @@
 import { FilterMatchMode } from './FilterMatchMode';
 
-/**
- * @deprecated please use PrimeReactContext
- */
-export default class PrimeReact {
+export class PrimeReactConfig {
     static ripple = false;
 
     static inputStyle = 'outlined';
@@ -42,7 +39,7 @@ export default class PrimeReact {
         const linkElement = document.getElementById(linkElementId);
 
         if (!linkElement) {
-            throw Error(`Element with id ${linkElementId} not found.`);
+            throw new Error(`Element with id ${linkElementId} not found.`);
         }
 
         const newThemeUrl = linkElement.getAttribute('href').replace(currentTheme, newTheme);
@@ -60,3 +57,5 @@ export default class PrimeReact {
         linkElement.parentNode?.replaceChild(newLinkElement, linkElement);
     };
 }
+
+export default PrimeReactConfig;

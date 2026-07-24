@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { useMergeProps } from '../hooks/Hooks';
 import { SearchIcon } from '../icons/search';
@@ -10,28 +11,18 @@ export const OrderListSubList = React.memo(
         const { ptm, cx } = props;
 
         const _ptm = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
+            return ptm(key, { hostName: props.hostName, ...options });
         };
 
         const getPTOptions = (item, key) => {
-            return _ptm(key, {
-                context: {
-                    selected: isSelected(item)
-                }
-            });
+            return _ptm(key, { context: { selected: isSelected(item) } });
         };
 
-        const dragging = React.useRef(null);
-        const draggedItemIndex = React.useRef(null);
-        const dragOverItemIndex = React.useRef(null);
+        const dragging = React.useRef(false);
+        const draggedItemIndex = React.useRef(-1);
+        const dragOverItemIndex = React.useRef(-1);
         const listElementRef = React.useRef(null);
-        const filterOptions = {
-            filter: (e) => props.onFilterInputChange(e),
-            reset: () => props.resetFilter()
-        };
+        const filterOptions = { filter: (e) => props.onFilterInputChange(e), reset: () => props.resetFilter() };
 
         const isSelected = (item) => {
             return ObjectUtils.findIndexInList(item, props.selection, props.dataKey) !== -1;
@@ -47,31 +38,35 @@ export const OrderListSubList = React.memo(
             if (draggedItemIndex.current !== index && draggedItemIndex.current + 1 !== index) {
                 dragOverItemIndex.current = index;
                 !props.isUnstyled() && DomHandler.addClass(event.target, 'p-orderlist-droppoint-highlight');
-                event.target.setAttribute('data-p-orderlist-droppoint-highlight', true);
+                event.target.dataset.pOrderlistDroppointHighlight = true;
                 event.preventDefault();
             }
         };
 
         const onDragLeave = (event) => {
-            dragOverItemIndex.current = null;
+            dragOverItemIndex.current = -1;
             !props.isUnstyled() && DomHandler.removeClass(event.target, 'p-orderlist-droppoint-highlight');
-            event.target.setAttribute('data-p-orderlist-droppoint-highlight', false);
+            event.target.dataset.pOrderlistDroppointHighlight = false;
         };
 
         const onDrop = (event) => {
-            let dropIndex = draggedItemIndex.current > dragOverItemIndex.current ? dragOverItemIndex.current : dragOverItemIndex.current === 0 ? 0 : dragOverItemIndex.current - 1;
+            let dropIndex =
+                draggedItemIndex.current > dragOverItemIndex.current
+                    ? dragOverItemIndex.current
+                    : resolveConditional(
+                          dragOverItemIndex.current === 0,
+                          () => 0,
+                          () => dragOverItemIndex.current - 1
+                      );
             let value = [...props.value];
 
             ObjectUtils.reorderArray(value, draggedItemIndex.current, dropIndex);
-            dragOverItemIndex.current = null;
+            dragOverItemIndex.current = -1;
             !props.isUnstyled() && DomHandler.removeClass(event.target, 'p-orderlist-droppoint-highlight');
-            event.target.setAttribute('data-p-orderlist-droppoint-highlight', false);
+            event.target.dataset.pOrderlistDroppointHighlight = false;
 
             if (props.onChange) {
-                props.onChange({
-                    originalEvent: event,
-                    value: value
-                });
+                props.onChange({ originalEvent: event, value: value });
             }
         };
 
@@ -107,33 +102,18 @@ export const OrderListSubList = React.memo(
         };
 
         const createDropPoint = (index, key) => {
-            const droppointProps = mergeProps(
-                {
-                    className: cx('droppoint'),
-                    onDragOver: (e) => onDragOver(e, index + 1),
-                    onDragLeave: onDragLeave,
-                    onDrop: onDrop
-                },
-                _ptm('droppoint')
-            );
+            const droppointProps = mergeProps({ className: cx('droppoint'), onDragOver: (e) => onDragOver(e, index + 1), onDragLeave: onDragLeave, onDrop: onDrop }, _ptm('droppoint'));
 
             return <li key={key} {...droppointProps} />;
         };
 
         const createHeader = () => {
-            const headerProps = mergeProps(
-                {
-                    className: cx('header')
-                },
-                _ptm('header')
-            );
+            const headerProps = mergeProps({ className: cx('header') }, _ptm('header'));
 
             return props.header ? <div {...headerProps}>{props.header}</div> : null;
         };
 
-        React.useImperativeHandle(ref, () => ({
-            getElement: () => listElementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ getElement: () => listElementRef.current }));
 
         const createItems = () => {
             if (props.value) {
@@ -161,23 +141,16 @@ export const OrderListSubList = React.memo(
                             },
                             getPTOptions(item, 'item')
                         );
-
-                        let items = [];
-
-                        if (i === 0) {
-                            items.push(createDropPoint(item, i, key + '_droppoint_start'));
-                        }
-
-                        items.push(
+                        const items = [
+                            ...(i === 0 ? [createDropPoint(item, i)] : []),
                             <li key={key} {...itemProps}>
                                 {content}
                                 {/*<Ripple />*/}
-                            </li>
-                        );
+                            </li>,
+                            createDropPoint(i, key + '_droppoint')
+                        ];
 
-                        items.push(createDropPoint(i, key + '_droppoint'));
-
-                        return items;
+                        return <React.Fragment key={key}>{items}</React.Fragment>;
                     }
 
                     const itemProps = mergeProps(
@@ -232,42 +205,14 @@ export const OrderListSubList = React.memo(
         };
 
         const createFilter = () => {
-            const searchIconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                _ptm('icon')
-            );
+            const searchIconProps = mergeProps({ className: cx('icon') }, _ptm('icon'));
             const icon = props.filterIcon || <SearchIcon {...searchIconProps} />;
             const filterIcon = IconUtils.getJSXIcon(icon, { ...searchIconProps }, { props });
 
             if (props.filter) {
-                const filterProps = mergeProps(
-                    {
-                        className: cx('filter')
-                    },
-                    _ptm('filter')
-                );
-
-                const filterInputProps = mergeProps(
-                    {
-                        type: 'text',
-                        value: props.filterValue,
-                        onChange: props.onFilter,
-                        onKeyDown: onFilterInputKeyDown,
-                        placeholder: props.filterPlaceholder,
-                        className: cx('filterInput')
-                    },
-                    _ptm('filterInput')
-                );
-
-                const filterIconProps = mergeProps(
-                    {
-                        className: cx('filterIcon')
-                    },
-                    _ptm('filterIcon')
-                );
-
+                const filterProps = mergeProps({ className: cx('filter') }, _ptm('filter'));
+                const filterInputProps = mergeProps({ type: 'text', value: props.filterValue, onChange: props.onFilter, onKeyDown: onFilterInputKeyDown, placeholder: props.filterPlaceholder, className: cx('filterInput') }, _ptm('filterInput'));
+                const filterIconProps = mergeProps({ className: cx('filterIcon') }, _ptm('filterIcon'));
                 let content = (
                     <div {...filterProps}>
                         <input {...filterInputProps} />
@@ -278,11 +223,7 @@ export const OrderListSubList = React.memo(
                 if (props.filterTemplate) {
                     const defaultContentOptions = {
                         className: 'p-orderlist-filter',
-                        inputProps: {
-                            inputClassName: 'p-orderlist-filter-input p-inputtext p-component',
-                            onChange: props.onFilter,
-                            onKeyDown: onFilterInputKeyDown
-                        },
+                        inputProps: { inputClassName: 'p-orderlist-filter-input p-inputtext p-component', onChange: props.onFilter, onKeyDown: onFilterInputKeyDown },
                         filterOptions: filterOptions,
                         iconClassName: 'p-orderlist-filter-icon',
                         element: content,
@@ -292,12 +233,7 @@ export const OrderListSubList = React.memo(
                     content = ObjectUtils.getJSXElement(props.filterTemplate, defaultContentOptions);
                 }
 
-                const filterContainerProps = mergeProps(
-                    {
-                        className: cx('filterContainer')
-                    },
-                    _ptm('filterContainer')
-                );
+                const filterContainerProps = mergeProps({ className: cx('filterContainer') }, _ptm('filterContainer'));
 
                 return <div {...filterContainerProps}>{content}</div>;
             }
@@ -308,13 +244,7 @@ export const OrderListSubList = React.memo(
         const header = createHeader();
         const filter = createFilter();
         const list = createList();
-
-        const containerProps = mergeProps(
-            {
-                className: cx('container')
-            },
-            _ptm('container')
-        );
+        const containerProps = mergeProps({ className: cx('container') }, _ptm('container'));
 
         return (
             <div {...containerProps}>

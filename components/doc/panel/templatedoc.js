@@ -8,23 +8,7 @@ import { useRef } from 'react';
 
 export function TemplateDoc(props) {
     const configMenu = useRef(null);
-    const items = [
-        {
-            label: 'Refresh',
-            icon: 'pi pi-refresh'
-        },
-        {
-            label: 'Search',
-            icon: 'pi pi-search'
-        },
-        {
-            separator: true
-        },
-        {
-            label: 'Delete',
-            icon: 'pi pi-times'
-        }
-    ];
+    const items = [{ label: 'Refresh', icon: 'pi pi-refresh' }, { label: 'Search', icon: 'pi pi-search' }, { separator: true }, { label: 'Delete', icon: 'pi pi-times' }];
 
     const headerTemplate = (options) => {
         const className = `${options.className} justify-content-space-between`;
@@ -32,7 +16,7 @@ export function TemplateDoc(props) {
         return (
             <div className={className}>
                 <div className="flex align-items-center gap-2">
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
                     <span className="font-bold">Amy Elsner</span>
                 </div>
                 <div>
@@ -102,7 +86,7 @@ export default function TemplateDemo() {
         return (
             <div className={className}>
                 <div className="flex align-items-center gap-2">
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
                     <span className="font-bold">Amy Elsner</span>
                 </div>
                 <div>
@@ -173,7 +157,7 @@ export default function TemplateDemo() {
         return (
             <div className={className}>
                 <div className="flex align-items-center gap-2">
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
                     <span className="font-bold">Amy Elsner</span>
                 </div>
                 <div>

@@ -5,16 +5,20 @@ import { useUnmountEffect } from '@/components/lib/hooks/Hooks';
 import { Toast } from '@/components/lib/toast/Toast';
 import { useRef, useState } from 'react';
 
+function renderSonarNested1() {
+    return <div className="w-8rem h-8rem border-round bg-primary border-1 border-primary mb-3 flex justify-content-center align-items-center">Mounted</div>;
+}
+
 export function BasicDoc(props) {
     const [hidden, setHidden] = useState(false);
     const toast = useRef(null);
 
     const DynamicBox = () => {
         useUnmountEffect(() => {
-            toast.current && toast.current.show({ severity: 'info', summary: 'Unmounted' });
+            toast.current?.show({ severity: 'info', summary: 'Unmounted' });
         });
 
-        return <div className="w-8rem h-8rem border-round bg-primary border-1 border-primary mb-3 flex justify-content-center align-items-center">Mounted</div>;
+        return renderSonarNested1();
     };
 
     const code = {

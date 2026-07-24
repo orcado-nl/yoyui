@@ -2,12 +2,10 @@ import * as React from 'react';
 import { PrimeReactContext, localeOption } from '../api/Api';
 import { ariaLabel } from '../api/Locale';
 import { Dropdown } from '../dropdown/Dropdown';
-import { useMergeProps } from '../hooks/Hooks';
 import { ObjectUtils } from '../utils/Utils';
 import { RowsPerPageDropdownBase } from './PaginatorBase';
 
 export const RowsPerPageDropdown = React.memo((inProps) => {
-    const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
     const props = RowsPerPageDropdownBase.getProps(inProps, context);
 
@@ -16,20 +14,18 @@ export const RowsPerPageDropdown = React.memo((inProps) => {
     const placeholderValue = localeOption('choose');
     const ariaLabelValue = ariaLabel('jumpToPageDropdownLabel');
     const element = hasOptions ? (
-        <>
-            <Dropdown
-                value={props.value}
-                options={options}
-                onChange={props.onChange}
-                appendTo={props.appendTo}
-                disabled={props.disabled}
-                placeholder={placeholderValue}
-                aria-label={ariaLabelValue}
-                pt={props.ptm('RPPDropdown')}
-                unstyled={props.unstyled}
-                __parentMetadata={{ parent: props.metaData }}
-            />
-        </>
+        <Dropdown
+            value={props.value}
+            options={options}
+            onChange={props.onChange}
+            appendTo={props.appendTo}
+            disabled={props.disabled}
+            placeholder={placeholderValue}
+            aria-label={ariaLabelValue}
+            pt={props.ptm('RPPDropdown')}
+            unstyled={props.unstyled}
+            __parentMetadata={{ parent: props.metaData }}
+        />
     ) : null;
 
     if (props.template) {

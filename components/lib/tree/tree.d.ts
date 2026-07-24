@@ -2,7 +2,7 @@
  *
  * Tree is used to display hierarchical data.
  *
- * [Live Demo](https://www.primereact.org/tree/)
+ * [Live Demo](https://yoyui.orcado.dev/tree/)
  *
  * @module tree
  *
@@ -591,7 +591,7 @@ export interface TreeProps {
     /**
      * Identifier of the underlying menu element.
      */
-    ariaLabelledby?: string | undefined;
+    ariaLabelledBy?: string | undefined;
     /**
      * Template of toggler element.
      */
@@ -684,13 +684,13 @@ export interface TreeProps {
 }
 
 /**
- * **PrimeReact - Tree**
+ * **YoYui - Tree**
  *
  * _Tree is used to display hierarchical data._
  *
- * [Live Demo](https://www.primereact.org/tree/)
+ * [Live Demo](https://yoyui.orcado.dev/tree/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

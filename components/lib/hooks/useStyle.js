@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { DomHandler } from '../utils/Utils';
 
 let _id = 0;
@@ -55,11 +55,11 @@ export const useStyle = (css, options = {}) => {
                 styleRef.current.media = media;
             }
 
-            DomHandler.addNonce(styleRef.current, (context && context.nonce) || PrimeReact.nonce);
+            DomHandler.addNonce(styleRef.current, context?.nonce || PrimeReactConfig.nonce);
             styleContainer.appendChild(styleRef.current);
 
             if (name) {
-                styleRef.current.setAttribute('data-primereact-style-id', name);
+                styleRef.current.dataset.primereactStyleId = name;
             }
         }
 
@@ -82,7 +82,9 @@ export const useStyle = (css, options = {}) => {
             load();
         }
 
-        // return () => {if (!manual) unload()}; /* @todo */
+        return () => {
+            if (!manual) unload();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [manual]);
 

@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { Badge } from '../badge/Badge';
@@ -15,19 +16,10 @@ export const Button = React.memo(
         const context = React.useContext(PrimeReactContext);
         const props = ButtonBase.getProps(inProps, context);
         const disabled = props.disabled || props.loading;
-
-        const metaData = {
-            props,
-            ...props.__parentMetadata,
-            context: {
-                disabled
-            }
-        };
-
+        const metaData = { props, ...props.__parentMetadata, context: { disabled } };
         const { ptm, cx, isUnstyled } = ButtonBase.setMetaData(metaData);
 
         useHandleStyle(ButtonBase.css.styles, isUnstyled, { name: 'button', styled: true });
-
         const elementRef = React.useRef(ref);
 
         React.useEffect(() => {
@@ -39,59 +31,29 @@ export const Button = React.memo(
         }
 
         const createIcon = () => {
-            let className = classNames('p-button-icon p-c', {
-                [`p-button-icon-${props.iconPos}`]: props.label
-            });
+            let className = classNames('p-button-icon p-c', { [`p-button-icon-${props.iconPos}`]: props.label });
+            const iconsProps = mergeProps({ className: cx('icon') }, ptm('icon'));
 
-            const iconsProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                ptm('icon')
-            );
-
-            className = classNames(className, {
-                'p-button-loading-icon': props.loading
-            });
-
-            const loadingIconProps = mergeProps(
-                {
-                    className: cx('loadingIcon', { className })
-                },
-                ptm('loadingIcon')
-            );
-
+            className = classNames(className, { 'p-button-loading-icon': props.loading });
+            const loadingIconProps = mergeProps({ className: cx('loadingIcon', { className }) }, ptm('loadingIcon'));
             const icon = props.loading ? props.loadingIcon || <SpinnerIcon {...loadingIconProps} spin /> : props.icon;
 
             return IconUtils.getJSXIcon(icon, { ...iconsProps }, { props });
         };
 
         const createLabel = () => {
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                ptm('label')
-            );
+            const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
 
             if (props.label) {
                 return <span {...labelProps}>{props.label}</span>;
             }
 
-            return !props.children && !props.label && <span {...labelProps} dangerouslySetInnerHTML={{ __html: '&nbsp;' }} />;
+            return !props.children && !props.label ? <span {...labelProps} dangerouslySetInnerHTML={{ __html: '&nbsp;' }} /> : null;
         };
 
         const createBadge = () => {
             if (props.badge) {
-                const badgeProps = mergeProps(
-                    {
-                        className: classNames(props.badgeClassName),
-                        value: props.badge,
-                        unstyled: props.unstyled,
-                        __parentMetadata: { parent: metaData }
-                    },
-                    ptm('badge')
-                );
+                const badgeProps = mergeProps({ className: classNames(props.badgeClassName), value: props.badge, unstyled: props.unstyled, __parentMetadata: { parent: metaData } }, ptm('badge'));
 
                 return <Badge {...badgeProps}>{props.badge}</Badge>;
             }
@@ -99,7 +61,7 @@ export const Button = React.memo(
             return null;
         };
 
-        const showTooltip = !disabled || (props.tooltipOptions && props.tooltipOptions.showOnDisabled);
+        const showTooltip = !disabled || props.tooltipOptions?.showOnDisabled;
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip) && showTooltip;
         const sizeMapping = {
             large: 'lg',
@@ -110,7 +72,14 @@ export const Button = React.memo(
         const icon = createIcon();
         const label = createLabel();
         const badge = createBadge();
-        const defaultAriaLabel = props.label ? props.label + (props.badge ? ' ' + props.badge : '') : props['aria-label'];
+        const defaultAriaLabel = props.label
+            ? props.label +
+              resolveConditional(
+                  props.badge,
+                  () => ' ' + props.badge,
+                  () => ''
+              )
+            : props['aria-label'];
 
         const rootProps = mergeProps(
             {

@@ -2,7 +2,7 @@
  *
  * PickList is used to reorder items between different lists.
  *
- * [Live Demo](https://www.primereact.org/picklist/)
+ * [Live Demo](https://yoyui.orcado.dev/picklist/)
  *
  * @module picklist
  *
@@ -504,13 +504,13 @@ export interface PickListProps {
 }
 
 /**
- * **PrimeReact - PickList**
+ * **YoYui - PickList**
  *
  * _PickList is used to reorder items between different lists._
  *
- * [Live Demo](https://www.primereact.org/picklist/)
+ * [Live Demo](https://yoyui.orcado.dev/picklist/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

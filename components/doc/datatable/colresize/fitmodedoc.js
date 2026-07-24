@@ -2,7 +2,7 @@ import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -106,8 +106,7 @@ export default function FitModeDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i>
-                    that does not change the overall table width.
+                    Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.
                 </p>
             </DocSectionText>
             <DeferredDemo onLoad={loadDemoData}>

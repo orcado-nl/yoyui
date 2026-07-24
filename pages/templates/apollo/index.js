@@ -12,36 +12,36 @@ const apolloFeatures2Data = [
     {
         title: 'Fully Responsive',
         description: 'Apollo is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-responsive.png'
+        src: '/images/templates/apollo/apollo-features2-responsive.png'
     },
     {
         title: 'Support',
         description:
             'PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users can seek assistance in our community via our public Discord and Forum.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png'
+        src: '/images/templates/apollo/apollo-features2-lifetime.png'
     },
     {
         title: 'Top Notch Quality',
         description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality-dark.png'
+        src: '/images/templates/apollo/apollo-features2-quality.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-quality-dark.png'
     },
     {
         title: 'Cross Browser Compatible',
         description: 'First class support for Firefox, Safari, Chrome and Edge.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png'
+        src: '/images/templates/apollo/apollo-features2-compatible.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-compatible-dark.png'
     },
     {
         title: 'Customizable Design',
         description: 'Fully customizable with a mixture of Sass and CSS variables.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png'
+        src: '/images/templates/apollo/apollo-features2-customizable.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-customizable-dark.png'
     },
     {
         title: 'Mobile Experience',
         description: 'Touch optimized enhanced mobile experience with responsive design.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-mobile.png'
+        src: '/images/templates/apollo/apollo-features2-mobile.png'
     }
 ];
 
@@ -50,19 +50,19 @@ const animationFeaturesData1 = [
         id: 1,
         title: 'PrimeFlex CSS Utilities',
         description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png'
+        src: '/images/templates/apollo/features-animation-utilities.png'
     },
     {
         id: 2,
         title: 'PrimeBlocks',
-        description: <>Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.</>,
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png'
+        description: 'Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.',
+        src: '/images/templates/apollo/features-animation-blocks.png'
     },
     {
         id: 3,
         title: 'PrimeIcons',
         description: 'Apollo ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png'
+        src: '/images/templates/apollo/features-animation-icons.png'
     },
     {
         id: 4,
@@ -74,23 +74,23 @@ const animationFeaturesData1 = [
                 Apollo Figma file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-figma.png'
+        src: '/images/templates/apollo/features-animation-figma.png'
     }
 ];
 
 const apolloFeatures1Data = [
     {
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature1.png',
+        src: '/images/templates/apollo/apollo-features1-feature1.png',
         title: 'Ready to Use Applications',
         description: 'Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease.'
     },
     {
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature2.png',
+        src: '/images/templates/apollo/apollo-features1-feature2.png',
         title: 'E-Commerce Pages',
         description: 'Apollo offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks.'
     },
     {
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature3.png',
+        src: '/images/templates/apollo/apollo-features1-feature3.png',
         title: 'Ready to Use Pages',
         description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
     }
@@ -101,55 +101,55 @@ const animationFeaturesData2 = [
         id: 1,
         title: 'Light / Dark / Dim Modes',
         description: 'Apollo has 3 display modes to choose from; Light, Dim and Dark.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-darkmode.png'
+        src: '/images/templates/apollo/features-animation-darkmode.png'
     },
     {
         id: 2,
         title: 'Component Themes',
         description: 'Apollo offers 24 built-in component themes and creating your own theme is a matter of defining couple of sass variables.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-component-themes.png'
+        src: '/images/templates/apollo/features-animation-component-themes.png'
     },
     {
         id: 3,
         title: '7 Menu Orientations',
         description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-orientations.png',
+        src: '/images/templates/apollo/features-animation-orientations.png',
         type: 'inline-animation',
         inlineFeaturesData: [
             {
                 id: 1,
                 title: 'Static',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Static.png'
+                src: '/images/templates/apollo/Static.png'
             },
             {
                 id: 2,
                 title: 'Slim',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Slim.png'
+                src: '/images/templates/apollo/Slim.png'
             },
             {
                 id: 3,
                 title: 'Reveal',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Reveal.png'
+                src: '/images/templates/apollo/Reveal.png'
             },
             {
                 id: 4,
                 title: 'Horizontal',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Horizontal.png'
+                src: '/images/templates/apollo/Horizontal.png'
             },
             {
                 id: 5,
                 title: 'Overlay',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Overlay.png'
+                src: '/images/templates/apollo/Overlay.png'
             },
             {
                 id: 6,
                 title: 'Slim+',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Slim+.png'
+                src: '/images/templates/apollo/Slim+.png'
             },
             {
                 id: 7,
                 title: 'Drawer',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Drawer.png'
+                src: '/images/templates/apollo/Drawer.png'
             }
         ]
     },
@@ -157,12 +157,12 @@ const animationFeaturesData2 = [
         id: 4,
         title: 'Menu Themes',
         description: 'Stunning theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-menu-themes.png'
+        src: '/images/templates/apollo/features-animation-menu-themes.png'
     }
 ];
 
 const license = {
-    documentLink: 'https://apollo.primereact.org/documentation/',
+    documentLink: 'https://yoyui.orcado.dev/templates/apollo',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -182,12 +182,12 @@ const license = {
 };
 const templateHeroData = {
     logo: <ApolloLogo />,
-    pattern: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-pattern.png',
-    dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard1.png',
-    dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard2.png',
+    pattern: '/images/templates/apollo/apollo-hero-pattern.png',
+    dashboard1: '/images/templates/apollo/apollo-hero-dashboard1.png',
+    dashboard2: '/images/templates/apollo/apollo-hero-dashboard2.png',
     description: 'Application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeReact themes.',
-    liveHref: 'https://apollo.primereact.org',
-    docHref: 'https://apollo.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/apollo',
+    docHref: 'https://yoyui.orcado.dev/templates/apollo',
     storeHref: 'https://primeui.store/templates/react/apollo'
 };
 
@@ -213,7 +213,7 @@ const ApolloPage = () => {
             <TemplateHero {...templateHeroData} />
             <ApolloSeparator />
             <div hidden={1}>
-                <TemplateYoutube imgSrc={'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-youtube-screen.png'} />
+                <TemplateYoutube imgSrc={'/images/templates/apollo/apollo-youtube-screen.png'} />
                 <ApolloSeparator />
             </div>
             <TemplateLicense license={license} />

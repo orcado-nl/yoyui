@@ -2,7 +2,6 @@ import * as React from 'react';
 import { ColumnBase } from '../column/ColumnBase';
 import { useMergeProps } from '../hooks/Hooks';
 import { classNames, DomHandler, ObjectUtils } from '../utils/Utils';
-
 export const FooterCell = React.memo((props) => {
     const [styleObjectState, setStyleObjectState] = React.useState({});
     const elementRef = React.useRef(null);
@@ -26,7 +25,13 @@ export const FooterCell = React.memo((props) => {
             }
         };
 
-        return mergeProps(ptm(`column.${key}`, { column: columnMetaData }), ptm(`column.${key}`, columnMetaData), ptmo(cProps, key, columnMetaData));
+        return mergeProps(
+            ptm(`column.${key}`, {
+                column: columnMetaData
+            }),
+            ptm(`column.${key}`, columnMetaData),
+            ptmo(cProps, key, columnMetaData)
+        );
     };
 
     const getColumnProp = (name) => ColumnBase.getCProp(props.column, name);
@@ -35,30 +40,45 @@ export const FooterCell = React.memo((props) => {
         const footerStyle = getColumnProp('footerStyle');
         const columnStyle = getColumnProp('style');
 
-        return getColumnProp('frozen') ? Object.assign({}, columnStyle, footerStyle, styleObjectState) : Object.assign({}, columnStyle, footerStyle);
+        return getColumnProp('frozen')
+            ? {
+                  ...columnStyle,
+                  ...footerStyle,
+                  ...styleObjectState
+              }
+            : {
+                  ...columnStyle,
+                  ...footerStyle
+              };
     };
 
     const updateStickyPosition = () => {
         if (getColumnProp('frozen')) {
-            let styleObject = { ...styleObjectState };
+            let styleObject = {
+                ...styleObjectState
+            };
             let align = getColumnProp('alignFrozen');
 
-            if (align === 'right') {
+            const runComplexBranch1 = () => {
                 let right = 0;
-                let next = elementRef.current && elementRef.current.nextElementSibling;
+                let next = elementRef.current?.nextElementSibling;
 
-                if (next && next.classList.contains('p-frozen-column')) {
-                    right = DomHandler.getOuterWidth(next) + parseFloat(next.style.right || 0);
+                if (next?.classList.contains('p-frozen-column')) {
+                    right = DomHandler.getOuterWidth(next) + Number.parseFloat(next.style.right || 0);
                 }
 
                 styleObject.right = right + 'px';
+            };
+
+            if (align === 'right') {
+                runComplexBranch1();
             } else {
                 let left = 0;
-                let prev = elementRef.current && elementRef.current.previousElementSibling;
+                let prev = elementRef.current?.previousElementSibling;
 
                 while (prev) {
-                    if (prev && prev.classList.contains('p-frozen-column')) {
-                        left = DomHandler.getOuterWidth(prev) + parseFloat(prev.style.left || 0);
+                    if (prev?.classList.contains('p-frozen-column')) {
+                        left = DomHandler.getOuterWidth(prev) + Number.parseFloat(prev.style.left || 0);
                         elementRef.current.style.left = left + 'px';
                         break;
                     }
@@ -80,16 +100,24 @@ export const FooterCell = React.memo((props) => {
             updateStickyPosition();
         }
     });
-
     const style = getStyle();
     const align = getColumnProp('align');
     const colSpan = getColumnProp('colSpan');
     const rowSpan = getColumnProp('rowSpan');
-    const content = ObjectUtils.getJSXElement(getColumnProp('footer'), { props: props.tableProps });
+    const content = ObjectUtils.getJSXElement(getColumnProp('footer'), {
+        props: props.tableProps
+    });
     const footerCellProps = mergeProps(
         {
             style,
-            className: classNames(getColumnProp('footerClassName'), getColumnProp('className'), cx('footerCell', { getColumnProp, align })),
+            className: classNames(
+                getColumnProp('footerClassName'),
+                getColumnProp('className'),
+                cx('footerCell', {
+                    getColumnProp,
+                    align
+                })
+            ),
             role: 'cell',
             colSpan,
             rowSpan
@@ -104,5 +132,4 @@ export const FooterCell = React.memo((props) => {
         </td>
     );
 });
-
 FooterCell.displayName = 'FooterCell';

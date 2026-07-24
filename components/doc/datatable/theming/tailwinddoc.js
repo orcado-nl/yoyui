@@ -451,7 +451,7 @@ export default function UnstyledDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -474,7 +474,7 @@ export default function UnstyledDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -487,7 +487,7 @@ export default function UnstyledDemo() {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -578,16 +578,14 @@ export default function UnstyledDemo() {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
-                    <Link href="/tailwind">Tailwind Customization</Link> section for an example.
-                </p>
-                <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
-                <p>A playground sample with the pre-built Tailwind theme.</p>
-                <DocSectionCode code={code2} embedded service={['CustomerService']} />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                <Link href="/tailwind">Tailwind Customization</Link> section for an example.
+            </p>
+            <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
+            <p>A playground sample with the pre-built Tailwind theme.</p>
+            <DocSectionCode code={code2} embedded service={['CustomerService']} />
+        </DocSectionText>
     );
 }

@@ -2,7 +2,7 @@ import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -133,8 +133,8 @@ export default function PresortDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In <i>multiple</i> sort mode,
-                    <i>multiSortMeta</i> should be used instead by providing an array of <i>DataTableSortMeta</i> objects.
+                    Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In <i>multiple</i> sort mode, <i>multiSortMeta</i> should be used instead by providing an array of{' '}
+                    <i>DataTableSortMeta</i> objects.
                 </p>
             </DocSectionText>
             <DeferredDemo onLoad={loadDemoData}>

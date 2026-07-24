@@ -1,5 +1,6 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext, ariaLabel } from '../api/Api';
+import { PrimeReactContext, ariaLabel, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useEventListener, useMatchMedia, useMergeProps, useMountEffect, useResizeListener, useUpdateEffect } from '../hooks/Hooks';
 import { AngleDownIcon } from '../icons/angledown';
@@ -9,16 +10,23 @@ import { Ripple } from '../ripple/Ripple';
 import { DomHandler, IconUtils, ObjectUtils, UniqueComponentId, ZIndexUtils, classNames } from '../utils/Utils';
 import { MegaMenuBase } from './MegaMenuBase';
 
+function handleSonarNested1(items, a) {
+    items.push(a);
+}
+
 export const MegaMenu = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = MegaMenuBase.getProps(inProps, context);
-
         const [idState, setIdState] = React.useState(props.id);
         const [activeItemState, setActiveItemState] = React.useState(null);
         const [focused, setFocused] = React.useState(null);
-        const [focusedItemInfo, setFocusedItemInfo] = React.useState({ index: -1, key: '', parentKey: '' });
+        const [focusedItemInfo, setFocusedItemInfo] = React.useState({
+            index: -1,
+            key: '',
+            parentKey: ''
+        });
         const [focusedItemId, setFocusedItemId] = React.useState(null);
         const [dirty, setDirty] = React.useState(false);
         const [processedItems, setProcessedItems] = React.useState(null);
@@ -35,18 +43,19 @@ export const MegaMenu = React.memo(
         const horizontal = props.orientation === 'horizontal';
         const vertical = props.orientation === 'vertical';
         const isMobileMode = useMatchMedia(`screen and (max-width: ${props.breakpoint})`, !!props.breakpoint);
-
         const { ptm, cx, isUnstyled } = MegaMenuBase.setMetaData({
             props,
             state: {
                 id: idState,
-                activeItem: activeItemState && activeItemState.item,
+                activeItem: activeItemState?.item,
                 attributeSelector: attributeSelectorState,
                 mobileActive: mobileActiveState
             }
         });
 
-        useHandleStyle(MegaMenuBase.css.styles, isUnstyled, { name: 'megamenu' });
+        useHandleStyle(MegaMenuBase.css.styles, isUnstyled, {
+            name: 'megamenu'
+        });
 
         const getPTOptions = (processedItem, key, index) => {
             return ptm(key, {
@@ -68,7 +77,6 @@ export const MegaMenu = React.memo(
                 }
             }
         });
-
         const [bindDocumentResizeListener, unbindDocumentResizeListener] = useResizeListener({
             type: 'resize',
             listener: () => {
@@ -114,7 +122,11 @@ export const MegaMenu = React.memo(
                 const { index, key, parentKey } = processedItem;
 
                 setActiveItemState(null);
-                setFocusedItemInfo({ index, key, parentKey });
+                setFocusedItemInfo({
+                    index,
+                    key,
+                    parentKey
+                });
             } else if (grouped) {
                 onItemChange(event);
             } else {
@@ -122,7 +134,11 @@ export const MegaMenu = React.memo(
                 const rootProcessedItemKey = activeItemState ? activeItemState.key : '';
 
                 hide(originalEvent);
-                setFocusedItemInfo({ index: rootProcessedItemIndex, key: rootProcessedItemKey, parentKey: '' });
+                setFocusedItemInfo({
+                    index: rootProcessedItemIndex,
+                    key: rootProcessedItemKey,
+                    parentKey: ''
+                });
                 setMobileActiveState(false);
             }
         };
@@ -138,8 +154,11 @@ export const MegaMenu = React.memo(
             const grouped = ObjectUtils.isNotEmpty(items);
 
             grouped && setActiveItemState(processedItem);
-            setFocusedItemInfo({ index, key, parentKey });
-
+            setFocusedItemInfo({
+                index,
+                key,
+                parentKey
+            });
             grouped && setDirty(true);
             isFocus && DomHandler.focus(menubarRef.current);
         };
@@ -180,22 +199,28 @@ export const MegaMenu = React.memo(
                 const { index, key, parentKey } = processedItem;
 
                 setActiveItemState(null);
-                setFocusedItemInfo({ index, key, parentKey });
+                setFocusedItemInfo({
+                    index,
+                    key,
+                    parentKey
+                });
                 setDirty(!root);
             } else if (grouped) {
                 onItemChange(event);
             } else {
-                const rootProcessedItem = root ? processedItem : activeItemState;
-
                 hide();
-                changeFocusedItemInfo(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
+                changeFocusedItemInfo(originalEvent);
                 setMobileActiveState(false);
                 DomHandler.focus(menubarRef.current);
             }
         };
 
         const show = () => {
-            setFocusedItemInfo({ index: findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+            setFocusedItemInfo({
+                index: findFirstFocusedItemIndex(),
+                level: 0,
+                parentKey: ''
+            });
         };
 
         const hide = (isFocus) => {
@@ -209,7 +234,11 @@ export const MegaMenu = React.memo(
             setActiveItemState(null);
 
             if (isFocus) {
-                setFocusedItemInfo({ index: -1, key: '', parentKey: '' });
+                setFocusedItemInfo({
+                    index: -1,
+                    key: '',
+                    parentKey: ''
+                });
                 DomHandler.focus(menubarRef.current);
             }
 
@@ -225,7 +254,7 @@ export const MegaMenu = React.memo(
                 hide();
             } else {
                 setMobileActiveState(true);
-                ZIndexUtils.set('menu', menubarRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.menu) || PrimeReact.zIndex.menu);
+                ZIndexUtils.set('menu', menubarRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.menu || PrimeReactConfig.zIndex.menu);
                 setTimeout(() => {
                     show();
                 }, 1);
@@ -233,14 +262,13 @@ export const MegaMenu = React.memo(
         };
 
         const isOutsideClicked = (event) => {
-            return elementRef.current && !(elementRef.current.isSameNode(event.target) || elementRef.current.contains(event.target) || (menuButtonRef.current && menuButtonRef.current.contains(event.target)));
+            return elementRef.current && !(elementRef.current.isSameNode(event.target) || elementRef.current.contains(event.target) || menuButtonRef.current?.contains(event.target));
         };
 
         React.useImperativeHandle(ref, () => ({
             props,
             getElement: () => elementRef.current
         }));
-
         useMountEffect(() => {
             const uniqueId = UniqueComponentId();
 
@@ -250,7 +278,6 @@ export const MegaMenu = React.memo(
                 !attributeSelectorState && setAttributeSelectorState(uniqueId);
             }
         });
-
         useUpdateEffect(() => {
             if (attributeSelectorState && elementRef.current) {
                 elementRef.current.setAttribute(attributeSelectorState, '');
@@ -261,7 +288,6 @@ export const MegaMenu = React.memo(
                 destroyStyle();
             };
         }, [attributeSelectorState, props.breakpoint]);
-
         useUpdateEffect(() => {
             if (mobileActiveState) {
                 bindListeners();
@@ -269,7 +295,6 @@ export const MegaMenu = React.memo(
                 unbindListeners();
             }
         }, [mobileActiveState]);
-
         useUpdateEffect(() => {
             if (focusTrigger) {
                 const itemIndex = focusedItemInfo.index !== -1 ? findNextItemIndex(focusedItemInfo.index) : findFirstFocusedItemIndex();
@@ -278,7 +303,6 @@ export const MegaMenu = React.memo(
                 setFocusTrigger(false);
             }
         }, [focusTrigger]);
-
         useUpdateEffect(() => {
             const currentPanel = DomHandler.findSingle(elementRef.current, '.p-menuitem-active > .p-megamenu-panel');
 
@@ -286,14 +310,17 @@ export const MegaMenu = React.memo(
                 bindListeners();
 
                 if (!isMobileMode) {
-                    ZIndexUtils.set('menu', currentPanel, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.menu) || PrimeReact.zIndex.menu);
+                    ZIndexUtils.set('menu', currentPanel, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.menu || PrimeReactConfig.zIndex.menu);
                 }
             } else {
                 unbindListeners();
             }
 
             if (isMobileMode) {
-                currentPanel && currentPanel.previousElementSibling.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+                currentPanel?.previousElementSibling.scrollIntoView({
+                    block: 'nearest',
+                    inline: 'nearest'
+                });
             }
 
             return () => {
@@ -301,31 +328,24 @@ export const MegaMenu = React.memo(
                 ZIndexUtils.clear(currentPanel);
             };
         }, [activeItemState, isMobileMode]);
-
         useUpdateEffect(() => {
             const _focusedItemId = ObjectUtils.isNotEmpty(focusedItemInfo.key) ? `${idState}_${focusedItemInfo.key}` : null;
 
             setFocusedItemId(_focusedItemId);
         }, [focusedItemInfo]);
-
         React.useEffect(() => {
             const itemsToProcess = props.model || [];
             const processed = createProcessedItems(itemsToProcess, 0, null, '');
 
-            setProcessedItems(processed);
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+            setProcessedItems(processed); // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.model]);
-
         useUpdateEffect(() => {
             const processedItem = ObjectUtils.isNotEmpty(activeItemState) ? activeItemState : null;
-
             const _visibleItems =
-                processedItem && processedItem.key === focusedItemInfo.parentKey
+                processedItem?.key === focusedItemInfo.parentKey
                     ? processedItem.items.reduce((items, col) => {
                           col.forEach((submenu) => {
-                              submenu.items.forEach((a) => {
-                                  items.push(a);
-                              });
+                              submenu.items.forEach(handleSonarNested1.bind(null, items));
                           });
 
                           return items;
@@ -342,18 +362,26 @@ export const MegaMenu = React.memo(
                 const index = findFirstFocusedItemIndex();
                 const processedItem = findVisibleItem(index);
 
-                setFocusedItemInfo({ index, key: processedItem.key, parentKey: processedItem.parentKey });
+                setFocusedItemInfo({
+                    index,
+                    key: processedItem.key,
+                    parentKey: processedItem.parentKey
+                });
             }
 
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onBlur = (event) => {
             setFocused(false);
-            setFocusedItemInfo({ index: -1, key: '', parentKey: '' });
+            setFocusedItemInfo({
+                index: -1,
+                key: '',
+                parentKey: ''
+            });
             searchValue.current = '';
             setDirty(false);
-            props.onBlur && props.onBlur(event);
+            props.onBlur?.(event);
         };
 
         const onKeyDown = (event) => {
@@ -363,44 +391,34 @@ export const MegaMenu = React.memo(
                 case 'ArrowDown':
                     onArrowDownKey(event);
                     break;
-
                 case 'ArrowUp':
                     onArrowUpKey(event);
                     break;
-
                 case 'ArrowLeft':
                     onArrowLeftKey(event);
                     break;
-
                 case 'ArrowRight':
                     onArrowRightKey(event);
                     break;
-
                 case 'Home':
                     onHomeKey(event);
                     break;
-
                 case 'End':
                     onEndKey(event);
                     break;
-
                 case 'Space':
                     onSpaceKey(event);
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                     onEnterKey(event);
                     break;
-
                 case 'Escape':
                     onEscapeKey(event);
                     break;
-
                 case 'Tab':
                     onTabKey(event);
                     break;
-
                 case 'PageDown':
                 case 'PageUp':
                 case 'Backspace':
@@ -408,7 +426,6 @@ export const MegaMenu = React.memo(
                 case 'ShiftRight':
                     //NOOP
                     break;
-
                 default:
                     if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
                         searchItems(event, event.key);
@@ -424,16 +441,27 @@ export const MegaMenu = React.memo(
             if (horizontal) {
                 let _focusedItemInfo = focusedItemInfo;
 
-                if (ObjectUtils.isNotEmpty(activeItemState) && activeItemState.key === focusedItemInfo.key) {
-                    _focusedItemInfo = { index: -1, key: '', parentKey: activeItemState.key };
+                if (activeItemState?.key === focusedItemInfo.key) {
+                    _focusedItemInfo = {
+                        index: -1,
+                        key: '',
+                        parentKey: activeItemState.key
+                    };
                     setFocusedItemInfo(_focusedItemInfo);
                 } else {
                     const processedItem = findVisibleItem(focusedItemInfo.index);
                     const grouped = isProccessedItemGroup(processedItem);
 
                     if (grouped) {
-                        onItemChange({ originalEvent: event, processedItem });
-                        _focusedItemInfo = { index: -1, key: processedItem.key, parentKey: processedItem.parentKey };
+                        onItemChange({
+                            originalEvent: event,
+                            processedItem
+                        });
+                        _focusedItemInfo = {
+                            index: -1,
+                            key: processedItem.key,
+                            parentKey: processedItem.parentKey
+                        };
                         setFocusedItemInfo(_focusedItemInfo);
                         searchValue.current = '';
                     }
@@ -451,21 +479,33 @@ export const MegaMenu = React.memo(
             const processedItem = findVisibleItem(focusedItemInfo.index);
             const grouped = isProccessedItemGroup(processedItem);
 
-            if (event.altKey && horizontal) {
+            const runComplexBranch1 = () => {
                 if (focusedItemInfo.index !== -1) {
-                    if (!grouped && ObjectUtils.isNotEmpty(activeItemState)) {
+                    if (!grouped && activeItemState) {
                         if (focusedItemInfo.index === 0) {
-                            setFocusedItemInfo({ index: activeItemState.index, key: activeItemState.key, parentKey: activeItemState.parentKey });
+                            setFocusedItemInfo({
+                                index: activeItemState.index,
+                                key: activeItemState.key,
+                                parentKey: activeItemState.parentKey
+                            });
                             setActiveItemState(null);
                         } else {
                             changeFocusedItemInfo(findFirstItemIndex());
                         }
                     }
                 }
-            } else {
+            };
+
+            const runComplexBranch4 = () => {
                 const itemIndex = focusedItemInfo.index !== -1 ? findPrevItemIndex(focusedItemInfo.index) : findLastFocusedItemIndex();
 
                 changeFocusedItemInfo(itemIndex);
+            };
+
+            if (event.altKey && horizontal) {
+                runComplexBranch1();
+            } else {
+                runComplexBranch4();
             }
 
             event.preventDefault();
@@ -482,9 +522,13 @@ export const MegaMenu = React.memo(
                     changeFocusedItemInfo(itemIndex);
                 }
             } else {
-                if (vertical && ObjectUtils.isNotEmpty(activeItemState)) {
+                if (vertical && activeItemState) {
                     if (processedItem.columnIndex === 0) {
-                        setFocusedItemInfo({ index: activeItemState.index, key: activeItemState.key, parentKey: activeItemState.parentKey });
+                        setFocusedItemInfo({
+                            index: activeItemState.index,
+                            key: activeItemState.key,
+                            parentKey: activeItemState.parentKey
+                        });
                         setActiveItemState(null);
                     }
                 }
@@ -500,21 +544,31 @@ export const MegaMenu = React.memo(
 
         const onArrowRightKey = (event) => {
             event.preventDefault();
-
             const processedItem = findVisibleItem(focusedItemInfo.index);
             const grouped = isProccessedItemGroup(processedItem);
 
             if (grouped) {
                 if (vertical) {
-                    if (ObjectUtils.isNotEmpty(activeItemState) && activeItemState.key === processedItem.key) {
-                        setFocusedItemInfo({ index: -1, key: '', parentKey: activeItemState.key });
+                    if (ObjectUtils.isNotEmpty(activeItemState) && activeItemState?.key === processedItem.key) {
+                        setFocusedItemInfo({
+                            index: -1,
+                            key: '',
+                            parentKey: activeItemState?.key
+                        });
                     } else {
                         const processedItem = findVisibleItem(focusedItemInfo.index);
                         const grouped = isProccessedItemGroup(processedItem);
 
                         if (grouped) {
-                            onItemChange({ originalEvent: event, processedItem });
-                            setFocusedItemInfo({ index: -1, key: processedItem.key, parentKey: processedItem.parentKey });
+                            onItemChange({
+                                originalEvent: event,
+                                processedItem
+                            });
+                            setFocusedItemInfo({
+                                index: -1,
+                                key: processedItem.key,
+                                parentKey: processedItem.parentKey
+                            });
                             searchValue.current = '';
                         }
                     }
@@ -544,7 +598,7 @@ export const MegaMenu = React.memo(
                 const element = DomHandler.findSingle(menubarRef.current, `li[id="${focusedItemId}"]`);
                 const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
-                anchorElement ? anchorElement.click() : element && element.click();
+                anchorElement ? anchorElement.click() : element?.click();
             }
 
             event.preventDefault();
@@ -555,8 +609,11 @@ export const MegaMenu = React.memo(
         };
 
         const onEscapeKey = (event) => {
-            if (ObjectUtils.isNotEmpty(activeItemState)) {
-                setFocusedItemInfo({ index: activeItemState.index, key: activeItemState.key });
+            if (activeItemState) {
+                setFocusedItemInfo({
+                    index: activeItemState.index,
+                    key: activeItemState.key
+                });
                 setActiveItemState(null);
             }
 
@@ -568,7 +625,11 @@ export const MegaMenu = React.memo(
                 const processedItem = findVisibleItem(focusedItemInfo.index);
                 const grouped = isProccessedItemGroup(processedItem);
 
-                !grouped && onItemChange({ originalEvent: event, processedItem });
+                !grouped &&
+                    onItemChange({
+                        originalEvent: event,
+                        processedItem
+                    });
             }
 
             hide();
@@ -577,7 +638,7 @@ export const MegaMenu = React.memo(
         const isItemMatched = (processedItem) => {
             const label = getProccessedItemLabel(processedItem);
 
-            return isValidItem(processedItem) && label && label.toLocaleLowerCase().startsWith(searchValue.current.toLocaleLowerCase());
+            return isValidItem(processedItem) && label?.toLocaleLowerCase().startsWith(searchValue.current.toLocaleLowerCase());
         };
 
         const isValidItem = (processedItem) => {
@@ -589,7 +650,7 @@ export const MegaMenu = React.memo(
         };
 
         const isSelected = (processedItem) => {
-            return ObjectUtils.isNotEmpty(activeItemState) ? activeItemState.key === processedItem.key : false;
+            return activeItemState?.key === processedItem.key;
         };
 
         const findFirstItemIndex = () => {
@@ -613,7 +674,7 @@ export const MegaMenu = React.memo(
         };
 
         const findSelectedItemIndex = () => {
-            return visibleItems && visibleItems.findIndex((processedItem) => isValidSelectedItem(processedItem));
+            return visibleItems?.findIndex((processedItem) => isValidSelectedItem(processedItem));
         };
 
         const findFirstFocusedItemIndex = () => {
@@ -633,7 +694,7 @@ export const MegaMenu = React.memo(
         };
 
         const getProccessedItemLabel = (processedItem) => {
-            return processedItem && processedItem.item ? getItemLabel(processedItem) : undefined;
+            return processedItem?.item ? getItemLabel(processedItem) : undefined;
         };
 
         const searchItems = (event, char) => {
@@ -660,8 +721,8 @@ export const MegaMenu = React.memo(
                 changeFocusedItemInfo(itemIndex);
             }
 
-            if (searchTimeout) {
-                clearTimeout(searchTimeout);
+            if (searchTimeout.current) {
+                clearTimeout(searchTimeout.current);
             }
 
             searchTimeout.current = setTimeout(() => {
@@ -676,7 +737,11 @@ export const MegaMenu = React.memo(
             const processedItem = findVisibleItem(index);
             const key = ObjectUtils.isNotEmpty(processedItem) ? processedItem.key : '';
 
-            setFocusedItemInfo({ ...focusedItemInfo, index, key: key });
+            setFocusedItemInfo({
+                ...focusedItemInfo,
+                index,
+                key: key
+            });
             scrollInView();
         };
 
@@ -685,7 +750,10 @@ export const MegaMenu = React.memo(
             const element = DomHandler.findSingle(menubarRef.current, `li[id="${id}"]`);
 
             if (element) {
-                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+                element.scrollIntoView?.({
+                    block: 'nearest',
+                    inline: 'start'
+                });
             }
         };
 
@@ -694,7 +762,7 @@ export const MegaMenu = React.memo(
         };
 
         const getItemProp = (processedItem, name, params) => {
-            return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
+            return processedItem?.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
         };
 
         const getItemLabel = (processedItem) => {
@@ -702,7 +770,7 @@ export const MegaMenu = React.memo(
         };
 
         const isItemActive = (processedItem) => {
-            return ObjectUtils.isNotEmpty(activeItemState) ? activeItemState.key === processedItem.key : false;
+            return activeItemState?.key === processedItem.key;
         };
 
         const isItemVisible = (processedItem) => {
@@ -714,7 +782,7 @@ export const MegaMenu = React.memo(
         };
 
         const isItemFocused = (processedItem) => {
-            return focusedItemId === getItemId(processedItem);
+            return Object.is(focusedItemId, getItemId(processedItem));
         };
 
         const isItemGroup = (processedItem) => {
@@ -737,10 +805,9 @@ export const MegaMenu = React.memo(
             return index - props.model.slice(0, index).filter((processedItem) => isItemVisible(processedItem) && getItemProp(processedItem, 'separator')).length + 1;
         };
 
-        const createProcessedItems = (items, level = 0, parent = {}, parentKey = '', columnIndex) => {
-            if (!items) return [];
+        const createProcessedItems = (items, level = 0, parent = {}, parentKey = '', columnIndex = undefined) => {
+            if (!items) return []; // #6415 if passed a single array[] instead of a matrix [][]
 
-            // #6415 if passed a single array[] instead of a matrix [][]
             if (!Array.isArray(items)) {
                 items = [items];
             }
@@ -754,7 +821,14 @@ export const MegaMenu = React.memo(
                     key,
                     parent,
                     parentKey,
-                    columnIndex: columnIndex !== undefined ? columnIndex : parent && parent.columnIndex !== undefined ? parent.columnIndex : index
+                    columnIndex:
+                        columnIndex !== undefined
+                            ? columnIndex
+                            : resolveConditional(
+                                  parent?.columnIndex !== undefined,
+                                  () => parent.columnIndex,
+                                  () => index
+                              )
                 };
 
                 newItem.items = level === 0 && item.items && item.items.length > 0 ? item.items.map((_items, _index) => createProcessedItems(_items, level + 1, newItem, key, _index)) : createProcessedItems(item.items, level + 1, newItem, key);
@@ -765,7 +839,6 @@ export const MegaMenu = React.memo(
 
         const createSeparator = (index) => {
             const key = idState + '_separator__' + index;
-
             const separatorProps = mergeProps(
                 {
                     id: key,
@@ -786,9 +859,16 @@ export const MegaMenu = React.memo(
                     },
                     ptm('submenuIcon')
                 );
-
                 const icon = vertical ? props.submenuIcon || <AngleRightIcon {...submenuIconProps} /> : props.submenuIcon || <AngleDownIcon {...submenuIconProps} />;
-                const submenuIcon = IconUtils.getJSXIcon(icon, { ...submenuIconProps }, { props });
+                const submenuIcon = IconUtils.getJSXIcon(
+                    icon,
+                    {
+                        ...submenuIconProps
+                    },
+                    {
+                        props
+                    }
+                );
 
                 return submenuIcon;
             }
@@ -808,7 +888,9 @@ export const MegaMenu = React.memo(
             }
 
             const key = getItemId(processedItem);
-            const linkClassName = classNames('p-menuitem-link', { 'p-disabled': item.disabled });
+            const linkClassName = classNames('p-menuitem-link', {
+                'p-disabled': item.disabled
+            });
             const iconProps = mergeProps(
                 {
                     className: classNames(item.icon, cx('icon'))
@@ -822,24 +904,31 @@ export const MegaMenu = React.memo(
                 ptm('label')
             );
             const iconClassName = classNames(item.icon, 'p-menuitem-icon');
-            const icon = IconUtils.getJSXIcon(item.icon, { ...iconProps }, { props });
+            const icon = IconUtils.getJSXIcon(
+                item.icon,
+                {
+                    ...iconProps
+                },
+                {
+                    props
+                }
+            );
             const label = item.label && <span {...labelProps}>{item.label}</span>;
-
             const actionProps = mergeProps(
                 {
                     href: item.url || '#',
-                    className: cx('action', { item }),
+                    className: cx('action', {
+                        item
+                    }),
                     target: item.target,
                     tabIndex: '-1'
                 },
                 getPTOptions(processedItem, 'action', index)
             );
-
             const isFocused = isItemFocused(processedItem);
             const isDisabled = isItemDisabled(processedItem);
             const isGroup = isItemGroup(processedItem);
             const isActive = isItemActive(processedItem);
-
             const submenuItemProps = mergeProps(
                 {
                     id: key,
@@ -853,21 +942,30 @@ export const MegaMenu = React.memo(
                     'data-p-highlight': isActive,
                     'data-p-disabled': isDisabled,
                     'data-p-focused': isFocused,
-                    className: classNames(item.className, cx('submenuItem', { focused: isFocused, disabled: isDisabled, active: isActive })),
+                    className: classNames(
+                        item.className,
+                        cx('submenuItem', {
+                            focused: isFocused,
+                            disabled: isDisabled,
+                            active: isActive
+                        })
+                    ),
                     style: item.style,
                     role: 'menuitem'
                 },
                 getPTOptions(processedItem, 'submenuItem', index)
             );
-
             const contentProps = mergeProps(
                 {
-                    onClick: (event) => onLeafClick({ originalEvent: event, processedItem: processedItem }),
+                    onClick: (event) =>
+                        onLeafClick({
+                            originalEvent: event,
+                            processedItem: processedItem
+                        }),
                     className: cx('content')
                 },
                 getPTOptions(processedItem, 'content', index)
             );
-
             let content = (
                 <a {...actionProps}>
                     {icon}
@@ -901,15 +999,18 @@ export const MegaMenu = React.memo(
             }
 
             const items = submenu.items.map(createSubmenuItem);
-
             const key = submenu.id || idState + '_sub_' + index;
             const label = getItemLabel(submenu);
             const isDisabled = isItemDisabled(submenu);
-
             const submenuHeaderProps = mergeProps(
                 {
                     id: key,
-                    className: classNames(submenu.className, cx('submenuHeader', { disabled: isDisabled })),
+                    className: classNames(
+                        submenu.className,
+                        cx('submenuHeader', {
+                            disabled: isDisabled
+                        })
+                    ),
                     style: submenu.style,
                     role: 'presentation',
                     'data-p-disabled': isDisabled
@@ -933,22 +1034,23 @@ export const MegaMenu = React.memo(
             const category = processedItem.item;
             const key = category.label + '_column_' + index;
             const submenus = createSubmenus(processedColumn);
-
             const columnProps = mergeProps(
                 {
-                    className: cx('column', { category })
+                    className: cx('column', {
+                        category
+                    })
                 },
                 ptm('column')
             );
-
             const display = activeItemState && activeItemState.item === category ? 'block' : 'none';
-
             const submenuProps = mergeProps(
                 {
                     role: 'menu',
                     tabIndex: props.disabled ? null : props.tabIndex || '0',
                     className: cx('submenu'),
-                    style: { display: display }
+                    style: {
+                        display: display
+                    }
                 },
                 ptm('submenu')
             );
@@ -963,7 +1065,11 @@ export const MegaMenu = React.memo(
         const createColumns = (category) => {
             if (category.items) {
                 return category.items.map((column, index) => {
-                    return <React.Fragment key={index}>{createColumn(category, column, index)}</React.Fragment>;
+                    return (
+                        <React.Fragment key={column?.id ?? column?.key ?? column?.name ?? column?.label ?? column?.value ?? column?.href ?? column?.src ?? column?.field ?? JSON.stringify(column)}>
+                            {createColumn(category, column, index)}
+                        </React.Fragment>
+                    );
                 });
             }
 
@@ -975,14 +1081,12 @@ export const MegaMenu = React.memo(
 
             if (category.items) {
                 const columns = createColumns(processedItem);
-
                 const panelProps = mergeProps(
                     {
                         className: cx('panel')
                     },
                     ptm('panel')
                 );
-
                 const gridProps = mergeProps(
                     {
                         className: cx('grid')
@@ -1002,10 +1106,8 @@ export const MegaMenu = React.memo(
 
         const createStyle = () => {
             if (!styleElementRef.current) {
-                styleElementRef.current = DomHandler.createInlineStyle((context && context.nonce) || PrimeReact.nonce, context && context.styleContainer);
-
+                styleElementRef.current = DomHandler.createInlineStyle(context?.nonce || PrimeReactConfig.nonce, context?.styleContainer);
                 const selector = `${attributeSelectorState}`;
-
                 const innerHTML = `
                     @media screen and (max-width: ${props.breakpoint}) {
                         .p-megamenu[${selector}] > .p-megamenu-root-list .p-menuitem-active .p-megamenu-panel {
@@ -1099,8 +1201,15 @@ export const MegaMenu = React.memo(
                 },
                 getPTOptions(processedItem, 'icon', index)
             );
-            const icon = IconUtils.getJSXIcon(category.icon, { ...iconProps }, { props });
-
+            const icon = IconUtils.getJSXIcon(
+                category.icon,
+                {
+                    ...iconProps
+                },
+                {
+                    props
+                }
+            );
             const labelProps = mergeProps(
                 {
                     className: cx('label')
@@ -1110,11 +1219,12 @@ export const MegaMenu = React.memo(
             const label = category.label && <span {...labelProps}>{category.label}</span>;
             const submenuIcon = createSubmenuIcon(category);
             const panel = createCategoryPanel(processedItem);
-
             const headerActionProps = mergeProps(
                 {
                     href: category.url || '#',
-                    className: cx('action', { item: category }),
+                    className: cx('action', {
+                        item: category
+                    }),
                     target: category.target,
                     onFocus: (event) => event.stopPropagation(),
                     tabIndex: '-1',
@@ -1122,7 +1232,6 @@ export const MegaMenu = React.memo(
                 },
                 getPTOptions(processedItem, 'action', index)
             );
-
             const itemContent = category.template ? (
                 ObjectUtils.getJSXElement(category.template, category, headerActionProps)
             ) : (
@@ -1133,14 +1242,21 @@ export const MegaMenu = React.memo(
                     <Ripple />
                 </a>
             );
-
             const key = getItemId(processedItem);
             const isFocused = isItemFocused(processedItem);
             const isDisabled = isItemDisabled(processedItem);
             const menuItemProps = mergeProps(
                 {
                     id: key,
-                    className: classNames(category.className, cx('menuitem', { category, activeItemState, focused: isFocused, disabled: isDisabled })),
+                    className: classNames(
+                        category.className,
+                        cx('menuitem', {
+                            category,
+                            activeItemState,
+                            focused: isFocused,
+                            disabled: isDisabled
+                        })
+                    ),
                     'aria-label': getItemLabel(category),
                     'aria-level': '1',
                     'aria-setsize': getAriaSetSize(),
@@ -1152,16 +1268,22 @@ export const MegaMenu = React.memo(
                     'data-p-disabled': isDisabled,
                     'data-p-focused': isFocused,
                     style: category.style,
-                    role: 'menuitem',
-                    'data-p-disabled': category.disabled || false
+                    role: 'menuitem'
                 },
                 getPTOptions(processedItem, 'menuitem', index)
             );
-
             const contentProps = mergeProps(
                 {
-                    onClick: (event) => onCategoryClick({ originalEvent: event, processedItem: processedItem }),
-                    onMouseEnter: (e) => onCategoryMouseEnter({ originalEvent: e, processedItem: processedItem }),
+                    onClick: (event) =>
+                        onCategoryClick({
+                            originalEvent: event,
+                            processedItem: processedItem
+                        }),
+                    onMouseEnter: (e) =>
+                        onCategoryMouseEnter({
+                            originalEvent: e,
+                            processedItem: processedItem
+                        }),
                     className: cx('content')
                 },
                 getPTOptions(processedItem, 'content', index)
@@ -1198,7 +1320,7 @@ export const MegaMenu = React.memo(
                 return (
                     <ul {...menuProps}>
                         {processedItems.map((item, index) => {
-                            return <React.Fragment key={index}>{createCategory(item, index, true)}</React.Fragment>;
+                            return <React.Fragment key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)}>{createCategory(item, index)}</React.Fragment>;
                         })}
                     </ul>
                 );
@@ -1251,7 +1373,7 @@ export const MegaMenu = React.memo(
                     className: cx('menuButton'),
                     href: '#',
                     role: 'button',
-                    'aria-haspopup': props.model && props.model.length > 0 ? true : false,
+                    'aria-haspopup': !!(props.model && props.model.length > 0),
                     'aria-expanded': mobileActiveState,
                     'aria-controls': idState,
                     'aria-label': ariaLabel('navigation'),
@@ -1260,32 +1382,42 @@ export const MegaMenu = React.memo(
                 },
                 ptm('menuButton')
             );
-
             const menuButtonIconProps = mergeProps(ptm('menuButtonIcon'));
-
             const icon = props.menuIcon || <BarsIcon {...menuButtonIconProps} />;
-            const menuIcon = IconUtils.getJSXIcon(icon, { ...menuButtonIconProps }, { props });
-            /* eslint-disable */
+            const menuIcon = IconUtils.getJSXIcon(
+                icon,
+                {
+                    ...menuButtonIconProps
+                },
+                {
+                    props
+                }
+            );
+            /* eslint-disable jsx-a11y/anchor-is-valid */
             const button = (
                 <a ref={menuButtonRef} {...menuButtonProps}>
                     {menuIcon}
                 </a>
             );
-            /* eslint-enable */
 
+            /* eslint-enable */
             return button;
         };
 
         const rootProps = mergeProps(
             {
-                className: classNames(props.className, cx('root', { mobileActiveState })),
+                className: classNames(
+                    props.className,
+                    cx('root', {
+                        mobileActiveState
+                    })
+                ),
                 id: idState,
                 style: props.style
             },
             MegaMenuBase.getOtherProps(props),
             ptm('root')
         );
-
         const menu = createMenu();
         const start = createStartContent();
         const end = createEndContent();
@@ -1301,5 +1433,4 @@ export const MegaMenu = React.memo(
         );
     })
 );
-
 MegaMenu.displayName = 'MegaMenu';

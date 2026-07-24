@@ -60,19 +60,19 @@ export default function BasicDemo() {
     const items = [
         {
             label: 'Finder',
-            icon: () => <img alt="Finder" src="https://primefaces.org/cdn/primereact/images/dock/finder.svg" width="100%" />,
+            icon: () => <img alt="Finder" src="/images/dock/finder.svg" width="100%" />,
         },
         {
             label: 'App Store',
-            icon: () => <img alt="App Store" src="https://primefaces.org/cdn/primereact/images/dock/appstore.svg" width="100%" />,
+            icon: () => <img alt="App Store" src="/images/dock/appstore.svg" width="100%" />,
         },
         {
             label: 'Photos',
-            icon: () => <img alt="Photos" src="https://primefaces.org/cdn/primereact/images/dock/photos.svg" width="100%" />,
+            icon: () => <img alt="Photos" src="/images/dock/photos.svg" width="100%" />,
         },
         {
             label: 'Trash',
-            icon: () => <img alt="trash" src="https://primefaces.org/cdn/primereact/images/dock/trash.png" width="100%" />,
+            icon: () => <img alt="trash" src="/images/dock/trash.png" width="100%" />,
         }
     ];
 
@@ -111,7 +111,7 @@ export default function BasicDemo() {
                     );
                 })}
             </div>
-            <div className="dock-window" style={{ backgroundImage: 'url(https://primefaces.org/cdn/primereact/images/dock/window.jpg)' }}>
+            <div className="dock-window" style={{ backgroundImage: 'url(/images/dock/window.jpg)' }}>
                 <Dock model={items} position={position} />
             </div>
         </div>
@@ -124,7 +124,7 @@ export default function BasicDemo() {
     width: 100%;
     height: 450px;
     position: relative;
-    background-image: url('https://primefaces.org/cdn/primereact/images/dock/window.jpg');
+    background-image: url('/images/dock/window.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     }
@@ -135,16 +135,14 @@ export default function BasicDemo() {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
-                    <Link href="/tailwind">Tailwind Customization</Link> section for an example.
-                </p>
-                <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
-                <p>A playground sample with the pre-built Tailwind theme.</p>
-                <DocSectionCode code={code2} embedded />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                <Link href="/tailwind">Tailwind Customization</Link> section for an example.
+            </p>
+            <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
+            <p>A playground sample with the pre-built Tailwind theme.</p>
+            <DocSectionCode code={code2} embedded />
+        </DocSectionText>
     );
 }

@@ -83,7 +83,7 @@ export function TemplateDoc(props) {
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                {option.states && <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />}
+                {option.states && <img alt={option.name} src="/images/flag/flag_placeholder.png" className={`flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />}
                 {option.cities && <i className="pi pi-compass" />}
                 {option.cname && <i className="pi pi-map-marker" />}
                 <span>{option.cname || option.name}</span>
@@ -183,7 +183,7 @@ export default function TemplateDemo() {
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                {option.states && <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+                {option.states && <img alt={option.name} src="/images/flag/flag_placeholder.png"
                 className={\`flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />}
                 {option.cities && <i className="pi pi-compass"/>}
                 {option.cname && <i className="pi pi-map-marker"/>}
@@ -303,7 +303,7 @@ export default function TemplateDemo() {
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                {option.states && <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+                {option.states && <img alt={option.name} src="/images/flag/flag_placeholder.png"
                 className={\`flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />}
                 {option.cities && <i className="pi pi-compass"/>}
                 {option.cname && <i className="pi pi-map-marker"/>}

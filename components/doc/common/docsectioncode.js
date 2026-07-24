@@ -85,7 +85,7 @@ export function DocSectionCode(props) {
                                 tooltipOptions={{ position: 'bottom', className: 'doc-section-code-tooltip' }}
                                 onClick={() => codeEditor.openStackBlitz(codeLang)}
                             >
-                                <svg role="img" viewBox="0 0 13 19" width={13} height={18} fill={'currentColor'} style={{ display: 'block' }}>
+                                <svg aria-hidden="true" viewBox="0 0 13 19" width={13} height={18} fill={'currentColor'} style={{ display: 'block' }}>
                                     <path d="M0 10.6533H5.43896L2.26866 18.1733L12.6667 7.463H7.1986L10.3399 0L0 10.6533Z" />
                                 </svg>
                             </Button>

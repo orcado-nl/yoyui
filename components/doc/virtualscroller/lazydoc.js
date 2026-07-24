@@ -20,9 +20,8 @@ export function LazyDoc(props) {
 
         if (loadLazyTimeout.current) {
             clearTimeout(loadLazyTimeout.current);
-        }
+        } //imitate delay of a backend call
 
-        //imitate delay of a backend call
         loadLazyTimeout.current = setTimeout(
             () => {
                 const { first, last } = event;
@@ -35,14 +34,12 @@ export function LazyDoc(props) {
                 setLazyItems(_lazyItems);
                 setLazyLoading(false);
             },
-            Math.random() * 1000 + 250
+            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
         );
     };
 
     const itemTemplate = (item, options) => {
-        const className = classNames('flex align-items-center p-2', {
-            'surface-hover': options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { 'surface-hover': options.odd });
 
         return (
             <div className={className} style={{ height: options.props.itemSize + 'px' }}>
@@ -52,9 +49,7 @@ export function LazyDoc(props) {
     };
 
     const loadingTemplate = (options) => {
-        const className = classNames('flex align-items-center p-2', {
-            odd: options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { odd: options.odd });
 
         return (
             <div className={className} style={{ height: '50px' }}>
@@ -103,7 +98,7 @@ export default function LazyDemo() {
 
             setLazyItems(_lazyItems);
             setLazyLoading(false);
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const itemTemplate = (item, options) => {
@@ -172,7 +167,7 @@ export default function LazyDemo() {
 
             setLazyItems(_lazyItems);
             setLazyLoading(false);
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const itemTemplate = (item: string, options: VirtualScrollerTemplateOptions) => {
@@ -213,8 +208,8 @@ export default function LazyDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded on demand. To implement lazy loading, enable the <i>lazy</i>
-                    property and implement <i>onLazyLoad</i> callback to return data.
+                    Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded on demand. To implement lazy loading, enable the <i>lazy</i> property and implement <i>onLazyLoad</i> callback to
+                    return data.
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">

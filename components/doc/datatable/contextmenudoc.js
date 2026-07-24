@@ -4,7 +4,7 @@ import { Column } from '@/components/lib/column/Column';
 import { ContextMenu } from '@/components/lib/contextmenu/ContextMenu';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Toast } from '@/components/lib/toast/Toast';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ProductService } from '../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -206,8 +206,8 @@ export default function ContextMenuDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    DataTable has exclusive integration with ContextMenu using the <i>onContextMenu</i> event to open a menu on right click alont with
-                    <i>contextMenuSelection</i> and <i>onContextMenuSelectionChange</i> properties to control the selection via the menu.
+                    DataTable has exclusive integration with ContextMenu using the <i>onContextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> and <i>onContextMenuSelectionChange</i> properties to control the
+                    selection via the menu.
                 </p>
             </DocSectionText>
             <DeferredDemo onLoad={loadDemoData}>

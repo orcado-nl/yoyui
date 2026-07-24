@@ -2,7 +2,7 @@
  *
  * A set of Avatars can be displayed together using the AvatarGroup component.
  *
- * [Live Demo](https://www.primereact.org/avatar/)
+ * [Live Demo](https://yoyui.orcado.dev/avatar/)
  *
  * @module avatargroup
  *
@@ -63,13 +63,13 @@ export interface AvatarGroupProps extends Omit<React.DetailedHTMLProps<React.HTM
 }
 
 /**
- * **PrimeReact - AvatarGroup**
+ * **YoYui - AvatarGroup**
  *
  * _A set of Avatars can be displayed together using the AvatarGroup component._
  *
- * [Live Demo](https://www.primereact.org/avatargroup/)
+ * [Live Demo](https://yoyui.orcado.dev/avatargroup/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

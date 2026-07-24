@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -112,10 +113,44 @@ const inlineStyles = {
     root: ({ props }) => ({
         alignItems: props.direction === 'up' || props.direction === 'down' ? 'center' : '',
         justifyContent: props.direction === 'left' || props.direction === 'right' ? 'center' : '',
-        flexDirection: props.direction === 'up' ? 'column-reverse' : props.direction === 'down' ? 'column' : props.direction === 'left' ? 'row-reverse' : props.direction === 'right' ? 'row' : null
+        flexDirection:
+            props.direction === 'up'
+                ? 'column-reverse'
+                : resolveConditional(
+                      props.direction === 'down',
+                      () => 'column',
+                      () =>
+                          resolveConditional(
+                              props.direction === 'left',
+                              () => 'row-reverse',
+                              () =>
+                                  resolveConditional(
+                                      props.direction === 'right',
+                                      () => 'row',
+                                      () => null
+                                  )
+                          )
+                  )
     }),
     menu: ({ props }) => ({
-        flexDirection: props.direction === 'up' ? 'column-reverse' : props.direction === 'down' ? 'column' : props.direction === 'left' ? 'row-reverse' : props.direction === 'right' ? 'row' : null
+        flexDirection:
+            props.direction === 'up'
+                ? 'column-reverse'
+                : resolveConditional(
+                      props.direction === 'down',
+                      () => 'column',
+                      () =>
+                          resolveConditional(
+                              props.direction === 'left',
+                              () => 'row-reverse',
+                              () =>
+                                  resolveConditional(
+                                      props.direction === 'right',
+                                      () => 'row',
+                                      () => null
+                                  )
+                          )
+                  )
     })
 };
 

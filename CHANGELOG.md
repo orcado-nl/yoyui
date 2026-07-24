@@ -1,5 +1,285 @@
 # Changelog
 
+## Sonarqube fixes
+
+This entry records all the changes to make sure the project adheres to the Sonarqube quality standards.
+
+### Public API and accessibility fixes
+
+- Fixed Chips so the documented `ariaLabelledBy` prop is applied to the listbox's
+  `aria-labelledby` attribute. The previous runtime implementation read the
+  incorrectly cased `ariaLabelledby` name even though the default props and
+  TypeScript declaration already exposed `ariaLabelledBy`.
+- Aligned ContextMenu's runtime and default props with its existing
+  `ariaLabelledBy` TypeScript declaration.
+- Corrected the Tree TypeScript declaration from `ariaLabelledby` to
+  `ariaLabelledBy`, matching the existing runtime prop.
+- Corrected the InputOtp TypeScript declaration from `readonly` to `readOnly`,
+  matching its default props and runtime behavior.
+- Fixed Knob's remaining read-only keyboard and tab-order checks to use `readOnly`.
+  A read-only Knob now consistently ignores keyboard changes and is removed from the
+  tab order.
+- Updated Knob accessibility forwarding to use React's standard `aria-label` and
+  `aria-labelledby` DOM props.
+- Corrected DeferredContent's default prop from `onload` to `onLoad`. Its component
+  callback is now consumed by DeferredContent and is no longer also forwarded to the
+  root `<div>` as a native load handler.
+
+### Hook correctness and lifecycle changes
+
+- Updated `useCounter` so its initial value and options are optional in TypeScript,
+  option fields can be supplied independently, and the return value has a concrete
+  type instead of `any`.
+- Changed `useCounter` increments and decrements to functional state updates, added
+  correct support for zero-valued boundaries, clamped steps to `min` and `max`, and
+  made `reset()` restore the supplied initial value instead of always returning to
+  zero.
+- Reworked `useEventListener` to retain the active registration separately from the
+  latest callback. It now invokes the newest callback without unnecessary
+  remove/add cycles and correctly re-registers when the target, event type, options,
+  or `when` state changes.
+- Reworked `useOverlayScrollListener` with the same stable-listener lifecycle,
+  including correct cleanup and rebinding when its target, options, or
+  `hideOverlaysOnDocumentScrolling` configuration changes.
+- Updated `useIntersectionObserver` to avoid recreating the observer when an inline
+  options object is recreated, to preserve scalar and array thresholds, and to
+  return `false` safely when `IntersectionObserver` is unavailable.
+- Updated `useMatchMedia` to be safe during server-side rendering, support both
+  modern and legacy MediaQueryList listener APIs, remove listeners when disabled,
+  and return `false` while `when` is false.
+- Updated `useLocalStorage` and `useSessionStorage` so sequential functional updates
+  use the latest value, key or storage changes rehydrate and rebind correctly,
+  invalid cross-tab JSON falls back safely, and values that serialize to
+  `undefined` remove the storage entry instead of storing an invalid sentinel.
+
+### Component behavior and data integrity
+
+- Fixed type-ahead search timeout cleanup in MegaMenu and TieredMenu by clearing the
+  timer stored in the ref rather than the ref object.
+- Fixed PanelMenu type-ahead timeout cleanup and corrected the misspelled
+  `searchTimeout.currentt` assignment, preventing stale timers and search state.
+- Changed TreeTable recursive single-column and multi-column sorting to replace
+  parent nodes with updated copies instead of mutating nested `children` arrays
+  supplied through the `value` prop.
+
+### Dependencies
+
+- Updated `jspdf` from `4.0.0` to `4.2.1`.
+- Updated `jspdf-autotable` from `5.0.2` to `5.0.8`, including its declared support
+  for jsPDF 4.
+- Regenerated `package-lock.json`, changing 69 resolved package entries. This
+  refresh includes Babel, DOMPurify, PostCSS, Rollup, SVGO, WebSocket, YAML, glob
+  matching, and related transitive packages; no additional direct dependency was
+  introduced.
+
+### Tests
+
+- Added five focused test files containing 13 regression tests.
+- Added coverage for Chips labeling, DeferredContent callback isolation, Knob
+  read-only behavior, immutable nested TreeTable sorting, counter boundaries,
+  event-listener lifecycle, storage updates, IntersectionObserver stability, and
+  match-media cleanup.
+- Post-merge validation passes 31 Jest suites, 293 tests, and 145 snapshots.
+- The branch diff passes Git's whitespace validation.
+
+### Required changes for users
+
+Update affected prop names if your code uses an old or incorrectly cased spelling:
+
+| Previous spelling | Required spelling | Affected API |
+| --- | --- | --- |
+| `readonly` | `readOnly` | InputOtp; any Knob workaround using the lowercase name |
+| `ariaLabelledby` | `ariaLabelledBy` | Chips, ContextMenu, and Tree |
+| `ariaLabel` | `aria-label` | Knob |
+| `ariaLabelledby` | `aria-labelledby` | Knob |
+| `onload` | `onLoad` | DeferredContent |
+
+The Chips and ContextMenu corrections align runtime behavior with declarations that
+already exposed `ariaLabelledBy`; the Tree and InputOtp corrections align their
+declarations with the existing runtime names. Code that already uses `readOnly`,
+`ariaLabelledBy`, `aria-label`, `aria-labelledby`, and `onLoad` needs no prop-name
+changes.
+
+Review the following behavior changes where applicable:
+
+- If code expects `useCounter().reset()` to return to zero regardless of its initial
+  value, update that logic or initialize the counter with zero. Counter steps now
+  clamp at `min` and `max` rather than overshooting or being incorrectly blocked.
+- If code changes the key passed to `useLocalStorage` or `useSessionStorage`, expect
+  the hook to load the new key. Setting a value to `undefined` now removes that key;
+  do not depend on the literal string `"undefined"` being stored.
+- If code relies on `useEventListener` or `useOverlayScrollListener` physically
+  removing and adding a DOM listener whenever only the callback identity changes,
+  move that side effect out of the callback. The hooks retain one registration and
+  invoke the latest callback.
+- If code uses `useMatchMedia(query, false)`, expect the returned match state to be
+  `false` instead of retaining a stale previous match.
+- If code relies on TreeTable sorting to mutate the nested arrays passed in `value`,
+  stop reading sorted data back from that input object. Treat `value` as immutable
+  and use the component's controlled sorting state and callbacks.
+- Run `npm install` after taking the branch so the direct PDF dependencies and
+  refreshed lockfile are installed. Revalidate byte-for-byte PDF snapshots if your
+  tests depend on jsPDF's exact generated output.
+
+No component names, export paths, or event payload shapes changed on the
+`optimisations` branch.
+
+## Unreleased - SonarQube quality and reliability overhaul (2026-07-23)
+
+This entry documents the repository-wide review and SonarQube remediation. It groups
+behavior-preserving edits by purpose so that the full scope is recorded without
+repeating the same mechanical cleanup for every component, test, and documentation
+page.
+
+### Fixed
+
+- Corrected Calendar date and time validation, including invalid-date detection,
+  millisecond range checks, day-of-year conversion, time-only parsing, date-time
+  parsing, selection updates, and keyboard navigation edge cases.
+- Hardened InputMask, InputNumber, InputOtp, and shared mask utilities around pasted
+  values, numeric validation, cursor placement, inserted characters, partially
+  completed values, and optional DOM state.
+- Preserved DataTable and TreeTable filtering semantics while simplifying local and
+  global filter evaluation, strict and lenient tree filtering, row and cell
+  selection, editing, expansion, frozen-column positioning, and keyboard handling.
+- Normalized Splitter children with the React children API so empty, single,
+  fragment-wrapped, and nested panels are handled consistently. Splitter resize and
+  nesting state attributes now use the DOM `dataset` API.
+- Fixed unsafe access to nullable menu, overlay, selection, and template state in
+  components including MegaMenu, PanelMenu, MultiSelect, TreeSelect, Dropdown,
+  VirtualScroller, and related overlays.
+- Corrected OrganizationChart column-span handling when child collections are absent.
+- Corrected conditional Tailwind button class selection and consolidated filled,
+  text, plain, and outlined class calculation.
+- Kept legacy Next.js links valid by restoring explicit anchor destinations where
+  required by the version of Next.js used by the documentation application.
+- Improved DOM utilities for element comparison, attribute and style handling,
+  overlay positioning, focus discovery, scrolling, selection cleanup, inline style
+  removal, downloads, and animation or transition detection.
+- Replaced weak pseudo-random demo car generation with the Web Crypto API.
+- Fixed documentation-only callback placement and rendering errors that could break
+  individual examples or the documentation build.
+
+### Changed
+
+- Decomposed high-complexity rendering and event logic across Calendar, DataTable,
+  TreeTable, InputNumber, MultiSelect, VirtualScroller, SpeedDial, menu components,
+  utility modules, and documentation tooling into focused helpers.
+- Added a lazy `resolveConditional` utility for readable conditional branches that
+  must not evaluate the unselected value.
+- Removed duplicated branches, redundant conditions, unnecessary jumps, unused
+  imports and variables, dead assignments, and duplicate renderer implementations.
+- Replaced nested ternaries with named decisions and extracted nested render
+  functions where doing so improves readability and React reconciliation.
+- Modernized JavaScript usage with optional chaining, nullish assignment, `for...of`,
+  `Object.entries`, `Array.at`, `String.replaceAll`, `Number.parseFloat`,
+  `Number.isNaN`, `Date.now`, spread arguments, and explicit locale-aware sorting.
+- Reworked recursive class-name flattening, deep object equality, DOM equality, mask
+  processing, SpeedDial positioning, paginator rendering, and API-document
+  generation into smaller reusable operations.
+- Reduced avoidable array creation and discarded return values by using direct
+  iteration for side-effect-only work.
+- Added stable, value-derived React keys throughout component rendering,
+  documentation examples, landing pages, templates, and API documentation.
+- Improved JSX readability and text rendering by making punctuation and whitespace
+  explicit where React or assistive technology could interpret it ambiguously.
+
+### Accessibility and React correctness
+
+- Replaced non-navigation anchors with semantic buttons where appropriate and
+  corrected label, span, link, and interactive-element semantics.
+- Added or retained valid `href`, ARIA, focus, and keyboard behavior on interactive
+  elements.
+- Removed index-only keys from dynamic lists where stable domain values are
+  available.
+- Extracted nested JSX component definitions and render callbacks that caused
+  unstable component identities.
+- Added null guards around focus targets, active items, child collections, and
+  browser-only DOM operations.
+
+### Documentation and tooling
+
+- Rebranded generated API documentation and JetBrains Web Types metadata from
+  PrimeReact to YoYui. Legacy PrimeReact live-demo URLs now resolve to the
+  corresponding local YoYui documentation routes, and generated logo references use
+  the local YoYui asset.
+- Replaced PrimeReact website URLs throughout metadata, navigation, examples,
+  templates, TypeScript declaration comments, and generated documentation with the
+  canonical `https://yoyui.orcado.dev` host. Template subdomains now resolve to
+  their corresponding `/templates/<name>` routes.
+- Removed all upstream CDN and website runtime dependencies. Demo imagery now uses
+  assets bundled under `public/images`, unavailable component wireframes and
+  portraits use local accessible SVG fallbacks, and obsolete upstream-only
+  newsletter and merchandise links were removed.
+- Replaced the site, Open Graph, and `useFavicon` demo icons with `yoyui-icon.svg`.
+  The icon is now shipped from `public` and copied into the generated API
+  documentation output by `build-apidoc.js`. API documentation generation now
+  uses the public asset as its source, so selective Docker build contexts no
+  longer need to include a duplicate repository-root icon.
+- Corrected the Accordion template's Avatar and Badge import casing so documentation
+  builds remain portable to case-sensitive hosts.
+- Replaced both legacy topbar SVGs with YoYui artwork: the desktop header now uses
+  the YoYui emblem and wordmark, while compact layouts use the standalone emblem.
+  Both home links now expose YoYui-specific accessible labels. The matching topbar
+  and landing-footer wordmarks use a coral accent for the `o`, `u`, and `i`, keeping
+  the two `Y` characters in the existing violet and teal brand colors, with larger
+  lettering for improved legibility.
+- Preserved inherited `PrimeReactProvider`, `PrimeReactConfig`, and
+  `PrimeReactPTOptions` identifiers where they describe the library's actual public
+  API; changing those labels without renaming the exports would make the API
+  reference inaccurate.
+- Refactored component examples, theme and Tailwind documentation, API tables,
+  navigation, templates, landing pages, and generated code samples to follow the
+  same static-analysis and accessibility rules as the library.
+- Simplified `build-apidoc.js` and `build-webtypes.js` while preserving generated API
+  and Web Types output behavior.
+- Added `sonar-project.properties` with source, test, coverage, encoding, memory, and
+  exclusion settings for repeatable local analysis.
+- Updated Splitter tests to cover actual panel rendering in addition to its existing
+  empty, single, vertical, and nested-panel snapshots.
+- Updated affected snapshots and test fixtures after deterministic key and semantic
+  markup changes.
+- The SonarQube remediation branch itself does not change package dependencies,
+  package scripts, public import paths, public component props, or event payload
+  contracts. The separate optimization-branch API corrections and dependency
+  updates are documented above.
+
+### Required changes for users
+
+For the SonarQube remediation changes in this section, consumers using the supported
+public component API require no code changes. Apply the optimization-branch
+migrations in the preceding section when those changes are integrated.
+
+Only apply the following changes if the condition describes your project:
+
+- If application tests select exact elements from the YoYui documentation site or
+  compare its raw HTML snapshots, update selectors and snapshots for semantic
+  button/link markup and deterministic list keys. This does not affect the public
+  component API.
+- If code deep-imports undocumented files from `components/lib/utils`, verify strict
+  assumptions about DOM attribute coercion, element equality, or conditional
+  evaluation. Prefer the documented component APIs; use the native
+  `element.getAttribute()` when a string result is specifically required.
+- If custom pass-through code supplies non-boolean values for boolean Button props
+  such as `text`, `outlined`, or `plain`, change them to real booleans. Corrected
+  Tailwind conditions now follow the documented boolean contract.
+- If the demo `CarService` is copied into a runtime without Web Crypto, provide
+  `crypto.getRandomValues` or replace the demo-only random generator. Supported
+  modern browsers and current Node.js versions already provide this API.
+- If CI runs the new local SonarQube configuration and coverage is required, run the
+  Jest coverage task before the scanner so `coverage/lcov.info` exists. Set the
+  SonarQube host URL and token in the scanner environment rather than committing
+  credentials.
+
+### Verification
+
+- SonarQube: **0 unresolved issues**, reduced from the initial 2,578 findings.
+- Jest: **26 suites, 280 tests, and 145 snapshots passed**.
+- ESLint: passed with zero warnings.
+- TypeScript: passed.
+- Prettier verification: passed.
+- Next.js production build: passed and generated 156 pages.
+
 ## [10.9.8](https://github.com/primefaces/primereact/tree/10.9.8) (2026-05-14)
 
 [Full Changelog](https://github.com/primefaces/primereact/compare/10.9.7...10.9.8)

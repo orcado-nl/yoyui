@@ -34,7 +34,6 @@ export function FilterDoc(props) {
     };
 
     let header = getHeader();
-
     const code = {
         basic: `
 <SelectButton value={filterMode} onChange={(e) => setFilterMode(e.value)} options={filterOptions} />

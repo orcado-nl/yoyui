@@ -1,3 +1,4 @@
+import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { PrimeReactContext, ariaLabel } from '../api/Api';
@@ -111,15 +112,21 @@ export const TriStateCheckbox = React.memo(
 
         let icon;
 
-        if (checkBoxValue === false) {
+        if (Object.is(checkBoxValue, false)) {
             icon = props.uncheckIcon || <TimesIcon {...uncheckIconProps} />;
-        } else if (checkBoxValue === true) {
+        } else if (Object.is(checkBoxValue, true)) {
             icon = props.checkIcon || <CheckIcon {...checkIconProps} />;
         }
 
         const checkIcon = IconUtils.getJSXIcon(icon, { ...checkIconProps }, { props });
 
-        const ariaValueLabel = checkBoxValue ? ariaLabel('trueLabel') : checkBoxValue === false ? ariaLabel('falseLabel') : ariaLabel('nullLabel');
+        const ariaValueLabel = checkBoxValue
+            ? ariaLabel('trueLabel')
+            : resolveConditional(
+                  Object.is(checkBoxValue, false),
+                  () => ariaLabel('falseLabel'),
+                  () => ariaLabel('nullLabel')
+              );
         const ariaChecked = checkBoxValue ? 'true' : 'false';
 
         const boxProps = mergeProps(

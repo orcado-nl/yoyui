@@ -20,7 +20,7 @@ export function BasicDoc(props) {
                 break;
 
             case 'random':
-                response = Math.floor(Math.random() * 100);
+                response = crypto.getRandomValues(new Uint32Array(1))[0] % 100;
                 break;
 
             case 'clear':
@@ -81,7 +81,7 @@ export default function TerminalDemo() {
                 break;
 
             case 'random':
-                response = Math.floor(Math.random() * 100);
+                response = (crypto.getRandomValues(new Uint32Array(1))[0] % 100);
                 break;
 
             case 'clear':
@@ -147,7 +147,7 @@ export default function TerminalDemo() {
                 break;
 
             case 'random':
-                response = Math.floor(Math.random() * 100);
+                response = (crypto.getRandomValues(new Uint32Array(1))[0] % 100);
                 break;
 
             case 'clear':
@@ -198,8 +198,8 @@ export default function TerminalDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Terminal is interacted with <i>TerminalService</i> api using <i>command</i>, <i>response</i> and <i>clear</i> events. The <i>command</i> event requires a callback to handle the commands, the <i>response</i>
-                    emits the response of the command and emitting <i>clear</i> reset the terminal.
+                    Terminal is interacted with <i>TerminalService</i> api using <i>command</i>, <i>response</i> and <i>clear</i> events. The <i>command</i> event requires a callback to handle the commands, the <i>response</i> emits the response of
+                    the command and emitting <i>clear</i> reset the terminal.
                 </p>
             </DocSectionText>
             <div className="card">

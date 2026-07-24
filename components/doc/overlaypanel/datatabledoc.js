@@ -11,11 +11,10 @@ import { ProductService } from '../../../service/ProductService';
 export function DataTableDoc(props) {
     const [products, setProducts] = useState(null);
     const [selectedProduct, setSelectedProduct] = useState(null);
-
     const selectedProductContent = selectedProduct && (
         <div className="p-5 surface-card shadow-2 border-round">
             <div className="relative">
-                <img src={'https://primefaces.org/cdn/primereact/images/product/' + selectedProduct.image} alt={selectedProduct.name} />
+                <img src={'/images/product/' + selectedProduct.image} alt={selectedProduct.name} />
             </div>
             <div className="flex align-items-center justify-content-between mt-3 mb-2">
                 <span className="text-900 font-medium text-xl">{selectedProduct.name}</span>
@@ -24,7 +23,6 @@ export function DataTableDoc(props) {
             <span className="text-600">{selectedProduct.category}</span>
         </div>
     );
-
     const op = useRef(null);
     const toast = useRef(null);
     const isMounted = useRef(false);
@@ -47,7 +45,7 @@ export function DataTableDoc(props) {
     };
 
     const imageBody = (rowData) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} className="w-4rem shadow-1" />;
+        return <img src={`/images/product/${rowData.image}`} alt={rowData.image} className="w-4rem shadow-1" />;
     };
 
     const priceBody = (rowData) => {
@@ -83,7 +81,7 @@ export default function DataTableDemo() {
     const selectedProductContent = selectedProduct && (
         <div className="p-5 surface-card shadow-2 border-round">
             <div className="relative">
-                <img src={'https://primefaces.org/cdn/primereact/images/product/' + selectedProduct.image} alt={selectedProduct.name}></img>
+                <img src={'/images/product/' + selectedProduct.image} alt={selectedProduct.name}></img>
             </div>
             <div className="flex align-items-center justify-content-between mt-3 mb-2">
                 <span className="text-900 font-medium text-xl">{selectedProduct.name}</span>
@@ -116,7 +114,7 @@ export default function DataTableDemo() {
     };
 
     const imageBody = (rowData) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} className="w-4rem shadow-1" />
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} className="w-4rem shadow-1" />
     };
 
     const priceBody = (rowData) => {
@@ -159,7 +157,7 @@ export default function DataTableDemo() {
     const selectedProductContent = selectedProduct && (
         <div className="p-5 surface-card shadow-2 border-round">
             <div className="relative">
-                <img src={'https://primefaces.org/cdn/primereact/images/product/' + selectedProduct.image} alt={selectedProduct.name}></img>
+                <img src={'/images/product/' + selectedProduct.image} alt={selectedProduct.name}></img>
             </div>
             <div className="flex align-items-center justify-content-between mt-3 mb-2">
                 <span className="text-900 font-medium text-xl">{selectedProduct.name}</span>
@@ -188,7 +186,7 @@ export default function DataTableDemo() {
     };
 
     const imageBody = (rowData: Product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} className="w-4rem shadow-1" />
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} className="w-4rem shadow-1" />
     };
 
     const priceBody = (rowData: Product) => {

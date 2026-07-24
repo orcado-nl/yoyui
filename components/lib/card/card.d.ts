@@ -2,7 +2,7 @@
  *
  * Card is a flexible container component.
  *
- * [Live Demo](https://www.primereact.org/card/)
+ * [Live Demo](https://yoyui.orcado.dev/card/)
  *
  * @module card
  *
@@ -105,13 +105,13 @@ export interface CardProps extends Omit<React.DetailedHTMLProps<React.HTMLAttrib
 }
 
 /**
- * **PrimeReact - Card**
+ * **YoYui - Card**
  *
  * _Card is a flexible container component._
  *
- * [Live Demo](https://www.primereact.org/card/)
+ * [Live Demo](https://yoyui.orcado.dev/card/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

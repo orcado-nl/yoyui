@@ -1,4 +1,5 @@
-import PrimeReact from '../api/Api';
+import { resolveConditional } from '../utils/ConditionalUtils';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -33,8 +34,8 @@ const classes = {
             'p-dialog-rtl': props.rtl,
             'p-dialog-maximized': maximized,
             'p-dialog-default': !maximized,
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     transition: 'p-dialog'
 };
@@ -236,9 +237,21 @@ const inlineStyles = {
         top: 0,
         display: 'flex',
         justifyContent:
-            props.position === 'left' || props.position === 'top-left' || props.position === 'bottom-left' ? 'flex-start' : props.position === 'right' || props.position === 'top-right' || props.position === 'bottom-right' ? 'flex-end' : 'center',
+            props.position === 'left' || props.position === 'top-left' || props.position === 'bottom-left'
+                ? 'flex-start'
+                : resolveConditional(
+                      props.position === 'right' || props.position === 'top-right' || props.position === 'bottom-right',
+                      () => 'flex-end',
+                      () => 'center'
+                  ),
         alignItems:
-            props.position === 'top' || props.position === 'top-left' || props.position === 'top-right' ? 'flex-start' : props.position === 'bottom' || props.position === 'bottom-left' || props.position === 'bottom-right' ? 'flex-end' : 'center',
+            props.position === 'top' || props.position === 'top-left' || props.position === 'top-right'
+                ? 'flex-start'
+                : resolveConditional(
+                      props.position === 'bottom' || props.position === 'bottom-left' || props.position === 'bottom-right',
+                      () => 'flex-end',
+                      () => 'center'
+                  ),
         pointerEvents: !props.modal && 'none',
         ...props.maskStyle
     })

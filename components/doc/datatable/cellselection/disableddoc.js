@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { InputSwitch } from '@/components/lib/inputswitch/InputSwitch';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -12,7 +12,7 @@ export function DisabledCellSelectionDoc(props) {
     const [selectedCell, setSelectedCell] = useState(null);
     const [metaKey, setMetaKey] = useState(true);
 
-    const isCellSelectable = (event) => (event.data.field === 'category' && event.data.value === 'Fitness' ? false : true);
+    const isCellSelectable = (event) => !(event.data.field === 'category' && event.data.value === 'Fitness');
 
     const cellClassName = (data) => (data === 'Fitness' ? 'p-disabled' : '');
 
