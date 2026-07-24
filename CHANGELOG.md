@@ -1,11 +1,8 @@
 # Changelog
 
-## Unreleased - Optimisation branch fixes (2026-07-23)
+## Sonarqube fixes
 
-This entry records the complete `optimisations` branch delta from `main`: 25 files
-changed, with 762 insertions and 449 deletions. The optimization branch has now been
-integrated with the SonarQube remediation branch, so the unreleased changes described
-in both sections are present in the combined build.
+This entry records all the changes to make sure the project adheres to the Sonarqube quality standards.
 
 ### Public API and accessibility fixes
 
