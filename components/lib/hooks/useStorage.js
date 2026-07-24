@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import { useEventListener } from './useEventListener';
 
@@ -14,6 +13,24 @@ export const useStorage = (initialValue, key, storage = 'local') => {
     // Since the local storage API isn't available in server-rendering environments,
     // we check that typeof window !== 'undefined' to make SSR and SSG work properly.
     const storageAvailable = typeof window !== 'undefined';
+    const [storedValue, setStoredValue] = React.useState(initialValue);
+    const initialValueRef = React.useRef(initialValue);
+    const storedValueRef = React.useRef(initialValue);
+
+    initialValueRef.current = initialValue;
+
+    const getStorage = React.useCallback(() => {
+        if (!storageAvailable) {
+            return null;
+        }
+
+        return storage === 'local' ? window.localStorage : window.sessionStorage;
+    }, [storage, storageAvailable]);
+
+    const updateStoredValue = React.useCallback((value) => {
+        storedValueRef.current = value;
+        setStoredValue(value);
+    }, []);
 
     // subscribe to window storage event so changes in one tab to a stored value
     // are properly reflected in all tabs
@@ -21,54 +38,65 @@ export const useStorage = (initialValue, key, storage = 'local') => {
         target: 'window',
         type: 'storage',
         listener: (event) => {
-            const area = storage === 'local' ? window.localStorage : window.sessionStorage;
+            const area = getStorage();
 
             if (event.storageArea === area && event.key === key) {
-                const newValue = event.newValue ? JSON.parse(event.newValue) : undefined;
-
-                setStoredValue(newValue);
+                try {
+                    updateStoredValue(event.newValue ? JSON.parse(event.newValue) : undefined);
+                } catch {
+                    updateStoredValue(initialValueRef.current);
+                }
             }
         }
     });
 
-    const [storedValue, setStoredValue] = React.useState(initialValue);
+    const setValue = React.useCallback(
+        (value) => {
+            const area = getStorage();
 
-    const setValue = (value) => {
-        try {
-            // Allow value to be a function so we have same API as useState
-            const valueToStore = typeof value === 'function' ? value(storedValue) : value;
-
-            setStoredValue(valueToStore);
-
-            if (storageAvailable) {
+            try {
+                // Allow value to be a function so we have same API as useState
+                const valueToStore = typeof value === 'function' ? value(storedValueRef.current) : value;
                 const serializedValue = JSON.stringify(valueToStore);
 
-                storage === 'local' ? window.localStorage.setItem(key, serializedValue) : window.sessionStorage.setItem(key, serializedValue);
+                if (area) {
+                    if (serializedValue === undefined) {
+                        area.removeItem(key);
+                    } else {
+                        area.setItem(key, serializedValue);
+                    }
+                }
+
+                updateStoredValue(valueToStore);
+            } catch (error) {
+                throw new Error(`PrimeReact useStorage: Failed to serialize the value at key: ${key}`, { cause: error });
             }
-        } catch (error) {
-            throw new Error(`PrimeReact useStorage: Failed to serialize the value at key: ${key}`, { cause: error });
-        }
-    };
+        },
+        [getStorage, key, updateStoredValue]
+    );
 
     React.useEffect(() => {
-        if (!storageAvailable) {
-            setStoredValue(initialValue);
+        const area = getStorage();
+
+        if (!area) {
+            updateStoredValue(initialValueRef.current);
+
+            return;
         }
 
         try {
-            const item = storage === 'local' ? window.localStorage.getItem(key) : window.sessionStorage.getItem(key);
+            const item = area.getItem(key);
 
-            setStoredValue(item ? JSON.parse(item) : initialValue);
+            updateStoredValue(item ? JSON.parse(item) : initialValueRef.current);
         } catch (error) {
-            // If error also return initialValue
             console.warn(`PrimeReact useStorage: Failed to read the value at key: ${key}`, error); // eslint-disable-line no-console
-            setStoredValue(initialValue);
+            updateStoredValue(initialValueRef.current);
         }
 
         bindWindowStorageListener();
 
         return () => unbindWindowStorageListener();
-    }, []);
+    }, [bindWindowStorageListener, getStorage, key, unbindWindowStorageListener, updateStoredValue]);
 
     return [storedValue, setValue];
 };
@@ -94,4 +122,3 @@ export const useLocalStorage = (initialValue, key) => {
 export const useSessionStorage = (initialValue, key) => {
     return useStorage(initialValue, key, 'session');
 };
-/* eslint-enable */

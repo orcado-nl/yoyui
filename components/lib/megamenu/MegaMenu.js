@@ -721,8 +721,8 @@ export const MegaMenu = React.memo(
                 changeFocusedItemInfo(itemIndex);
             }
 
-            if (searchTimeout) {
-                clearTimeout(searchTimeout);
+            if (searchTimeout.current) {
+                clearTimeout(searchTimeout.current);
             }
 
             searchTimeout.current = setTimeout(() => {

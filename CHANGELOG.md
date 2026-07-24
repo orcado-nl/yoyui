@@ -3,10 +3,9 @@
 ## Unreleased - Optimisation branch fixes (2026-07-23)
 
 This entry records the complete `optimisations` branch delta from `main`: 25 files
-changed, with 762 insertions and 449 deletions. The optimization and SonarQube
-branches currently diverge from the same `main` commit, so both branches must be
-integrated before all unreleased changes described in this file are present in one
-build.
+changed, with 762 insertions and 449 deletions. The optimization branch has now been
+integrated with the SonarQube remediation branch, so the unreleased changes described
+in both sections are present in the combined build.
 
 ### Public API and accessibility fixes
 
@@ -83,6 +82,7 @@ build.
   read-only behavior, immutable nested TreeTable sorting, counter boundaries,
   event-listener lifecycle, storage updates, IntersectionObserver stability, and
   match-media cleanup.
+- Post-merge validation passes 31 Jest suites, 293 tests, and 145 snapshots.
 - The branch diff passes Git's whitespace validation.
 
 ### Required changes for users

@@ -287,13 +287,13 @@ export const PanelMenuList = React.memo((props) => {
             });
         }
 
-        if (searchTimeout) {
+        if (searchTimeout.current) {
             clearTimeout(searchTimeout.current);
         }
 
         searchTimeout.current = setTimeout(() => {
             searchValue.current = '';
-            searchTimeout.currentt = null;
+            searchTimeout.current = null;
         }, 500);
 
         return matched;

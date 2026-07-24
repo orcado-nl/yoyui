@@ -591,7 +591,7 @@ export interface TreeProps {
     /**
      * Identifier of the underlying menu element.
      */
-    ariaLabelledby?: string | undefined;
+    ariaLabelledBy?: string | undefined;
     /**
      * Template of toggler element.
      */

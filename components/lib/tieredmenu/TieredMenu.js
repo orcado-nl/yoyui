@@ -440,7 +440,7 @@ export const TieredMenu = React.memo(
             }
 
             if (searchTimeout.current) {
-                clearTimeout(searchTimeout);
+                clearTimeout(searchTimeout.current);
             }
 
             searchTimeout.current = setTimeout(() => {

@@ -243,7 +243,7 @@ export declare function useSessionStorage<S, K extends string = string>(initialV
  * @param {number} [initialValue=0] - The value to counter.
  * @param {{ min: number; max: number; step: number }} [options=&#123; step: 1 &#125;]  - The options of the counter.
  */
-export declare function useCounter(initialValue: number, options: { min: number; max: number; step: number }): any;
+export declare function useCounter(initialValue?: number, options?: { min?: number; max?: number; step?: number }): { count: number; increment: () => void; decrement: () => void; reset: () => void };
 /**
  * Custom hook to use a debounced value.
  * @param {*} initialValue - The initial value for debounce.

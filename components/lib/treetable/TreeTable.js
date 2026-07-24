@@ -464,13 +464,16 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
                 return compareValuesOnSort(value1, value2, comparator, order);
             });
 
-            for (const _item of value) {
-                if (_item.children?.length) {
-                    _item.children = sortSingle({
-                        data: _item.children,
-                        field,
-                        order
-                    });
+            for (const [index, node] of value.entries()) {
+                if (node.children?.length) {
+                    value[index] = {
+                        ...node,
+                        children: sortSingle({
+                            data: node.children,
+                            field,
+                            order
+                        })
+                    };
                 }
             }
         }
@@ -486,12 +489,15 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
             return multisortField(node1, node2, multiSortMeta, 0, comparator);
         });
 
-        for (const _item2 of value) {
-            if (_item2.children?.length) {
-                _item2.children = sortMultiple({
-                    data: _item2.children,
-                    multiSortMeta
-                });
+        for (const [index, node] of value.entries()) {
+            if (node.children?.length) {
+                value[index] = {
+                    ...node,
+                    children: sortMultiple({
+                        data: node.children,
+                        multiSortMeta
+                    })
+                };
             }
         }
 
