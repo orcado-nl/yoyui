@@ -324,9 +324,6 @@ const UIKitPage = (props) => {
                                 purchase date will remain accessible to you indefinitely.
                             </p>
 
-                            <div className="font-bold text-lg text-900 line-height-3 mb-2 text-900">How Can I Extend My Access to Updates After One Year?</div>
-                            <p className="mt-0 mb-6 p-0 line-height-3 text-lg">At PrimeStore, you have the option to purchase an additional update term. This will grant you access to all existing versions and updates for another year.</p>
-
                             <div className="font-bold text-lg text-900 line-height-3 mb-2 text-900">How can I get support?</div>
                             <p className="mt-0 mb-6 p-0 line-height-3 text-lg">
                                 PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting.

@@ -50,10 +50,6 @@ export default function Home() {
             <Topbar onDarkSwitchClick={toggleDarkMode} />
             <HeroSection />
             <FeaturesSection />
-            <UsersSection />
-            <ThemeSection />
-            <BlockSection />
-            <TemplateSection />
             <FooterSection />
         </div>
     );

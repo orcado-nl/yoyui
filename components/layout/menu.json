@@ -620,11 +620,6 @@
             ]
         },
         {
-            "name": "Templates",
-            "icon": "pi pi-star",
-            "to": "/templates"
-        },
-        {
             "name": "Guides",
             "icon": "pi pi-book",
             "children": [
@@ -637,11 +632,6 @@
                     "to": "/guides/csslayer"
                 }
             ]
-        },
-        {
-            "name": "Contribution",
-            "to": "/contribution",
-            "icon": "pi pi-users"
         },
         {
             "name": "Discover",
