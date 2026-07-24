@@ -213,7 +213,9 @@ page.
   newsletter and merchandise links were removed.
 - Replaced the site, Open Graph, and `useFavicon` demo icons with `yoyui-icon.svg`.
   The icon is now shipped from `public` and copied into the generated API
-  documentation output by `build-apidoc.js`.
+  documentation output by `build-apidoc.js`. API documentation generation now
+  uses the public asset as its source, so selective Docker build contexts no
+  longer need to include a duplicate repository-root icon.
 - Corrected the Accordion template's Avatar and Badge import casing so documentation
   builds remain portable to case-sensitive hosts.
 - Replaced both legacy topbar SVGs with YoYui artwork: the desktop header now uses
