@@ -88,23 +88,14 @@ export default function Topbar(props) {
                                 <path d="M72.5 80 A7.5 7.5 0 0 1 87.5 80 Z" fill="#26C2B4" />
                                 <path d="M72.5 80 A7.5 7.5 0 0 0 87.5 80 Z" fill="#5B4FE0" />
                             </g>
-                            <text x="42" y="24.5" fill="#5B4FE0" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.7">
-                                YoY
+                            <text x="42" y="28" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="30" fontWeight="700" letterSpacing="-0.7">
+                                <tspan fill="#5B4FE0">Y</tspan>
+                                <tspan fill="#F06473">o</tspan>
                             </text>
-                            <text x="68" y="24.5" fill="#26C2B4" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="22" fontWeight="700" letterSpacing="-0.7">
-                                ui
+                            <text x="72" y="28" fontFamily="Inter, ui-sans-serif, system-ui, sans-serif" fontSize="30" fontWeight="700" letterSpacing="-0.7">
+                                <tspan fill="#26C2B4">Y</tspan>
+                                <tspan fill="#F06473">ui</tspan>
                             </text>
-                        </svg>
-                    </Link>
-                    <Link href="/" aria-label="YoYui home" className="layout-topbar-icon">
-                        <svg width="35" height="35" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-                            <rect x="12" y="12" width="136" height="136" rx="32" fill="#F6F4FF" />
-                            <path d="M48 38 C48 58 80 58 80 78" fill="none" stroke="#5B4FE0" strokeWidth="15" strokeLinecap="round" />
-                            <path d="M112 38 C112 58 80 58 80 78" fill="none" stroke="#5B4FE0" strokeWidth="15" strokeLinecap="round" />
-                            <path d="M48 122 C48 102 80 102 80 82" fill="none" stroke="#26C2B4" strokeWidth="15" strokeLinecap="round" />
-                            <path d="M112 122 C112 102 80 102 80 82" fill="none" stroke="#26C2B4" strokeWidth="15" strokeLinecap="round" />
-                            <path d="M72.5 80 A7.5 7.5 0 0 1 87.5 80 Z" fill="#26C2B4" />
-                            <path d="M72.5 80 A7.5 7.5 0 0 0 87.5 80 Z" fill="#5B4FE0" />
                         </svg>
                     </Link>
                 </div>

@@ -220,7 +220,10 @@ page.
   builds remain portable to case-sensitive hosts.
 - Replaced both legacy topbar SVGs with YoYui artwork: the desktop header now uses
   the YoYui emblem and wordmark, while compact layouts use the standalone emblem.
-  Both home links now expose YoYui-specific accessible labels.
+  Both home links now expose YoYui-specific accessible labels. The matching topbar
+  and landing-footer wordmarks use a coral accent for the `o`, `u`, and `i`, keeping
+  the two `Y` characters in the existing violet and teal brand colors, with larger
+  lettering for improved legibility.
 - Preserved inherited `PrimeReactProvider`, `PrimeReactConfig`, and
   `PrimeReactPTOptions` identifiers where they describe the library's actual public
   API; changing those labels without renaming the exports would make the API

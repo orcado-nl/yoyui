@@ -119,10 +119,6 @@ const HeroSection = () => {
                                 <i className="pi pi-arrow-right ml-3" />
                             </a>
                         </Link>
-                        <a href="https://github.com/primefaces/primereact" target="_blank" rel="noopener noreferrer" className="linkbox font-semibold py-3 px-4">
-                            <span>Give a Star</span>
-                            <i className="pi pi-star-fill ml-3 text-yellow-500" />
-                        </a>
                     </div>
                 </div>
                 <div className="w-full xl:w-6 pt-7 xl:pt-0 hidden md:block">
