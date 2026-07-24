@@ -27169,7 +27169,7 @@
                             "type": "Object"
                         }
                     ],
-                    "returnType": "any",
+                    "returnType": "Object",
                     "description": ""
                 },
                 "useDebounce": {
@@ -31682,7 +31682,7 @@
                             "description": "Used to configure passthrough(pt) options of the component."
                         },
                         {
-                            "name": "readonly",
+                            "name": "readOnly",
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
@@ -52706,7 +52706,7 @@
                             "description": "Defines a string value that labels an interactive element."
                         },
                         {
-                            "name": "ariaLabelledby",
+                            "name": "ariaLabelledBy",
                             "optional": true,
                             "readonly": false,
                             "type": "string",
