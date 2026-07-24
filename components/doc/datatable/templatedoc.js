@@ -21,7 +21,7 @@ export function TemplateDoc(props) {
     };
 
     const imageBodyTemplate = (product) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.image} className="w-6rem shadow-2 border-round" />;
+        return <img src={`/images/product/${product.image}`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
     const priceBodyTemplate = (product) => {
@@ -93,7 +93,7 @@ export default function TemplateDemo() {
     };
 
     const imageBodyTemplate = (product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
+        return <img src={\`/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
     const priceBodyTemplate = (product) => {
@@ -180,7 +180,7 @@ export default function TemplateDemo() {
     };
 
     const imageBodyTemplate = (product: Product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
+        return <img src={\`/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
     const priceBodyTemplate = (product: Product) => {

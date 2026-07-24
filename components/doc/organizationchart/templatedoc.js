@@ -35,7 +35,7 @@ export function TemplateDoc(props) {
     const nodeTemplate = (node) => {
         return (
             <div className="flex flex-column align-items-center">
-                <img alt={node.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`w-2rem shadow-2 flag flag-${node.data}`} />
+                <img alt={node.label} src="/images/flag/flag_placeholder.png" className={`w-2rem shadow-2 flag flag-${node.data}`} />
                 <div className="mt-3 font-medium text-lg">{node.label}</div>
             </div>
         );
@@ -93,7 +93,7 @@ export default function TemplateDemo() {
     const nodeTemplate = (node) => {
         return (
             <div className="flex flex-column align-items-center">
-                <img alt={node.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
+                <img alt={node.label} src="/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
                 <div className="mt-3 font-medium text-lg">{node.label}</div>
             </div>
         );
@@ -155,7 +155,7 @@ export default function TemplateDemo() {
     const nodeTemplate = (node: TreeNode) => {
         return (
             <div className="flex flex-column align-items-center">
-                <img alt={node.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
+                <img alt={node.label} src="/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
                 <div className="mt-3 font-medium text-lg">{node.label}</div>
             </div>
         );

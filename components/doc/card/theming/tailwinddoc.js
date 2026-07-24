@@ -36,7 +36,7 @@ import { Button } from 'primereact/button';
 
 export default function UnstyledDemo() {
     const header = (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+        <img alt="Card" src="/images/usercard.png" />
     );
     const footer = (
         <div className="flex flex-wrap justify-content-end gap-2">

@@ -55,7 +55,7 @@ export default function UnstyledDemo() {
     const itemTemplate = (data) => {
         return (
             <div className="flex flex-col xl:flex-row xl:items-start p-4 gap-4">
-                <img className="w-3/4 sm:w-64 xl:w-40 shadow-2 block xl:block mx-auto rounded" src={\`https://primefaces.org/cdn/primereact/images/product/\${data.image}\`} alt={data.name} />
+                <img className="w-3/4 sm:w-64 xl:w-40 shadow-2 block xl:block mx-auto rounded" src={\`/images/product/\${data.image}\`} alt={data.name} />
                 <div className="flex flex-col lg:flex-row justify-between items-center xl:items-start lg:flex-1 gap-4">
                     <div className="flex flex-col items-center lg:items-start gap-3">
                         <div className="flex flex-col  gap-1">

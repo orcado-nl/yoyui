@@ -17,7 +17,7 @@ export function SubHeaderRowGroupDoc(props) {
     const headerTemplate = (data) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={data.representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${data.representative.image}`} width="32" />
+                <img alt={data.representative.name} src={`/images/avatar/${data.representative.image}`} width="32" />
                 <span className="font-bold">{data.representative.name}</span>
             </div>
         );
@@ -34,7 +34,7 @@ export function SubHeaderRowGroupDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -105,7 +105,7 @@ export default function SubHeaderRowGroupDemo() {
     const headerTemplate = (data) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={data.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${data.representative.image}\`} width="32" />
+                <img alt={data.representative.name} src={\`/images/avatar/\${data.representative.image}\`} width="32" />
                 <span className="font-bold">{data.representative.name}</span>
             </div>
         );
@@ -124,7 +124,7 @@ export default function SubHeaderRowGroupDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -221,7 +221,7 @@ export default function SubHeaderRowGroupDemo() {
     const headerTemplate = (data: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={data.representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${data.representative.image}\`} width="32" />
+                <img alt={data.representative.name} src={\`/images/avatar/\${data.representative.image}\`} width="32" />
                 <span className="font-bold">{data.representative.name}</span>
             </div>
         );
@@ -240,7 +240,7 @@ export default function SubHeaderRowGroupDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );

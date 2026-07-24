@@ -12,35 +12,35 @@ const features2Data = [
     {
         title: 'Fully Responsive',
         description: 'Atlantis is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-features2-responsive.png'
+        src: '/images/templates/atlantis/atlantis-features2-responsive.png'
     },
     {
         title: 'Cross Browser Compatible',
         description: 'First class support for Firefox, Safari, Chrome and Edge.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png'
+        src: '/images/templates/apollo/apollo-features2-compatible.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-compatible-dark.png'
     },
     {
         title: 'Support',
         description:
             'PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users can seek assistance in our community via our public Discord and Forum.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png'
+        src: '/images/templates/apollo/apollo-features2-lifetime.png'
     },
     {
         title: 'Full SaSS Support',
         description: 'Sass is utilized for both the application and components to provide simplicity and flexibility.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png'
+        src: '/images/templates/apollo/apollo-features2-customizable.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-customizable-dark.png'
     },
     {
         title: 'Ready to Use Pages',
         description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-features2-ready.png'
+        src: '/images/templates/atlantis/atlantis-features2-ready.png'
     },
     {
         title: 'Mobile Experience',
         description: 'Touch optimized enhanced mobile experience with responsive design.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-features2-mobile.png'
+        src: '/images/templates/atlantis/atlantis-features2-mobile.png'
     }
 ];
 
@@ -49,19 +49,19 @@ const animationFeaturesData1 = [
         id: 1,
         title: 'PrimeFlex CSS Utilities',
         description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png'
+        src: '/images/templates/apollo/features-animation-utilities.png'
     },
     {
         id: 2,
         title: 'PrimeBlocks',
         description: 'Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png'
+        src: '/images/templates/apollo/features-animation-blocks.png'
     },
     {
         id: 3,
         title: 'PrimeIcons',
         description: 'Atlantis ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png'
+        src: '/images/templates/apollo/features-animation-icons.png'
     },
     {
         id: 4,
@@ -73,7 +73,7 @@ const animationFeaturesData1 = [
                 Atlantis Figma file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-figma.png'
+        src: '/images/templates/atlantis/features-animation-figma.png'
     }
 ];
 
@@ -82,55 +82,55 @@ const animationFeaturesData2 = [
         id: 1,
         title: 'Light and Dark Modes',
         description: 'The stunning dark and light modes will impress your users.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-darkmode.png'
+        src: '/images/templates/atlantis/features-animation-darkmode.png'
     },
     {
         id: 2,
         title: 'Component Themes',
         description: 'Atlantis offers 16 built-in component themes with dark and light options. You are also free to create you own theme by defining couple SASS variables.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-component-themes.png'
+        src: '/images/templates/atlantis/features-animation-component-themes.png'
     },
     {
         id: 3,
         title: '7 Menu Orientations',
         description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-orientations.png',
+        src: '/images/templates/atlantis/features-animation-orientations.png',
         type: 'inline-animation',
         inlineFeaturesData: [
             {
                 id: 1,
                 title: 'Static',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Static.png'
+                src: '/images/templates/atlantis/Static.png'
             },
             {
                 id: 2,
                 title: 'Slim',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Slim.png'
+                src: '/images/templates/atlantis/Slim.png'
             },
             {
                 id: 3,
                 title: 'Reveal',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Reveal.png'
+                src: '/images/templates/atlantis/Reveal.png'
             },
             {
                 id: 4,
                 title: 'Horizontal',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Horizontal.png'
+                src: '/images/templates/atlantis/Horizontal.png'
             },
             {
                 id: 5,
                 title: 'Overlay',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Overlay.png'
+                src: '/images/templates/atlantis/Overlay.png'
             },
             {
                 id: 6,
                 title: 'Slim+',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Slim+.png'
+                src: '/images/templates/atlantis/Slim+.png'
             },
             {
                 id: 7,
                 title: 'Drawer',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/Drawer.png'
+                src: '/images/templates/atlantis/Drawer.png'
             }
         ]
     }
@@ -158,9 +158,9 @@ const license = {
 
 const templateHeroData = {
     logo: <AtlantisLogo />,
-    pattern: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-pattern.png',
-    dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-dashboard1.png',
-    dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-dashboard2.png',
+    pattern: '/images/templates/atlantis/atlantis-hero-pattern.png',
+    dashboard1: '/images/templates/atlantis/atlantis-hero-dashboard1.png',
+    dashboard2: '/images/templates/atlantis/atlantis-hero-dashboard2.png',
     description: 'Prepare to be amazed by the remastered Atlantis for PrimeReact featuring a new gorgeous dark mode for the entire layout, 7 menu modes, reusable css widgets, utilities, modern icons and many more.',
     liveHref: 'https://yoyui.orcado.dev/templates/atlantis',
     docHref: 'https://yoyui.orcado.dev/templates/atlantis',
@@ -194,7 +194,7 @@ const AtlantisPage = () => {
             <TemplateLicense license={license} />
             <AtlantisSeperator />
             <div hidden={1}>
-                <TemplateYoutube imgSrc={'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-youtube-screen.png'} />
+                <TemplateYoutube imgSrc={'/images/templates/atlantis/atlantis-youtube-screen.png'} />
                 <AtlantisSeperator />
             </div>
             <TemplateFeaturesAnimation featuresData={animationFeaturesData2} title={featuresAnimationTitle} />

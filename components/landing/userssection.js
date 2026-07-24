@@ -13,7 +13,7 @@ const UsersSection = () => {
     const { darkMode } = useContext(AppContentContext);
     const colorScheme = darkMode ? 'light' : 'dark';
     const usersData = ['fox', 'airbus', 'mercedes', 'ebay', 'ford', 'vw', 'intel', 'unicredit', 'lufthansa', 'nvidia', 'verizon', 'amex'];
-    const getUsersImages = () => usersData.map((name) => ({ name, image: `https://primefaces.org/cdn/primereact/images/landing/whouses/${name}-${colorScheme}.svg` }));
+    const getUsersImages = () => usersData.map((name) => ({ name, image: `/images/landing-new/whouses/${name}-${colorScheme}.svg` }));
     const renderMarquee = ({ users, reverse }) => (
         <div className="marquee-wrapper overflow-hidden flex">
             {new Array(3).fill(users).map((users, index) => (

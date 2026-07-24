@@ -81,6 +81,7 @@ const path = require('node:path');
 const fs = require('node:fs');
 const rootDir = path.resolve(__dirname, '../');
 const outputPath = path.resolve(rootDir, 'components/doc/common/apidoc');
+const apiIconSourcePath = path.resolve(rootDir, 'yoyui-icon.svg');
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
     callbacks: 'Defines callbacks that determine the behavior of the component based on a given condition or report the actions that the component takes.',
@@ -357,6 +358,7 @@ if (project) {
 
     !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);
     fs.writeFileSync(path.resolve(outputPath, 'index.json'), typedocJSON);
+    fs.copyFileSync(apiIconSourcePath, path.resolve(outputPath, 'yoyui-icon.svg'));
 
     // app.generateJson(project, `./api-generator/typedoc.json`);
 }

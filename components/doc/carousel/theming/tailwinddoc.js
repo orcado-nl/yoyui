@@ -98,7 +98,7 @@ export default function UnstyledDemo() {
         return (
             <div className="border bg-white dark:bg-gray-900 border-gray-300 dark:border-blue-900/40 rounded-lg m-2 text-center py-5 px-3">
                 <div className="mb-3 flex justify-center">
-                    <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.name} className="w-1/2 shadow-sm" />
+                    <img src={\`/images/product/\${product.image}\`} alt={product.name} className="w-1/2 shadow-sm" />
                 </div>
                 <div>
                     <h4 className="mb-1 text-gray-700 font-medium dark:text-white/80">{product.name}</h4>

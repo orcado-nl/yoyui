@@ -10,17 +10,17 @@ const features1Data = [
     {
         title: 'Modern and Sleek Design',
         description: 'Enjoy a contemporary design that looks great on all devices.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/horizontal-features-img-1.png'
+        src: '/images/templates/genesis/horizontal-features-img-1.png'
     },
     {
         title: 'SEO & Performance',
         description: 'Optimized for fast loading and high search engine rankings.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/horizontal-features-img-2.png'
+        src: '/images/templates/genesis/horizontal-features-img-2.png'
     },
     {
         title: 'Animation / Effects',
         description: 'Enhance engagement with captivating animations and effects.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/horizontal-features-img-3.png'
+        src: '/images/templates/genesis/horizontal-features-img-3.png'
     }
 ];
 
@@ -28,30 +28,30 @@ const features2Data = [
     {
         title: 'Fully Responsive',
         description: 'Genesis is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/fully-responsive.png'
+        src: '/images/templates/genesis/fully-responsive.png'
     },
     {
         title: 'Cross Browser Compatible',
         description: 'First class support for Firefox, Safari, Chrome and Edge.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png'
+        src: '/images/templates/apollo/apollo-features2-compatible.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-compatible-dark.png'
     },
     {
         title: 'Support',
         description:
             'PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users can seek assistance in our community via our public Discord and Forum.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png'
+        src: '/images/templates/apollo/apollo-features2-lifetime.png'
     },
     {
         title: 'Customizable Design',
         description: 'Fully customizable with a mixture of Sass and CSS variables.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png'
+        src: '/images/templates/apollo/apollo-features2-customizable.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-customizable-dark.png'
     },
     {
         title: 'Mobile Experience',
         description: 'Touch optimized enhanced mobile experience with responsive design.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/mobile-experience.png'
+        src: '/images/templates/genesis/mobile-experience.png'
     }
 ];
 
@@ -60,19 +60,19 @@ const animationFeaturesData1 = [
         id: 1,
         title: 'Tailwind',
         description: 'Built with TailwindCSS, offering flexibility and efficiency for responsive design. Enjoy the power of Tailwind, a favorite among developers.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/animation-tailwind.png'
+        src: '/images/templates/genesis/animation-tailwind.png'
     },
     {
         id: 2,
         title: 'PrimeBlocks',
         description: 'Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png'
+        src: '/images/templates/apollo/features-animation-blocks.png'
     },
     {
         id: 3,
         title: 'PrimeIcons',
         description: 'Genesis ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png'
+        src: '/images/templates/apollo/features-animation-icons.png'
     },
     {
         id: 4,
@@ -84,7 +84,7 @@ const animationFeaturesData1 = [
                 file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/animation-figma.png'
+        src: '/images/templates/genesis/animation-figma.png'
     }
 ];
 
@@ -93,25 +93,25 @@ const animationFeaturesData2 = [
         id: 1,
         title: 'Various Landing Pages',
         description: 'Choose from 9 templates for industries like SaaS, Travel, and Real Estate, each tailored to specific business needs.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/animation-landing-pages.png'
+        src: '/images/templates/genesis/animation-landing-pages.png'
     },
     {
         id: 2,
         title: 'Secondary Pages',
         description: 'Includes essential pages like About, Pricing, Blog, and Contact for a complete user experience.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/animation-second-pages.png'
+        src: '/images/templates/genesis/animation-second-pages.png'
     },
     {
         id: 3,
         title: 'Dark & Light Modes',
         description: 'Easily switch between Light and Dark modes to match your aesthetic preferences.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/animation-dark-light-modes.png'
+        src: '/images/templates/genesis/animation-dark-light-modes.png'
     },
     {
         id: 4,
         title: 'Themes',
         description: 'Customize with 17 color themes to align with your brand effortlessly.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/genesis/animation-menu-themes.png'
+        src: '/images/templates/genesis/animation-menu-themes.png'
     }
 ];
 
@@ -160,9 +160,9 @@ const GenesisSeperator = () => {
 
 const templateHeroData = {
     logo: <GenesisLogo />,
-    pattern: 'https://primefaces.org/cdn/primereact/images/templates/genesis/hero-pattern.png',
-    dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/genesis/dashboard-2.png',
-    dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/genesis/dashboard-1.png',
+    pattern: '/images/templates/genesis/hero-pattern.png',
+    dashboard1: '/images/templates/genesis/dashboard-2.png',
+    dashboard2: '/images/templates/genesis/dashboard-1.png',
     description: 'Genesis, crafted by Prime, is the ultimate multi-purpose website template built with React and Next.js. It offers unmatched versatility and performance with a suite of example pages to elevate your projects.',
     liveHref: 'https://yoyui.orcado.dev/templates/genesis',
     docHref: '',

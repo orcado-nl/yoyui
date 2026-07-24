@@ -48,14 +48,14 @@ export default function UnstyledDemo() {
                 <div className="flex flex-wrap gap-5">
                     <div className="flex-auto">
                         <h5 className="text-gray-700 dark:text-white/80">Image</h5>
-                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" size="xlarge" shape="circle" />
-                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" className="mr-2" size="large" shape="circle" />
-                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" shape="circle" />
+                        <Avatar image="/images/avatar/amyelsner.png" className="mr-2" size="xlarge" shape="circle" />
+                        <Avatar image="/images/avatar/asiyajavayant.png" className="mr-2" size="large" shape="circle" />
+                        <Avatar image="/images/avatar/onyamalimba.png" shape="circle" />
                     </div>
 
                     <div className="flex-auto">
                         <h5 className="text-gray-700 dark:text-white/80">Badge</h5>
-                        <Avatar className="relative" image="https://primefaces.org/cdn/primereact/images/organization/walter.jpg" size="xlarge">
+                        <Avatar className="relative" image="/images/organization/walter.jpg" size="xlarge">
                             <Badge className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 origin-top-right m-0" value="4" severity="danger" />
                         </Avatar>
                     </div>
@@ -69,11 +69,11 @@ export default function UnstyledDemo() {
 
             <div className="card flex justify-content-center">
                 <AvatarGroup>
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/asiyajavayant.png" size="large" shape="circle" />
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" size="large" shape="circle" />
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/ionibowcher.png" size="large" shape="circle" />
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/xuxuefeng.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/asiyajavayant.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/onyamalimba.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/ionibowcher.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/xuxuefeng.png" size="large" shape="circle" />
                     <Avatar label="+2" shape="circle" size="large" style={{ backgroundColor: '#9c27b0', color: '#ffffff' }} />
                 </AvatarGroup>
             </div>

@@ -15,7 +15,7 @@ const TemplateLicense = ({ license }) => {
                                     <p key={txt?.id ?? txt?.key ?? txt?.name ?? txt?.label ?? txt?.value ?? txt?.href ?? txt?.src ?? txt?.field ?? JSON.stringify(txt)}>{txt}</p>
                                 ))}
                             </div>
-                            <a href="https://www.primefaces.org/layouts/licenses" target="_blank">
+                            <a href="https://github.com/orcado-nl/yoyui/blob/main/LICENSE.md" target="_blank" rel="noopener noreferrer">
                                 <button>License Details</button>
                             </a>
                         </div>

@@ -6,9 +6,9 @@ export default function Footer() {
     return (
         <div className="layout-footer">
             <div>
-                <span>PrimeReact {version} by </span>
-                <a href="https://www.primetek.com.tr" target="_blank" rel="noopener noreferrer">
-                    PrimeTek
+                <span>YoYui {version} by </span>
+                <a href="https://www.orcado.nl" target="_blank" rel="noopener noreferrer">
+                    Orcado
                 </a>
             </div>
         </div>

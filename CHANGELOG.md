@@ -207,6 +207,18 @@ page.
   templates, TypeScript declaration comments, and generated documentation with the
   canonical `https://yoyui.orcado.dev` host. Template subdomains now resolve to
   their corresponding `/templates/<name>` routes.
+- Removed all upstream CDN and website runtime dependencies. Demo imagery now uses
+  assets bundled under `public/images`, unavailable component wireframes and
+  portraits use local accessible SVG fallbacks, and obsolete upstream-only
+  newsletter and merchandise links were removed.
+- Replaced the site, Open Graph, and `useFavicon` demo icons with `yoyui-icon.svg`.
+  The icon is now shipped from `public` and copied into the generated API
+  documentation output by `build-apidoc.js`.
+- Corrected the Accordion template's Avatar and Badge import casing so documentation
+  builds remain portable to case-sensitive hosts.
+- Replaced both legacy topbar SVGs with YoYui artwork: the desktop header now uses
+  the YoYui emblem and wordmark, while compact layouts use the standalone emblem.
+  Both home links now expose YoYui-specific accessible labels.
 - Preserved inherited `PrimeReactProvider`, `PrimeReactConfig`, and
   `PrimeReactPTOptions` identifiers where they describe the library's actual public
   API; changing those labels without renaming the exports would make the API

@@ -13,7 +13,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/genesis" rel="noopener noreferrer">
-                            <img alt="Genesis" src="https://primefaces.org/cdn/primereact/images/layouts/genesis-react.webp" className="w-full" />
+                            <img alt="Genesis" src="/images/templates/genesis/dashboard-1.png" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/genesis" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -32,7 +32,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/apollo" rel="noopener noreferrer">
-                            <img alt="Apollo" src="https://primefaces.org/cdn/primereact/images/layouts/apollo-nextjs.jpg" className="w-full" />
+                            <img alt="Apollo" src="/images/layouts/apollo-nextjs.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/apollo" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -47,7 +47,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/sakai" rel="noopener noreferrer">
-                            <img alt="Sakai" src="https://primefaces.org/cdn/primereact/images/layouts/sakai-react.jpg" className="w-full" />
+                            <img alt="Sakai" src="/images/layouts/sakai-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/sakai" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -62,7 +62,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/diamond" rel="noopener noreferrer">
-                            <img alt="Diamond" src="https://primefaces.org/cdn/primereact/images/layouts/diamond-react.jpg" className="w-full" />
+                            <img alt="Diamond" src="/images/layouts/diamond-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/diamond" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -77,7 +77,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/verona" rel="noopener noreferrer">
-                            <img alt="Verona" src="https://primefaces.org/cdn/primereact/images/templates/verona.jpg" className="w-full" />
+                            <img alt="Verona" src="/images/templates/verona.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/verona" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -92,7 +92,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/atlantis" rel="noopener noreferrer">
-                            <img alt="Atlantis" src="https://primefaces.org/cdn/primereact/images/layouts/atlantis-react.jpg" className="w-full" />
+                            <img alt="Atlantis" src="/images/layouts/atlantis-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/atlantis" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -107,7 +107,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/freya" rel="noopener noreferrer">
-                            <img alt="Freya" src="https://primefaces.org/cdn/primereact/images/layouts/freya-react.jpg" className="w-full" />
+                            <img alt="Freya" src="/images/layouts/freya-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/freya" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -122,7 +122,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/ultima" rel="noopener noreferrer">
-                            <img alt="Ultima" src="https://primefaces.org/cdn/primereact/images/layouts/ultima-react.jpg" className="w-full" />
+                            <img alt="Ultima" src="/images/layouts/ultima-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/ultima" className="flex-1 p-button p-component" rel="noopener noreferrer">
@@ -137,7 +137,7 @@ const TemplatesPage = () => {
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
                         <a href="https://yoyui.orcado.dev/templates/avalon" rel="noopener noreferrer">
-                            <img alt="Avalon" src="https://primefaces.org/cdn/primereact/images/layouts/avalon-react.jpg" className="w-full" />
+                            <img alt="Avalon" src="/images/layouts/avalon-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
                             <a href="https://yoyui.orcado.dev/templates/avalon" className="flex-1 p-button p-component" rel="noopener noreferrer">

@@ -111,7 +111,7 @@ const ThemeSection = () => {
     const countryBodyTemplate = (rowData) => {
         return (
             <React.Fragment>
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} width={30} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} width={30} />
                 <span className="vertical-align-middle ml-2">{rowData.country.name}</span>
             </React.Fragment>
         );
@@ -122,7 +122,7 @@ const ThemeSection = () => {
 
         return (
             <React.Fragment>
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width={32} style={{ verticalAlign: 'middle' }} />
+                <img alt={representative.name} src={`/images/avatar/${representative.image}`} width={32} style={{ verticalAlign: 'middle' }} />
                 <span className="vertical-align-middle ml-2">{representative.name}</span>
             </React.Fragment>
         );
@@ -180,10 +180,7 @@ const ThemeSection = () => {
                     Bootstrap
                 </button>
             </div>
-            <div
-                className="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
-                style={{ backgroundImage: `url(https://primefaces.org/cdn/primereact/images/landing/wave-${darkMode ? 'dark-alt-gray' : 'light-alt-gray'}.svg)`, backgroundSize: 'cover' }}
-            >
+            <div className="themes-main flex mt-7 justify-content-center px-5 lg:px-8" style={{ backgroundImage: `url(/images/landing-new/wave-${darkMode ? 'dark-alt' : 'light-alt'}.svg)`, backgroundSize: 'cover' }}>
                 <div className="box overflow-hidden z-1 p-5 table-container">
                     <DataTable
                         value={customers}

@@ -6,7 +6,7 @@ export default function Document() {
     return (
         <Html>
             <Head>
-                <link href="https://primefaces.org/cdn/primereact/images/favicon.ico" rel="icon" type="image/x-icon"></link>
+                <link href="/yoyui-icon.svg" rel="icon" type="image/svg+xml"></link>
                 <link id="theme-link" href="/themes/lara-light-cyan/theme.css" rel="stylesheet"></link>
                 <link id="home-table-link" href="/styles/landing/themes/lara-light-cyan/theme.css" rel="stylesheet"></link>
                 <link rel="stylesheet" href="/styles/flags.css"></link>

@@ -8,7 +8,7 @@ import { Badge } from '@/components/lib/badge/Badge';
 function renderSonarNested1Element(options) {
     return (
         <button onClick={(e) => options.onClick(e)} className={classNames(options.className, 'w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround')}>
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
             <div className="flex flex-column align">
                 <span className="font-bold">Amy Elsner</span>
                 <span className="text-sm">Agent</span>
@@ -198,7 +198,7 @@ export default function TemplateDemo() {
             template: (item, options) => {
                 return (
                     <button onClick={(e) => options.onClick(e)} className={classNames(options.className, 'w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround')}>
-                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
+                        <Avatar image="/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
                         <div className="flex flex-column align">
                             <span className="font-bold">Amy Elsner</span>
                             <span className="text-sm">Agent</span>
@@ -320,7 +320,7 @@ export default function TemplateDemo() {
             template: (item, options) => {
                 return (
                     <button onClick={(e) => options.onClick(e)} className={classNames(options.className, 'w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround')}>
-                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
+                        <Avatar image="/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
                         <div className="flex flex-column align">
                             <span className="font-bold">Amy Elsner</span>
                             <span className="text-sm">Agent</span>

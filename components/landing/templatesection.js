@@ -11,13 +11,17 @@ const TemplateSection = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const imageBg = (template) => {
-        const url = template === 'templates-text' ? 'png' : 'jpg';
+        if (template === 'verona') {
+            return "url('/images/templates/verona/verona-hero-dashboard1.png')";
+        }
 
-        return `url('https://primefaces.org/cdn/primereact/images/landing/templates/${template}-${darkMode ? 'dark' : 'light'}.${url}')`;
+        const extension = template === 'apollo' ? 'jpg' : 'jpeg';
+
+        return `url('/images/landing-new/templates/${template}-${darkMode ? 'dark' : 'light'}.${extension}')`;
     };
 
     const templateImg = () => {
-        return `https://primefaces.org/cdn/primereact/images/landing/templates/templates-text-new-${darkMode ? 'dark' : 'light'}.png`;
+        return `/images/landing-new/templates/templates-text-${darkMode ? 'dark' : 'light'}.png`;
     };
 
     return (

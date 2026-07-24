@@ -22,7 +22,7 @@ export function FilterDoc(props) {
 
     const code = {
         basic: `
-<img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+<img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
 <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
 <Slider
     value={filterValues[filter]}
@@ -47,7 +47,7 @@ export default function FilterDemo() {
     return (
         <div className="card flex justify-content-center">
             <div className="flex flex-column align-items-center">
-                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
                 <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
                 <Slider
                     value={filterValues[filter]}
@@ -76,7 +76,7 @@ export default function FilterDemo() {
     return (
         <div className="card flex justify-content-center">
             <div className="flex flex-column align-items-center">
-                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
                 <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
                 <Slider
                     value={filterValues[filter]}
@@ -105,7 +105,7 @@ export default function FilterDemo() {
             </DocSectionText>
             <div className="card flex justify-content-center">
                 <div className="flex flex-column align-items-center">
-                    <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+                    <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
                     <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
                     <Slider
                         value={filterValues[filter]}

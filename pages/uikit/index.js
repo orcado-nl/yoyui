@@ -11,13 +11,13 @@ const UIKitPage = (props) => {
             </Head>
             <div>
                 <div style={{ borderRadius: '50px', maxHeight: '500px' }} className="overflow-hidden mb-5 flex align-items-center">
-                    <img alt="PrimeReact Designer" src={`https://primefaces.org/cdn/primereact/images/uikit/primeone-cover-${props.dark ? 'dark' : 'light'}.jpeg`} className="w-full" />
+                    <img alt="PrimeReact Designer" src={`/images/uikit/primeone-cover-${props.dark ? 'dark' : 'light'}.jpeg`} className="w-full" />
                 </div>
 
                 <div className="card mb-5" style={{ borderRadius: '50px' }}>
                     <div className="flex flex-column md:flex-row align-items-center gap-4 md:gap-8 mb-8">
                         <div className="w-full md:w-6">
-                            <img alt="PrimeReact Designer" src="https://primefaces.org/cdn/primereact/images/uikit/uikit-figma.png" className="w-full" />
+                            <img alt="PrimeReact Designer" src="/images/uikit/uikit-figma.png" className="w-full" />
                         </div>
                         <div className="w-full md:w-6">
                             <div className="text-primary font-bold mb-2">UP-TO-DATE</div>
@@ -78,12 +78,12 @@ const UIKitPage = (props) => {
                             </ul>
                         </div>
                         <div className="w-full md:w-6">
-                            <img alt="PrimeReact Designer" src="https://primefaces.org/cdn/primereact/images/uikit/uikit-system.png" className="w-full" />
+                            <img alt="PrimeReact Designer" src="/images/uikit/uikit-system.png" className="w-full" />
                         </div>
                     </div>
                     <div className="flex flex-column md:flex-row align-items-center gap-4 md:gap-8 mb-8">
                         <div className="w-full md:w-6">
-                            <img alt="PrimeReact Designer" src="https://primefaces.org/cdn/primereact/images/uikit/uikit-themes.png" className="w-full" />
+                            <img alt="PrimeReact Designer" src="/images/uikit/uikit-themes.png" className="w-full" />
                         </div>
                         <div className="w-full md:w-6">
                             <div className="text-primary font-bold mb-2">DARK MODE</div>
@@ -128,7 +128,7 @@ const UIKitPage = (props) => {
                             </ul>
                         </div>
                         <div className="w-full md:w-6">
-                            <img alt="Tokens Support" src="https://primefaces.org/cdn/primeng/images/uikit/uikit-tokens.png" className="w-full" />
+                            <img alt="Tokens Support" src="/images/uikit/uikit-system.png" className="w-full" />
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,7 @@ const UIKitPage = (props) => {
                         style={{ borderRadius: '50px' }}
                     >
                         <span className="text-gray-900 text-4xl font-bold mb-5">Preview</span>
-                        <img alt="Figma Light" src="https://primefaces.org/cdn/primereact/images/uikit/logo-figma-light.svg" className="w-4rem" />
+                        <img alt="Figma Light" src="/images/uikit/logo-figma-light.svg" className="w-4rem" />
                     </a>
                     <a
                         href="https://www.figma.com/design/XBQzDl4vDOO0pyxEGYcICt/Preview-%7C%C2%A0Dark-%7C-PrimeOne-%7C-3.0.1?node-id=806-36648&t=7AME0kw905t3PVVY-1"
@@ -148,14 +148,14 @@ const UIKitPage = (props) => {
                         style={{ borderRadius: '50px' }}
                     >
                         <span className="text-white text-4xl font-bold mb-5">Preview Dark</span>
-                        <img alt="Figma Dark" src="https://primefaces.org/cdn/primereact/images/uikit/logo-figma-dark.svg" className="w-4rem" />
+                        <img alt="Figma Dark" src="/images/uikit/logo-figma-dark.svg" className="w-4rem" />
                     </a>
                 </div>
 
                 <div className="card mb-5" style={{ borderRadius: '50px' }}>
                     <div className="text-900 font-bold text-5xl mb-3 text-center">Pricing</div>
                     <div className="mb-2 text-center line-height-3 text-lg">Choose the right plan for your business. Whether you are an individual or a member of a team, UI Kit is available for affordable prices.</div>
-                    <a href="https://www.primefaces.org/uikit/licenses" className="mb-6 text-primary hover:underline font-medium text-center block text-lg">
+                    <a href="https://github.com/orcado-nl/yoyui/blob/main/LICENSE.md" className="mb-6 text-primary hover:underline font-medium text-center block text-lg">
                         View License Details
                     </a>
 
@@ -294,9 +294,6 @@ const UIKitPage = (props) => {
                                         </li>
                                     </ul>
                                     <hr className="mb-3 mx-0 border-top-1 border-none surface-border" />
-                                    <a href="mailto:contact@primetek.com.tr" className="bg-bluegray-500 text-white hover:bg-bluegray-400 p-3 w-full border-round text-center transition-colors transition-duration-300 font-bold">
-                                        Contact Us
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -354,13 +351,7 @@ const UIKitPage = (props) => {
                             <p className="mt-0 mb-6 p-0 line-height-3 text-lg">Due to the license, it is not possible to use the UI Kit in an open source project where the design files are publicly available.</p>
 
                             <div className="font-bold text-lg text-900 line-height-3 mb-2 text-900">We're a reseller, are we able to purchase a license on behalf of our client?</div>
-                            <p className="mt-0 mb-6 p-0 line-height-3 text-lg">
-                                Yes, after the purchase, please{' '}
-                                <a href="mailto:contact@primetek.com.tr" className="text-primary hover:underline font-medium">
-                                    contact us
-                                </a>{' '}
-                                so we can transfer the license to your client.
-                            </p>
+                            <p className="mt-0 mb-6 p-0 line-height-3 text-lg">No.</p>
                         </div>
                     </div>
                 </div>

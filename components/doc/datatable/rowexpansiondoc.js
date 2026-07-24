@@ -55,7 +55,7 @@ export function RowExpansionDoc(props) {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
+        return <img src={`/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -194,7 +194,7 @@ export default function RowExpansionDemo() {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -369,7 +369,7 @@ export default function RowExpansionDemo() {
     };
 
     const imageBodyTemplate = (rowData: Product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
     };
 
     const priceBodyTemplate = (rowData: Product) => {

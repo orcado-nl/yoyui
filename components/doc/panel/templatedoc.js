@@ -16,7 +16,7 @@ export function TemplateDoc(props) {
         return (
             <div className={className}>
                 <div className="flex align-items-center gap-2">
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
                     <span className="font-bold">Amy Elsner</span>
                 </div>
                 <div>
@@ -86,7 +86,7 @@ export default function TemplateDemo() {
         return (
             <div className={className}>
                 <div className="flex align-items-center gap-2">
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
                     <span className="font-bold">Amy Elsner</span>
                 </div>
                 <div>
@@ -157,7 +157,7 @@ export default function TemplateDemo() {
         return (
             <div className={className}>
                 <div className="flex align-items-center gap-2">
-                    <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" size="large" shape="circle" />
+                    <Avatar image="/images/avatar/amyelsner.png" size="large" shape="circle" />
                     <span className="font-bold">Amy Elsner</span>
                 </div>
                 <div>

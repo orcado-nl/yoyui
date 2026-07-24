@@ -4,7 +4,7 @@ import { Button } from '@/components/lib/button/Button';
 import { Card } from '@/components/lib/card/Card';
 
 export function AdvancedDoc(props) {
-    const header = <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />;
+    const header = <img alt="Card" src="/images/usercard.png" />;
     const footer = (
         <>
             <Button label="Save" icon="pi pi-check" />
@@ -27,7 +27,7 @@ import { Button } from 'primereact/button';
 
 export default function AdvancedDemo() {
     const header = (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+        <img alt="Card" src="/images/usercard.png" />
     );
     const footer = (
         <>
@@ -55,7 +55,7 @@ import { Button } from 'primereact/button';
 
 export default function AdvancedDemo() {
     const header = (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+        <img alt="Card" src="/images/usercard.png" />
     );
     const footer = (
         <>

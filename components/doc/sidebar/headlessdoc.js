@@ -189,7 +189,7 @@ function renderSonarNested1(closeIconRef, hide, btnRef1, btnRef2, btnRef3, btnRe
                     <div className="mt-auto">
                         <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
                         <button type="button" className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+                            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
                             <span className="font-bold">Amy Elsner</span>
                         </button>
                     </div>
@@ -374,7 +374,7 @@ export function HeadlessDoc(props) {
                     <div className="mt-auto">
                         <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
                         <a  className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+                            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
                             <span className="font-bold">Amy Elsner</span>
                         </a>
                     </div>
@@ -578,7 +578,7 @@ export default function HeadlessDemo() {
                                 <div className="mt-auto">
                                     <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
                                     <a  className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+                                        <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
                                         <span className="font-bold">Amy Elsner</span>
                                     </a>
                                 </div>
@@ -785,7 +785,7 @@ export default function HeadlessDemo() {
                                 <div className="mt-auto">
                                     <hr className="mb-3 mx-3 border-top-1 border-none surface-border" />
                                     <a  className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
-                                        <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+                                        <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
                                         <span className="font-bold">Amy Elsner</span>
                                     </a>
                                 </div>

@@ -43,7 +43,7 @@ export default function Home() {
                 <meta property="og:title" content="PrimeReact | React UI Component Library" />
                 <meta property="og:url" content="https://yoyui.orcado.dev" />
                 <meta property="og:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
-                <meta property="og:image" content="https://primefaces.org/static/social/primereact-preview.jpg" />
+                <meta property="og:image" content="https://yoyui.orcado.dev/yoyui-icon.svg" />
                 <meta property="og:ttl" content="604800" />
             </Head>
             {/* <NewsSection /> */}

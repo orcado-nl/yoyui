@@ -31,7 +31,7 @@ export default function ImageDemo() {
                 </span>
             </InplaceDisplay>
             <InplaceContent>
-                <img className="w-full" alt="Nature" src="https://primefaces.org/cdn/primereact/images/nature/nature1.jpg" />
+                <img className="w-full" alt="Nature" src="/images/nature/nature1.jpg" />
             </InplaceContent>
         </Inplace>
     );
@@ -51,7 +51,7 @@ export default function ImageDemo() {
                 </span>
             </InplaceDisplay>
             <InplaceContent>
-                <img className="w-full" alt="Nature" src="https://primefaces.org/cdn/primereact/images/nature/nature1.jpg" />
+                <img className="w-full" alt="Nature" src="/images/nature/nature1.jpg" />
             </InplaceContent>
         </Inplace>
     );
@@ -73,7 +73,7 @@ export default function ImageDemo() {
                         </span>
                     </InplaceDisplay>
                     <InplaceContent>
-                        <img className="w-full" alt="Nature" src="https://primefaces.org/cdn/primereact/images/nature/nature1.jpg" />
+                        <img className="w-full" alt="Nature" src="/images/nature/nature1.jpg" />
                     </InplaceContent>
                 </Inplace>
             </div>

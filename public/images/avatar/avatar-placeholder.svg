@@ -1,0 +1,7 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title description">
+  <title id="title">Profile placeholder</title>
+  <desc id="description">Neutral profile silhouette used when a local portrait is unavailable.</desc>
+  <rect width="128" height="128" rx="64" fill="#f6f4ff"/>
+  <circle cx="64" cy="47" r="24" fill="#8c83df"/>
+  <path d="M22 116c4-27 20-41 42-41s38 14 42 41" fill="#5b4fe0"/>
+</svg>

@@ -9,24 +9,24 @@ const features2Data = [
     {
         title: 'Fully Responsive',
         description: 'Atlantis is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-features2-responsive.png'
+        src: '/images/templates/sakai/sakai-features2-responsive.png'
     },
     {
         title: 'Cross Browser Compatible',
         description: 'First class support for Firefox, Safari, Chrome and Edge.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png'
+        src: '/images/templates/apollo/apollo-features2-compatible.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-compatible-dark.png'
     },
     {
         title: 'Full SaSS Support',
         description: 'Sass is utilized for both the application and components to provide simplicity and flexibility.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png',
-        darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png'
+        src: '/images/templates/apollo/apollo-features2-customizable.png',
+        darkSrc: '/images/templates/apollo/apollo-features2-customizable-dark.png'
     },
     {
         title: 'Mobile Experience',
         description: 'Touch optimized enhanced mobile experience with responsive design.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-features2-mobile.png'
+        src: '/images/templates/sakai/sakai-features2-mobile.png'
     }
 ];
 
@@ -35,19 +35,19 @@ const animationFeaturesData1 = [
         id: 1,
         title: 'PrimeFlex CSS Utilities',
         description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/babylon/features-animation-utilities.png'
+        src: '/images/templates/babylon/features-animation-utilities.png'
     },
     {
         id: 2,
         title: 'PrimeBlocks',
         description: 'Designed to be fully compatible with upcoming next-gen PrimeBlocks, choose from the extensive range of blocks and customize the way you like.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/babylon/features-animation-blocks.png'
+        src: '/images/templates/babylon/features-animation-blocks.png'
     },
     {
         id: 3,
         title: 'PrimeIcons',
         description: 'Atlantis ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/babylon/features-animation-icons.png'
+        src: '/images/templates/babylon/features-animation-icons.png'
     }
 ];
 
@@ -56,24 +56,24 @@ const animationFeaturesData2 = [
         id: 1,
         title: 'Various Free Themes',
         description: 'Sakai has various free themes to choose from; PrimeOne Design, Bootstrap, Material Design with light and dark options.',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/features-animation-darkmode.png'
+        src: '/images/templates/sakai/features-animation-darkmode.png'
     },
     {
         id: 2,
         title: '2 Menu Orientations',
         description: 'Sakai has 2 menu modes; Static and Overlay',
-        src: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-orientations.png',
+        src: '/images/templates/atlantis/features-animation-orientations.png',
         type: 'inline-animation',
         inlineFeaturesData: [
             {
                 id: 1,
                 title: 'Static',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/Static.png'
+                src: '/images/templates/sakai/Static.png'
             },
             {
                 id: 2,
                 title: 'Overlay',
-                src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/Overlay.png'
+                src: '/images/templates/sakai/Overlay.png'
             }
         ]
     }
@@ -81,12 +81,12 @@ const animationFeaturesData2 = [
 
 const features1Data = [
     {
-        src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-github.png',
+        src: '/images/templates/sakai/sakai-github.png',
         title: 'Open Source and Free to Use',
         description: "Explore Sakai, our versatile, open-source React application template. It's free for your every innovation."
     },
     {
-        src: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-ready.png',
+        src: '/images/templates/sakai/sakai-ready.png',
         title: 'Ready to Use Pages',
         description: 'Landing, login and error pages are provided as template pages to get started with building your app in no time.'
     }
@@ -94,9 +94,9 @@ const features1Data = [
 
 const templateHeroData = {
     logo: <SakaiLogo />,
-    pattern: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-pattern.png',
-    dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-dashboard1.png',
-    dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-dashboard2.png',
+    pattern: '/images/templates/sakai/sakai-hero-pattern.png',
+    dashboard1: '/images/templates/sakai/sakai-hero-dashboard1.png',
+    dashboard2: '/images/templates/sakai/sakai-hero-dashboard2.png',
     description: 'Sakai is a free application template for React based on the popular Next.js framework with new App Router.',
     liveHref: 'https://yoyui.orcado.dev/templates/sakai',
     docHref: 'https://yoyui.orcado.dev/templates/sakai',

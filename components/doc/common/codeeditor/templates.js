@@ -363,7 +363,7 @@ img.flag {
     width: 30px;
 }
 .flag {
-    background: url(https://primefaces.org/cdn/primereact/images/flag/flags_responsive.png)
+    background: url(/images/flag/flags_responsive.png)
         no-repeat;
     background-size: 100%;
     vertical-align: middle;

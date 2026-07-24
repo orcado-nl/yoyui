@@ -10,7 +10,7 @@ export function ArchitectureDoc(props) {
                 PrimeReact is a design agnostic library so unlike other UI libraries it does not enforce a certain styling such as material or bootstrap. In order to achieve this, styling has been separated into two parts, core and theme. The core
                 resides inside PrimeReact to implement the structure of the components such as positioning whereas theme brings the colors and spacing.
             </p>
-            <img alt="Architecture" src="https://primefaces.org/cdn/primereact/images/architecture.jpg" className="w-full" />
+            <img alt="Architecture" src="/images/architecture.jpg" className="w-full" />
         </DocSectionText>
     );
 }

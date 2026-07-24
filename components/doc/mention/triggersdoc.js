@@ -56,7 +56,7 @@ export function TriggersDoc(props) {
     };
 
     const itemTemplate = (suggestion) => {
-        const src = 'https://primefaces.org/cdn/primereact/images/avatar/' + suggestion.representative.image;
+        const src = '/images/avatar/' + suggestion.representative.image;
 
         return (
             <div className="flex align-items-center">
@@ -145,7 +145,7 @@ export default function TriggersDemo() {
     }
 
     const itemTemplate = (suggestion) => {
-        const src = 'https://primefaces.org/cdn/primereact/images/avatar/' + suggestion.representative.image;
+        const src = '/images/avatar/' + suggestion.representative.image;
         
         return (
             <div className="flex align-items-center">
@@ -238,7 +238,7 @@ export default function TriggersDemo() {
     }
 
     const itemTemplate = (suggestion) => {
-        const src = 'https://primefaces.org/cdn/primereact/images/avatar/' + suggestion.representative.image;
+        const src = '/images/avatar/' + suggestion.representative.image;
         
         return (
             <div className="flex align-items-center">

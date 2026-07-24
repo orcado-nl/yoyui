@@ -104,7 +104,7 @@ export default function UnstyledDemo() {
       <div className="flex flex-col items-center">
         <img
           alt={node.label}
-          src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+          src="/images/flag/flag_placeholder.png"
           className={\`w-8 shadow-md flag flag-\${node.data}\`}
         />
         <div className="mt-3 font-medium text-lg">{node.label}</div>
