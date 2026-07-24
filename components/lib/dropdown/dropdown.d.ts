@@ -2,7 +2,7 @@
  *
  * Dropdown also known as Select, is used to choose an item from a collection of options.
  *
- * [Live Demo](https://www.primereact.org/dropdown/)
+ * [Live Demo](https://yoyui.orcado.dev/dropdown/)
  *
  * @module dropdown
  *
@@ -588,13 +588,13 @@ export interface DropdownProps extends Omit<React.DetailedHTMLProps<React.InputH
 }
 
 /**
- * **PrimeReact - Dropdown**
+ * **YoYui - Dropdown**
  *
  * _Dropdown also known as Select, is used to choose an item from a collection of options._
  *
- * [Live Demo](https://www.primereact.org/dropdown/)
+ * [Live Demo](https://yoyui.orcado.dev/dropdown/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

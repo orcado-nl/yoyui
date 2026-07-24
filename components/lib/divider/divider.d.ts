@@ -2,7 +2,7 @@
  *
  * Divider is used to separate contents.
  *
- * [Live Demo](https://www.primereact.org/divider/)
+ * [Live Demo](https://yoyui.orcado.dev/divider/)
  *
  * @module divider
  *
@@ -83,13 +83,13 @@ export interface DividerProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - Divider**
+ * **YoYui - Divider**
  *
  * _Divider is used to separate contents._
  *
- * [Live Demo](https://www.primereact.org/divider/)
+ * [Live Demo](https://yoyui.orcado.dev/divider/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

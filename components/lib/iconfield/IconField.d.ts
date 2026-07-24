@@ -2,7 +2,7 @@
  *
  * IconField wraps an input and an icon.
  *
- * [Live Demo](https://www.primereact.org/iconfield/)
+ * [Live Demo](https://yoyui.orcado.dev/iconfield/)
  *
  * @module iconfield
  *
@@ -82,13 +82,13 @@ export interface IconFieldProps extends Omit<React.DetailedHTMLProps<React.Input
 }
 
 /**
- * **PrimeReact - IconField**
+ * **YoYui - IconField**
  *
  * _IconField is an extension to standard input element with theming and keyfiltering._
  *
- * [Live Demo](https://www.primereact.org/inputtext/)
+ * [Live Demo](https://yoyui.orcado.dev/inputtext/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

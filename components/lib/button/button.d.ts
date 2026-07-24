@@ -2,7 +2,7 @@
  *
  * Button is an extension to standard button element with icons and theming.
  *
- * [Live Demo](https://www.primereact.org/button/)
+ * [Live Demo](https://yoyui.orcado.dev/button/)
  *
  * @module button
  *
@@ -186,13 +186,13 @@ export interface ButtonProps extends Omit<React.DetailedHTMLProps<React.ButtonHT
 }
 
 /**
- * **PrimeReact - Button**
+ * **YoYui - Button**
  *
  * _Button is an extension to standard button element with icons and theming._
  *
- * [Live Demo](https://www.primereact.org/button/)
+ * [Live Demo](https://yoyui.orcado.dev/button/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

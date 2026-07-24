@@ -2,7 +2,7 @@
  *
  * Timeline visualizes a series of chained events.
  *
- * [Live Demo](https://www.primereact.org/timeline/)
+ * [Live Demo](https://yoyui.orcado.dev/timeline/)
  *
  * @module timeline
  *
@@ -119,13 +119,13 @@ export interface TimelineProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Timeline**
+ * **YoYui - Timeline**
  *
  * _Timeline visualizes a series of chained events._
  *
- * [Live Demo](https://www.primereact.org/timeline/)
+ * [Live Demo](https://yoyui.orcado.dev/timeline/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

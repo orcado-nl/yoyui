@@ -1,6 +1,7 @@
 function handleSonarNested1Callback(s) {
     return s.text || '';
 }
+
 function handleSonarNested2Callback(
     parseText,
 
@@ -8,9 +9,11 @@ function handleSonarNested2Callback(
 ) {
     return parseText(s.text || '');
 }
+
 function handleSonarNested1(s) {
     return s.text || '';
 }
+
 function handleSonarNested2(parseText, param) {
     return {
         name: param.name, // optional: param.flags.isOptional,
@@ -18,9 +21,38 @@ function handleSonarNested2(parseText, param) {
         description: param.comment?.summary.map((s) => parseText(s.text || '')).join(' ')
     };
 }
+
 function handleSonarNested3(s) {
     return s.text || '';
 }
+
+const DOCUMENTATION_TEXT_FIELDS = new Set(['description', 'doc-url']);
+const UPSTREAM_BRAND_NAME = /\bPrimeReact\b/g;
+
+function brandDocumentationText(text) {
+    return text.replaceAll(UPSTREAM_BRAND_NAME, 'YoYui');
+}
+
+function brandDocumentationFields(value) {
+    if (Array.isArray(value)) {
+        value.forEach(brandDocumentationFields);
+
+        return;
+    }
+
+    if (!value || typeof value !== 'object') {
+        return;
+    }
+
+    Object.entries(value).forEach(([key, child]) => {
+        if (typeof child === 'string' && DOCUMENTATION_TEXT_FIELDS.has(key)) {
+            value[key] = brandDocumentationText(child);
+        } else {
+            brandDocumentationFields(child);
+        }
+    });
+}
+
 /* eslint-disable @typescript-eslint/no-var-requires -- This file is executed directly by Node as CommonJS. */ const TypeDoc = require('typedoc');
 const path = require('node:path');
 const fs = require('node:fs');
@@ -36,10 +68,11 @@ const staticMessages = {
     types: 'Defines the custom types used by the module.'
 };
 const app = new TypeDoc.Application(); // If you want TypeDoc to load tsconfig.json / typedoc.json files
+
 app.options.addReader(new TypeDoc.TSConfigReader());
 app.options.addReader(new TypeDoc.TypeDocReader());
 const pkg = require(path.resolve(rootDir, 'package.json'));
-const library = { name: 'PrimeReact', version: pkg.version, repository: pkg.repository, license: pkg.license };
+const library = { name: 'YoYui', version: pkg.version, repository: pkg.repository, license: pkg.license };
 const webTypes = {
     $schema: 'https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json',
     framework: 'react',
@@ -49,9 +82,10 @@ const webTypes = {
     license: library.license,
     contributions: { html: { 'types-syntax': 'typescript', 'description-markup': 'markdown', tags: [], attributes: [] } }
 };
+
 app.bootstrap({
     // typedoc options here
-    name: 'PrimeReact',
+    name: 'YoYui',
     entryPoints: [`components/lib`],
     entryPointStrategy: 'expand',
     tsconfig: 'api-scripts/tsconfig.json',
@@ -68,40 +102,52 @@ app.bootstrap({
     }
 });
 const project = app.convert();
+
 if (project) {
     const doc = {};
+
     const parseText = (text) => {
         return text.replaceAll('&#123;', '{').replaceAll('&#125;', '}');
     };
+
     project.children.forEach((module) => {
         const { name, comment } = module;
         const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1);
         const description = comment?.summary.map((s) => s.text || '').join(' ');
         let url = '';
+
         if (description) {
             const urlRegex = /\[(Live Demo)\]\((https?:\/\/[^\s)]+)\)/;
             const urlMatch = urlRegex.exec(description);
+
             if (urlMatch?.[2]) {
                 url = urlMatch[2];
             }
         }
+
         const tag = { name: capitalizedName, source: { module: library.name, symbol: capitalizedName }, description, 'doc-url': url };
+
         webTypes.contributions.html.tags.push(tag);
         doc[name] = { description };
         const module_component_group = module.groups.find((g) => g.title === 'Component');
+
         module_component_group?.children.forEach((component) => {
             const description = component.comment?.summary
                 .map((s) => {
                     const text = s.text || '';
                     const splittedText = text.split('_');
+
                     return splittedText[1] ? splittedText[1] : text;
                 })
                 .join(' ');
+
             !doc[name]['components'] && (doc[name]['components'] = {});
             const methods = { description: staticMessages['methods'], values: [] };
             const component_method_group = component.groups?.find((g) => g.title === 'Methods');
+
             component_method_group?.children.forEach((method) => {
                 const signature = method.getAllSignatures()[0];
+
                 methods.values.push({
                     name: signature.name,
                     parameters: signature.parameters.map((param) => {
@@ -116,9 +162,11 @@ if (project) {
             const component_props = module_properties_group?.children.find((c) => (component_props_id ? c.id === component_props_id : true));
             const props = [];
             const callbacks = [];
+
             if (component_props) {
                 //props.description = component_props.comment ? component_props.comment.summary.map((s) => parseText(s.text || '')).join(' ') : '';
                 const component_props_group = component_props.groups?.find((g) => g.title === 'Properties');
+
                 component_props_group?.children.forEach((prop) => {
                     if (!prop.inheritedFrom || (prop.inheritedFrom && !prop.inheritedFrom.toString().startsWith('Omit.data-pr-'))) {
                         props.push({
@@ -132,21 +180,27 @@ if (project) {
                     }
                 });
                 const component_props_methods_group = component_props.groups?.find((g) => g.title === 'Methods');
+
                 component_props_methods_group?.children.forEach((method) => {
                     const signature = method.getAllSignatures()[0];
+
                     callbacks.push({ name: signature.name, description: signature.comment.summary.map((s) => parseText(s.text || '')).join(' '), arguments: signature.parameters.map(handleSonarNested2.bind(null, parseText)) });
                 });
             }
+
             tag.attributes = props;
             tag.events = callbacks;
             doc[name]['components'][component.name] = { description, methods, props, callbacks };
         });
         const module_model_group = module.groups.find((g) => g.title === 'Model');
+
         module_model_group?.children.forEach((model) => {
             const event_props_description = model.comment?.summary.map((s) => s.text || '').join(' ');
+
             !doc[name]['model'] && (doc[name]['model'] = {});
             const props = { description: '', values: [] };
             const model_props_group = model.groups.find((g) => g.title === 'Properties');
+
             model_props_group?.children.forEach((prop) => {
                 props.values.push({
                     name: prop.name,
@@ -160,11 +214,14 @@ if (project) {
             doc[name]['model'][model.name] = { description: event_props_description, props };
         });
         const module_functions_group = module.groups.find((g) => g.title === 'Functions');
+
         module_functions_group?.children.forEach((method) => {
             !doc[name]['functions'] && (doc[name]['functions'] = { description: staticMessages['functions'], values: {} });
             const signatures = method.getAllSignatures();
+
             if (signatures && signatures.length > 0) {
                 const signature = signatures[0];
+
                 doc[name]['functions'].values[method.name] = {
                     name: signature.name,
                     parameters: signature.parameters.map((param) => {
@@ -176,35 +233,44 @@ if (project) {
             }
         });
         const module_events_group = module.groups.find((g) => g.title === 'Events');
+
         module_events_group?.children.forEach((event) => {
             const event_props_description = event.comment?.summary.map((s) => s.text || '').join(' ');
             const component_prop = event.comment?.getTag('@see') ? event.comment.getTag('@see').content[0].text : '';
             const event_extendedBy = event.extendedBy?.toString();
+
             !doc[name]['events'] && (doc[name]['events'] = { description: staticMessages['events'], values: {} });
             const props = [];
             const event_props_group = event.groups.find((g) => g.title === 'Properties');
+
             event_props_group?.children.forEach((prop) => {
                 props.push({ name: prop.name, optional: prop.flags.isOptional, readonly: prop.flags.isReadonly, type: prop.type.toString(), description: prop.comment?.summary.map((s) => s.text || '').join(' ') });
             });
             doc[name]['events'].values[event.name] = { description: event_props_description, relatedProp: component_prop, props, extendedBy: event_extendedBy };
         });
         const module_interfaces_group = module.groups.find((g) => g.title === 'Interfaces');
+
         module_interfaces_group?.children.forEach((event) => {
             const event_props_description = event.comment?.summary.map((s) => s.text || '').join(' ');
             const component_prop = event.comment?.getTag('@see') ? event.comment.getTag('@see').content[0].text : '';
             const event_extendedBy = event.extendedBy?.toString();
             const event_extendedTypes = event.extendedTypes?.toString();
+
             !doc[name]['interfaces'] && (doc[name]['interfaces'] = { description: staticMessages['interfaces'], values: {} });
             const props = [];
             const callbacks = [];
+
             if (event.groups) {
                 const event_props_group = event.groups.find((g) => g.title === 'Properties');
+
                 event_props_group?.children.forEach((prop) => {
                     props.push({ name: prop.name, optional: prop.flags.isOptional, readonly: prop.flags.isReadonly, type: prop.type.toString(), description: prop.comment?.summary.map((s) => s.text || '').join(' ') });
                 });
                 const event_methods_group = event.groups.find((g) => g.title === 'Methods');
+
                 event_methods_group?.children.forEach((method) => {
                     const signature = method.getAllSignatures()[0];
+
                     callbacks.push({
                         name: signature.name,
                         parameters: signature.parameters.map((param) => {
@@ -215,9 +281,12 @@ if (project) {
                     });
                 });
             }
+
             const signature = event.getAllSignatures();
+
             if (signature && signature.length > 0) {
                 const parameter = signature[0].parameters[0];
+
                 props.push({
                     name: `[${parameter.name}: ${parameter.type.toString()}]`,
                     optional: parameter.flags.isOptional,
@@ -226,26 +295,35 @@ if (project) {
                     description: signature[0].comment?.summary.map((s) => s.text || '').join(' ')
                 });
             }
+
             doc[name]['interfaces'].values[event.name] = { description: event_props_description, relatedProp: component_prop, props, callbacks, extendedBy: event_extendedBy, extendedTypes: event_extendedTypes };
         });
         const module_types_group = module.groups.find((g) => g.title === 'Type Aliases');
+
         module_types_group?.children.forEach((event) => {
             const event_props_description = event.comment?.summary.map((s) => s.text || '').join(' ');
+
             !doc[name]['types'] && (doc[name]['types'] = { description: staticMessages['types'], values: {} });
             let values = event.type.toString();
             const declaration = event.type.declaration;
+
             if (declaration) {
                 const groups = declaration.groups?.find((g) => g.title === 'Properties');
                 const map = {};
+
                 groups?.children.forEach((prop) => {
                     const description = prop.comment?.summary.map(handleSonarNested3.bind(null)).join(' ');
+
                     map[`${prop.name}${prop.flags.isOptional ? '?' : ''}`] = `${prop.type.toString()}, ${description ? '// ' + description : ''}`;
                 });
                 values = JSON.stringify(map, null, 4);
             }
+
             doc[name]['types'].values[event.name] = { values, description: event_props_description };
         });
     });
+
+    brandDocumentationFields(webTypes);
 
     const webTypesJson = JSON.stringify(webTypes, null, 4);
 

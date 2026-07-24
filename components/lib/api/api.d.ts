@@ -1,6 +1,6 @@
 /**
  *
- * API for PrimeReact components.
+ * API for YoYui components.
  *
  * @module api
  *
@@ -155,7 +155,7 @@ export interface FilterMatchModeOptions {
 }
 
 /**
- * Configuration options for the PrimeReact components.
+ * Configuration options for the YoYui components.
  */
 export interface APIOptions {
     /**
@@ -172,7 +172,7 @@ export interface APIOptions {
      */
     autoZIndex?: boolean;
     /**
-     * PrimeReact components utilize "react-transition-group" internally to implement animations. Setting "cssTransition" to "false" disables all animations.
+     * YoYui components utilize "react-transition-group" internally to implement animations. Setting "cssTransition" to "false" disables all animations.
      * @defaultValue true
      */
     cssTransition?: boolean;

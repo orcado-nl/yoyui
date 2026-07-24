@@ -143,7 +143,7 @@ const animationFeaturesData2 = [
 ];
 
 const license = {
-    documentLink: 'https://diamond.primereact.org/documentation/',
+    documentLink: 'https://yoyui.orcado.dev/templates/diamond',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -190,8 +190,8 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-hero-dashboard1.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-hero-dashboard2.png',
     description: 'An amazing application template for React based on the popular NextJS framework with light-dim-dark modes, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 30 PrimeReact themes.',
-    liveHref: 'https://diamond.primereact.org',
-    docHref: 'https://diamond.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/diamond',
+    docHref: 'https://yoyui.orcado.dev/templates/diamond',
     storeHref: 'https://primeui.store/templates/react/diamond'
 };
 

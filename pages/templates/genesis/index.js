@@ -164,7 +164,7 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/genesis/dashboard-2.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/genesis/dashboard-1.png',
     description: 'Genesis, crafted by Prime, is the ultimate multi-purpose website template built with React and Next.js. It offers unmatched versatility and performance with a suite of example pages to elevate your projects.',
-    liveHref: 'https://genesis.primereact.org',
+    liveHref: 'https://yoyui.orcado.dev/templates/genesis',
     docHref: '',
     multipurpose: true,
     storeHref: 'https://primeui.store/templates/react/genesis'

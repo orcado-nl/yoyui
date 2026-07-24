@@ -161,7 +161,7 @@ const features1Data = [
 ];
 
 const license = {
-    documentLink: 'https://avalon.primereact.org/documentation',
+    documentLink: 'https://yoyui.orcado.dev/templates/avalon',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -188,8 +188,8 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-hero-dashboard1.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-hero-dashboard2.png',
     description: 'A modern and easy to use premium application template with highly customizable layout features. Based on a bootstrap styling, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.',
-    liveHref: 'https://avalon.primereact.org/',
-    docHref: 'https://avalon.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/avalon',
+    docHref: 'https://yoyui.orcado.dev/templates/avalon',
     storeHref: 'https://primeui.store/templates/react/avalon'
 };
 

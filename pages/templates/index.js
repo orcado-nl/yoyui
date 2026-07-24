@@ -12,11 +12,11 @@ const TemplatesPage = () => {
             <div className="grid">
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://genesis.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/genesis" rel="noopener noreferrer">
                             <img alt="Genesis" src="https://primefaces.org/cdn/primereact/images/layouts/genesis-react.webp" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://genesis.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/genesis" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/genesis" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -31,11 +31,11 @@ const TemplatesPage = () => {
             <div className="grid">
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://apollo.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/apollo" rel="noopener noreferrer">
                             <img alt="Apollo" src="https://primefaces.org/cdn/primereact/images/layouts/apollo-nextjs.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://apollo.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/apollo" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/apollo" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -46,11 +46,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://sakai.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/sakai" rel="noopener noreferrer">
                             <img alt="Sakai" src="https://primefaces.org/cdn/primereact/images/layouts/sakai-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://sakai.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/sakai" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/sakai" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -61,11 +61,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://diamond.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/diamond" rel="noopener noreferrer">
                             <img alt="Diamond" src="https://primefaces.org/cdn/primereact/images/layouts/diamond-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://diamond.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/diamond" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/diamond" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -76,11 +76,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://verona.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/verona" rel="noopener noreferrer">
                             <img alt="Verona" src="https://primefaces.org/cdn/primereact/images/templates/verona.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://verona.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/verona" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/verona" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -91,11 +91,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://atlantis.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/atlantis" rel="noopener noreferrer">
                             <img alt="Atlantis" src="https://primefaces.org/cdn/primereact/images/layouts/atlantis-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://atlantis.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/atlantis" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/atlantis" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -106,11 +106,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://freya.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/freya" rel="noopener noreferrer">
                             <img alt="Freya" src="https://primefaces.org/cdn/primereact/images/layouts/freya-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://freya.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/freya" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/freya" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -121,11 +121,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://ultima.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/ultima" rel="noopener noreferrer">
                             <img alt="Ultima" src="https://primefaces.org/cdn/primereact/images/layouts/ultima-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://ultima.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/ultima" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/ultima" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">
@@ -136,11 +136,11 @@ const TemplatesPage = () => {
                 </div>
                 <div className="col-12 lg:col-6 xl:col-4">
                     <div className="card mb-0">
-                        <a href="https://avalon.primereact.org" rel="noopener noreferrer">
+                        <a href="https://yoyui.orcado.dev/templates/avalon" rel="noopener noreferrer">
                             <img alt="Avalon" src="https://primefaces.org/cdn/primereact/images/layouts/avalon-react.jpg" className="w-full" />
                         </a>
                         <div className="flex gap-3 mt-3">
-                            <a href="https://avalon.primereact.org" className="flex-1 p-button p-component" rel="noopener noreferrer">
+                            <a href="https://yoyui.orcado.dev/templates/avalon" className="flex-1 p-button p-component" rel="noopener noreferrer">
                                 <span className="p-button-label white-space-nowrap">Preview</span>
                             </a>
                             <Link href="/templates/avalon" rel="noopener noreferrer" className="flex-1 p-button p-component p-button-outlined">

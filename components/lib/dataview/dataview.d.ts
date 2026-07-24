@@ -2,7 +2,7 @@
  *
  * DataView displays data in grid or list layout with pagination and sorting features.
  *
- * [Live Demo](https://www.primereact.org/dataview/)
+ * [Live Demo](https://yoyui.orcado.dev/dataview/)
  *
  * @module dataview
  *
@@ -367,13 +367,13 @@ export interface DataViewProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - DataViewLayoutOptions**
+ * **YoYui - DataViewLayoutOptions**
  *
  * _DataView displays data in grid or list layout with pagination and sorting features._
  *
- * [Live Demo](https://www.primereact.org/dataview/)
+ * [Live Demo](https://yoyui.orcado.dev/dataview/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  *

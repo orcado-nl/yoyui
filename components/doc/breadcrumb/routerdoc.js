@@ -14,7 +14,7 @@ function renderSonarNested1() {
 export function RouterDoc(props) {
     const items = [{ label: 'Components' }, { label: 'Form' }, { label: 'InputText', template: () => renderSonarNested1() }];
 
-    const home = { icon: 'pi pi-home', url: 'https://primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
     const code = {
         basic: `
 <BreadCrumb model={items} home={home} />
@@ -33,7 +33,7 @@ export default function RouterDemo() {
             template: () => <Link href="/inputtext"><a className="text-primary font-semibold">InputText</a></Link>
         }
     ];
-    const home = { icon: 'pi pi-home', url: 'https://primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
 
     return (
@@ -56,7 +56,7 @@ export default function RouterDemo() {
             template: () => <Link href="/inputtext"><a className="text-primary font-semibold">InputText</a></Link>
         }
     ];
-    const home: MenuItem = { icon: 'pi pi-home', url: 'https://primereact.org' };
+    const home: MenuItem = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     return (
         <BreadCrumb model={items} home={home} />

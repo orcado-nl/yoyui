@@ -1,9 +1,9 @@
 /**
  *
  * CSSTransition component wraps [ReactCSSTransition](https://reactcommunity.org/react-transition-group/css-transition) API.
- * It allows us to easily manage animations. All PrimeReact components use this component.
+ * It allows us to easily manage animations. All YoYui components use this component.
  *
- * [Live Demo](https://www.primereact.org/dropdown/)
+ * [Live Demo](https://yoyui.orcado.dev/dropdown/)
  *
  * @module csstransition
  *
@@ -24,14 +24,14 @@ export type CSSTransitionProps<Ref extends undefined | HTMLElement = undefined> 
 };
 
 /**
- * **PrimeReact - CSSTransition**
+ * **YoYui - CSSTransition**
  *
  * _CSSTransition component wraps [ReactCSSTransition](https://reactcommunity.org/react-transition-group/css-transition) API.
- * It allows us to easily manage animations. All PrimeReact components use this component._
+ * It allows us to easily manage animations. All YoYui components use this component._
  *
- * [Live Demo](https://www.primereact.org/dropdown/)
+ * [Live Demo](https://yoyui.orcado.dev/dropdown/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

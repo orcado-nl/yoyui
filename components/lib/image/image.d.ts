@@ -2,7 +2,7 @@
  *
  * Displays a single image with preview and tranformation options.
  *
- * [Live Demo](https://www.primereact.org/image/)
+ * [Live Demo](https://yoyui.orcado.dev/image/)
  *
  * @module image
  *
@@ -273,13 +273,13 @@ export interface ImageProps extends Omit<React.DetailedHTMLProps<React.HTMLAttri
 }
 
 /**
- * **PrimeReact - Image**
+ * **YoYui - Image**
  *
  * _Displays a single image with preview and tranformation options._
  *
- * [Live Demo](https://www.primereact.org/image/)
+ * [Live Demo](https://yoyui.orcado.dev/image/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

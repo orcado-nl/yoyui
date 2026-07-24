@@ -2,7 +2,7 @@
  *
  * Terminal is a text based user interface.
  *
- * [Live Demo](https://www.primereact.org/terminal)
+ * [Live Demo](https://yoyui.orcado.dev/terminal)
  *
  * @module terminal
  *
@@ -120,13 +120,13 @@ export interface TerminalProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Terminal**
+ * **YoYui - Terminal**
  *
  * _Terminal is a text based user interface._
  *
- * [Live Demo](https://www.primereact.org/terminal/)
+ * [Live Demo](https://yoyui.orcado.dev/terminal/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

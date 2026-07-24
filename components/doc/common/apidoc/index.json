@@ -1,6 +1,6 @@
 {
     "accordion": {
-        "description": "Accordion groups a collection of contents in tabs.\n\n[Live Demo](https://www.primereact.org/accordion/)\n\nHelper Components:\n\n-  AccordionTab",
+        "description": "Accordion groups a collection of contents in tabs.\n\n[Live Demo](https://yoyui.orcado.dev/accordion/)\n\nHelper Components:\n\n-  AccordionTab",
         "components": {
             "AccordionTab": {
                 "description": "AccordionTab is a helper component for Accordion.",
@@ -550,7 +550,7 @@
         }
     },
     "api": {
-        "description": "API for PrimeReact components.",
+        "description": "API for YoYui components.",
         "functions": {
             "description": "Defines the custom functions used by the module.",
             "values": {
@@ -759,7 +759,7 @@
                     "callbacks": []
                 },
                 "APIOptions": {
-                    "description": "Configuration options for the PrimeReact components.",
+                    "description": "Configuration options for the YoYui components.",
                     "relatedProp": "",
                     "props": [
                         {
@@ -788,7 +788,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "PrimeReact components utilize \"react-transition-group\" internally to implement animations. Setting \"cssTransition\" to \"false\" disables all animations."
+                            "description": "YoYui components utilize \"react-transition-group\" internally to implement animations. Setting \"cssTransition\" to \"false\" disables all animations."
                         },
                         {
                             "name": "filterMatchModeOptions",
@@ -3590,7 +3590,7 @@
         }
     },
     "autocomplete": {
-        "description": "AutoComplete is an input component that provides real-time suggestions while being typed.\n\n[Live Demo](https://www.primereact.org/autocomplete/)",
+        "description": "AutoComplete is an input component that provides real-time suggestions while being typed.\n\n[Live Demo](https://yoyui.orcado.dev/autocomplete/)",
         "components": {
             "AutoComplete": {
                 "description": "AutoComplete is an input component that provides real-time suggestions while being typed.",
@@ -4664,7 +4664,7 @@
         }
     },
     "avatar": {
-        "description": "Avatar represents people using icons, labels and images.\n\n[Live Demo](https://www.primereact.org/avatar)",
+        "description": "Avatar represents people using icons, labels and images.\n\n[Live Demo](https://yoyui.orcado.dev/avatar)",
         "components": {
             "Avatar": {
                 "description": "Avatar represents people using icons, labels and images.",
@@ -4910,7 +4910,7 @@
         }
     },
     "avatargroup": {
-        "description": "A set of Avatars can be displayed together using the AvatarGroup component.\n\n[Live Demo](https://www.primereact.org/avatar/)",
+        "description": "A set of Avatars can be displayed together using the AvatarGroup component.\n\n[Live Demo](https://yoyui.orcado.dev/avatar/)",
         "components": {
             "AvatarGroup": {
                 "description": "A set of Avatars can be displayed together using the AvatarGroup component.",
@@ -5010,7 +5010,7 @@
         }
     },
     "badge": {
-        "description": "Badge represents people using icons, labels and images.\n\n[Live Demo](https://www.primereact.org/badge)",
+        "description": "Badge represents people using icons, labels and images.\n\n[Live Demo](https://yoyui.orcado.dev/badge)",
         "components": {
             "Badge": {
                 "description": "Badge represents people using icons, labels and images.",
@@ -5141,7 +5141,7 @@
         }
     },
     "blockui": {
-        "description": "BlockUI represents people using icons, labels and images.\n\n[Live Demo](https://www.primereact.org/blockui)",
+        "description": "BlockUI represents people using icons, labels and images.\n\n[Live Demo](https://yoyui.orcado.dev/blockui)",
         "components": {
             "BlockUI": {
                 "description": "BlockUI represents people using icons, labels and images.",
@@ -5354,7 +5354,7 @@
         }
     },
     "breadcrumb": {
-        "description": "Breadcrumb provides contextual information about page hierarchy.\n\n[Live Demo](https://www.primereact.org/breadcrumb/)",
+        "description": "Breadcrumb provides contextual information about page hierarchy.\n\n[Live Demo](https://yoyui.orcado.dev/breadcrumb/)",
         "components": {
             "BreadCrumb": {
                 "description": "Breadcrumb provides contextual information about page hierarchy.",
@@ -5534,7 +5534,7 @@
         }
     },
     "button": {
-        "description": "Button is an extension to standard button element with icons and theming.\n\n[Live Demo](https://www.primereact.org/button/)",
+        "description": "Button is an extension to standard button element with icons and theming.\n\n[Live Demo](https://yoyui.orcado.dev/button/)",
         "components": {
             "Button": {
                 "description": "Button is an extension to standard button element with icons and theming.",
@@ -5841,7 +5841,7 @@
         }
     },
     "buttongroup": {
-        "description": "A set of Buttons can be displayed together using the ButtonGroup component.\n\n[Live Demo](https://www.primereact.org/button/)",
+        "description": "A set of Buttons can be displayed together using the ButtonGroup component.\n\n[Live Demo](https://yoyui.orcado.dev/button/)",
         "components": {
             "ButtonGroup": {
                 "methods": {
@@ -5956,7 +5956,7 @@
         }
     },
     "calendar": {
-        "description": "Calendar also known as DatePicker, is a form component to work with dates.\n\n[Live Demo](https://www.primereact.org/calendar/)",
+        "description": "Calendar also known as DatePicker, is a form component to work with dates.\n\n[Live Demo](https://yoyui.orcado.dev/calendar/)",
         "components": {
             "Calendar": {
                 "description": "Calendar also known as DatePicker, is a form component to work with dates.",
@@ -8488,7 +8488,7 @@
         }
     },
     "card": {
-        "description": "Card is a flexible container component.\n\n[Live Demo](https://www.primereact.org/card/)",
+        "description": "Card is a flexible container component.\n\n[Live Demo](https://yoyui.orcado.dev/card/)",
         "components": {
             "Card": {
                 "description": "Card is a flexible container component.",
@@ -8662,7 +8662,7 @@
         }
     },
     "carousel": {
-        "description": "Carousel is a content slider featuring various customization options.\n\n[Live Demo](https://www.primereact.org/carousel)",
+        "description": "Carousel is a content slider featuring various customization options.\n\n[Live Demo](https://yoyui.orcado.dev/carousel)",
         "components": {
             "Carousel": {
                 "description": "Carousel is a content slider featuring various customization options.",
@@ -9164,7 +9164,7 @@
         }
     },
     "cascadeselect": {
-        "description": "CascadeSelect is a form component to select a value from a nested structure of options.\n\n[Live Demo](https://www.primereact.org/cascadeselect/)",
+        "description": "CascadeSelect is a form component to select a value from a nested structure of options.\n\n[Live Demo](https://yoyui.orcado.dev/cascadeselect/)",
         "components": {
             "CascadeSelect": {
                 "description": "CascadeSelect is a form component to select a value from a nested structure of options.",
@@ -9699,7 +9699,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "PrimeReact components utilize \"react-transition-group\" internally to implement animations. Setting \"cssTransition\" to \"false\" disables all animations."
+                            "description": "YoYui components utilize \"react-transition-group\" internally to implement animations. Setting \"cssTransition\" to \"false\" disables all animations."
                         },
                         {
                             "name": "filterMatchModeOptions",
@@ -10045,7 +10045,7 @@
         }
     },
     "chart": {
-        "description": "Chart components are based on Chart.js, an open source HTML5 based charting library.\n\n[Live Demo](https://www.primereact.org/chart)",
+        "description": "Chart components are based on Chart.js, an open source HTML5 based charting library.\n\n[Live Demo](https://yoyui.orcado.dev/chart)",
         "components": {
             "Chart": {
                 "description": "Chart components are based on Chart.js, an open source HTML5 based charting library.",
@@ -10245,7 +10245,7 @@
         }
     },
     "checkbox": {
-        "description": "Checkbox is an extension to standard checkbox element with skinning capabilities.\n\n[Live Demo](https://www.primereact.org/checkbox/)",
+        "description": "Checkbox is an extension to standard checkbox element with skinning capabilities.\n\n[Live Demo](https://yoyui.orcado.dev/checkbox/)",
         "components": {
             "Checkbox": {
                 "description": "Checkbox is an extension to standard checkbox element with skinning capabilities.",
@@ -10687,7 +10687,7 @@
         }
     },
     "chip": {
-        "description": "Chip represents people using icons, labels and images.\n\n[Live Demo](https://www.primereact.org/chip)",
+        "description": "Chip represents people using icons, labels and images.\n\n[Live Demo](https://yoyui.orcado.dev/chip)",
         "components": {
             "Chip": {
                 "description": "Chip represents people using icons, labels and images.",
@@ -10968,7 +10968,7 @@
         }
     },
     "chips": {
-        "description": "Chips is used to enter multiple values on an input field.\n\n[Live Demo](https://www.primereact.org/chips/)",
+        "description": "Chips is used to enter multiple values on an input field.\n\n[Live Demo](https://yoyui.orcado.dev/chips/)",
         "components": {
             "Chips": {
                 "description": "Chips is used to enter multiple values on an input field.",
@@ -11484,7 +11484,7 @@
         }
     },
     "colorpicker": {
-        "description": "ColorPicker is an input component to select a color.\n\n[Live Demo](https://www.primereact.org/colorpicker/)",
+        "description": "ColorPicker is an input component to select a color.\n\n[Live Demo](https://yoyui.orcado.dev/colorpicker/)",
         "components": {
             "ColorPicker": {
                 "description": "ColorPicker is an input component to select a color.",
@@ -11951,7 +11951,7 @@
         }
     },
     "column": {
-        "description": "Column component defines various options to specify corresponding features.\nIt is a helper component for DataTable and TreeTable.\n\n[Live Demo](https://www.primereact.org/datatable/)",
+        "description": "Column component defines various options to specify corresponding features.\nIt is a helper component for DataTable and TreeTable.\n\n[Live Demo](https://yoyui.orcado.dev/datatable/)",
         "components": {
             "Column": {
                 "description": "Column is a helper component for DataTable and TreeTable.",
@@ -14127,7 +14127,7 @@
         }
     },
     "columngroup": {
-        "description": "Columns can be grouped at header and footer sections by defining a ColumnGroup component.\nIt is a helper component for DataTable.\n\n[Live Demo](https://www.primereact.org/datatable/)",
+        "description": "Columns can be grouped at header and footer sections by defining a ColumnGroup component.\nIt is a helper component for DataTable.\n\n[Live Demo](https://yoyui.orcado.dev/datatable/)",
         "components": {
             "ColumnGroup": {
                 "description": "It is a helper component for DataTable.",
@@ -14319,7 +14319,7 @@
         }
     },
     "confirmdialog": {
-        "description": "ConfirmDialog uses a Dialog UI with confirmDialog method or <ConfirmDialog> tag.\n\n[Live Demo](https://www.primereact.org/confirmdialog)",
+        "description": "ConfirmDialog uses a Dialog UI with confirmDialog method or <ConfirmDialog> tag.\n\n[Live Demo](https://yoyui.orcado.dev/confirmdialog)",
         "components": {
             "ConfirmDialog": {
                 "description": "ConfirmDialog uses a Dialog UI with confirmDialog method or <ConfirmDialog> tag.",
@@ -15203,7 +15203,7 @@
         }
     },
     "confirmpopup": {
-        "description": "ConfirmPopup displays a confirmation overlay displayed relatively to its target.\n\n[Live Demo](https://www.primereact.org/confirmpopup)",
+        "description": "ConfirmPopup displays a confirmation overlay displayed relatively to its target.\n\n[Live Demo](https://yoyui.orcado.dev/confirmpopup)",
         "components": {
             "ConfirmPopup": {
                 "description": "ConfirmPopup displays a confirmation overlay displayed relatively to its target.",
@@ -15737,7 +15737,7 @@
         }
     },
     "contextmenu": {
-        "description": "ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration.\n\n[Live Demo](https://www.primereact.org/contextmenu/)",
+        "description": "ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration.\n\n[Live Demo](https://yoyui.orcado.dev/contextmenu/)",
         "components": {
             "ContextMenu": {
                 "description": "ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration.",
@@ -16129,10 +16129,10 @@
         }
     },
     "csstransition": {
-        "description": "CSSTransition component wraps [ReactCSSTransition](https://reactcommunity.org/react-transition-group/css-transition) API.\nIt allows us to easily manage animations. All PrimeReact components use this component.\n\n[Live Demo](https://www.primereact.org/dropdown/)",
+        "description": "CSSTransition component wraps [ReactCSSTransition](https://reactcommunity.org/react-transition-group/css-transition) API.\nIt allows us to easily manage animations. All YoYui components use this component.\n\n[Live Demo](https://yoyui.orcado.dev/dropdown/)",
         "components": {
             "CSSTransition": {
-                "description": "CSSTransition component wraps [ReactCSSTransition](https://reactcommunity.org/react-transition-group/css-transition) API.\nIt allows us to easily manage animations. All PrimeReact components use this component.",
+                "description": "CSSTransition component wraps [ReactCSSTransition](https://reactcommunity.org/react-transition-group/css-transition) API.\nIt allows us to easily manage animations. All YoYui components use this component.",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -16149,7 +16149,7 @@
         }
     },
     "datascroller": {
-        "description": "DataScroller displays data with on demand loading using scroll.\n\n[Live Demo](https://www.primereact.org/datascroller/)",
+        "description": "DataScroller displays data with on demand loading using scroll.\n\n[Live Demo](https://yoyui.orcado.dev/datascroller/)",
         "components": {
             "DataScroller": {
                 "description": "DataScroller displays data with on demand loading using scroll.",
@@ -16436,7 +16436,7 @@
         }
     },
     "datatable": {
-        "description": "DataTable displays data in tabular format.\n\n[Live Demo](https://www.primereact.org/datatable/)",
+        "description": "DataTable displays data in tabular format.\n\n[Live Demo](https://yoyui.orcado.dev/datatable/)",
         "components": {
             "DataTable": {
                 "description": "DataTable displays data in tabular format.",
@@ -21186,7 +21186,7 @@
         }
     },
     "dataview": {
-        "description": "DataView displays data in grid or list layout with pagination and sorting features.\n\n[Live Demo](https://www.primereact.org/dataview/)",
+        "description": "DataView displays data in grid or list layout with pagination and sorting features.\n\n[Live Demo](https://yoyui.orcado.dev/dataview/)",
         "components": {
             "DataView": {
                 "description": "DataView displays data in grid or list layout with pagination and sorting features.",
@@ -21824,7 +21824,7 @@
         }
     },
     "deferredcontent": {
-        "description": "DeferredContent postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.\n\n[Live Demo](https://www.primereact.org/deferredcontent/)",
+        "description": "DeferredContent postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.\n\n[Live Demo](https://yoyui.orcado.dev/deferredcontent/)",
         "components": {
             "DeferredContent": {
                 "description": "DeferredContent postpones the loading the content that is initially not in the viewport until it becomes visible on scroll.",
@@ -21957,7 +21957,7 @@
         }
     },
     "dialog": {
-        "description": "Dialog is a container to display content in an overlay window.\n\n[Live Demo](https://www.primereact.org/dialog)",
+        "description": "Dialog is a container to display content in an overlay window.\n\n[Live Demo](https://yoyui.orcado.dev/dialog)",
         "components": {
             "Dialog": {
                 "description": "Dialog is a container to display content in an overlay window.",
@@ -22770,7 +22770,7 @@
         }
     },
     "divider": {
-        "description": "Divider is used to separate contents.\n\n[Live Demo](https://www.primereact.org/divider/)",
+        "description": "Divider is used to separate contents.\n\n[Live Demo](https://yoyui.orcado.dev/divider/)",
         "components": {
             "Divider": {
                 "description": "Divider is used to separate contents.",
@@ -22908,7 +22908,7 @@
         }
     },
     "dock": {
-        "description": "Dock is a navigation component consisting of menuitems.\n\n[Live Demo](https://www.primereact.org/dock/)",
+        "description": "Dock is a navigation component consisting of menuitems.\n\n[Live Demo](https://yoyui.orcado.dev/dock/)",
         "components": {
             "Dock": {
                 "description": "Dock is a navigation component consisting of menuitems.",
@@ -23216,7 +23216,7 @@
         }
     },
     "dropdown": {
-        "description": "Dropdown also known as Select, is used to choose an item from a collection of options.\n\n[Live Demo](https://www.primereact.org/dropdown/)",
+        "description": "Dropdown also known as Select, is used to choose an item from a collection of options.\n\n[Live Demo](https://yoyui.orcado.dev/dropdown/)",
         "components": {
             "Dropdown": {
                 "description": "Dropdown also known as Select, is used to choose an item from a collection of options.",
@@ -24303,7 +24303,7 @@
         }
     },
     "editor": {
-        "description": "Editor is rich text editor component based on Quill.\n\n[Live Demo](https://www.primereact.org/editor/)",
+        "description": "Editor is rich text editor component based on Quill.\n\n[Live Demo](https://yoyui.orcado.dev/editor/)",
         "components": {
             "Editor": {
                 "description": "Editor is rich text editor component based on Quill.",
@@ -24646,7 +24646,7 @@
         }
     },
     "fieldset": {
-        "description": "Fieldset is an input component that provides real-time suggestions when being typed.\n\n[Live Demo](https://www.primereact.org/fieldset/)",
+        "description": "Fieldset is an input component that provides real-time suggestions when being typed.\n\n[Live Demo](https://yoyui.orcado.dev/fieldset/)",
         "components": {
             "Fieldset": {
                 "description": "Fieldset is an input component that provides real-time suggestions when being typed.",
@@ -24953,7 +24953,7 @@
         }
     },
     "fileupload": {
-        "description": "FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.\n\n[Live Demo](https://www.primereact.org/fileupload)",
+        "description": "FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.\n\n[Live Demo](https://yoyui.orcado.dev/fileupload)",
         "components": {
             "FileUpload": {
                 "description": "FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.",
@@ -26149,7 +26149,7 @@
         }
     },
     "floatlabel": {
-        "description": "FloatLabel appears on top of the input field when focused.\n\n[Live Demo](https://www.primereact.org/floatlabel/)",
+        "description": "FloatLabel appears on top of the input field when focused.\n\n[Live Demo](https://yoyui.orcado.dev/floatlabel/)",
         "components": {
             "FloatLabel": {
                 "methods": {
@@ -26256,7 +26256,7 @@
         }
     },
     "galleria": {
-        "description": "Galleria is a content gallery component.\n\n[Live Demo](https://www.primereact.org/galleria)",
+        "description": "Galleria is a content gallery component.\n\n[Live Demo](https://yoyui.orcado.dev/galleria)",
         "components": {
             "Galleria": {
                 "description": "Galleria is a content gallery component.",
@@ -27030,7 +27030,7 @@
                         }
                     ],
                     "returnType": "any[]",
-                    "description": "Custom hook to listen to overlay event. It can be used when an overlay is desired to behave like the overlays in PrimeReact."
+                    "description": "Custom hook to listen to overlay event. It can be used when an overlay is desired to behave like the overlays in YoYui."
                 },
                 "useOverlayScrollListener": {
                     "name": "useOverlayScrollListener",
@@ -27042,7 +27042,7 @@
                         }
                     ],
                     "returnType": "any[]",
-                    "description": "Custom hook to listen to overlay scroll. It can be used when an overlay is desired to behave like the overlays in PrimeReact."
+                    "description": "Custom hook to listen to overlay scroll. It can be used when an overlay is desired to behave like the overlays in YoYui."
                 },
                 "useResizeListener": {
                     "name": "useResizeListener",
@@ -27693,7 +27693,7 @@
         }
     },
     "iconfield": {
-        "description": "IconField wraps an input and an icon.\n\n[Live Demo](https://www.primereact.org/iconfield/)",
+        "description": "IconField wraps an input and an icon.\n\n[Live Demo](https://yoyui.orcado.dev/iconfield/)",
         "components": {
             "IconField": {
                 "methods": {
@@ -27822,7 +27822,7 @@
     "icons/angledoubledown": {
         "components": {
             "AngleDoubleDownIcon": {
-                "description": "**PrimeReact - AngleDoubleDownIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleDoubleDownIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -27863,7 +27863,7 @@
     "icons/angledoubleleft": {
         "components": {
             "AngleDoubleLeftIcon": {
-                "description": "**PrimeReact - AngleDoubleLeftIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleDoubleLeftIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -27904,7 +27904,7 @@
     "icons/angledoubleright": {
         "components": {
             "AngleDoubleRightIcon": {
-                "description": "**PrimeReact - AngleDoubleRightIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleDoubleRightIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -27945,7 +27945,7 @@
     "icons/angledoubleup": {
         "components": {
             "AngleDoubleUpIcon": {
-                "description": "**PrimeReact - AngleDoubleUpIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleDoubleUpIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -27986,7 +27986,7 @@
     "icons/angledown": {
         "components": {
             "AngleDownIcon": {
-                "description": "**PrimeReact - AngleDownIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleDownIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28027,7 +28027,7 @@
     "icons/angleleft": {
         "components": {
             "AngleLeftIcon": {
-                "description": "**PrimeReact - AngleLeftIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleLeftIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28068,7 +28068,7 @@
     "icons/angleright": {
         "components": {
             "AngleRightIcon": {
-                "description": "**PrimeReact - AngleRightIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleRightIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28109,7 +28109,7 @@
     "icons/angleup": {
         "components": {
             "AngleUpIcon": {
-                "description": "**PrimeReact - AngleUpIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - AngleUpIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28150,7 +28150,7 @@
     "icons/arrowdown": {
         "components": {
             "ArrowDownIcon": {
-                "description": "**PrimeReact - ArrowDownIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ArrowDownIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28191,7 +28191,7 @@
     "icons/arrowup": {
         "components": {
             "ArrowUpIcon": {
-                "description": "**PrimeReact - ArrowUpIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ArrowUpIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28232,7 +28232,7 @@
     "icons/ban": {
         "components": {
             "BanIcon": {
-                "description": "**PrimeReact - BanIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - BanIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28273,7 +28273,7 @@
     "icons/bars": {
         "components": {
             "BarsIcon": {
-                "description": "**PrimeReact - BarsIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - BarsIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28314,7 +28314,7 @@
     "icons/blank": {
         "components": {
             "BlankIcon": {
-                "description": "**PrimeReact - BlankIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - BlankIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28355,7 +28355,7 @@
     "icons/calendar": {
         "components": {
             "CalendarIcon": {
-                "description": "**PrimeReact - CalendarIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - CalendarIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28396,7 +28396,7 @@
     "icons/check": {
         "components": {
             "CheckIcon": {
-                "description": "**PrimeReact - CheckIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - CheckIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28437,7 +28437,7 @@
     "icons/chevrondown": {
         "components": {
             "ChevronDownIcon": {
-                "description": "**PrimeReact - ChevronDownIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ChevronDownIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28478,7 +28478,7 @@
     "icons/chevronleft": {
         "components": {
             "ChevronLeftIcon": {
-                "description": "**PrimeReact - ChevronLeftIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ChevronLeftIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28519,7 +28519,7 @@
     "icons/chevronright": {
         "components": {
             "ChevronRightIcon": {
-                "description": "**PrimeReact - ChevronRightIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ChevronRightIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28560,7 +28560,7 @@
     "icons/chevronup": {
         "components": {
             "ChevronUpIcon": {
-                "description": "**PrimeReact - ChevronUpIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ChevronUpIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28601,7 +28601,7 @@
     "icons/download": {
         "components": {
             "DownloadIcon": {
-                "description": "**PrimeReact - DownloadIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - DownloadIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28642,7 +28642,7 @@
     "icons/exclamationtriangle": {
         "components": {
             "ExclamationTriangleIcon": {
-                "description": "**PrimeReact - ExclamationTriangleIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ExclamationTriangleIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28683,7 +28683,7 @@
     "icons/eye": {
         "components": {
             "EyeIcon": {
-                "description": "**PrimeReact - EyeIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - EyeIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28724,7 +28724,7 @@
     "icons/eyeslash": {
         "components": {
             "EyeSlashIcon": {
-                "description": "**PrimeReact - EyeSlashIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - EyeSlashIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28765,7 +28765,7 @@
     "icons/filter": {
         "components": {
             "FilterIcon": {
-                "description": "**PrimeReact - FilterIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - FilterIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28806,7 +28806,7 @@
     "icons/filterslash": {
         "components": {
             "FilterSlashIcon": {
-                "description": "**PrimeReact - FilterSlashIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - FilterSlashIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28847,7 +28847,7 @@
     "icons/infocircle": {
         "components": {
             "InfoCircleIcon": {
-                "description": "**PrimeReact - InfoCircleIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - InfoCircleIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28888,7 +28888,7 @@
     "icons/minus": {
         "components": {
             "MinusIcon": {
-                "description": "**PrimeReact - MinusIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - MinusIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28929,7 +28929,7 @@
     "icons/pencil": {
         "components": {
             "PencilIcon": {
-                "description": "**PrimeReact - PencilIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - PencilIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -28970,7 +28970,7 @@
     "icons/plus": {
         "components": {
             "PlusIcon": {
-                "description": "**PrimeReact - PlusIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - PlusIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29011,7 +29011,7 @@
     "icons/refresh": {
         "components": {
             "RefreshIcon": {
-                "description": "**PrimeReact - RefreshIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - RefreshIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29052,7 +29052,7 @@
     "icons/search": {
         "components": {
             "SearchIcon": {
-                "description": "**PrimeReact - SearchIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SearchIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29093,7 +29093,7 @@
     "icons/searchminus": {
         "components": {
             "SearchMinusIcon": {
-                "description": "**PrimeReact - SearchMinusIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SearchMinusIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29134,7 +29134,7 @@
     "icons/searchplus": {
         "components": {
             "SearchPlusIcon": {
-                "description": "**PrimeReact - SearchPlusIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SearchPlusIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29175,7 +29175,7 @@
     "icons/sortalt": {
         "components": {
             "SortAltIcon": {
-                "description": "**PrimeReact - SortAltIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SortAltIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29216,7 +29216,7 @@
     "icons/sortamountdown": {
         "components": {
             "SortAmountDownIcon": {
-                "description": "**PrimeReact - SortAmountDownIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SortAmountDownIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29257,7 +29257,7 @@
     "icons/sortamountupalt": {
         "components": {
             "SortAmountUpAltIcon": {
-                "description": "**PrimeReact - SortAmountUpAltIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SortAmountUpAltIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29298,7 +29298,7 @@
     "icons/spinner": {
         "components": {
             "SpinnerIcon": {
-                "description": "**PrimeReact - SpinnerIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - SpinnerIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29339,7 +29339,7 @@
     "icons/star": {
         "components": {
             "StarIcon": {
-                "description": "**PrimeReact - StarIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - StarIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29380,7 +29380,7 @@
     "icons/starfill": {
         "components": {
             "StarFillIcon": {
-                "description": "**PrimeReact - StarFillIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - StarFillIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29421,7 +29421,7 @@
     "icons/thlarge": {
         "components": {
             "ThLargeIcon": {
-                "description": "**PrimeReact - ThLargeIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - ThLargeIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29462,7 +29462,7 @@
     "icons/times": {
         "components": {
             "TimesIcon": {
-                "description": "**PrimeReact - TimesIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - TimesIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29503,7 +29503,7 @@
     "icons/timescircle": {
         "components": {
             "TimesCircleIcon": {
-                "description": "**PrimeReact - TimesCircleIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - TimesCircleIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29544,7 +29544,7 @@
     "icons/trash": {
         "components": {
             "TrashIcon": {
-                "description": "**PrimeReact - TrashIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - TrashIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29585,7 +29585,7 @@
     "icons/undo": {
         "components": {
             "UndoIcon": {
-                "description": "**PrimeReact - UndoIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - UndoIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29626,7 +29626,7 @@
     "icons/upload": {
         "components": {
             "UploadIcon": {
-                "description": "**PrimeReact - UploadIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - UploadIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29667,7 +29667,7 @@
     "icons/windowmaximize": {
         "components": {
             "WindowMaximizeIcon": {
-                "description": "**PrimeReact - WindowMaximizeIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - WindowMaximizeIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29708,7 +29708,7 @@
     "icons/windowminimize": {
         "components": {
             "WindowMinimizeIcon": {
-                "description": "**PrimeReact - WindowMinimizeIcon**\n\n[Live Demo](https://www.primereact.org/icons/)\n--- ---\n![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)",
+                "description": "**YoYui - WindowMinimizeIcon**\n\n[Live Demo](https://yoyui.orcado.dev/icons/)\n--- ---\n![YoYui](https://yoyui.orcado.dev/images/logo-100.png)",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": []
@@ -29747,7 +29747,7 @@
         }
     },
     "image": {
-        "description": "Displays a single image with preview and tranformation options.\n\n[Live Demo](https://www.primereact.org/image/)",
+        "description": "Displays a single image with preview and tranformation options.\n\n[Live Demo](https://yoyui.orcado.dev/image/)",
         "components": {
             "Image": {
                 "description": "Displays a single image with preview and tranformation options.",
@@ -30246,7 +30246,7 @@
         }
     },
     "inplace": {
-        "description": "Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.\n\n[Live Demo](https://www.primereact.org/inplace)\n\nHelper Components:\n\n-  InplaceDisplay \n\n-  InplaceContent",
+        "description": "Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.\n\n[Live Demo](https://yoyui.orcado.dev/inplace)\n\nHelper Components:\n\n-  InplaceDisplay \n\n-  InplaceContent",
         "components": {
             "Inplace": {
                 "description": "Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.",
@@ -30547,7 +30547,7 @@
         }
     },
     "inputicon": {
-        "description": "InputIcon displays an icon.\n\n[Live Demo](https://www.primereact.org/iconfield/)",
+        "description": "InputIcon displays an icon.\n\n[Live Demo](https://yoyui.orcado.dev/iconfield/)",
         "components": {
             "InputIcon": {
                 "methods": {
@@ -30646,7 +30646,7 @@
         }
     },
     "inputmask": {
-        "description": "InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.\n\n[Live Demo](https://www.primereact.org/inputmask/)",
+        "description": "InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.\n\n[Live Demo](https://yoyui.orcado.dev/inputmask/)",
         "components": {
             "InputMask": {
                 "description": "InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.",
@@ -30959,7 +30959,7 @@
         }
     },
     "inputnumber": {
-        "description": "InputNumber is an input component to provide numerical input.\n\n[Live Demo](https://www.primereact.org/inputnumber/)",
+        "description": "InputNumber is an input component to provide numerical input.\n\n[Live Demo](https://yoyui.orcado.dev/inputnumber/)",
         "components": {
             "InputNumber": {
                 "description": "InputNumber is an input component to provide numerical input.",
@@ -31607,7 +31607,7 @@
         }
     },
     "inputotp": {
-        "description": "InputOtp is an extension to standard input element with theming and keyfiltering.\n\n[Live Demo](https://www.primereact.org/inputotp/)",
+        "description": "InputOtp is an extension to standard input element with theming and keyfiltering.\n\n[Live Demo](https://yoyui.orcado.dev/inputotp/)",
         "components": {
             "InputOtp": {
                 "methods": {
@@ -31883,7 +31883,7 @@
         }
     },
     "inputswitch": {
-        "description": "InputSwitch is used to select a boolean value.\n\n[Live Demo](https://www.primereact.org/inputswitch/)",
+        "description": "InputSwitch is used to select a boolean value.\n\n[Live Demo](https://yoyui.orcado.dev/inputswitch/)",
         "components": {
             "InputSwitch": {
                 "description": "InputSwitch is used to select a boolean value.",
@@ -32218,7 +32218,7 @@
         }
     },
     "inputtext": {
-        "description": "InputText is an extension to standard input element with theming and keyfiltering.\n\n[Live Demo](https://www.primereact.org/inputtext/)",
+        "description": "InputText is an extension to standard input element with theming and keyfiltering.\n\n[Live Demo](https://yoyui.orcado.dev/inputtext/)",
         "components": {
             "InputText": {
                 "methods": {
@@ -32441,7 +32441,7 @@
         }
     },
     "inputtextarea": {
-        "description": "Inputtextarea add styling and autoResize functionality to standard textarea element.\n\n[Live Demo](https://www.primereact.org/inputtextarea/)",
+        "description": "Inputtextarea add styling and autoResize functionality to standard textarea element.\n\n[Live Demo](https://yoyui.orcado.dev/inputtextarea/)",
         "components": {
             "InputTextarea": {
                 "methods": {
@@ -32635,7 +32635,7 @@
         }
     },
     "knob": {
-        "description": "Knob is a form component to define number inputs with a dial.\n\n[Live Demo](https://www.primereact.org/knob/)",
+        "description": "Knob is a form component to define number inputs with a dial.\n\n[Live Demo](https://yoyui.orcado.dev/knob/)",
         "components": {
             "Knob": {
                 "description": "Knob is a form component to define number inputs with a dial.",
@@ -32938,7 +32938,7 @@
         }
     },
     "listbox": {
-        "description": "ListBox is used to select one or more values from a list of items.\n\n[Live Demo](https://www.primereact.org/listbox/)",
+        "description": "ListBox is used to select one or more values from a list of items.\n\n[Live Demo](https://yoyui.orcado.dev/listbox/)",
         "components": {
             "ListBox": {
                 "description": "ListBox is used to select one or more values from a list of items.",
@@ -33662,7 +33662,7 @@
         }
     },
     "megamenu": {
-        "description": "MegaMenu is navigation component that displays submenus together.\n\n[Live Demo](https://www.primereact.org/megamenu/)",
+        "description": "MegaMenu is navigation component that displays submenus together.\n\n[Live Demo](https://yoyui.orcado.dev/megamenu/)",
         "components": {
             "MegaMenu": {
                 "description": "MegaMenu is navigation component that displays submenus together.",
@@ -34076,7 +34076,7 @@
         }
     },
     "mention": {
-        "description": "Mention component is used to refer someone or something.\n\n[Live Demo](https://www.primereact.org/mention/)",
+        "description": "Mention component is used to refer someone or something.\n\n[Live Demo](https://yoyui.orcado.dev/mention/)",
         "components": {
             "Mention": {
                 "description": "Mention component is used to refer someone or something.",
@@ -34621,7 +34621,7 @@
         }
     },
     "menu": {
-        "description": "Menu is a navigation/command component that supports dynamic and static positioning.\n\n[Live Demo](https://www.primereact.org/menu/)",
+        "description": "Menu is a navigation/command component that supports dynamic and static positioning.\n\n[Live Demo](https://yoyui.orcado.dev/menu/)",
         "components": {
             "Menu": {
                 "description": "Menu is a navigation/command component that supports dynamic and static positioning.",
@@ -35029,7 +35029,7 @@
         }
     },
     "menubar": {
-        "description": "Manubar is an input component that provides real-time suggestions when being typed.\n\n[Live Demo](https://www.primereact.org/menubar/)",
+        "description": "Manubar is an input component that provides real-time suggestions when being typed.\n\n[Live Demo](https://yoyui.orcado.dev/menubar/)",
         "components": {
             "Menubar": {
                 "description": "Manubar is an input component that provides real-time suggestions when being typed.",
@@ -35397,7 +35397,7 @@
         }
     },
     "menuitem": {
-        "description": "PrimeReact menus components share a common api to specify the menuitems and submenus.\n\n[Live Demo](https://www.primereact.org/menumodel/)",
+        "description": "YoYui menus components share a common api to specify the menuitems and submenus.\n\n[Live Demo](https://yoyui.orcado.dev/menumodel/)",
         "model": {
             "MenuItem": {
                 "description": "Defines model of MenuItem API.",
@@ -35626,7 +35626,7 @@
         }
     },
     "message": {
-        "description": "Message is used to display inline message with various severities.\n\n[Live Demo](https://www.primereact.org/message)",
+        "description": "Message is used to display inline message with various severities.\n\n[Live Demo](https://yoyui.orcado.dev/message)",
         "components": {
             "Message": {
                 "description": "Message is used to display inline message with various severities.",
@@ -35779,7 +35779,7 @@
         }
     },
     "messages": {
-        "description": "Messages is used to display inline messages with various severities.\n\n[Live Demo](https://www.primereact.org/messages)",
+        "description": "Messages is used to display inline messages with various severities.\n\n[Live Demo](https://yoyui.orcado.dev/messages)",
         "components": {
             "Messages": {
                 "description": "Messages is used to display inline messages with various severities.",
@@ -36144,7 +36144,7 @@
         }
     },
     "metergroup": {
-        "description": "MeterGroup displays scalar measurements within a known range.\n\n[Live Demo](https://www.primereact.org/metergroup/)",
+        "description": "MeterGroup displays scalar measurements within a known range.\n\n[Live Demo](https://yoyui.orcado.dev/metergroup/)",
         "components": {
             "MeterGroup": {
                 "description": "MeterGroup is an extension to standard input element with theming and keyfiltering.",
@@ -36424,7 +36424,7 @@
         }
     },
     "multiselect": {
-        "description": "MultiSelect is used to select multiple items from a collection.\n\n[Live Demo](https://www.primereact.org/multiselect/)",
+        "description": "MultiSelect is used to select multiple items from a collection.\n\n[Live Demo](https://yoyui.orcado.dev/multiselect/)",
         "components": {
             "MultiSelect": {
                 "description": "MultiSelect is used to select multiple items from a collection.",
@@ -37789,7 +37789,7 @@
         }
     },
     "multistatecheckbox": {
-        "description": "MultiStateCheckbox is used to select a state from given multiple states.\n\n[Live Demo](https://www.primereact.org/multistatecheckbox/)",
+        "description": "MultiStateCheckbox is used to select a state from given multiple states.\n\n[Live Demo](https://yoyui.orcado.dev/multistatecheckbox/)",
         "components": {
             "MultiStateCheckbox": {
                 "description": "MultiStateCheckbox is used to select a state from given multiple states.",
@@ -38213,7 +38213,7 @@
         }
     },
     "orderlist": {
-        "description": "OrderList is used to sort a collection.\n\n[Live Demo](https://www.primereact.org/orderlist/)",
+        "description": "OrderList is used to sort a collection.\n\n[Live Demo](https://yoyui.orcado.dev/orderlist/)",
         "components": {
             "OrderList": {
                 "description": "OrderList is used to sort a collection.",
@@ -38744,7 +38744,7 @@
         }
     },
     "organizationchart": {
-        "description": "OrganizationChart visualizes hierarchical organization data.\n\n[Live Demo](https://www.primereact.org/organizationchart/)",
+        "description": "OrganizationChart visualizes hierarchical organization data.\n\n[Live Demo](https://yoyui.orcado.dev/organizationchart/)",
         "components": {
             "OrganizationChart": {
                 "description": "OrganizationChart visualizes hierarchical organization data.",
@@ -39174,7 +39174,7 @@
         }
     },
     "overlaypanel": {
-        "description": "OverlayPanel, also known as Popover, is a container component that can overlay other components on page.\n\n[Live Demo](https://www.primereact.org/overlaypanel)",
+        "description": "OverlayPanel, also known as Popover, is a container component that can overlay other components on page.\n\n[Live Demo](https://yoyui.orcado.dev/overlaypanel)",
         "components": {
             "OverlayPanel": {
                 "description": "OverlayPanel, also known as Popover, is a container component that can overlay other components on page.",
@@ -39474,7 +39474,7 @@
         }
     },
     "overlayservice": {
-        "description": "OverlayService allows all overlay components to communicate with each other.\n\n[Live Demo](https://www.primereact.org/dropdown/)",
+        "description": "OverlayService allows all overlay components to communicate with each other.\n\n[Live Demo](https://yoyui.orcado.dev/dropdown/)",
         "interfaces": {
             "description": "Defines the custom interfaces used by the module.",
             "values": {
@@ -39567,7 +39567,7 @@
         }
     },
     "paginator": {
-        "description": "Paginator is a generic widget to display content in paged format.\n\n[Live Demo](https://www.primereact.org/paginator/)",
+        "description": "Paginator is a generic widget to display content in paged format.\n\n[Live Demo](https://yoyui.orcado.dev/paginator/)",
         "components": {
             "Paginator": {
                 "description": "Paginator is a generic widget to display content in paged format.",
@@ -40803,7 +40803,7 @@
         }
     },
     "panel": {
-        "description": "Panel is a grouping component providing with content toggle feature.\n\n[Live Demo](https://www.primereact.org/panel/)",
+        "description": "Panel is a grouping component providing with content toggle feature.\n\n[Live Demo](https://yoyui.orcado.dev/panel/)",
         "components": {
             "Panel": {
                 "description": "Panel is a grouping component providing with content toggle feature.",
@@ -41316,7 +41316,7 @@
         }
     },
     "panelmenu": {
-        "description": "PanelMenu is a hybrid of accordion-tree components.\n\n[Live Demo](https://www.primereact.org/panelmenu/)",
+        "description": "PanelMenu is a hybrid of accordion-tree components.\n\n[Live Demo](https://yoyui.orcado.dev/panelmenu/)",
         "components": {
             "PanelMenu": {
                 "description": "PanelMenu is a hybrid of accordion-tree components.",
@@ -41789,7 +41789,7 @@
     },
     "passthrough/tailwind": {},
     "password": {
-        "description": "Password displays strength indicator for password fields.\n\n[Live Demo](https://www.primereact.org/password/)",
+        "description": "Password displays strength indicator for password fields.\n\n[Live Demo](https://yoyui.orcado.dev/password/)",
         "components": {
             "Password": {
                 "description": "Password displays strength indicator for password fields.",
@@ -42334,7 +42334,7 @@
         }
     },
     "picklist": {
-        "description": "PickList is used to reorder items between different lists.\n\n[Live Demo](https://www.primereact.org/picklist/)",
+        "description": "PickList is used to reorder items between different lists.\n\n[Live Demo](https://yoyui.orcado.dev/picklist/)",
         "components": {
             "PickList": {
                 "description": "PickList is used to reorder items between different lists.",
@@ -43265,7 +43265,7 @@
         }
     },
     "progressbar": {
-        "description": "ProgressBar is a process status indicator.\n\n[Live Demo](https://www.primereact.org/progressbar)",
+        "description": "ProgressBar is a process status indicator.\n\n[Live Demo](https://yoyui.orcado.dev/progressbar)",
         "components": {
             "ProgressBar": {
                 "description": "ProgressBar is a process status indicator.",
@@ -43446,7 +43446,7 @@
         }
     },
     "progressspinner": {
-        "description": "ProgressSpinner is a process status indicator.\n\n[Live Demo](https://www.primereact.org/progressspinner)",
+        "description": "ProgressSpinner is a process status indicator.\n\n[Live Demo](https://yoyui.orcado.dev/progressspinner)",
         "components": {
             "ProgressSpinner": {
                 "description": "ProgressSpinner is a process status indicator.",
@@ -43591,7 +43591,7 @@
         }
     },
     "radiobutton": {
-        "description": "RadioButton is an extension to standard radio button element with theming.\n\n[Live Demo](https://www.primereact.org/radiobutton/)",
+        "description": "RadioButton is an extension to standard radio button element with theming.\n\n[Live Demo](https://yoyui.orcado.dev/radiobutton/)",
         "components": {
             "RadioButton": {
                 "description": "RadioButton is an extension to standard radio button element with theming.",
@@ -43903,7 +43903,7 @@
         }
     },
     "rating": {
-        "description": "Rating component is a star based selection input.\n\n[Live Demo](https://www.primereact.org/rating/)",
+        "description": "Rating component is a star based selection input.\n\n[Live Demo](https://yoyui.orcado.dev/rating/)",
         "components": {
             "Rating": {
                 "description": "Rating component is a star based selection input.",
@@ -44225,7 +44225,7 @@
         }
     },
     "ripple": {
-        "description": "Ripple component adds ripple effect to the host element.\n\n[Live Demo](https://www.primereact.org/ripple)",
+        "description": "Ripple component adds ripple effect to the host element.\n\n[Live Demo](https://yoyui.orcado.dev/ripple)",
         "components": {
             "Ripple": {
                 "description": "Ripple component adds ripple effect to the host element.",
@@ -44318,7 +44318,7 @@
         }
     },
     "row": {
-        "description": "Row component is a helper component used to create grouping structures in DataTable.\n\n[Live Demo](https://www.primereact.org/datatable/)",
+        "description": "Row component is a helper component used to create grouping structures in DataTable.\n\n[Live Demo](https://yoyui.orcado.dev/datatable/)",
         "components": {
             "Row": {
                 "description": "Row component is a helper component used to create grouping structures in DataTable.",
@@ -44440,7 +44440,7 @@
         }
     },
     "scrollpanel": {
-        "description": "ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar.\n\n[Live Demo](https://www.primereact.org/scrollpanel/)",
+        "description": "ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar.\n\n[Live Demo](https://yoyui.orcado.dev/scrollpanel/)",
         "components": {
             "ScrollPanel": {
                 "description": "ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar.",
@@ -44593,7 +44593,7 @@
         }
     },
     "scrolltop": {
-        "description": "ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.\n\n[Live Demo](https://www.primereact.org/scrolltop/)",
+        "description": "ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.\n\n[Live Demo](https://yoyui.orcado.dev/scrolltop/)",
         "components": {
             "ScrollTop": {
                 "description": "ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.",
@@ -44806,7 +44806,7 @@
         }
     },
     "selectbutton": {
-        "description": "SelectButton is used to choose single or multiple items from a list using buttons.\n\n[Live Demo](https://www.primereact.org/selectbutton/)",
+        "description": "SelectButton is used to choose single or multiple items from a list using buttons.\n\n[Live Demo](https://yoyui.orcado.dev/selectbutton/)",
         "components": {
             "SelectButton": {
                 "description": "SelectButton is used to choose single or multiple items from a list using buttons.",
@@ -45169,7 +45169,7 @@
         }
     },
     "sidebar": {
-        "description": "Sidebar is a panel component displayed as an overlay.\n\n[Live Demo](https://www.primereact.org/sidebar/)",
+        "description": "Sidebar is a panel component displayed as an overlay.\n\n[Live Demo](https://yoyui.orcado.dev/sidebar/)",
         "components": {
             "Sidebar": {
                 "description": "Sidebar is a panel component displayed as an overlay.",
@@ -45552,7 +45552,7 @@
         }
     },
     "skeleton": {
-        "description": "Skeleton is a placeholder to display instead of the actual content.\n\n[Live Demo](https://www.primereact.org/skeleton/)",
+        "description": "Skeleton is a placeholder to display instead of the actual content.\n\n[Live Demo](https://yoyui.orcado.dev/skeleton/)",
         "components": {
             "Skeleton": {
                 "description": "Skeleton is a placeholder to display instead of the actual content.",
@@ -45707,7 +45707,7 @@
         }
     },
     "slidemenu": {
-        "description": "SlideMenu displays submenus with a slide animation.\n\n[Live Demo](https://www.primereact.org/slidemenu/)",
+        "description": "SlideMenu displays submenus with a slide animation.\n\n[Live Demo](https://yoyui.orcado.dev/slidemenu/)",
         "components": {
             "SlideMenu": {
                 "description": "SlideMenu displays submenus with a slide animation.",
@@ -46185,7 +46185,7 @@
         }
     },
     "slider": {
-        "description": "Slider is a component to provide input with a drag handle.\n\n[Live Demo](https://www.primereact.org/slider/)",
+        "description": "Slider is a component to provide input with a drag handle.\n\n[Live Demo](https://yoyui.orcado.dev/slider/)",
         "components": {
             "Slider": {
                 "description": "Slider is a component to provide input with a drag handle.",
@@ -46443,7 +46443,7 @@
         }
     },
     "speeddial": {
-        "description": "When pressed, a floating action button can display multiple primary actions that can be performed on a page.\n\n[Live Demo](https://www.primereact.org/speeddial/)",
+        "description": "When pressed, a floating action button can display multiple primary actions that can be performed on a page.\n\n[Live Demo](https://yoyui.orcado.dev/speeddial/)",
         "components": {
             "SpeedDial": {
                 "description": "When pressed, a floating action button can display multiple primary actions that can be performed on a page.",
@@ -46855,7 +46855,7 @@
         }
     },
     "splitbutton": {
-        "description": "SplitButton groups a set of commands in an overlay with a default command.\n\n[Live Demo](https://www.primereact.org/splitbutton/)",
+        "description": "SplitButton groups a set of commands in an overlay with a default command.\n\n[Live Demo](https://yoyui.orcado.dev/splitbutton/)",
         "components": {
             "SplitButton": {
                 "description": "SplitButton groups a set of commands in an overlay with a default command.",
@@ -47308,7 +47308,7 @@
         }
     },
     "splitter": {
-        "description": "Splitter is utilized to separate and resize panels.\n\n[Live Demo](https://www.primereact.org/splitter/)\n\nHelper Components:\n\n-  SplitterPanel",
+        "description": "Splitter is utilized to separate and resize panels.\n\n[Live Demo](https://yoyui.orcado.dev/splitter/)\n\nHelper Components:\n\n-  SplitterPanel",
         "components": {
             "SplitterPanel": {
                 "description": "SplitterPanel is a helper component for Splitter.",
@@ -47667,7 +47667,7 @@
         }
     },
     "stepper": {
-        "description": "Stepper is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multi-step process.\n\n[Live Demo](https://www.primereact.org/stepper/)",
+        "description": "Stepper is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multi-step process.\n\n[Live Demo](https://yoyui.orcado.dev/stepper/)",
         "components": {
             "Stepper": {
                 "description": "Stepper is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multi-step process.",
@@ -47969,7 +47969,7 @@
         }
     },
     "stepperpanel": {
-        "description": "StepperPanel is a helper component for Stepper component.\n\n[Live Demo](https://www.primereact.org/stepper/)",
+        "description": "StepperPanel is a helper component for Stepper component.\n\n[Live Demo](https://yoyui.orcado.dev/stepper/)",
         "components": {
             "StepperPanel": {
                 "methods": {
@@ -48203,7 +48203,7 @@
         }
     },
     "steps": {
-        "description": "Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.\n\n[Live Demo](https://www.primereact.org/steps/)",
+        "description": "Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.\n\n[Live Demo](https://yoyui.orcado.dev/steps/)",
         "components": {
             "Steps": {
                 "description": "Steps also known as Stepper, is an indicator for the steps in a workflow. Layout of steps component is optimized for responsive design.",
@@ -48493,7 +48493,7 @@
         }
     },
     "styleclass": {
-        "description": "StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.\n\n[Live Demo](https://www.primereact.org/styleclass)",
+        "description": "StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.\n\n[Live Demo](https://yoyui.orcado.dev/styleclass)",
         "components": {
             "StyleClass": {
                 "description": "StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.",
@@ -48633,7 +48633,7 @@
         }
     },
     "tabmenu": {
-        "description": "TabMenu is a navigation/command component that displays items as tab headers.\n\n[Live Demo](https://www.primereact.org/tabmenu/)",
+        "description": "TabMenu is a navigation/command component that displays items as tab headers.\n\n[Live Demo](https://yoyui.orcado.dev/tabmenu/)",
         "components": {
             "TabMenu": {
                 "description": "TabMenu is a navigation/command component that displays items as tab headers.",
@@ -48891,7 +48891,7 @@
         }
     },
     "tabview": {
-        "description": "TabView is a container component to group content with tabs.\n\n[Live Demo](https://www.primereact.org/tabview/)\n\nHelper Components:\n\n-  TabPanel",
+        "description": "TabView is a container component to group content with tabs.\n\n[Live Demo](https://yoyui.orcado.dev/tabview/)\n\nHelper Components:\n\n-  TabPanel",
         "components": {
             "TabPanel": {
                 "description": "TabPanel is a helper component for TabView.",
@@ -49659,7 +49659,7 @@
         }
     },
     "tag": {
-        "description": "Tag component is used to categorize content.\n\n[Live Demo](https://www.primereact.org/tag)",
+        "description": "Tag component is used to categorize content.\n\n[Live Demo](https://yoyui.orcado.dev/tag)",
         "components": {
             "Tag": {
                 "description": "Tag component is used to categorize content.",
@@ -49812,7 +49812,7 @@
         }
     },
     "terminal": {
-        "description": "Terminal is a text based user interface.\n\n[Live Demo](https://www.primereact.org/terminal)",
+        "description": "Terminal is a text based user interface.\n\n[Live Demo](https://yoyui.orcado.dev/terminal)",
         "components": {
             "Terminal": {
                 "description": "Terminal is a text based user interface.",
@@ -50024,7 +50024,7 @@
         }
     },
     "terminalservice": {
-        "description": "Terminal is a text based user interface.\n\n[Live Demo](https://www.primereact.org/terminal/)",
+        "description": "Terminal is a text based user interface.\n\n[Live Demo](https://yoyui.orcado.dev/terminal/)",
         "components": {
             "TerminalService": {
                 "description": "Terminal is a text based user interface.",
@@ -50113,7 +50113,7 @@
         }
     },
     "tieredmenu": {
-        "description": "TieredMenu is an input component that provides real-time suggestions when being typed.\n\n[Live Demo](https://www.primereact.org/tieredmenu/)",
+        "description": "TieredMenu is an input component that provides real-time suggestions when being typed.\n\n[Live Demo](https://yoyui.orcado.dev/tieredmenu/)",
         "components": {
             "TieredMenu": {
                 "description": "TieredMenu is an input component that provides real-time suggestions when being typed.",
@@ -50470,7 +50470,7 @@
         }
     },
     "timeline": {
-        "description": "Timeline visualizes a series of chained events.\n\n[Live Demo](https://www.primereact.org/timeline/)",
+        "description": "Timeline visualizes a series of chained events.\n\n[Live Demo](https://yoyui.orcado.dev/timeline/)",
         "components": {
             "Timeline": {
                 "description": "Timeline visualizes a series of chained events.",
@@ -50675,7 +50675,7 @@
         }
     },
     "toast": {
-        "description": "Toast is used to display messages in an overlay.\n\n[Live Demo](https://www.primereact.org/toast/)",
+        "description": "Toast is used to display messages in an overlay.\n\n[Live Demo](https://yoyui.orcado.dev/toast/)",
         "components": {
             "Toast": {
                 "description": "Toast is used to display messages in an overlay.",
@@ -50749,7 +50749,7 @@
                             "readonly": false,
                             "type": "number",
                             "default": "0",
-                            "description": "Base zIndex value to add to initial layering of PrimeReact components which start from 1000."
+                            "description": "Base zIndex value to add to initial layering of YoYui components which start from 1000."
                         },
                         {
                             "name": "children",
@@ -51219,7 +51219,7 @@
         }
     },
     "togglebutton": {
-        "description": "ToggleButton is used to select a boolean value using a button.\n\n[Live Demo](https://www.primereact.org/togglebutton/)",
+        "description": "ToggleButton is used to select a boolean value using a button.\n\n[Live Demo](https://yoyui.orcado.dev/togglebutton/)",
         "components": {
             "ToggleButton": {
                 "description": "ToggleButton is used to select a boolean value using a button.",
@@ -51555,7 +51555,7 @@
         }
     },
     "toolbar": {
-        "description": "Toolbar is a grouping component for buttons and other content.\n\n[Live Demo](https://www.primereact.org/toolbar/)",
+        "description": "Toolbar is a grouping component for buttons and other content.\n\n[Live Demo](https://yoyui.orcado.dev/toolbar/)",
         "components": {
             "Toolbar": {
                 "description": "Toolbar is a grouping component for buttons and other content.",
@@ -51725,10 +51725,10 @@
         }
     },
     "tooltip": {
-        "description": "Tooltip functionality is integrated within various PrimeReact components.\n\n[Live Demo](https://www.primereact.org/tooltip/)",
+        "description": "Tooltip functionality is integrated within various YoYui components.\n\n[Live Demo](https://yoyui.orcado.dev/tooltip/)",
         "components": {
             "Tooltip": {
-                "description": "Tooltip functionality is integrated within various PrimeReact components.",
+                "description": "Tooltip functionality is integrated within various YoYui components.",
                 "methods": {
                     "description": "Defines methods that can be accessed by the component's reference.",
                     "values": [
@@ -52492,7 +52492,7 @@
                 }
             },
             "TooltipHTMLAttributes": {
-                "description": "In addition to React.HTMLAttributes, the following attributes can be used on any HTMLElement if the page has a PrimeReact  tooltip  component.",
+                "description": "In addition to React.HTMLAttributes, the following attributes can be used on any HTMLElement if the page has a YoYui  tooltip  component.",
                 "props": {
                     "description": "",
                     "values": [
@@ -52667,7 +52667,7 @@
         }
     },
     "tree": {
-        "description": "Tree is used to display hierarchical data.\n\n[Live Demo](https://www.primereact.org/tree/)",
+        "description": "Tree is used to display hierarchical data.\n\n[Live Demo](https://yoyui.orcado.dev/tree/)",
         "components": {
             "Tree": {
                 "description": "Tree is used to display hierarchical data.",
@@ -53996,7 +53996,7 @@
         }
     },
     "treeselect": {
-        "description": "TreeSelect is a form component to choose from hierarchical data.\n\n[Live Demo](https://www.primereact.org/treeselect/)",
+        "description": "TreeSelect is a form component to choose from hierarchical data.\n\n[Live Demo](https://yoyui.orcado.dev/treeselect/)",
         "components": {
             "TreeSelect": {
                 "description": "TreeSelect is a form component to choose from hierarchical data.",
@@ -55177,7 +55177,7 @@
         }
     },
     "treetable": {
-        "description": "TreeTable is used to display hierarchical data in tabular format.\n\n[Live Demo](https://www.primereact.org/treetable/)",
+        "description": "TreeTable is used to display hierarchical data in tabular format.\n\n[Live Demo](https://yoyui.orcado.dev/treetable/)",
         "components": {
             "TreeTable": {
                 "description": "TreeTable is used to display hierarchical data in tabular format.",
@@ -56954,7 +56954,7 @@
         }
     },
     "tristatecheckbox": {
-        "description": "TriStateCheckbox is used to select either \"true\", \"false\" or \"null\" as the value.\n\n[Live Demo](https://www.primereact.org/tristatecheckbox/)",
+        "description": "TriStateCheckbox is used to select either \"true\", \"false\" or \"null\" as the value.\n\n[Live Demo](https://yoyui.orcado.dev/tristatecheckbox/)",
         "components": {
             "TriStateCheckbox": {
                 "description": "TriStateCheckbox is used to select either \"true\", \"false\" or \"null\" as the value.",
@@ -57499,7 +57499,7 @@
         }
     },
     "virtualscroller": {
-        "description": "VirtualScroller is a performant approach to handle huge data efficiently.\n\n[Live Demo](https://www.primereact.org/virtualscroller/)",
+        "description": "VirtualScroller is a performant approach to handle huge data efficiently.\n\n[Live Demo](https://yoyui.orcado.dev/virtualscroller/)",
         "components": {
             "VirtualScroller": {
                 "description": "VirtualScroller is a performant approach to handle huge data efficiently.",

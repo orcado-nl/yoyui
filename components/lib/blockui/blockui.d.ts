@@ -2,7 +2,7 @@
  *
  * BlockUI represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primereact.org/blockui)
+ * [Live Demo](https://yoyui.orcado.dev/blockui)
  *
  * @module blockui
  *
@@ -121,13 +121,13 @@ export interface BlockUIProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - BlockUI**
+ * **YoYui - BlockUI**
  *
  * _BlockUI represents people using icons, labels and images._
  *
- * [Live Demo](https://www.primereact.org/blockui/)
+ * [Live Demo](https://yoyui.orcado.dev/blockui/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

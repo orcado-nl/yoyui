@@ -162,7 +162,7 @@ const animationFeaturesData2 = [
 ];
 
 const license = {
-    documentLink: 'https://apollo.primereact.org/documentation/',
+    documentLink: 'https://yoyui.orcado.dev/templates/apollo',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -186,8 +186,8 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard1.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard2.png',
     description: 'Application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeReact themes.',
-    liveHref: 'https://apollo.primereact.org',
-    docHref: 'https://apollo.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/apollo',
+    docHref: 'https://yoyui.orcado.dev/templates/apollo',
     storeHref: 'https://primeui.store/templates/react/apollo'
 };
 

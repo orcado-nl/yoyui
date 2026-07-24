@@ -2,7 +2,7 @@
  *
  * Skeleton is a placeholder to display instead of the actual content.
  *
- * [Live Demo](https://www.primereact.org/skeleton/)
+ * [Live Demo](https://yoyui.orcado.dev/skeleton/)
  *
  * @module skeleton
  *
@@ -93,13 +93,13 @@ export interface SkeletonProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Skeleton**
+ * **YoYui - Skeleton**
  *
  * _Skeleton is a placeholder to display instead of the actual content._
  *
- * [Live Demo](https://www.primereact.org/skeleton/)
+ * [Live Demo](https://yoyui.orcado.dev/skeleton/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

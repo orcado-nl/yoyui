@@ -137,7 +137,7 @@ const animationFeaturesData2 = [
 ];
 
 const license = {
-    documentLink: 'https://ultima.primereact.org/documentation/',
+    documentLink: 'https://yoyui.orcado.dev/templates/ultima',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -184,8 +184,8 @@ const UltimaPage = () => {
                 description={'A highly customizable premium application template featuring 7 menu modes, 17 themes, light and dark modes. Based on material design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.'}
                 dashboard1={'https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-hero-dashboard1.png'}
                 dashboard2={'https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-hero-dashboard2.png'}
-                liveHref={'https://ultima.primereact.org'}
-                docHref={'https://ultima.primereact.org/documentation'}
+                liveHref={'https://yoyui.orcado.dev/templates/ultima'}
+                docHref={'https://yoyui.orcado.dev/templates/ultima'}
                 storeHref={'https://primeui.store/templates/react/ultima'}
             />
             <UltimaSeperator />

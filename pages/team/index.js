@@ -16,7 +16,7 @@ const TemplatesPage = () => {
                         PrimeNG
                     </a>
                     ,{' '}
-                    <a href="https://primereact.org" className="text-primary hover:underline font-medium">
+                    <a href="https://yoyui.orcado.dev" className="text-primary hover:underline font-medium">
                         PrimeReact
                     </a>{' '}
                     and{' '}

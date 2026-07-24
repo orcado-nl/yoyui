@@ -1,8 +1,8 @@
 /**
  *
- * PrimeReact menus components share a common api to specify the menuitems and submenus.
+ * YoYui menus components share a common api to specify the menuitems and submenus.
  *
- * [Live Demo](https://www.primereact.org/menumodel/)
+ * [Live Demo](https://yoyui.orcado.dev/menumodel/)
  *
  * @module menuitem
  *

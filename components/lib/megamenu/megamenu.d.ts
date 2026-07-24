@@ -2,7 +2,7 @@
  *
  * MegaMenu is navigation component that displays submenus together.
  *
- * [Live Demo](https://www.primereact.org/megamenu/)
+ * [Live Demo](https://yoyui.orcado.dev/megamenu/)
  *
  * @module megamenu
  *
@@ -237,13 +237,13 @@ export interface MegaMenuProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - MegaMenu**
+ * **YoYui - MegaMenu**
  *
  * _MegaMenu is navigation component that displays submenus together._
  *
- * [Live Demo](https://www.primereact.org/megamenu/)
+ * [Live Demo](https://yoyui.orcado.dev/megamenu/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

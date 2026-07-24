@@ -2,7 +2,7 @@
 
 # yOyUi
 
-**yOyUi** is an internal fork of [PrimeReact](https://v10.primereact.org), maintained by **Orcado**.
+**YoYui** is an internal fork of [PrimeReact](https://github.com/primefaces/primereact), maintained by **Orcado**. Its documentation is available at [yoyui.orcado.dev](https://yoyui.orcado.dev).
 
 ## Why this fork exists
 

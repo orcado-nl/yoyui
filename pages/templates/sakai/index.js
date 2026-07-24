@@ -98,8 +98,8 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-dashboard1.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-dashboard2.png',
     description: 'Sakai is a free application template for React based on the popular Next.js framework with new App Router.',
-    liveHref: 'https://sakai.primereact.org/',
-    docHref: 'https://sakai.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/sakai',
+    docHref: 'https://yoyui.orcado.dev/templates/sakai',
     free: true,
     storeHref: 'https://github.com/primefaces/sakai-react',
     supportHref: 'https://github.com/primefaces/sakai-react/issues'

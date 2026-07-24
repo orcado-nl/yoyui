@@ -2,7 +2,7 @@
  *
  * MeterGroup displays scalar measurements within a known range.
  *
- * [Live Demo](https://www.primereact.org/metergroup/)
+ * [Live Demo](https://yoyui.orcado.dev/metergroup/)
  *
  * @module metergroup
  *
@@ -163,13 +163,13 @@ interface MeterGroupProps {
 }
 
 /**
- * **PrimeReact - MeterGroup**
+ * **YoYui - MeterGroup**
  *
  * _MeterGroup is an extension to standard input element with theming and keyfiltering._
  *
- * [Live Demo](https://www.primereact.org/metergroup/)
+ * [Live Demo](https://yoyui.orcado.dev/metergroup/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -2,7 +2,7 @@
  *
  * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
  *
- * [Live Demo](https://www.primereact.org/inputmask/)
+ * [Live Demo](https://yoyui.orcado.dev/inputmask/)
  *
  * @module inputmask
  *
@@ -138,13 +138,13 @@ export interface InputMaskProps extends Omit<InputTextProps, 'onChange' | 'pt'> 
 }
 
 /**
- * **PrimeReact - InputMask**
+ * **YoYui - InputMask**
  *
  * _InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone._
  *
- * [Live Demo](https://www.primereact.org/inputmask/)
+ * [Live Demo](https://yoyui.orcado.dev/inputmask/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

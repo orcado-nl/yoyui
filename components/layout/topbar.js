@@ -27,11 +27,7 @@ function handleDocSearchTransformItems(items) {
 
 export default function Topbar(props) {
     const versionsRef = useRef(null);
-    const versions = [
-        { name: 'v11', version: '11.0.0', url: 'https://v11.primereact.org' },
-        { name: `v${pkg.version.split('.')[0]}`, version: pkg.version, url: 'https://www.primereact.org' },
-        { name: 'v9', version: '9.6.3', url: 'https://v9.primereact.org' }
-    ];
+    const versions = [{ name: `v${pkg.version.split('.')[0]}`, version: pkg.version, url: 'https://yoyui.orcado.dev' }];
 
     const onMenuButtonClick = () => {
         props.onMenuButtonClick();
@@ -218,7 +214,7 @@ export default function Topbar(props) {
                                 style={{ maxWidth: '8rem' }}
                                 className="px-link flex align-items-center surface-card h-2rem px-2 border-1 border-solid surface-border transition-all transition-duration-300 hover:border-primary"
                             >
-                                <span className="text-900 block white-space-nowrap overflow-hidden">{versions?.length ? versions[1].version : ''}</span>
+                                <span className="text-900 block white-space-nowrap overflow-hidden">{versions[0].version}</span>
                                 <span className="ml-2 pi pi-angle-down text-600" />
                             </button>
                         </StyleClass>

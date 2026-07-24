@@ -137,7 +137,7 @@ const animationFeaturesData2 = [
 ];
 
 const license = {
-    documentLink: 'https://freya.primereact.org/documentation',
+    documentLink: 'https://yoyui.orcado.dev/templates/freya',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -162,8 +162,8 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/freya/freya-hero-dashboard1.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/freya/freya-hero-dashboard2.png',
     description: 'Freya is a modern admin template for developers and IT professionals. It comes with a huge collection of reusable UI components and dozens of built-in layouts for various purposes.',
-    liveHref: 'https://freya.primereact.org/',
-    docHref: 'https://freya.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/freya',
+    docHref: 'https://yoyui.orcado.dev/templates/freya',
     storeHref: 'https://primeui.store/templates/react/freya'
 };
 

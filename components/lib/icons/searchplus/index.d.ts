@@ -8,11 +8,11 @@ import { IconBaseProps } from '../../iconbase';
 export interface SearchPlusIconProps extends IconBaseProps {}
 
 /**
- * **PrimeReact - SearchPlusIcon**
+ * **YoYui - SearchPlusIcon**
  *
- * [Live Demo](https://www.primereact.org/icons/)
+ * [Live Demo](https://yoyui.orcado.dev/icons/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

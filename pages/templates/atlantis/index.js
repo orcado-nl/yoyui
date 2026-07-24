@@ -137,7 +137,7 @@ const animationFeaturesData2 = [
 ];
 
 const license = {
-    documentLink: 'https://atlantis.primereact.org/documentation',
+    documentLink: 'https://yoyui.orcado.dev/templates/atlantis',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -162,8 +162,8 @@ const templateHeroData = {
     dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-dashboard1.png',
     dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-dashboard2.png',
     description: 'Prepare to be amazed by the remastered Atlantis for PrimeReact featuring a new gorgeous dark mode for the entire layout, 7 menu modes, reusable css widgets, utilities, modern icons and many more.',
-    liveHref: 'https://atlantis.primereact.org/',
-    docHref: 'https://atlantis.primereact.org/documentation',
+    liveHref: 'https://yoyui.orcado.dev/templates/atlantis',
+    docHref: 'https://yoyui.orcado.dev/templates/atlantis',
     storeHref: 'https://primeui.store/templates/react/atlantis'
 };
 

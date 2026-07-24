@@ -199,6 +199,18 @@ page.
 
 ### Documentation and tooling
 
+- Rebranded generated API documentation and JetBrains Web Types metadata from
+  PrimeReact to YoYui. Legacy PrimeReact live-demo URLs now resolve to the
+  corresponding local YoYui documentation routes, and generated logo references use
+  the local YoYui asset.
+- Replaced PrimeReact website URLs throughout metadata, navigation, examples,
+  templates, TypeScript declaration comments, and generated documentation with the
+  canonical `https://yoyui.orcado.dev` host. Template subdomains now resolve to
+  their corresponding `/templates/<name>` routes.
+- Preserved inherited `PrimeReactProvider`, `PrimeReactConfig`, and
+  `PrimeReactPTOptions` identifiers where they describe the library's actual public
+  API; changing those labels without renaming the exports would make the API
+  reference inaccurate.
 - Refactored component examples, theme and Tailwind documentation, API tables,
   navigation, templates, landing pages, and generated code samples to follow the
   same static-analysis and accessibility rules as the library.

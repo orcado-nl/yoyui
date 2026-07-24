@@ -166,7 +166,7 @@ const VeronaSeperator = () => {
 };
 
 const license = {
-    documentLink: 'https://verona.primereact.org/documentation',
+    documentLink: 'https://yoyui.orcado.dev/templates/verona',
     description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
     showDiscount: false,
     licenseDetails: [
@@ -196,8 +196,8 @@ const VeronaPage = () => {
                 logo={<VeronaLogo />}
                 dashboard1={'https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-dashboard1.png'}
                 dashboard2={'https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-dashboard2.png'}
-                liveHref={'https://verona.primereact.org/'}
-                docHref={'https://verona.primereact.org/documentation'}
+                liveHref={'https://yoyui.orcado.dev/templates/verona'}
+                docHref={'https://yoyui.orcado.dev/templates/verona'}
                 storeHref={'https://primeui.store/templates/react/verona'}
             />
             <VeronaSeperator />

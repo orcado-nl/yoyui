@@ -2,7 +2,7 @@
  *
  * Mention component is used to refer someone or something.
  *
- * [Live Demo](https://www.primereact.org/mention/)
+ * [Live Demo](https://yoyui.orcado.dev/mention/)
  *
  * @module mention
  *
@@ -295,13 +295,13 @@ export interface MentionProps extends Omit<React.DetailedHTMLProps<React.Textare
 }
 
 /**
- * **PrimeReact - Mention**
+ * **YoYui - Mention**
  *
  * _Mention component is used to refer someone or something._
  *
- * [Live Demo](https://www.primereact.org/mention/)
+ * [Live Demo](https://yoyui.orcado.dev/mention/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */
