@@ -7,6 +7,9 @@ const styles = `
     .p-treetable {
         position: relative;
     }
+    .p-treetable-scrollable {
+        overflow: hidden;
+    }
     .p-treetable > .p-treetable-wrapper {
         overflow: auto;
     }
@@ -138,6 +141,7 @@ const classes = {
     root: ({ props, isRowSelectionMode }) =>
         classNames('p-treetable p-component', {
             'p-treetable-hoverable-rows': props.rowHover,
+            'p-treetable-scrollable': props.scrollable,
             'p-treetable-selectable': isRowSelectionMode(),
             'p-treetable-resizable': props.resizableColumns,
             'p-treetable-resizable-fit': props.resizableColumns && props.columnResizeMode === 'fit',

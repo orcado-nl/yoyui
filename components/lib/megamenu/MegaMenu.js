@@ -1065,11 +1065,7 @@ export const MegaMenu = React.memo(
         const createColumns = (category) => {
             if (category.items) {
                 return category.items.map((column, index) => {
-                    return (
-                        <React.Fragment key={column?.id ?? column?.key ?? column?.name ?? column?.label ?? column?.value ?? column?.href ?? column?.src ?? column?.field ?? JSON.stringify(column)}>
-                            {createColumn(category, column, index)}
-                        </React.Fragment>
-                    );
+                    return <React.Fragment key={column[0]?.key}>{createColumn(category, column, index)}</React.Fragment>;
                 });
             }
 
@@ -1320,7 +1316,7 @@ export const MegaMenu = React.memo(
                 return (
                     <ul {...menuProps}>
                         {processedItems.map((item, index) => {
-                            return <React.Fragment key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)}>{createCategory(item, index)}</React.Fragment>;
+                            return <React.Fragment key={item.key}>{createCategory(item, index)}</React.Fragment>;
                         })}
                     </ul>
                 );

@@ -1,5 +1,70 @@
 # Changelog
 
+## Documentation visual parity (2026-07-24)
+
+### Component and documentation corrections
+
+- Audited all 94 component documentation routes against PrimeReact v10.9.8 in
+  Chromium at desktop (1440×900), tablet (1024×768), and mobile (390×844)
+  viewports in light and dark modes.
+- Verified the AutoComplete dropdown-button and virtual-scroll scenarios across
+  opening, filtering, keyboard and mouse selection, scrolling, overlay anchoring,
+  closing, and reopening. The reported virtual-scroll geometry matches the v10
+  reference and required no component-specific CSS workaround.
+- Restored MegaMenu's v10 list-key behavior. The optimized fallback attempted to
+  serialize circular processed menu items and prevented the MegaMenu
+  documentation page from rendering.
+- Contained scrollable TreeTable views within the component root and added
+  documentation-level narrow-screen containment for non-scrollable examples,
+  preventing frozen table content from extending beyond the viewport.
+- Constrained Mention and its textarea to their available inline width so the
+  documented fixed-column example no longer widens the page on narrow screens.
+- Reserved the original 300×200 dimensions for the local OverlayPanel demo image
+  so the popup is positioned with its final width and remains inside mobile
+  viewports while the replacement asset loads.
+- Preserved the upstream aspect ratio for the local Slider filter image so the
+  replacement asset keeps the original example height and spacing.
+- Made the responsive Galleria example retain its original 800px desktop size
+  while shrinking to the available content width on smaller viewports.
+- Corrected narrow-screen layouts for IconField, Stepper, TabView, paginator, and
+  Dock examples so controls wrap or scroll within their demonstration card.
+- Added a shared reset class to documentation examples that intentionally render
+  menu item templates as semantic buttons, preserving the previous visual
+  appearance without invalid interactive markup.
+- Restored MeterGroup's composite meter semantics, kept Tooltip's hidden state out
+  of the accessibility tree, and made Knob SVG coordinates deterministic between
+  server and client rendering.
+
+### Permanent regression coverage
+
+- Added Playwright and 564 reviewed snapshots: 94 component routes × three
+  Chromium viewports × light and dark modes.
+- Visual checks use documentation-content crops, deterministic timers, disabled
+  animation and caret rendering, a per-pixel threshold of `0.2`, and a maximum
+  differing-pixel ratio of `0.001`.
+- Added exact assertions for horizontal overflow, clipped content, broken images,
+  intrinsic image behavior, and actionable browser-console or page errors.
+- Added interaction scenarios for selection and virtual scrolling controls,
+  overlays, dialogs, tooltips, menus, DataTable behavior, media components,
+  disclosure controls, drag/resize interactions, and file uploads.
+- Added focused Jest regression tests for AutoComplete, VirtualScroller,
+  MegaMenu, TreeTable, MeterGroup, Tooltip, and deterministic Knob rendering.
+- Updated CI to run the checks in Linux Chromium and upload Playwright actual,
+  expected, diff, trace, and report artifacts when a visual test fails.
+- Added `test:visual`, `test:visual:update`, and `audit:docs` scripts. Baseline
+  updates remain explicit and require review; CI never compares against the live
+  PrimeReact website.
+- The live comparison report retains every raw difference and separately labels
+  reviewed local-asset, asynchronous-demo, and responsive-containment
+  differences with their reason. Only unexplained differences, broken resources,
+  target-only browser errors, or interaction mismatches fail the audit.
+
+### Required changes for users
+
+No consumer code changes are required for this documentation-parity pass. Public
+component APIs remain unchanged. The corrections restore v10 behavior, improve
+accessibility output, or affect only documentation layout and regression tooling.
+
 ## Sonarqube fixes
 
 This entry records all the changes to make sure the project adheres to the Sonarqube quality standards.

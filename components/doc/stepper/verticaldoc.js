@@ -10,7 +10,7 @@ export function VerticalDoc(props) {
 
     const code = {
         basic: `
-<Stepper ref={stepperRef} style={{ flexBasis: '50rem' }} orientation="vertical">
+<Stepper ref={stepperRef} style={{ flexBasis: '50rem', minWidth: 0 }} orientation="vertical">
     <StepperPanel header="Header I">
         <div className="flex flex-column h-12rem">
             <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
@@ -49,7 +49,7 @@ export default function BasicDemo() {
 
     return (
         <div className="card">
-            <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }} orientation="vertical">
+            <Stepper ref={stepperRef} style={{ flexBasis: '50rem', minWidth: 0 }} orientation="vertical">
                 <StepperPanel header="Header I">
                     <div className="flex flex-column h-12rem">
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
@@ -91,7 +91,7 @@ export default function BasicDemo() {
 
     return (
         <div className="card">
-            <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }} orientation="vertical">
+            <Stepper ref={stepperRef} style={{ flexBasis: '50rem', minWidth: 0 }} orientation="vertical">
                 <StepperPanel header="Header I">
                     <div className="flex flex-column h-12rem">
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>

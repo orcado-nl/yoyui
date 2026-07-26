@@ -5,7 +5,7 @@ import { BreadCrumb } from '@/components/lib/breadcrumb/BreadCrumb';
 export function TemplateDoc(props) {
     const iconItemTemplate = (item, options) => {
         return (
-            <button type="button" className={options.className}>
+            <button type="button" className={`${options.className} doc-button-reset p-0`}>
                 <span className={item.icon} />
             </button>
         );

@@ -21,7 +21,14 @@ const styles = `
 @layer primereact {
     .p-mention {
         display: inline-flex;
+        max-width: 100%;
         position: relative;
+    }
+
+    .p-mention-input {
+        box-sizing: border-box;
+        max-width: 100%;
+        min-width: 0;
     }
     
     .p-autocomplete-loader {

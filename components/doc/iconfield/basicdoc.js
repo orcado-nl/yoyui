@@ -26,7 +26,7 @@ import { InputText } from "primereact/inputtext";
 
 export default function BasicDemo() {
     return (
-        <div className="flex gap-3">
+        <div className="flex flex-wrap justify-content-center gap-3">
             <IconField iconPosition="left">
                 <InputIcon className="pi pi-search"> </InputIcon>
                 <InputText placeholder="Search" />
@@ -48,7 +48,7 @@ import { InputText } from "primereact/inputtext";
 
 export default function BasicDemo() {
     return (
-        <div className="flex gap-3">
+        <div className="flex flex-wrap justify-content-center gap-3">
             <IconField iconPosition="left">
                 <InputIcon className="pi pi-search"> </InputIcon>
                 <InputText placeholder="Search" />
@@ -72,7 +72,7 @@ export default function BasicDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex flex-wrap justify-content-center gap-3">
-                <div className="flex gap-3">
+                <div className="flex flex-wrap justify-content-center gap-3">
                     <IconField iconPosition="left">
                         <InputIcon className="pi pi-search" />
                         <InputText placeholder="Search" />

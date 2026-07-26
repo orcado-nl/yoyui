@@ -6,7 +6,7 @@ import { useState } from 'react';
 export function TemplateDoc(props) {
     const [activeIndex, setActiveIndex] = useState(0);
     const itemRenderer = (item, itemIndex) => (
-        <button type="button" className="p-menuitem-link flex align-items-center gap-2 border-none bg-transparent" onClick={() => setActiveIndex(itemIndex)}>
+        <button type="button" className="doc-button-reset p-menuitem-link flex align-items-center gap-2 border-none bg-transparent" onClick={() => setActiveIndex(itemIndex)}>
             <img alt={item.name} src={`/images/avatar/${item.image}`} style={{ width: '32px' }} />
             <span className="font-bold">{item.name}</span>
         </button>

@@ -27,7 +27,7 @@ export function ResponsiveDoc(props) {
 
     const code = {
         basic: `
-<Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }}
+<Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media"
     item={itemTemplate} thumbnail={thumbnailTemplate} />
         `,
         javascript: `
@@ -72,7 +72,7 @@ export default function ResponsiveDoc() {
 
     return (
         <div>
-            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }}
+            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media"
                 item={itemTemplate} thumbnail={thumbnailTemplate} />
         </div>
     )
@@ -120,7 +120,7 @@ export default function ResponsiveDoc() {
     
     return (
         <div>
-            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }}
+            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media"
                 item={itemTemplate} thumbnail={thumbnailTemplate} />
         </div>
     )
@@ -146,8 +146,8 @@ export default function ResponsiveDoc() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <div>
-                    <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }} item={itemTemplate} thumbnail={thumbnailTemplate} />
+                <div className="doc-responsive-media-container">
+                    <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media" item={itemTemplate} thumbnail={thumbnailTemplate} />
                 </div>
             </div>
             <DocSectionCode code={code} service={['PhotoService']} />

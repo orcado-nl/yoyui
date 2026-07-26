@@ -16,6 +16,8 @@ export function FilterDoc(props) {
 
     const filterStyle = () => {
         return {
+            aspectRatio: '1089 / 579',
+            objectFit: 'cover',
             filter: `contrast(${filterValues[0]}%) brightness(${filterValues[1]}%) sepia(${filterValues[2]}%)`
         };
     };

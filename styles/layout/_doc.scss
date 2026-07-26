@@ -103,6 +103,25 @@
     min-width: 0;
 }
 
+.doc-button-reset {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    margin: 0;
+    text-align: inherit;
+}
+
+.doc-responsive-media-container {
+    max-width: 800px;
+}
+
+.doc-responsive-media {
+    width: 800px;
+}
+
 .doc-intro {
     margin-bottom: 1.5rem;
 
@@ -448,5 +467,32 @@
                 border-color: var(--bluegray-800);
             }
         }
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .doc-main {
+        .card,
+        .p-tabview {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .p-paginator,
+        .p-tabview-nav-content {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .p-treetable:not(.p-treetable-scrollable) {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+    }
+
+    .doc-responsive-media-container,
+    .doc-responsive-media {
+        max-width: 100%;
+        width: 100%;
     }
 }

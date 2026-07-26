@@ -9,7 +9,7 @@ export function TemplateDoc(props) {
     const itemRenderer = (item) => {
         if (item.root) {
             return (
-                <button type="button" className="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase p-ripple" style={{ borderRadius: '2rem' }}>
+                <button type="button" className="doc-button-reset flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase p-ripple" style={{ borderRadius: '2rem' }}>
                     <span className={item.icon} />
                     <span className="ml-2">{item.label}</span>
                     <Ripple />
@@ -17,7 +17,7 @@ export function TemplateDoc(props) {
             );
         } else if (!item.image) {
             return (
-                <button type="button" className="flex align-items-center p-3 cursor-pointer mb-2 gap-2 ">
+                <button type="button" className="doc-button-reset flex align-items-center p-3 cursor-pointer mb-2 gap-2 ">
                     <span className="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
                         <i className={`${item.icon} text-lg`} />
                     </span>

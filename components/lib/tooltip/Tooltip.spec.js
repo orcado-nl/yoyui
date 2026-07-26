@@ -25,6 +25,7 @@ describe('Tooltip', () => {
 
         expect(tooltip).toBeVisible();
         expect(tooltip.parentElement).toHaveClass('p-tooltip p-component p-tooltip-active');
+        expect(tooltip.parentElement).toHaveAttribute('aria-hidden', 'false');
         expect(tooltip.parentElement).toHaveStyle({ 'z-index': '6666' });
     });
     test('when using tooltip with auto zindex the zindex should be automatically assigned', async () => {

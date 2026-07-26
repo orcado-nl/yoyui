@@ -11,7 +11,7 @@ export function BasicDoc(props) {
         basic: `
 <Button type="button" icon="pi pi-image" label="Image" onClick={(e) => op.current.toggle(e)} />
 <OverlayPanel ref={op}>
-    <img src="/images/product/bamboo-watch.jpg" alt="Bamboo Watch"></img>
+    <img src="/images/product/bamboo-watch.jpg" alt="Bamboo Watch" width={300} height={200}></img>
 </OverlayPanel>
         `,
         javascript: `
@@ -26,7 +26,7 @@ export default function BasicDemo() {
         <div className="card flex justify-content-center">
             <Button type="button" icon="pi pi-image" label="Image" onClick={(e) => op.current.toggle(e)} />
             <OverlayPanel ref={op}>
-                <img src={'/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
+                <img src={'/images/product/bamboo-watch.jpg'} alt="Bamboo Watch" width={300} height={200}></img>
             </OverlayPanel>
         </div>
     );
@@ -44,7 +44,7 @@ export default function BasicDemo() {
         <div className="card flex justify-content-center">
             <Button type="button" icon="pi pi-image" label="Image" onClick={(e) => op.current.toggle(e)} />
             <OverlayPanel ref={op}>
-                <img src={'/images/product/bamboo-watch.jpg'} alt="Bamboo Watch"></img>
+                <img src={'/images/product/bamboo-watch.jpg'} alt="Bamboo Watch" width={300} height={200}></img>
             </OverlayPanel>
         </div>
     );
@@ -62,7 +62,7 @@ export default function BasicDemo() {
             <div className="card flex justify-content-center">
                 <Button type="button" icon="pi pi-image" label="Image" onClick={(e) => op.current.toggle(e)} />
                 <OverlayPanel ref={op}>
-                    <img src="/images/product/bamboo-watch.jpg" alt="Bamboo Watch" />
+                    <img src="/images/product/bamboo-watch.jpg" alt="Bamboo Watch" width={300} height={200} />
                 </OverlayPanel>
             </div>
             <DocSectionCode code={code} />

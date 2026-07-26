@@ -11,6 +11,15 @@
         z-index: 1000;
     }
 
+    .p-dock-top,
+    .p-dock-bottom {
+        .p-dock-list-container {
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+    }
+
     .dock-advanced {
         .p-dialog-mask,
         .p-galleria-mask,

@@ -7,7 +7,7 @@ import { Badge } from '@/components/lib/badge/Badge';
 
 function renderSonarNested1Element(options) {
     return (
-        <button onClick={(e) => options.onClick(e)} className={classNames(options.className, 'w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround')}>
+        <button type="button" onClick={(e) => options.onClick(e)} className={classNames(options.className, 'doc-button-reset w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround')}>
             <Avatar image="/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
             <div className="flex flex-column align">
                 <span className="font-bold">Amy Elsner</span>
@@ -51,7 +51,7 @@ function renderSonarNested1() {
 export function TemplateDoc(props) {
     const itemRenderer = (item) => (
         <div className="p-menuitem-content">
-            <button type="button" className="flex align-items-center p-menuitem-link">
+            <button type="button" className="doc-button-reset flex align-items-center p-menuitem-link">
                 <span className={item.icon} />
                 <span className="mx-2">{item.label}</span>
                 {item.badge && <Badge className="ml-auto" value={item.badge} />}

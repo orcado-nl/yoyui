@@ -10,7 +10,7 @@ export function TemplateDoc(props) {
     const [selectedId, setSelectedId] = useState([]);
     const cm = useRef(null);
     const itemTemplate = (item) => (
-        <button type="button" className="flex align-items-center px-3 py-2 cursor-pointer">
+        <button type="button" className="doc-button-reset flex align-items-center px-3 py-2 cursor-pointer">
             <span className={item.icon} />
             <span className="ml-2">{item.label}</span>
             <Badge className="ml-auto" value={item.badge} />

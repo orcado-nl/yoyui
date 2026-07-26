@@ -79,12 +79,12 @@ export const MeterGroup = (inProps) => {
     const labelElement = ObjectUtils.getJSXElement(labelListContent, { values, totalPercent });
 
     return (
-        <meter {...rootProps} min={min} max={max} value={totalPercent}>
+        <div {...rootProps} role="meter" aria-valuemin={min} aria-valuemax={max} aria-valuenow={totalPercent}>
             {labelPosition === 'start' && labelElement}
             {start && ObjectUtils.getJSXElement(start, templateProps)}
             {createMeters()}
             {end && ObjectUtils.getJSXElement(end, templateProps)}
             {labelPosition === 'end' && labelElement}
-        </meter>
+        </div>
     );
 };

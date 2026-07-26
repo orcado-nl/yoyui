@@ -5,7 +5,7 @@ import { Badge } from '@/components/lib/badge/Badge';
 
 export function TemplateDoc(props) {
     const itemRenderer = (item, options) => (
-        <button type="button" className="flex align-items-center px-3 py-2 cursor-pointer border-none bg-transparent w-full" onClick={options.onClick}>
+        <button type="button" className="doc-button-reset flex align-items-center px-3 py-2 cursor-pointer border-none bg-transparent w-full" onClick={options.onClick}>
             <span className={`${item.icon} text-primary`} />
             <span className={`mx-2 ${item.items && 'font-semibold'}`}>{item.label}</span>
             {item.badge && <Badge className="ml-auto" value={item.badge} />}

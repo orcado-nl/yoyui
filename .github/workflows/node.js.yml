@@ -1,56 +1,80 @@
 name: NodeJS CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 permissions:
-  contents: read
+    contents: read
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
+        container:
+            image: mcr.microsoft.com/playwright:v1.61.1-noble
+            options: --ipc=host
 
-    strategy:
-      matrix:
-        node-version: [20.x]
+        strategy:
+            matrix:
+                node-version: [20.x]
 
-    steps:
-    - uses: actions/checkout@v6
+        steps:
+            - uses: actions/checkout@v6
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v6
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v6
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
 
-    - name: Build
-      run: |
-        npm install
+            - name: Install dependencies
+              run: |
+                  npm ci
 
-    - name: Code Format
-      if: ${{ success() }}
-      run: |
-        npm run format:check
+            - name: Code Format
+              if: ${{ success() }}
+              run: |
+                  npm run format:check
 
-    - name: Lint Check
-      if: ${{ success() }}
-      run: |
-        npm run lint
+            - name: Lint Check
+              if: ${{ success() }}
+              run: |
+                  npm run lint
 
-    - name: TypeScript Check
-      if: ${{ success() }}
-      run: |
-        npm run type:check
+            - name: TypeScript Check
+              if: ${{ success() }}
+              run: |
+                  npm run type:check
 
-    - name: Security Check
-      if: ${{ success() }}
-      run: |
-        npm run security:check
-  
-    - name: Unit Tests Check
-      if: ${{ success() }}
-      run: |
-        npm run test:check
+            - name: Security Check
+              if: ${{ success() }}
+              run: |
+                  npm run security:check
+
+            - name: Unit Tests Check
+              if: ${{ success() }}
+              run: |
+                  npm run test:check
+
+            - name: Build Documentation
+              if: ${{ success() }}
+              run: |
+                  npm run apidoc
+                  npm run build
+
+            - name: Documentation Visual Tests
+              if: ${{ success() }}
+              run: |
+                  npm run test:visual
+
+            - name: Upload Visual Test Failures
+              if: ${{ failure() }}
+              uses: actions/upload-artifact@v6
+              with:
+                  name: documentation-visual-test-results
+                  path: |
+                      playwright-report
+                      test-results
+                  if-no-files-found: ignore
