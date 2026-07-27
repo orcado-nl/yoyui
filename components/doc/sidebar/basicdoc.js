@@ -22,8 +22,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const [visible, setVisible] = useState(false);
@@ -44,8 +44,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const [visible, setVisible] = useState<boolean>(false);

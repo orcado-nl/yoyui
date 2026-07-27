@@ -23,8 +23,8 @@ export function MultipleDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
 
 export default function MultipleDemo() {
     const toast = useRef(null);
@@ -48,8 +48,8 @@ export default function MultipleDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
 
 export default function MultipleDemo() {
     const toast = useRef<Toast>(null);

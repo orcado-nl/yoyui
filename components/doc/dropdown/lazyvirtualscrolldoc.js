@@ -41,7 +41,7 @@ export function LazyVirtualScrollDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function LazyVirtualScrollDemo() {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -88,7 +88,7 @@ export default function LazyVirtualScrollDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
 
 type ItemType = { label: string; value: number };
 

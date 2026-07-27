@@ -64,8 +64,8 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { classNames } from 'primereact/utils';
-import { Tree } from 'primereact/tree';
+import { classNames } from '@orcado/yoyui/utils';
+import { Tree } from '@orcado/yoyui/tree';
 
 export default function TemplateDemo() {
     const nodes = [
@@ -130,9 +130,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { classNames } from 'primereact/utils';
-import { Tree, TreeNodeTemplateOptions, TreeTogglerTemplateOptions } from 'primereact/tree';
-import { TreeNode } from 'primereact/treenode';
+import { classNames } from '@orcado/yoyui/utils';
+import { Tree, TreeNodeTemplateOptions, TreeTogglerTemplateOptions } from '@orcado/yoyui/tree';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function TemplateDemo() {
     const nodes: TreeNode[] = [

@@ -112,11 +112,11 @@ export function LayoutDoc(props) {
         javascript: `
 import React, { useState, useEffect } from 'react';
 import { ProductService } from './service/ProductService';
-import { Button } from 'primereact/button';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView, DataViewLayoutOptions } from '@orcado/yoyui/dataview';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function BasicDemo() {
     const [products, setProducts] = useState([]);
@@ -225,11 +225,11 @@ export default function BasicDemo() {
         typescript: `
 import React, { useState, useEffect } from 'react';
 import { ProductService } from './service/ProductService';
-import { Button } from 'primereact/button';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView, DataViewLayoutOptions } from '@orcado/yoyui/dataview';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 
 interface Product {
     id: string;

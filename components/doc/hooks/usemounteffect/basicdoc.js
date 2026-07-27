@@ -20,8 +20,8 @@ useMountEffect(() => {
         `,
         javascript: `
 import React from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Toast } from 'primereact/toast';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function BasicDemo() {
     const toast = useRef(null);
@@ -42,8 +42,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Toast } from 'primereact/toast';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function BasicDemo() {
     const toast = useRef<Toast>(null);

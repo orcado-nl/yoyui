@@ -88,7 +88,7 @@ export function FilledDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { CascadeSelect } from 'primereact/cascadeselect';
+import { CascadeSelect } from '@orcado/yoyui/cascadeselect';
 
 export default function FilledDemo() {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -180,7 +180,7 @@ export default function FilledDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { CascadeSelect, CascadeSelectChangeEvent } from 'primereact/cascadeselect';
+import { CascadeSelect, CascadeSelectChangeEvent } from '@orcado/yoyui/cascadeselect';
 
 interface City {
     cname: string;

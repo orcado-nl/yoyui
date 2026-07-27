@@ -43,8 +43,8 @@ export function GroupDoc(props) {
 `,
         javascript: `
 import React, { useRef } from 'react';
-import { Menu } from 'primereact/menu';
-import { Toast } from 'primereact/toast';
+import { Menu } from '@orcado/yoyui/menu';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function GroupDemo() {
     const toast = useRef(null);
@@ -87,9 +87,9 @@ export default function GroupDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Menu } from 'primereact/menu';
-import { MenuItem } from 'primereact/menuitem';
-import { Toast } from 'primereact/toast';
+import { Menu } from '@orcado/yoyui/menu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function GroupDemo() {
     const toast = useRef<Toast>(null);

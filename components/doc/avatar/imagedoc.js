@@ -18,8 +18,8 @@ export function ImageDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Avatar } from 'primereact/avatar';
-import { Badge } from 'primereact/badge';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function ImageDemo() {
     return (
@@ -50,8 +50,8 @@ export default function ImageDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Avatar } from 'primereact/avatar';
-import { Badge } from 'primereact/badge';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function ImageDemo() {
     return (

@@ -21,7 +21,7 @@ export function RouterDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from '@orcado/yoyui/breadcrumb';
 import Link from 'next/link';
 
 export default function RouterDemo() {
@@ -43,8 +43,8 @@ export default function RouterDemo() {
         `,
         typescript: `
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { MenuItem } from 'primereact/menuitem';
+import { BreadCrumb } from '@orcado/yoyui/breadcrumb';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 import Link from 'next/link';
 
 export default function RouterDemo() {

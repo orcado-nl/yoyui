@@ -4,7 +4,7 @@ import { Editor } from '@/components/lib/editor/Editor';
 import { useState } from 'react';
 
 export function TemplateDoc(props) {
-    const [text, setText] = useState('<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>');
+    const [text, setText] = useState('<div>Hello World!</div><div>YoYui <b>Editor</b> Rocks</div><div><br></div>');
 
     const renderHeader = () => {
         return (
@@ -23,10 +23,10 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Editor } from "primereact/editor";
+import { Editor } from "@orcado/yoyui/editor";
 
 export default function TemplateDemo() {
-    const [text, setText] = useState('<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>');
+    const [text, setText] = useState('<div>Hello World!</div><div>YoYui <b>Editor</b> Rocks</div><div><br></div>');
 
     const renderHeader = () => {
         return (
@@ -49,10 +49,10 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Editor, EditorTextChangeEvent } from "primereact/editor";
+import { Editor, EditorTextChangeEvent } from "@orcado/yoyui/editor";
 
 export default function TemplateDemo() {
-    const [text, setText] = useState<string>('<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>');
+    const [text, setText] = useState<string>('<div>Hello World!</div><div>YoYui <b>Editor</b> Rocks</div><div><br></div>');
 
     const renderHeader = () => {
         return (

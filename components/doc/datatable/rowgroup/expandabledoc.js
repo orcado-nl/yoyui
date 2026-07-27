@@ -93,9 +93,9 @@ export function ExpandableRowGroupDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 export default function ExpandableRowGroupDemo() {
@@ -189,9 +189,9 @@ export default function ExpandableRowGroupDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable, DataTableRowToggleEvent, DataTableExpandedRows } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Tag } from 'primereact/tag';
+import { DataTable, DataTableRowToggleEvent, DataTableExpandedRows } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 interface Country {

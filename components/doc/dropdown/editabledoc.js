@@ -20,7 +20,7 @@ export function EditableDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function EditableDemo() {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -42,7 +42,7 @@ export default function EditableDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
 
 interface City {
     name: string;

@@ -69,8 +69,8 @@ const animationFeaturesData1 = [
         description: (
             <>
                 Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can{' '}
-                <a href="https://www.figma.com/file/eYBoRNff6GPTlrgYZaMStp/Preview-%7C-Freya-2022?node-id=0%3A1&t=MGAABDlOnz4QBcEk-1">preview the Figma file</a> before the purchase. Note that PrimeReact UI components are excluded from the Freya Figma
-                file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
+                <a href="https://www.figma.com/file/eYBoRNff6GPTlrgYZaMStp/Preview-%7C-Freya-2022?node-id=0%3A1&t=MGAABDlOnz4QBcEk-1">preview the Figma file</a> before the purchase. Note that YoYui UI components are excluded from the Freya Figma file
+                as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
         src: '/images/templates/freya/features-animation-figma.png'

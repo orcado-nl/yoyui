@@ -5,7 +5,7 @@ import { Button } from '@/components/lib/button/Button';
 export function SetupDoc(props) {
     const code1 = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
 ...
 return(
     <PrimeReactProvider value={{ unstyled: true }}>
@@ -23,7 +23,7 @@ return(
     return (
         <DocSectionText {...props}>
             <p>
-                Unstyled mode is enabled for the whole suite by setting <i>unstyled</i> as true during PrimeReact installation.
+                Unstyled mode is enabled for the whole suite by setting <i>unstyled</i> as true during YoYui installation.
             </p>
             <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
             <p>

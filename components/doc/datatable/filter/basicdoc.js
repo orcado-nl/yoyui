@@ -173,17 +173,17 @@ export function BasicFilterDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown } from 'primereact/dropdown';
-import { MultiSelect } from 'primereact/multiselect';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 export default function BasicFilterDemo() {
@@ -353,17 +353,17 @@ export default function BasicFilterDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode } from 'primereact/api';
-import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
-import { Column, ColumnFilterElementTemplateOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox, TriStateCheckboxChangeEvent } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode } from '@orcado/yoyui/api';
+import { DataTable, DataTableFilterMeta } from '@orcado/yoyui/datatable';
+import { Column, ColumnFilterElementTemplateOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox, TriStateCheckboxChangeEvent } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 interface Representative {

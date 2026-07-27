@@ -37,8 +37,8 @@ export function ContentDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
-import { Button } from 'primereact/button';
+import { Divider } from '@orcado/yoyui/divider';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ContentDemo() {
     return (
@@ -77,8 +77,8 @@ export default function ContentDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
-import { Button } from 'primereact/button';
+import { Divider } from '@orcado/yoyui/divider';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ContentDemo() {
     return (

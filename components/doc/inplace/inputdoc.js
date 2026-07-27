@@ -18,8 +18,8 @@ export function InputDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
-import { InputText } from 'primereact/inputtext';
+import { Inplace, InplaceDisplay, InplaceContent } from '@orcado/yoyui/inplace';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function InputDemo() {
     const [text, setText] = useState('');
@@ -38,8 +38,8 @@ export default function InputDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
-import { InputText } from 'primereact/inputtext';
+import { Inplace, InplaceDisplay, InplaceContent } from '@orcado/yoyui/inplace';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function InputDemo() {
     const [text, setText] = useState<string>('');

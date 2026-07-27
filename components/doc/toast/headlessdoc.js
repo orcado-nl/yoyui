@@ -88,9 +88,9 @@ export function HeadlessDoc(props) {
             `,
         javascript: `
 import React, { useRef, useState } from 'react';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-import { ProgressBar } from 'primereact/progressbar';
+import { Button } from '@orcado/yoyui/button';
+import { Toast } from '@orcado/yoyui/toast';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
 
 export default function HeadlessDemo() {
     const toast = useRef(null);
@@ -160,9 +160,9 @@ export default function HeadlessDemo() {
             `,
         typescript: `
 import React, { useRef, useState } from 'react';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-import { ProgressBar } from 'primereact/progressbar';
+import { Button } from '@orcado/yoyui/button';
+import { Toast } from '@orcado/yoyui/toast';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
 
 export default function HeadlessDemo() {
     const toast = useRef<Toast>(null);

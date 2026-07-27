@@ -26,7 +26,7 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Accordion, AccordionTab } from '@orcado/yoyui/accordion';
 
 export default function DynamicDemo() {
     const [tabs] = useState([
@@ -63,7 +63,7 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Accordion, AccordionTab } from '@orcado/yoyui/accordion';
 
 export default function DynamicDemo() {
     const [tabs] = useState([

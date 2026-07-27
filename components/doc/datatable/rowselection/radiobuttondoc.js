@@ -30,9 +30,9 @@ export function RadioButtonRowSelectionDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputSwitch } from 'primereact/inputswitch';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputSwitch } from '@orcado/yoyui/inputswitch';
 import { ProductService } from './service/ProductService';
 
 export default function RadioButtonRowSelectionDemo() {
@@ -63,9 +63,9 @@ export default function RadioButtonRowSelectionDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable, DataTableSelectionChangeEvent } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputSwitch, InputSwitchChangeEvent } from 'primereact/inputswitch';
+import { DataTable, DataTableSelectionChangeEvent } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputSwitch, InputSwitchChangeEvent } from '@orcado/yoyui/inputswitch';
 import { ProductService } from './service/ProductService';
 
 interface Product {

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export function UnstyledModeDoc(props) {
     const code = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
 ...
 return(
     <PrimeReactProvider value={{ unstyled: true }}>

@@ -30,7 +30,7 @@ export function CheckboxDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from "react";
-import { TreeSelect } from 'primereact/treeselect';
+import { TreeSelect } from '@orcado/yoyui/treeselect';
 import { NodeService } from './service/NodeService';
 
 export default function CheckboxDemo() {
@@ -51,8 +51,8 @@ export default function CheckboxDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from "react";
-import { TreeSelect, TreeSelectChangeEvent } from 'primereact/treeselect';
-import { TreeNode } from 'primereact/treenode';
+import { TreeSelect, TreeSelectChangeEvent } from '@orcado/yoyui/treeselect';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function CheckboxDemo() {

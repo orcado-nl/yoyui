@@ -31,9 +31,9 @@ export function LazyDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Inplace, InplaceDisplay, InplaceContent } from '@orcado/yoyui/inplace';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
 
 export default function LazyDemo() {
@@ -62,9 +62,9 @@ export default function LazyDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Inplace, InplaceDisplay, InplaceContent } from '@orcado/yoyui/inplace';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
 
 export default function LazyDemo() {

@@ -54,10 +54,10 @@ export function ContextMenuDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
-import { Column } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
+import { Column } from '@orcado/yoyui/column';
 import { NodeService } from './service/NodeService';
 
 export default function ContextMenuDemo() {
@@ -109,11 +109,11 @@ export default function ContextMenuDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { TreeTable, TreeTableExpandedKeysType } from 'primereact/treetable';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
-import { Column } from 'primereact/column';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable, TreeTableExpandedKeysType } from '@orcado/yoyui/treetable';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
+import { Column } from '@orcado/yoyui/column';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function ContextMenuDemo() {

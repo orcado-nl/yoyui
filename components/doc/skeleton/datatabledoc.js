@@ -18,9 +18,9 @@ export function DataTableDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { Skeleton } from 'primereact/skeleton';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 
 export default function DataTableDemo() {
     const items = Array.from({ length: 5 }, (v, i) => i);
@@ -39,9 +39,9 @@ export default function DataTableDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Skeleton } from 'primereact/skeleton';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 
 export default function DataTableDemo() {
     const items: number[] = Array.from({ length: 5 }, (v, i) => i);

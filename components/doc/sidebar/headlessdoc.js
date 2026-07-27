@@ -386,11 +386,11 @@ export function HeadlessDoc(props) {
         `,
         javascript: `
 import React, { useState, useRef } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar';
-import { Ripple } from 'primereact/ripple';
-import { StyleClass } from 'primereact/styleclass';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Ripple } from '@orcado/yoyui/ripple';
+import { StyleClass } from '@orcado/yoyui/styleclass';
 
 export default function HeadlessDemo() {
     const [visible, setVisible] = useState(false);
@@ -593,11 +593,11 @@ export default function HeadlessDemo() {
         `,
         typescript: `
 import React, { useState, useRef } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar';
-import { Ripple } from 'primereact/ripple';
-import { StyleClass } from 'primereact/styleclass';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Ripple } from '@orcado/yoyui/ripple';
+import { StyleClass } from '@orcado/yoyui/styleclass';
 
 export default function HeadlessDemo() {
     const [visible, setVisible] = useState<boolean>(false);

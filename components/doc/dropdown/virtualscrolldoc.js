@@ -15,7 +15,7 @@ export function VirtualScrollDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function VirtualScrollDemo() {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -31,7 +31,7 @@ export default function VirtualScrollDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
 
 interface Item {
     label: string;

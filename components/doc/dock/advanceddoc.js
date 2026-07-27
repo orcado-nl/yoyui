@@ -245,7 +245,7 @@ export function AdvancedDoc(props) {
     <Toast ref={toast2} position="top-center" />
     <Dock model={dockItems} />
     <Dialog visible={displayTerminal} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw' }} onHide={() => setDisplayTerminal(false)} maximizable blockScroll={false}>
-        <Terminal welcomeMessage="Welcome to PrimeReact (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="primereact $" />
+        <Terminal welcomeMessage="Welcome to YoYui (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="yoyui $" />
     </Dialog>
     <Dialog visible={displayFinder} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw', height: '18rem' }} onHide={() => setDisplayFinder(false)} maximizable blockScroll={false}>
         <Tree value={nodes} />
@@ -256,15 +256,15 @@ export function AdvancedDoc(props) {
 `,
         javascript: `
 import React, { useRef, useState, useEffect } from 'react';
-import { Dock } from 'primereact/dock';
-import { Tooltip } from 'primereact/tooltip';
-import { Dialog } from 'primereact/dialog';
-import { Terminal } from 'primereact/terminal';
-import { TerminalService } from 'primereact/terminalservice';
-import { Galleria } from 'primereact/galleria';
-import { Toast } from 'primereact/toast';
-import { Tree } from 'primereact/tree';
-import { Menubar } from 'primereact/menubar';
+import { Dock } from '@orcado/yoyui/dock';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Dialog } from '@orcado/yoyui/dialog';
+import { Terminal } from '@orcado/yoyui/terminal';
+import { TerminalService } from '@orcado/yoyui/terminalservice';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { Toast } from '@orcado/yoyui/toast';
+import { Tree } from '@orcado/yoyui/tree';
+import { Menubar } from '@orcado/yoyui/menubar';
 import { NodeService } from './service/NodeService';
 import { PhotoService } from './service/PhotoService';
 import './DockDemo.css';
@@ -539,7 +539,7 @@ export default function AdvanceDemo() {
                 <Toast ref={toast2} position="top-center" />
                 <Dock model={dockItems} />
                 <Dialog visible={displayTerminal} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw' }} onHide={() => setDisplayTerminal(false)} maximizable blockScroll={false}>
-                    <Terminal welcomeMessage="Welcome to PrimeReact (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="primereact $" />
+                    <Terminal welcomeMessage="Welcome to YoYui (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="yoyui $" />
                 </Dialog>
                 <Dialog visible={displayFinder} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw', height: '18rem' }} onHide={() => setDisplayFinder(false)} maximizable blockScroll={false}>
                     <Tree value={nodes} />
@@ -553,16 +553,16 @@ export default function AdvanceDemo() {
         `,
         typescript: `
 import React, { useRef, useState, useEffect } from 'react';
-import { Dock } from 'primereact/dock';
-import { Tooltip } from 'primereact/tooltip';
-import { Dialog } from 'primereact/dialog';
-import { Terminal } from 'primereact/terminal';
-import { TerminalService } from 'primereact/terminalservice';
-import { Galleria } from 'primereact/galleria';
-import { Toast } from 'primereact/toast';
-import { Tree } from 'primereact/tree';
-import { Menubar } from 'primereact/menubar';
-import { MenuItem } from 'primereact/menuitem';
+import { Dock } from '@orcado/yoyui/dock';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Dialog } from '@orcado/yoyui/dialog';
+import { Terminal } from '@orcado/yoyui/terminal';
+import { TerminalService } from '@orcado/yoyui/terminalservice';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { Toast } from '@orcado/yoyui/toast';
+import { Tree } from '@orcado/yoyui/tree';
+import { Menubar } from '@orcado/yoyui/menubar';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 import { NodeService } from './service/NodeService';
 import { PhotoService } from './service/PhotoService';
 import './DockDemo.css';
@@ -837,7 +837,7 @@ export default function AdvanceDemo() {
                 <Toast ref={toast2} position="top-center" />
                 <Dock model={dockItems} />
                 <Dialog visible={displayTerminal} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw' }} onHide={() => setDisplayTerminal(false)} maximizable blockScroll={false}>
-                    <Terminal welcomeMessage="Welcome to PrimeReact (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="primereact $" />
+                    <Terminal welcomeMessage="Welcome to YoYui (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="yoyui $" />
                 </Dialog>
                 <Dialog visible={displayFinder} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw', height: '18rem' }} onHide={() => setDisplayFinder(false)} maximizable blockScroll={false}>
                     <Tree value={nodes} />
@@ -987,7 +987,7 @@ export default function AdvanceDemo() {
                     <Dock model={dockItems} />
 
                     <Dialog visible={displayTerminal} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw' }} onHide={() => setDisplayTerminal(false)} maximizable blockScroll={false}>
-                        <Terminal welcomeMessage="Welcome to PrimeReact (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="primereact $" />
+                        <Terminal welcomeMessage="Welcome to YoYui (cmd: 'date', 'greet {0}', 'random' and 'clear')" prompt="yoyui $" />
                     </Dialog>
 
                     <Dialog visible={displayFinder} breakpoints={{ '960px': '50vw', '600px': '75vw' }} style={{ width: '30vw', height: '18rem' }} onHide={() => setDisplayFinder(false)} maximizable blockScroll={false}>

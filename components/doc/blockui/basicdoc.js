@@ -26,9 +26,9 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { BlockUI } from 'primereact/blockui';
-import { Panel } from 'primereact/panel';
-import { Button } from 'primereact/button';
+import { BlockUI } from '@orcado/yoyui/blockui';
+import { Panel } from '@orcado/yoyui/panel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const [blocked, setBlocked] = useState(false);
@@ -54,9 +54,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { BlockUI } from 'primereact/blockui';
-import { Panel } from 'primereact/panel';
-import { Button } from 'primereact/button';
+import { BlockUI } from '@orcado/yoyui/blockui';
+import { Panel } from '@orcado/yoyui/panel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const [blocked, setBlocked] = useState<boolean>(false);

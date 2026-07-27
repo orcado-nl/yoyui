@@ -32,11 +32,10 @@ export default function Home() {
                 <meta name="robots" content="index, follow" />
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:site" content="@primereact" />
-                <meta name="twitter:title" content="PrimeReact | React UI Component Library" />
+                <meta name="twitter:title" content="YoYui | React UI Component Library" />
                 <meta name="twitter:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content="PrimeReact | React UI Component Library" />
+                <meta property="og:title" content="YoYui | React UI Component Library" />
                 <meta property="og:url" content="https://yoyui.orcado.dev" />
                 <meta property="og:description" content="The ultimate collection of design-agnostic, flexible and accessible React UI Components." />
                 <meta property="og:image" content="https://yoyui.orcado.dev/yoyui-icon.svg" />

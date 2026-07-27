@@ -12,7 +12,7 @@ module.exports = {
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
-        "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
+        "./node_modules/@orcado/yoyui/**/*.{js,ts,jsx,tsx}",
 
         // Or if using the src directory:
         "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -23,7 +23,7 @@ module.exports = {
     };
     const code2 = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
 
 ...
 return(
@@ -37,8 +37,8 @@ return(
 
     const code3 = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
-import Tailwind from 'primereact/passthrough/tailwind';
+import { PrimeReactProvider } from "@orcado/yoyui/api";
+import Tailwind from '@orcado/yoyui/passthrough/tailwind';
 
 ...
 return(
@@ -52,7 +52,7 @@ return(
 
     const code4 = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
 import { twMerge } from 'tailwind-merge';
 
 ...
@@ -67,7 +67,7 @@ return(
 
     const code5 = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
 
 export default function MyApp({ Component, pageProps }) {
     
@@ -138,8 +138,8 @@ export default function MyApp({ Component, pageProps }) {
             <p className="flex align-items-start gap-2">
                 <Badge value="1" />
                 <span>
-                    Tailwind uses PurgeCSS internally to remove unused classes, as PrimeReact components are loaded from <i>node_modules</i> the <i>content</i> property at <i>tailwind.config.js</i> needs to be aware of PrimeReact, otherwise the
-                    classes utilized in the theme will be removed as well.
+                    Tailwind uses PurgeCSS internally to remove unused classes, as YoYui components are loaded from <i>node_modules</i> the <i>content</i> property at <i>tailwind.config.js</i> needs to be aware of YoYui, otherwise the classes
+                    utilized in the theme will be removed as well.
                 </span>
             </p>
             <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />

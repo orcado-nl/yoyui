@@ -44,8 +44,8 @@ msgs.current.show([
         `,
         javascript: `
 import React, { useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function BasicDemo() {
     const msgs = useRef(null);
@@ -78,8 +78,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function BasicDemo() {
     const msgs = useRef<Messages>(null);

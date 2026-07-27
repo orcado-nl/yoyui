@@ -17,8 +17,8 @@ export function FloatLabelDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { InputText } from "primereact/inputtext";
-import { FloatLabel } from "primereact/floatlabel";
+import { InputText } from "@orcado/yoyui/inputtext";
+import { FloatLabel } from "@orcado/yoyui/floatlabel";
 
 export default function FloatLabelDemo() {
     const [value, setValue] = useState('');
@@ -35,8 +35,8 @@ export default function FloatLabelDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { InputText } from "primereact/inputtext";
-import { FloatLabel } from "primereact/floatlabel";
+import { InputText } from "@orcado/yoyui/inputtext";
+import { FloatLabel } from "@orcado/yoyui/floatlabel";
 
 export default function FloatLabelDemo() {
     const [value, setValue] = useState<string>('');

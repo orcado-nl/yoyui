@@ -50,8 +50,8 @@ export function BasicDoc(props) {
     const code = {
         basic: `
 <Terminal 
-    welcomeMessage="Welcome to PrimeReact" 
-    prompt="primereact $" 
+    welcomeMessage="Welcome to YoYui"
+    prompt="yoyui $"
     pt={{
         root: 'bg-gray-900 text-white border-round',
         prompt: 'text-gray-400 mr-2',
@@ -62,8 +62,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useEffect } from 'react';
-import { Terminal } from 'primereact/terminal';
-import { TerminalService } from 'primereact/terminalservice';
+import { Terminal } from '@orcado/yoyui/terminal';
+import { TerminalService } from '@orcado/yoyui/terminalservice';
 
 export default function TerminalDemo() {
     const commandHandler = (text) => {
@@ -113,8 +113,8 @@ export default function TerminalDemo() {
                 Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
             </p>
             <Terminal 
-                welcomeMessage="Welcome to PrimeReact" 
-                prompt="primereact $" 
+                welcomeMessage="Welcome to YoYui"
+                prompt="yoyui $"
                 pt={{
                     root: 'bg-gray-900 text-white border-round',
                     prompt: 'text-gray-400 mr-2',
@@ -128,8 +128,8 @@ export default function TerminalDemo() {
         `,
         typescript: `
 import React, { useEffect } from 'react';
-import { Terminal } from 'primereact/terminal';
-import { TerminalService } from 'primereact/terminalservice';
+import { Terminal } from '@orcado/yoyui/terminal';
+import { TerminalService } from '@orcado/yoyui/terminalservice';
 
 export default function TerminalDemo() {
     const commandHandler = (text: string) => {
@@ -179,8 +179,8 @@ export default function TerminalDemo() {
                 Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
             </p>
             <Terminal 
-                welcomeMessage="Welcome to PrimeReact" 
-                prompt="primereact $" 
+                welcomeMessage="Welcome to YoYui"
+                prompt="yoyui $"
                 pt={{
                     root: 'bg-gray-900 text-white border-round',
                     prompt: 'text-gray-400 mr-2',
@@ -207,8 +207,8 @@ export default function TerminalDemo() {
                     Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
                 </p>
                 <Terminal
-                    welcomeMessage="Welcome to PrimeReact"
-                    prompt="primereact $"
+                    welcomeMessage="Welcome to YoYui"
+                    prompt="yoyui $"
                     pt={{
                         root: 'bg-gray-900 text-white border-round',
                         prompt: 'text-gray-400 mr-2',

@@ -12,7 +12,7 @@ export function WithoutCancelDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Rating } from "primereact/rating";
+import { Rating } from "@orcado/yoyui/rating";
 
 export default function WithoutCancelDemo() {
     const [value, setValue] = useState(null);
@@ -26,7 +26,7 @@ export default function WithoutCancelDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Rating, RatingChangeEvent } from "primereact/rating";
+import { Rating, RatingChangeEvent } from "@orcado/yoyui/rating";
 
 export default function WithoutCancelDemo() {
     const [value, setValue] = useState<number>(null);

@@ -16,9 +16,9 @@ export function ToggleClassDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { StyleClass } from 'primereact/styleclass';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
+import { StyleClass } from '@orcado/yoyui/styleclass';
+import { Button } from '@orcado/yoyui/button';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function ToggleClassDoc() {
     const toggleBtnRef = useRef(null);
@@ -34,9 +34,9 @@ export default function ToggleClassDoc() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { StyleClass } from 'primereact/styleclass';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
+import { StyleClass } from '@orcado/yoyui/styleclass';
+import { Button } from '@orcado/yoyui/button';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function ToggleClassDoc() {
     const toggleBtnRef = useRef<Button>(null);

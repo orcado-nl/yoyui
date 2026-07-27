@@ -68,9 +68,9 @@ export function RowSpanRowGroupDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 export default function RowSpanGroupingDemo() {
@@ -139,9 +139,9 @@ export default function RowSpanGroupingDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 interface Country {

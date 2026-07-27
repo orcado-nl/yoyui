@@ -9,7 +9,7 @@ const TemplatesPage = () => {
                     </a>{' '}
                     is a software company maintaining{' '}
                     <a href="https://yoyui.orcado.dev" className="text-primary hover:underline font-medium">
-                        PrimeReact
+                        YoYui
                     </a>
                 </p>
             </div>

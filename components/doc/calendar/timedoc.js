@@ -16,7 +16,7 @@ export function TimeDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from '@orcado/yoyui/calendar';
 
 export default function TimeDemo() {
     const [datetime12h, setDatetime12h] = useState(null);
@@ -49,8 +49,8 @@ export default function TimeDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar} from 'primereact/calendar';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar} from '@orcado/yoyui/calendar';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function TimeDemo() {
     const [datetime12h, setDatetime12h] = useState<Nullable<Date>>(null);

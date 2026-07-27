@@ -67,11 +67,11 @@ export function DataTableDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-import { Column } from 'primereact/column';
-import { DataTable } from 'primereact/datatable';
+import { OverlayPanel } from '@orcado/yoyui/overlaypanel';
+import { Button } from '@orcado/yoyui/button';
+import { Toast } from '@orcado/yoyui/toast';
+import { Column } from '@orcado/yoyui/column';
+import { DataTable } from '@orcado/yoyui/datatable';
 import { ProductService } from './service/ProductService';
 
 export default function DataTableDemo() {
@@ -139,11 +139,11 @@ export default function DataTableDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-import { Column } from 'primereact/column';
-import { DataTable, DataTableSelectionChangeEvent } from 'primereact/datatable';
+import { OverlayPanel } from '@orcado/yoyui/overlaypanel';
+import { Button } from '@orcado/yoyui/button';
+import { Toast } from '@orcado/yoyui/toast';
+import { Column } from '@orcado/yoyui/column';
+import { DataTable, DataTableSelectionChangeEvent } from '@orcado/yoyui/datatable';
 import { ProductService } from './service/ProductService';
 
 export default function DataTableDemo() {

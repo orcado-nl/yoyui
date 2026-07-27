@@ -323,22 +323,22 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Button } from '@orcado/yoyui/button';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Slider } from '@orcado/yoyui/slider';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 export default function UnstyledDemo() {
@@ -580,7 +580,7 @@ export default function UnstyledDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

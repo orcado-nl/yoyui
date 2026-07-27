@@ -42,10 +42,10 @@ const Tailwind = {
         javascript: `
 import React, { useState, useEffect } from 'react';
 import { ProductService } from './service/ProductService';
-import { Button } from 'primereact/button';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { DataView, DataViewLayoutOptions } from '@orcado/yoyui/dataview';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function UnstyledDemo() {
     const [products, setProducts] = useState([]);
@@ -166,7 +166,7 @@ export default function UnstyledDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

@@ -99,12 +99,12 @@ export function SortingDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Dropdown } from 'primereact/dropdown';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView } from '@orcado/yoyui/dataview';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 export default function SortingDemo() {
@@ -201,12 +201,12 @@ export default function SortingDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView } from '@orcado/yoyui/dataview';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 interface Product {

@@ -38,7 +38,7 @@ export function RouterDoc(props) {
 </span>
 <ContextMenu model={items} ref={cm} />`,
         javascript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useRef } from 'react';
 import { useRouter } from 'next/router'
 
@@ -80,10 +80,10 @@ export function RouterDemo(props) {
 }
         `,
         typescript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useRef, MouseEvent } from 'react';
 import { useRouter } from 'next/router'
-import { MenuItem } from 'primereact/menuitem';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export function RouterDemo(props: any) {
     const cm = useRef<ContextMenuRef | null>(null);

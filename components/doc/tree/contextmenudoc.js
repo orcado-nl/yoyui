@@ -54,9 +54,9 @@ export function ContextMenuDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree } from 'primereact/tree';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
+import { Tree } from '@orcado/yoyui/tree';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
 import { NodeService } from './service/NodeService';
 
 export default function ContextMenuDemo() {
@@ -108,10 +108,10 @@ export default function ContextMenuDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree, TreeExpandedKeysType } from 'primereact/tree';
-import { TreeNode } from 'primereact/treenode';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
+import { Tree, TreeExpandedKeysType } from '@orcado/yoyui/tree';
+import { TreeNode } from '@orcado/yoyui/treenode';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
 import { NodeService } from './service/NodeService';
 
 export default function ContextMenuDemo() {

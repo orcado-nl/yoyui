@@ -16,8 +16,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { Button } from 'primereact/button';
+import { OverlayPanel } from '@orcado/yoyui/overlaypanel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const op = useRef(null);
@@ -34,8 +34,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { Button } from 'primereact/button';
+import { OverlayPanel } from '@orcado/yoyui/overlaypanel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const op = useRef(null);

@@ -12,7 +12,7 @@ export function IntegerOnlyDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function IntegerOnlyDemo() {
     const [token, setToken] = useState();
@@ -26,7 +26,7 @@ export default function IntegerOnlyDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function IntegerOnlyDemo() {
     const [token, setToken] = useState<string | number | undefined>();

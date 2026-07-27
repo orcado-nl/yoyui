@@ -17,7 +17,7 @@ export function DisabledDoc(props) {
         `,
         javascript: `
 import React from "react";
-import { ListBox } from 'primereact/listbox';
+import { ListBox } from '@orcado/yoyui/listbox';
 
 export default function DisabledDemo() {
     const cities = [
@@ -37,7 +37,7 @@ export default function DisabledDemo() {
         `,
         typescript: `
 import React from "react";
-import { ListBox } from 'primereact/listbox';
+import { ListBox } from '@orcado/yoyui/listbox';
 
 interface City {
     name: string;

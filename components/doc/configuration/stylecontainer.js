@@ -5,7 +5,7 @@ export function StyleContainer(props) {
     const code = {
         basic: `
 //_app.js
-import { PrimeReactProvider } from 'primereact/api';
+import { PrimeReactProvider } from '@orcado/yoyui/api';
 
 root.attachShadow({ mode: 'open' }); // Open the shadowRoot
 const mountHere = root.shadowRoot;

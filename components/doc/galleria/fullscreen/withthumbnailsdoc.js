@@ -36,8 +36,8 @@ export function WithThumbnailsDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function WithThumbnailsDemo() {
@@ -87,8 +87,8 @@ export default function WithThumbnailsDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function WithThumbnailsDemo() {

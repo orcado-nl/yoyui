@@ -16,7 +16,7 @@ yarn add yoyui
         <>
             <DocSectionText {...props}>
                 <p>
-                    PrimeReact is available for download at <a href="https://www.npmjs.com/package/@orcado/yoyui">npm</a>.
+                    YoYui is available for download at <a href="https://www.npmjs.com/package/@orcado/yoyui">npm</a>.
                 </p>
             </DocSectionText>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

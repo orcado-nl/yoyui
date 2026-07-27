@@ -20,7 +20,7 @@ export function OppositeDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Timeline } from 'primereact/timeline';
+import { Timeline } from '@orcado/yoyui/timeline';
 
 export default function OppositeDemo() {
     const events = [
@@ -39,7 +39,7 @@ export default function OppositeDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Timeline } from 'primereact/timeline';
+import { Timeline } from '@orcado/yoyui/timeline';
 
 interface TimelineEvent {
     status?: string;

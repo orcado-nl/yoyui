@@ -1,10 +1,10 @@
 import pkg from 'package.json';
 import { services } from './services';
 
-const PrimeReact = {
+const YoYui = {
     version: pkg.version || 'latest',
     description:
-        'PrimeReact is an open source UI library for React featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
+        'YoYui is an open source UI library for React featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
 
 const app_dependencies = pkg ? pkg.dependencies : {};
@@ -67,7 +67,7 @@ const getConfiguredDependencies = (isUnstyled, isTypeScript) => {
         react: app_dependencies.react || 'latest',
         'react-dom': app_dependencies['react-dom'] || 'latest',
         'react-transition-group': app_dependencies['react-transition-group'] || 'latest',
-        primereact: PrimeReact.version || 'latest', // latest
+        '@orcado/yoyui': YoYui.version || 'latest', // latest
         primeicons: app_dependencies.primeicons || 'latest',
         vite: 'latest',
         '@vitejs/plugin-react': 'latest',
@@ -99,7 +99,7 @@ export default {
     content: [
         './index.html',
         './src/**/*.{vue,js,ts,jsx,tsx}',
-        './node_modules/primereact/**/*.{js,ts,jsx,tsx}',
+        './node_modules/@orcado/yoyui/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
         extend: {},
@@ -181,8 +181,8 @@ export default ThemeSwitcher;`
         content: `import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'primeicons/primeicons.css';
-import { PrimeReactProvider } from 'primereact/api';
-import Tailwind from 'primereact/passthrough/tailwind';
+import { PrimeReactProvider } from '@orcado/yoyui/api';
+import Tailwind from '@orcado/yoyui/passthrough/tailwind';
 import ThemeSwitcher from './components/themeSwitcher';
 
 import './index.css';
@@ -233,10 +233,10 @@ body {
         content: `import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'primeicons/primeicons.css';
-import { PrimeReactProvider } from 'primereact/api';
+import { PrimeReactProvider } from '@orcado/yoyui/api';
 import 'primeflex/primeflex.css';
-import 'primereact/resources/primereact.css';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import '@orcado/yoyui/resources/primereact.css';
+import '@orcado/yoyui/resources/themes/lara-light-indigo/theme.css';
 
 import './index.css';
 import './flags.css';
@@ -261,7 +261,7 @@ const getVite = (props = {}, template = 'javascript') => {
     const isTypeScript = template === 'typescript';
     const fileExtension = isTypeScript ? 'tsx' : 'jsx';
 
-    const { code: sources, title = 'primereact_demo', description = '', dependencies: pDependencies = {} } = props;
+    const { code: sources, title = 'yoyui_demo', description = '', dependencies: pDependencies = {} } = props;
 
     const configuredDependencies = getConfiguredDependencies(isUnstyled, isTypeScript);
     const dependencies = { ...configuredDependencies, ...pDependencies, 'react-scripts': '5.0.1' };
@@ -280,7 +280,7 @@ const getVite = (props = {}, template = 'javascript') => {
     const packageJson = {
         content: {
             name: title.toLowerCase().replaceAll(' ', '_'),
-            description: `**${description}** ${PrimeReact.description}`,
+            description: `**${description}** ${YoYui.description}`,
             type: 'module',
             scripts: {
                 dev: 'vite',
@@ -288,7 +288,7 @@ const getVite = (props = {}, template = 'javascript') => {
                 preview: 'vite preview'
             },
             main: `${path}main.${fileExtension}`,
-            keywords: ['primereact', 'react', 'vite', 'starter'],
+            keywords: ['yoyui', 'react', 'vite', 'starter'],
             dependencies
         }
     };
@@ -317,8 +317,8 @@ export default defineConfig({
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/vite.svg" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="**${description}** ${PrimeReact.description}" />
-        <title>PrimeReact App</title>
+        <meta name="description" content="**${description}** ${YoYui.description}" />
+        <title>YoYui App</title>
     </head>
     <body>
         <div id="root"></div>

@@ -12,7 +12,7 @@ export function FilledDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { TriStateCheckbox } from '@orcado/yoyui/tristatecheckbox';
 
 export default function FilledDemo() {
     const [value, setValue] = useState(null);
@@ -26,7 +26,7 @@ export default function FilledDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { TriStateCheckbox, TriStateCheckboxChangeEvent } from 'primereact/tristatecheckbox';
+import { TriStateCheckbox, TriStateCheckboxChangeEvent } from '@orcado/yoyui/tristatecheckbox';
 
 export default function FilledDemo() {
     const [value, setValue] = useState<boolean | undefined | null>(null);

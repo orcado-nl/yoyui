@@ -270,23 +270,23 @@ export function ProductsDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { classNames } from 'primereact/utils';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { classNames } from '@orcado/yoyui/utils';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
-import { FileUpload } from 'primereact/fileupload';
-import { Rating } from 'primereact/rating';
-import { Toolbar } from 'primereact/toolbar';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { RadioButton } from 'primereact/radiobutton';
-import { InputNumber } from 'primereact/inputnumber';
-import { Dialog } from 'primereact/dialog';
-import { InputText } from 'primereact/inputtext';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
+import { FileUpload } from '@orcado/yoyui/fileupload';
+import { Rating } from '@orcado/yoyui/rating';
+import { Toolbar } from '@orcado/yoyui/toolbar';
+import { InputTextarea } from '@orcado/yoyui/inputtextarea';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Dialog } from '@orcado/yoyui/dialog';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function ProductsDemo() {
     let emptyProduct = {
@@ -630,23 +630,23 @@ export default function ProductsDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { classNames } from 'primereact/utils';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { classNames } from '@orcado/yoyui/utils';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
-import { FileUpload } from 'primereact/fileupload';
-import { Rating } from 'primereact/rating';
-import { Toolbar } from 'primereact/toolbar';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { RadioButton, RadioButtonChangeEvent } from 'primereact/radiobutton';
-import { InputNumber,InputNumberValueChangeEvent } from 'primereact/inputnumber';
-import { Dialog } from 'primereact/dialog';
-import { InputText } from 'primereact/inputtext';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
+import { FileUpload } from '@orcado/yoyui/fileupload';
+import { Rating } from '@orcado/yoyui/rating';
+import { Toolbar } from '@orcado/yoyui/toolbar';
+import { InputTextarea } from '@orcado/yoyui/inputtextarea';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { RadioButton, RadioButtonChangeEvent } from '@orcado/yoyui/radiobutton';
+import { InputNumber,InputNumberValueChangeEvent } from '@orcado/yoyui/inputnumber';
+import { Dialog } from '@orcado/yoyui/dialog';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Tag } from '@orcado/yoyui/tag';
 
 interface Product {
   id: string | null;

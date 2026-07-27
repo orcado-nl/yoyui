@@ -12,7 +12,7 @@ export function MaskDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function MaskDemo() {
     const [token, setToken] = useState();
@@ -26,7 +26,7 @@ export default function MaskDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function MaskDemo() {
     const [token, setToken] = useState<string | number | undefined>();

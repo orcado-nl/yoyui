@@ -26,8 +26,8 @@ export function PreloadVirtualScrollDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { CarService } from './service/CarService';
 
 export default function PreloadVirtualScrollDemo() {
@@ -48,8 +48,8 @@ export default function PreloadVirtualScrollDemo() {
         `,
         typescript: `
 import React from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { CarService } from './service/CarService';
 
 interface Car {

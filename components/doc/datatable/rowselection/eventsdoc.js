@@ -36,9 +36,9 @@ export function RowSelectEventsDoc(props) {
         `,
         javascript: `
 import React, { useState, useRef, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 export default function RowSelectEventsDemo() {
@@ -74,9 +74,9 @@ export default function RowSelectEventsDemo() {
         `,
         typescript: `
 import React, { useState, useRef, useEffect } from 'react';
-import { DataTable, DataTableSelectionChangeEvent, DataTableSelectEvent, DataTableUnselectEvent } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast';
+import { DataTable, DataTableSelectionChangeEvent, DataTableSelectEvent, DataTableUnselectEvent } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 interface Product {

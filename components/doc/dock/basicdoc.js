@@ -42,8 +42,8 @@ export function BasicDoc(props) {
 `,
         javascript: `
 import { useState } from 'react';
-import { Dock } from 'primereact/dock';
-import { RadioButton } from 'primereact/radiobutton';
+import { Dock } from '@orcado/yoyui/dock';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import './DockDemo.css';
 
 export default function BasicDemo() {
@@ -111,9 +111,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import { useState } from 'react';
-import { Dock } from 'primereact/dock';
-import { MenuItem } from 'primereact/menuitem';
-import { RadioButton } from 'primereact/radiobutton';
+import { Dock } from '@orcado/yoyui/dock';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import './DockDemo.css';
 
 export default function BasicDemo() {

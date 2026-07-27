@@ -42,9 +42,9 @@ export function FrozenColumnsDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ToggleButton } from 'primereact/togglebutton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ToggleButton } from '@orcado/yoyui/togglebutton';
 import { CustomerService } from './service/CustomerService';
 
 export default function FrozenColumnsDemo() {
@@ -84,9 +84,9 @@ export default function FrozenColumnsDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ToggleButton } from 'primereact/togglebutton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ToggleButton } from '@orcado/yoyui/togglebutton';
 import { CustomerService } from './service/CustomerService';
 
 interface Customer {

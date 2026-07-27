@@ -148,9 +148,9 @@ export function AdvancedDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { classNames } from '@orcado/yoyui/utils';
 import { PhotoService } from './service/PhotoService';
 import './GalleriaAdvancedDemo.css';
 
@@ -327,9 +327,9 @@ export default function AdvancedDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
+import { classNames } from '@orcado/yoyui/utils';
 import { PhotoService } from './service/PhotoService';
 import './GalleriaAdvancedDemo.css';
 

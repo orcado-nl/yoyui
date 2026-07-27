@@ -31,7 +31,7 @@ export function AutoPlayDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function AutoPlayDemo() {
@@ -73,7 +73,7 @@ export default function AutoPlayDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function AutoPlayDemo() {

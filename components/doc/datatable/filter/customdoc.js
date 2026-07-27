@@ -216,18 +216,18 @@ FilterService.register('custom_activity', (value, filters) => {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterService } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { InputNumber } from 'primereact/inputnumber';
-import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-import { MultiSelect } from 'primereact/multiselect';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode, FilterService } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 // The rule argument should be a string in the format "custom_[field]".
@@ -420,18 +420,18 @@ export default function CustomFilterDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterService } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { InputNumber } from 'primereact/inputnumber';
-import { InputText } from 'primereact/inputtext';
-import { Dropdown } from 'primereact/dropdown';
-import { MultiSelect } from 'primereact/multiselect';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode, FilterService } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 interface Representative {

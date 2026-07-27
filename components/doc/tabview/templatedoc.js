@@ -64,10 +64,10 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { TabView, TabPanel } from 'primereact/tabview';
-import { SplitButton } from 'primereact/splitbutton';
-import { Avatar } from 'primereact/avatar';
-import { Badge } from 'primereact/badge';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function TemplateDemo() {
     const tab1HeaderTemplate = (options) => {
@@ -132,10 +132,10 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { TabView, TabPanel, TabPanelHeaderTemplateOptions } from 'primereact/tabview';
-import { SplitButton } from 'primereact/splitbutton';
-import { Avatar } from 'primereact/avatar';
-import { Badge } from 'primereact/badge';
+import { TabView, TabPanel, TabPanelHeaderTemplateOptions } from '@orcado/yoyui/tabview';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function TemplateDemo() {
     const tab1HeaderTemplate = (options: TabPanelHeaderTemplateOptions) => {

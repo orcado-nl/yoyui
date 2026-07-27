@@ -140,13 +140,13 @@ export function RowExpansionDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
-import { Rating } from 'primereact/rating';
-import { Button } from 'primereact/button';
-import { Tag } from 'primereact/tag';
-import { Toast } from 'primereact/toast';
+import { Rating } from '@orcado/yoyui/rating';
+import { Button } from '@orcado/yoyui/button';
+import { Tag } from '@orcado/yoyui/tag';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function RowExpansionDemo() {
     const [products, setProducts] = useState([]);
@@ -291,13 +291,13 @@ export default function RowExpansionDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable, DataTableExpandedRows, DataTableRowEvent, DataTableValueArray } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable, DataTableExpandedRows, DataTableRowEvent, DataTableValueArray } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
-import { Rating } from 'primereact/rating';
-import { Button } from 'primereact/button';
-import { Tag } from 'primereact/tag';
-import { Toast } from 'primereact/toast';
+import { Rating } from '@orcado/yoyui/rating';
+import { Button } from '@orcado/yoyui/button';
+import { Tag } from '@orcado/yoyui/tag';
+import { Toast } from '@orcado/yoyui/toast';
 
 interface Order {
     id: string;

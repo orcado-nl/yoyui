@@ -12,7 +12,7 @@ export function HorizontalDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { Splitter, SplitterPanel } from '@orcado/yoyui/splitter';
 
 export default function HorizontalDemo() {
     return (
@@ -25,7 +25,7 @@ export default function HorizontalDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { Splitter, SplitterPanel } from '@orcado/yoyui/splitter';
 
 export default function HorizontalDemo() {
     return (

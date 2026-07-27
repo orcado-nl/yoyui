@@ -43,8 +43,8 @@ export function ControlledDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { TabView, TabPanel } from 'primereact/tabview';
-import { Button } from 'primereact/button';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ControlledDemo() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -88,8 +88,8 @@ export default function ControlledDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { TabView, TabPanel } from 'primereact/tabview';
-import { Button } from 'primereact/button';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ControlledDemo() {
     const [activeIndex, setActiveIndex] = useState<number>(0);

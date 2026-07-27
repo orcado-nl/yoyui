@@ -11,7 +11,7 @@
             <g id="topbar" transform="translate(0.000000, 42.000000)">
                 <g id="icon-react" transform="translate(135.000000, 446.000000)">
                     <circle id="Oval" stroke="#03C4E8" stroke-width="2" fill="#FFFFFF" cx="24" cy="24" r="23"></circle>
-                    <g id="primereact-logo" transform="translate(9.000000, 7.000000)">
+                    <g id="yoyui-logo" transform="translate(9.000000, 7.000000)">
                         <g id="base">
                             <mask id="mask-2" fill="white">
                                 <use xlink:href="#path-1"></use>

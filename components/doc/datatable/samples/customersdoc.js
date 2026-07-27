@@ -211,20 +211,20 @@ export const CustomersDoc = (props) => {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
-import { Tag } from 'primereact/tag';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Button } from '@orcado/yoyui/button';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Slider } from '@orcado/yoyui/slider';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 export default function CustomersDemo() {
@@ -432,20 +432,20 @@ export default function CustomersDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
-import { Column, ColumnFilterElementTemplateOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Slider, SliderChangeEvent } from 'primereact/slider';
-import { Tag } from 'primereact/tag';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable, DataTableFilterMeta } from '@orcado/yoyui/datatable';
+import { Column, ColumnFilterElementTemplateOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Button } from '@orcado/yoyui/button';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { Slider, SliderChangeEvent } from '@orcado/yoyui/slider';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 interface Country {

@@ -33,7 +33,7 @@ export function FilterDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { OrderList } from 'primereact/orderlist';
+import { OrderList } from '@orcado/yoyui/orderlist';
 import { ProductService } from './service/ProductService';
 
 export default function FilterDemo() {
@@ -68,7 +68,7 @@ export default function FilterDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { OrderList } from 'primereact/orderlist';
+import { OrderList } from '@orcado/yoyui/orderlist';
 import { ProductService } from './service/ProductService';
 
 interface Product {

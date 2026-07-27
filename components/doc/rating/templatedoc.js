@@ -16,7 +16,7 @@ export function TemplateDoc(props) {
 `,
         javascript: `
 import React, { useState } from "react";
-import { Rating } from "primereact/rating";
+import { Rating } from "@orcado/yoyui/rating";
 
 export default function TemplateDemo() {
     const [value, setValue] = useState(null);
@@ -34,7 +34,7 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Rating, RatingChangeEvent} from "primereact/rating";
+import { Rating, RatingChangeEvent} from "@orcado/yoyui/rating";
 
 export default function TemplateDemo() {
     const [value, setValue] = useState<number>(null);

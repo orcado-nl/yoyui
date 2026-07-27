@@ -97,10 +97,10 @@ export function CommandDoc(props) {
 <Toast ref={toast} />
 `,
         javascript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useState, useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function CommandDemo() {
     const cm = useRef(null);
@@ -193,10 +193,10 @@ export default function CommandDemo() {
 }
         `,
         typescript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useState, useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function CommandDemo() {
     const cm = useRef<ContextMenuRef | null>(null);

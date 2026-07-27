@@ -80,8 +80,8 @@ const animationFeaturesData1 = [
         description: (
             <>
                 Genesis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can{' '}
-                <a href="https://www.figma.com/design/bGujrJyznnSatJFMtkXbTN/Preview-%7C-Genesis?node-id=0-1&t=etuXAwkUAEuhJ3p0-1">preview the Figma file</a> before the purchase. Note that PrimeReact UI components are excluded from the Genesis Figma
-                file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
+                <a href="https://www.figma.com/design/bGujrJyznnSatJFMtkXbTN/Preview-%7C-Genesis?node-id=0-1&t=etuXAwkUAEuhJ3p0-1">preview the Figma file</a> before the purchase. Note that YoYui UI components are excluded from the Genesis Figma file
+                as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
         src: '/images/templates/genesis/animation-figma.png'

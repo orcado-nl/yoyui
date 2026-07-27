@@ -32,8 +32,8 @@ export function ResponsiveDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ResponsiveDoc() {
@@ -80,8 +80,8 @@ export default function ResponsiveDoc() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ResponsiveDoc() {

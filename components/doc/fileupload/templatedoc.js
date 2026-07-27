@@ -106,12 +106,12 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useRef, useState } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Button } from '@orcado/yoyui/button';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function TemplateDemo() {
     const toast = useRef(null);
@@ -216,12 +216,12 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useRef, useState } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, FileUploadUploadEvent, ItemTemplateOptions,} from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, FileUploadUploadEvent, ItemTemplateOptions,} from '@orcado/yoyui/fileupload';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Button } from '@orcado/yoyui/button';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function TemplateDemo() {
     const toast = useRef<Toast>(null);

@@ -65,7 +65,7 @@ export function LazyDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree } from 'primereact/tree';
+import { Tree } from '@orcado/yoyui/tree';
 
 export default function LazyDemo() {
     const [nodes, setNodes] = useState([]);
@@ -132,8 +132,8 @@ export default function LazyDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree } from 'primereact/tree';
-import { TreeNode } from 'primereact/treenode';
+import { Tree } from '@orcado/yoyui/tree';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function LazyDemo() {
     const [nodes, setNodes] = useState<TreeNode[]>([]);

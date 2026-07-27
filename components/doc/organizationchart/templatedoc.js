@@ -47,7 +47,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
+import { OrganizationChart } from '@orcado/yoyui/organizationchart';
 
 export default function TemplateDemo() {
     const [data] = useState([
@@ -108,8 +108,8 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
-import { TreeNode } from 'primereact/treenode';
+import { OrganizationChart } from '@orcado/yoyui/organizationchart';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function TemplateDemo() {
     const [data] = useState<TreeNode[]>([

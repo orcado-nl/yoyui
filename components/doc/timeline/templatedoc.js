@@ -40,9 +40,9 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Timeline } from 'primereact/timeline';
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Timeline } from '@orcado/yoyui/timeline';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 import './TimelineDemo.css';
 
 export default function TemplateDemo() {
@@ -81,9 +81,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Timeline } from 'primereact/timeline';
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Timeline } from '@orcado/yoyui/timeline';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 import './TimelineDemo.css';
 
 interface TimelineEvent {

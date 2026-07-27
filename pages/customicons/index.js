@@ -30,9 +30,9 @@ const ContextMenuDemo = () => {
 
     return (
         <DocComponent
-            title="Custom Icons - PrimeReact"
+            title="Custom Icons - YoYui"
             header="Custom Icons"
-            description="PrimeReact components can be used with any icon library using the templating features. Icons are passed the <i>iconProps</i> of the original icon and the <i>props</i> of the component."
+            description="YoYui components can be used with any icon library using the templating features. Icons are passed the <i>iconProps</i> of the original icon and the <i>props</i> of the component."
             componentDocs={docs}
             hideTabMenu
         />

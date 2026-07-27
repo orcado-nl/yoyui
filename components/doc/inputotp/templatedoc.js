@@ -13,7 +13,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function TemplateDemo() {
     const [token, setToken] = useState();
@@ -49,7 +49,7 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
     events: React.HTMLAttributes<HTMLInputElement>;

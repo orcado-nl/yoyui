@@ -93,8 +93,8 @@ export function FloatLabelDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { CascadeSelect } from 'primereact/cascadeselect';
-import { FloatLabel } from 'primereact/floatlabel';
+import { CascadeSelect } from '@orcado/yoyui/cascadeselect';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
 
 export default function FloatLabelDemo() {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -189,8 +189,8 @@ export default function FloatLabelDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { CascadeSelect, CascadeSelectChangeEvent } from 'primereact/cascadeselect';
-import { FloatLabel } from 'primereact/floatlabel';
+import { CascadeSelect, CascadeSelectChangeEvent } from '@orcado/yoyui/cascadeselect';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
 
 interface City {
     cname: string;

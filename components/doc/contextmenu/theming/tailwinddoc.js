@@ -44,7 +44,7 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React, { useRef } from 'react';
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 
 export default function UnstyledDemo() {
     const cm = useRef(null);
@@ -65,7 +65,7 @@ export default function UnstyledDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

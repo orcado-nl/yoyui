@@ -4,7 +4,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 export function ThemeDoc(props) {
     const code = {
         basic: `
-import { PrimeReactProvider } from "primereact/api";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
 ...
 return(
     <PrimeReactProvider

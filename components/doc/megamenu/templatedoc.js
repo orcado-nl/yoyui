@@ -122,10 +122,10 @@ export function TemplateDoc(props) {
 `,
         javascript: `
 import React from 'react';
-import { MegaMenu } from 'primereact/megamenu';
-import { InputText } from 'primereact/inputtext';
-import { Ripple } from 'primereact/ripple';
-import { Button } from 'primereact/button';
+import { MegaMenu } from '@orcado/yoyui/megamenu';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Ripple } from '@orcado/yoyui/ripple';
+import { Button } from '@orcado/yoyui/button';
 
 export default function TemplateDemo() {
     const itemRenderer = (item, options) => {
@@ -250,11 +250,11 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react';
-import { MegaMenu } from 'primereact/megamenu';
-import { InputText } from 'primereact/inputtext';
-import { MenuItem } from 'primereact/menuitem';
-import { Ripple } from 'primereact/ripple';
-import { Button } from 'primereact/button';
+import { MegaMenu } from '@orcado/yoyui/megamenu';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Ripple } from '@orcado/yoyui/ripple';
+import { Button } from '@orcado/yoyui/button';
 
 export default function TemplateDemo() {
     const itemRenderer = (item, options) => {

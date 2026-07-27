@@ -40,8 +40,8 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React, { useEffect, useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function UnstyledDemo() {
     const msgs = useRef(null);
@@ -70,7 +70,7 @@ export default function UnstyledDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

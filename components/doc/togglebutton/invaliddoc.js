@@ -12,7 +12,7 @@ export function InvalidDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { ToggleButton } from 'primereact/togglebutton';
+import { ToggleButton } from '@orcado/yoyui/togglebutton';
 
 export default function InvalidDemo() {
     const [checked, setChecked] = useState(false);
@@ -26,7 +26,7 @@ export default function InvalidDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { ToggleButton, ToggleButtonChangeEvent } from 'primereact/togglebutton';
+import { ToggleButton, ToggleButtonChangeEvent } from '@orcado/yoyui/togglebutton';
 
 export default function InvalidDemo() {
     const [checked, setChecked] = useState<boolean>(false);

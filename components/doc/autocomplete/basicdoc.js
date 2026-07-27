@@ -17,7 +17,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { AutoComplete } from "primereact/autocomplete";
+import { AutoComplete } from "@orcado/yoyui/autocomplete";
 
 export default function BasicDemo() {
     const [value, setValue] = useState('');
@@ -36,7 +36,7 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { AutoComplete, AutoCompleteCompleteEvent } from "primereact/autocomplete";
+import { AutoComplete, AutoCompleteCompleteEvent } from "@orcado/yoyui/autocomplete";
 
 export default function BasicDemo() {
     const [value, setValue] = useState<string>('');

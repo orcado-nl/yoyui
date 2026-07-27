@@ -66,9 +66,9 @@ export function LazyDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { VirtualScroller } from 'primereact/virtualscroller';
-import { Skeleton } from 'primereact/skeleton';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller } from '@orcado/yoyui/virtualscroller';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function LazyDemo() {
     const [lazyItems, setLazyItems] = useState([]);
@@ -135,9 +135,9 @@ export default function LazyDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { VirtualScroller, VirtualScrollerTemplateOptions, VirtualScrollerLazyEvent } from 'primereact/virtualscroller';
-import { Skeleton } from 'primereact/skeleton';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller, VirtualScrollerTemplateOptions, VirtualScrollerLazyEvent } from '@orcado/yoyui/virtualscroller';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function LazyDemo() {
     const [lazyItems, setLazyItems] = useState<string[]>([]);

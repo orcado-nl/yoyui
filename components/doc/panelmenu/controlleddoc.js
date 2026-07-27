@@ -108,8 +108,8 @@ export function ControlledDoc(props) {
 `,
         javascript: `
 import React, { useState } from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { Button } from 'primereact/button';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ControlledDemo() {
     const items = [
@@ -217,8 +217,8 @@ export default function ControlledDemo() {
         `,
         typescript: `
 import React, { useState } from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { Button } from 'primereact/button';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ControlledDemo() {
     const items = [

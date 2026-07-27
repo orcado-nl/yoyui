@@ -135,15 +135,15 @@ export function StatefulDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { MultiSelect } from 'primereact/multiselect';
-import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 export default function BasicDemo() {
@@ -278,15 +278,15 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
-import { Column, ColumnFilterElementTemplateOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable, DataTableFilterMeta } from '@orcado/yoyui/datatable';
+import { Column, ColumnFilterElementTemplateOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 interface RepresentativeOption {

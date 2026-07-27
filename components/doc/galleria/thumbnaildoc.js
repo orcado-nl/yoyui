@@ -39,8 +39,8 @@ export function ThumbnailDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
-import { RadioButton } from 'primereact/radiobutton';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import { PhotoService } from './service/PhotoService';
 
 export default function ThumbnailDemo() {
@@ -114,8 +114,8 @@ export default function ThumbnailDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
-import { RadioButton } from 'primereact/radiobutton';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import { PhotoService } from './service/PhotoService';
 
 export default function ThumbnailDemo() {

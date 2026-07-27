@@ -26,8 +26,8 @@ export function LocaleDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { addLocale } from 'primereact/api';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { addLocale } from '@orcado/yoyui/api';
 
 export default function LocaleDemo() {
     const [date, setDate] = useState(null);
@@ -53,9 +53,9 @@ export default function LocaleDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { addLocale } from 'primereact/api';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar } from '@orcado/yoyui/calendar';
+import { addLocale } from '@orcado/yoyui/api';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function LocaleDemo() {
     const [date, setDate] = useState<Nullable<Date>>(null);

@@ -93,8 +93,8 @@ export function TemplateDoc(props) {
 `,
         javascript: `
 import React from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { Badge } from 'primereact/badge';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function TemplateDemo() {
     const itemRenderer = (item, options) => (
@@ -190,9 +190,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { MenuItem } from 'primereact/menuitem';
-import { Badge } from 'primereact/badge';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function TemplateDemo() {
     const itemRenderer = (item, options) => (

@@ -37,8 +37,8 @@ export function HorizontalScrollDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { CustomerService } from './service/CustomerService';
 
 export default function HorizontalScrollDemo() {
@@ -75,8 +75,8 @@ export default function HorizontalScrollDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { CustomerService } from './service/CustomerService';
 
 interface Customer {

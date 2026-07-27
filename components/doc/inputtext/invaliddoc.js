@@ -9,7 +9,7 @@ export function InvalidDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { InputText } from "primereact/inputtext";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function InvalidDemo() {
     return (
@@ -21,7 +21,7 @@ export default function InvalidDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { InputText } from "primereact/inputtext";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function InvalidDemo() {
     return (

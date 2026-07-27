@@ -9,7 +9,7 @@ export function TriggersDoc(props) {
     const [value, setValue] = useState('');
     const [customers, setCustomers] = useState([]);
     const [multipleSuggestions, setMultipleSuggestions] = useState([]);
-    const tagSuggestions = ['primereact', 'primefaces', 'primeng', 'primevue'];
+    const tagSuggestions = ['yoyui', 'orcado', 'react', 'ui'];
 
     useEffect(() => {
         CustomerService.getCustomersSmall().then((data) => {
@@ -88,14 +88,14 @@ export function TriggersDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from "react";
-import { Mention } from 'primereact/mention';
+import { Mention } from '@orcado/yoyui/mention';
 import { CustomerService } from './service/CustomerService';
 
 export default function TriggersDemo() {
     const [value, setValue] = useState('');
     const [customers, setCustomers] = useState([]);
     const [multipleSuggestions, setMultipleSuggestions]= useState([]);
-    const tagSuggestions = ['primereact', 'primefaces', 'primeng', 'primevue'];
+    const tagSuggestions = ['yoyui', 'orcado', 'react', 'ui'];
 
     useEffect(() => {
         CustomerService.getCustomersSmall().then(data => {
@@ -181,14 +181,14 @@ export default function TriggersDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from "react";
-import { Mention, MentionSearchEvent, MentionItemTemplateOptions } from 'primereact/mention';
+import { Mention, MentionSearchEvent, MentionItemTemplateOptions } from '@orcado/yoyui/mention';
 import { CustomerService } from './service/CustomerService';
 
 export default function TriggersDemo() {
     const [value, setValue] = useState<string>('');
     const [customers, setCustomers] = useState<any>([]);
     const [multipleSuggestions, setMultipleSuggestions]= useState<any>([]);
-    const tagSuggestions = ['primereact', 'primefaces', 'primeng', 'primevue'];
+    const tagSuggestions = ['yoyui', 'orcado', 'react', 'ui'];
     
     useEffect(() => {
         CustomerService.getCustomersSmall().then(data => {

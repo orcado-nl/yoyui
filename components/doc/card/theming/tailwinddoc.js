@@ -31,8 +31,8 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React from 'react';  
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 
 export default function UnstyledDemo() {
     const header = (
@@ -62,7 +62,7 @@ export default function UnstyledDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

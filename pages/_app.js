@@ -22,7 +22,7 @@ function AppContent({ component: Component, pageProps }) {
     );
 }
 
-const primereactConfig = {
+const yoyuiConfig = {
     ripple: true,
     hideOverlaysOnDocumentScrolling: false
 };
@@ -54,7 +54,7 @@ export default function MyApp({ Component, pageProps }) {
 
     return (
         <AppContentContext.Provider value={appState}>
-            <PrimeReactProvider value={primereactConfig}>
+            <PrimeReactProvider value={yoyuiConfig}>
                 {isProduction && <GTagManager />}
                 <AppContent component={Component} pageProps={pageProps} />
             </PrimeReactProvider>

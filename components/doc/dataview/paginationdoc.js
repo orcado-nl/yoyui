@@ -74,11 +74,11 @@ export function PaginationDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView } from '@orcado/yoyui/dataview';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 export default function PaginationDemo() {
@@ -150,11 +150,11 @@ export default function PaginationDemo() {
         `,
         typescript: `
 import { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView } from '@orcado/yoyui/dataview';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 interface Product {

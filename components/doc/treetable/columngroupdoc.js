@@ -200,10 +200,10 @@ export function ColumnGroupDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { ColumnGroup } from 'primereact/columngroup';
-import { Row } from 'primereact/row';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { ColumnGroup } from '@orcado/yoyui/columngroup';
+import { Row } from '@orcado/yoyui/row';
 
 export default function ColumnGroupDemo() {
     const nodes = [
@@ -403,11 +403,11 @@ export default function ColumnGroupDemo() {
         `,
         typescript: `
 import React from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { ColumnGroup } from 'primereact/columngroup';
-import { Row } from 'primereact/row';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { ColumnGroup } from '@orcado/yoyui/columngroup';
+import { Row } from '@orcado/yoyui/row';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function ColGroupDemo() {
     const nodes: TreeNode[] = [

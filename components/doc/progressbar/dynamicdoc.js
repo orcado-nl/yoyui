@@ -38,8 +38,8 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { ProgressBar } from 'primereact/progressbar';
-import { Toast } from 'primereact/toast';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function DynamicDemo() {
     const [value, setValue] = useState(0);
@@ -79,8 +79,8 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { ProgressBar } from 'primereact/progressbar';
-import { Toast } from 'primereact/toast';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function DynamicDemo() {
     const [value, setValue] = useState<number>(0);

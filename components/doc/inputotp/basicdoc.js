@@ -12,7 +12,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function BasicDemo() {
     const [token, setToken] = useState();
@@ -26,7 +26,7 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function BasicDemo() {
     const [token, setToken] = useState<string | number | undefined>();

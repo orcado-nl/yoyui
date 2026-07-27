@@ -63,10 +63,10 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataScroller } from 'primereact/datascroller';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { DataScroller } from '@orcado/yoyui/datascroller';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function BasicDemo() {
@@ -131,10 +131,10 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataScroller } from 'primereact/datascroller';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { DataScroller } from '@orcado/yoyui/datascroller';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {

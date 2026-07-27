@@ -70,8 +70,8 @@ const animationFeaturesData1 = [
         description: (
             <>
                 Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can{' '}
-                <a href="https://www.figma.com/file/zQOW0XBXdCTqODzEOqwBtt/Preview-%7C-Apollo-2022?node-id=335%3A21768&t=urYI89V3PLNAZEJG-1/">preview the Figma file</a> before the purchase. Note that PrimeReact UI components are excluded from the
-                Apollo Figma file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
+                <a href="https://www.figma.com/file/zQOW0XBXdCTqODzEOqwBtt/Preview-%7C-Apollo-2022?node-id=335%3A21768&t=urYI89V3PLNAZEJG-1/">preview the Figma file</a> before the purchase. Note that YoYui UI components are excluded from the Apollo
+                Figma file as they are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
         src: '/images/templates/apollo/features-animation-figma.png'
@@ -185,7 +185,7 @@ const templateHeroData = {
     pattern: '/images/templates/apollo/apollo-hero-pattern.png',
     dashboard1: '/images/templates/apollo/apollo-hero-dashboard1.png',
     dashboard2: '/images/templates/apollo/apollo-hero-dashboard2.png',
-    description: 'Application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeReact themes.',
+    description: 'Application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 YoYui themes.',
     liveHref: 'https://yoyui.orcado.dev/templates/apollo',
     docHref: 'https://yoyui.orcado.dev/templates/apollo',
     storeHref: 'https://primeui.store/templates/react/apollo'

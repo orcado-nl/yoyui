@@ -35,10 +35,10 @@ export function RowSelectionEventsDoc(props) {
         `,
         javascript: `
 import React, { useState, useRef, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { InputSwitch } from 'primereact/inputswitch';
-import { Toast } from 'primereact/toast';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { InputSwitch } from '@orcado/yoyui/inputswitch';
+import { Toast } from '@orcado/yoyui/toast';
 import { NodeService } from './service/NodeService';
 
 export default function SingleRowSelectionDemo() {
@@ -72,11 +72,11 @@ export default function SingleRowSelectionDemo() {
         `,
         typescript: `
 import React, { useState, useRef, useEffect } from 'react';
-import { TreeTable, TreeTableSelectionEvent } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { InputSwitch } from 'primereact/inputswitch';
-import { Toast } from 'primereact/toast';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable, TreeTableSelectionEvent } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { InputSwitch } from '@orcado/yoyui/inputswitch';
+import { Toast } from '@orcado/yoyui/toast';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function SingleRowSelectionDemo() {

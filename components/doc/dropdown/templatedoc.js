@@ -71,13 +71,13 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 function renderDropdownIcon(options) {
     return options.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...options.iconProps} /> : <ChevronDownIcon {...options.iconProps} />;
 }
-import { ChevronDownIcon } from 'primereact/icons/chevrondown';
-import { ChevronRightIcon } from 'primereact/icons/chevronright';
+import { ChevronDownIcon } from '@orcado/yoyui/icons/chevrondown';
+import { ChevronRightIcon } from '@orcado/yoyui/icons/chevronright';
 
 export default function TemplateDemo() {
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -143,9 +143,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { CheckIcon } from 'primereact/icons/check';
-import { StarIcon } from 'primereact/icons/star';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { CheckIcon } from '@orcado/yoyui/icons/check';
+import { StarIcon } from '@orcado/yoyui/icons/star';
 
 interface Country {
     name: string;

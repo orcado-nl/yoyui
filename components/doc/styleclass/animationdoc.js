@@ -24,9 +24,9 @@ export function AnimationDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { StyleClass } from 'primereact/styleclass';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
+import { StyleClass } from '@orcado/yoyui/styleclass';
+import { Button } from '@orcado/yoyui/button';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function AnimationsDoc() {
     const openBtnRef = useRef(null);
@@ -53,9 +53,9 @@ export default function AnimationsDoc() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { StyleClass } from 'primereact/styleclass';
-import { Button } from 'primereact/button';
-import { InputText } from 'primereact/inputtext';
+import { StyleClass } from '@orcado/yoyui/styleclass';
+import { Button } from '@orcado/yoyui/button';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function AnimationsDoc() {
     const openBtnRef = useRef<Button>(null);

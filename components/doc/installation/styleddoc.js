@@ -5,7 +5,7 @@ import Link from 'next/link';
 export function StyledModeDoc(props) {
     const code = {
         basic: `
-import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "@orcado/yoyui/resources/themes/lara-light-cyan/theme.css";
 `
     };
 

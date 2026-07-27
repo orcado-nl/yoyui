@@ -69,8 +69,8 @@ const animationFeaturesData1 = [
         description: (
             <>
                 Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can{' '}
-                <a href="https://www.figma.com/file/PgQXX4HXMPeCkT74tGajod/Preview-%7C-Verona-2022?node-id=1303%3A750">preview the Figma file</a> before the purchase. Note that PrimeReact UI components are excluded from the Verona Figma file as they
-                are available in <Link href="/uikit">PrimeOne for Figma</Link> only.
+                <a href="https://www.figma.com/file/PgQXX4HXMPeCkT74tGajod/Preview-%7C-Verona-2022?node-id=1303%3A750">preview the Figma file</a> before the purchase. Note that YoYui UI components are excluded from the Verona Figma file as they are
+                available in <Link href="/uikit">PrimeOne for Figma</Link> only.
             </>
         ),
         src: '/images/templates/verona/features-animation-figma.png'
@@ -192,7 +192,7 @@ const VeronaPage = () => {
         <div className="verona template">
             <TemplateHero
                 pattern={'/images/templates/verona/verona-hero-pattern.png'}
-                description={'Prepare to be amazed by the remastered Verona for PrimeReact featuring a new gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.'}
+                description={'Prepare to be amazed by the remastered Verona for YoYui featuring a new gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.'}
                 logo={<VeronaLogo />}
                 dashboard1={'/images/templates/verona/verona-hero-dashboard1.png'}
                 dashboard2={'/images/templates/verona/verona-hero-dashboard2.png'}

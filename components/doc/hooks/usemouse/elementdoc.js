@@ -11,7 +11,7 @@ const { ref, x, y } = useMouse();
         `,
         javascript: `
 import React from 'react';
-import { useMouse } from 'primereact/hooks';
+import { useMouse } from '@orcado/yoyui/hooks';
 
 export default function ElementDemo() {
     const { ref, x, y } = useMouse();
@@ -32,7 +32,7 @@ export default function ElementDemo() {
         `,
         typescript: `
 import React from 'react';
-import { useMouse } from 'primereact/hooks';
+import { useMouse } from '@orcado/yoyui/hooks';
 
 export default function ElementDemo() {
     const { ref, x, y } = useMouse();

@@ -11,7 +11,7 @@ export function DisabledDoc(props) {
 `,
         javascript: `
 import React, { useState } from "react";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
 
 export default function DisabledDemo() {
     const [value, setValue] = useState(50);
@@ -25,7 +25,7 @@ export default function DisabledDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
 
 export default function DisabledDemo() {
     const [value, setValue] = useState<number>(50);

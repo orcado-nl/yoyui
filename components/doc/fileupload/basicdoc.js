@@ -18,8 +18,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
 
 export default function BasicDemo() {
     const toast = useRef(null);
@@ -38,8 +38,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
 
 export default function BasicDemo() {
     const toast = useRef<Toast>(null);

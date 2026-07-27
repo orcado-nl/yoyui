@@ -12,8 +12,8 @@ const [count, setCount] = useLocalStorage(0, 'count');
         `,
         javascript: `
 import React from 'react';
-import { Button } from 'primereact/button';
-import { useLocalStorage } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useLocalStorage } from '@orcado/yoyui/hooks';
 
 export default function LocalDemo() {
     const [count, setCount] = useLocalStorage(0, 'count');
@@ -31,8 +31,8 @@ export default function LocalDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Button } from 'primereact/button';
-import { useLocalStorage } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useLocalStorage } from '@orcado/yoyui/hooks';
 
 export default function LocalDemo() {
     const [count, setCount] = useLocalStorage(0, 'count');

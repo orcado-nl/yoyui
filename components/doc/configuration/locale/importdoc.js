@@ -5,7 +5,7 @@ import Link from 'next/link';
 export function ImportDoc(props) {
     const code = {
         basic: `
-import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOption, localeOptions } from 'primereact/api';
+import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOption, localeOptions } from '@orcado/yoyui/api';
         `
     };
 
@@ -13,7 +13,7 @@ import { locale, addLocale, updateLocaleOption, updateLocaleOptions, localeOptio
         <>
             <DocSectionText {...props}>
                 <p>
-                    Configuration is managed by the <Link href="/configuration/#api.API.LocaleOptions">Locale API</Link> imported from <i>primereact/api</i>.
+                    Configuration is managed by the <Link href="/configuration/#api.API.LocaleOptions">Locale API</Link> imported from <i>@orcado/yoyui/api</i>.
                 </p>
             </DocSectionText>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

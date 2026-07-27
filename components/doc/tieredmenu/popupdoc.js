@@ -83,8 +83,8 @@ export function PopupDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { Button } from 'primereact/button';
-import { TieredMenu } from 'primereact/tieredmenu';
+import { Button } from '@orcado/yoyui/button';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
 
 export default function PopupDemo() {
     const menu = useRef(null);
@@ -168,9 +168,9 @@ export default function PopupDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Button } from 'primereact/button';
-import { TieredMenu } from 'primereact/tieredmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { Button } from '@orcado/yoyui/button';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function PopupDemo() {
     const menu = useRef(null);

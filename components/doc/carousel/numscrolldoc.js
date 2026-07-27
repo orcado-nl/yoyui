@@ -57,9 +57,9 @@ export function NumScrollDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Carousel } from 'primereact/carousel';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { Carousel } from '@orcado/yoyui/carousel';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function NumScrollDemo() {
@@ -135,9 +135,9 @@ export default function NumScrollDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Carousel, CarouselResponsiveOption } from 'primereact/carousel';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { Carousel, CarouselResponsiveOption } from '@orcado/yoyui/carousel';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {

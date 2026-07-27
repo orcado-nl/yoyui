@@ -84,10 +84,10 @@ export function TemplateDoc(props) {
 `,
         javascript: `
 import React from 'react';
-import { Menubar } from 'primereact/menubar';
-import { InputText } from 'primereact/inputtext';
-import { Badge } from 'primereact/badge';
-import { Avatar } from 'primereact/avatar';  
+import { Menubar } from '@orcado/yoyui/menubar';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Badge } from '@orcado/yoyui/badge';
+import { Avatar } from '@orcado/yoyui/avatar';
 
 export default function TemplateDemo() {
     const itemRenderer = (item) => (
@@ -177,11 +177,11 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Menubar } from 'primereact/menubar';
-import { InputText } from 'primereact/inputtext';
-import { MenuItem } from 'primereact/menuitem';
-import { Badge } from 'primereact/badge';
-import { Avatar } from 'primereact/avatar';  
+import { Menubar } from '@orcado/yoyui/menubar';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Badge } from '@orcado/yoyui/badge';
+import { Avatar } from '@orcado/yoyui/avatar';
 
 export default function TemplateDemo() {
     const itemRenderer = (item) => (

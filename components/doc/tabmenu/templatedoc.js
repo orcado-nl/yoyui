@@ -31,7 +31,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import { useState } from 'react';
-import { TabMenu } from 'primereact/tabmenu';
+import { TabMenu } from '@orcado/yoyui/tabmenu';
 
 export default function TemplateDemo() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -70,7 +70,7 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import { useState } from 'react';
-import { TabMenu } from 'primereact/tabmenu';
+import { TabMenu } from '@orcado/yoyui/tabmenu';
 
 export default function TemplateDemo() {
     const [activeIndex, setActiveIndex] = useState<number>(0);

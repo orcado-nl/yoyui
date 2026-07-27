@@ -57,9 +57,9 @@ export function FrozenRowsDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Button } from '@orcado/yoyui/button';
 import { CustomerService } from './service/CustomerService';
 
 export default function FrozenRowsDemo() {
@@ -130,9 +130,9 @@ export default function FrozenRowsDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column, ColumnBodyOptions } from 'primereact/column';
-import { Button } from 'primereact/button';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column, ColumnBodyOptions } from '@orcado/yoyui/column';
+import { Button } from '@orcado/yoyui/button';
 import { CustomerService } from './service/CustomerService';
 
 interface Customer {

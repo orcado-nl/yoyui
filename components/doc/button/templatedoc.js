@@ -6,18 +6,18 @@ export function TemplateDoc(props) {
     const code = {
         basic: `
 <Button className="bg-bluegray-600 hover:bg-bluegray-400 border-bluegray-700">
-    <img alt="logo" src="/images/primereact-logo-light.svg" className="h-2rem"></img>
+    <img alt="logo" src="/images/yoyui-logo-light.svg" className="h-2rem"></img>
 </Button>
         `,
         javascript: `
 import React from 'react'; 
-import { Button } from 'primereact/button';
+import { Button } from '@orcado/yoyui/button';
 
 export default function TemplateDemo() {
     return (
         <div className="card flex justify-content-center">
             <Button className="bg-bluegray-600 hover:bg-bluegray-400 border-bluegray-700">
-                <img alt="logo" src="/images/primereact-logo-light.svg" className="h-2rem"></img>
+                <img alt="logo" src="/images/yoyui-logo-light.svg" className="h-2rem"></img>
             </Button>
         </div>
     )
@@ -25,13 +25,13 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Button } from 'primereact/button';
+import { Button } from '@orcado/yoyui/button';
 
 export default function TemplateDemo() {
     return (
         <div className="card flex justify-content-center">
             <Button className="bg-bluegray-600 hover:bg-bluegray-400 border-bluegray-700">
-                <img alt="logo" src="/images/primereact-logo-light.svg" className="h-2rem"></img>
+                <img alt="logo" src="/images/yoyui-logo-light.svg" className="h-2rem"></img>
             </Button>
         </div>
     )
@@ -46,7 +46,7 @@ export default function TemplateDemo() {
             </DocSectionText>
             <div className="card flex justify-content-center">
                 <Button className="bg-bluegray-600 hover:bg-bluegray-400 border-bluegray-700">
-                    <img alt="logo" src="/images/primereact-logo-light.svg" className="h-2rem" />
+                    <img alt="logo" src="/images/yoyui-logo-light.svg" className="h-2rem" />
                 </Button>
             </div>
             <DocSectionCode code={code} />

@@ -32,9 +32,9 @@ export function PositionDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
-import { Checkbox } from 'primereact/checkbox';
-import { RadioButton } from 'primereact/radiobutton';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { Checkbox } from '@orcado/yoyui/checkbox';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import { PhotoService } from './service/PhotoService';
 
 export default function PositionDemo() {
@@ -94,8 +94,8 @@ export default function PositionDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
-import { Checkbox } from 'primereact/checkbox';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { Checkbox } from '@orcado/yoyui/checkbox';
 import { PhotoService } from './service/PhotoService';
 
 export default function PositionDemo() {

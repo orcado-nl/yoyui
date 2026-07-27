@@ -34,8 +34,8 @@ export function SampleDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
-import { Button } from 'primereact/button';
+import { InputOtp } from '@orcado/yoyui/inputotp';
+import { Button } from '@orcado/yoyui/button';
 
 export default function SampleDemo() {
     const [token, setToken] = useState();
@@ -104,8 +104,8 @@ export default function SampleDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { InputOtp, InputOtpProps } from 'primereact/inputotp';
-import { Button } from 'primereact/button';
+import { InputOtp, InputOtpProps } from '@orcado/yoyui/inputotp';
+import { Button } from '@orcado/yoyui/button';
 
 interface CustomInputProps extends InputOtpProps {
     events?: any;

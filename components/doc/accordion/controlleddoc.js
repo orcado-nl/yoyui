@@ -43,8 +43,8 @@ export function ControlledDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
-import { Button } from 'primereact/button';
+import { Accordion, AccordionTab } from '@orcado/yoyui/accordion';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ControlledDoc() {
     const [activeIndex, setActiveIndex] = useState();
@@ -88,8 +88,8 @@ export default function ControlledDoc() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
-import { Button } from 'primereact/button';
+import { Accordion, AccordionTab } from '@orcado/yoyui/accordion';
+import { Button } from '@orcado/yoyui/button';
 
 export default function ControlledDoc() {
     const [activeIndex, setActiveIndex] = useState<number | number[]>();

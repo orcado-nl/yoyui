@@ -29,8 +29,8 @@ useUnmountEffect(() => {
         `,
         javascript: `
 import React, { useRef, useState } from 'react';
-import { Button } from 'primereact/button';
-import { useUnmountEffect, useMountEffect } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useUnmountEffect, useMountEffect } from '@orcado/yoyui/hooks';
 
 export default function BasicDemo() {
     const [hidden, setHidden] = useState(false);
@@ -57,8 +57,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef, useState } from 'react';
-import { Button } from 'primereact/button';
-import { useUnmountEffect, useMountEffect } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useUnmountEffect, useMountEffect } from '@orcado/yoyui/hooks';
 
 export default function BasicDemo() {
     const [hidden, setHidden] = useState<boolean>(false);

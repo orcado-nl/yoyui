@@ -8,7 +8,7 @@ const Roadmap = () => {
                 <meta
                     name="description"
                     content="These are planned to be implemented in parallel to the regular
-                        maintenance work of the PrimeReact library"
+                        maintenance work of the YoYui library"
                 />
             </Head>
             <div className="doc-intro">

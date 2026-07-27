@@ -91,9 +91,9 @@ export function LoadingDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Skeleton } from 'primereact/skeleton';
-import { classNames } from 'primereact/utils';
+import { DataView, DataViewLayoutOptions } from '@orcado/yoyui/dataview';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 export default function BasicDemo() {
@@ -180,9 +180,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Skeleton } from 'primereact/skeleton';
-import { classNames } from 'primereact/utils';
+import { DataView, DataViewLayoutOptions } from '@orcado/yoyui/dataview';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 interface Product {

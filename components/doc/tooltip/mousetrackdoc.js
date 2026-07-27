@@ -9,12 +9,12 @@ export function MouseTrackDoc(props) {
 <Button type="button" label="Save" icon="pi pi-check" tooltip="Save" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
 
 <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
-<img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" />
+<img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="YoYui-Logo" height="80px" />
         `,
         javascript: `
 import React from 'react'; 
-import { Tooltip } from 'primereact/tooltip';
-import { Button } from 'primereact/button';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Button } from '@orcado/yoyui/button';
 
 export default function MouseTrackDemo() {
     return (
@@ -22,15 +22,15 @@ export default function MouseTrackDemo() {
             <Button type="button" label="Save" icon="pi pi-check" tooltip="Save" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
 
             <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
-            <img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" />
+            <img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="YoYui-Logo" height="80px" />
         </div>
     );
 }
         `,
         typescript: `
 import React from 'react'; 
-import { Tooltip } from 'primereact/tooltip';
-import { Button } from 'primereact/button';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Button } from '@orcado/yoyui/button';
 
 export default function MouseTrackDemo() {
     return (
@@ -38,7 +38,7 @@ export default function MouseTrackDemo() {
             <Button type="button" label="Save" icon="pi pi-check" tooltip="Save" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
 
             <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
-            <img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" />
+            <img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="YoYui-Logo" height="80px" />
         </div>
     );
 }
@@ -56,7 +56,7 @@ export default function MouseTrackDemo() {
                 <Button type="button" label="Save" icon="pi pi-check" tooltip="Save" tooltipOptions={{ position: 'bottom', mouseTrack: true, mouseTrackTop: 15 }} />
 
                 <Tooltip target=".logo" mouseTrack mouseTrackLeft={10} />
-                <img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="PrimeReact-Logo" height="80px" />
+                <img className="logo" alt="logo" src="/images/logo.png" data-pr-tooltip="YoYui-Logo" height="80px" />
             </div>
             <DocSectionCode code={code} />
         </>

@@ -187,15 +187,15 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Button } from 'primereact/button';
-import { Paginator } from 'primereact/paginator';
-import { Ripple } from 'primereact/ripple';
-import { Divider } from 'primereact/divider';
-import { Dropdown } from 'primereact/dropdown';
-import { InputText } from 'primereact/inputtext';
-import { Slider } from 'primereact/slider';
-import { Tooltip } from 'primereact/tooltip';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { Paginator } from '@orcado/yoyui/paginator';
+import { Ripple } from '@orcado/yoyui/ripple';
+import { Divider } from '@orcado/yoyui/divider';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Slider } from '@orcado/yoyui/slider';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function TemplateDemo() {
     const [first, setFirst] = useState([0, 0, 0]);
@@ -351,15 +351,15 @@ export default function TemplateDemo() {
         typescript: `
 import React, { useState } from "react";
 import { Paginator, PaginatorPageChangeEvent, PaginatorJumpToPageInputOptions, PaginatorCurrentPageReportOptions, PaginatorRowsPerPageDropdownOptions,
-    PaginatorLastPageLinkOptions, PaginatorNextPageLinkOptions, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions, PaginatorFirstPageLinkOptions } from 'primereact/paginator';
-import { Button } from 'primereact/button';
-import { Ripple } from 'primereact/ripple';
-import { Divider } from 'primereact/divider';
-import { Dropdown } from 'primereact/dropdown';
-import { InputText } from 'primereact/inputtext';
-import { Slider } from 'primereact/slider';
-import { Tooltip } from 'primereact/tooltip';
-import { classNames } from 'primereact/utils';
+    PaginatorLastPageLinkOptions, PaginatorNextPageLinkOptions, PaginatorPageLinksOptions, PaginatorPrevPageLinkOptions, PaginatorFirstPageLinkOptions } from '@orcado/yoyui/paginator';
+import { Button } from '@orcado/yoyui/button';
+import { Ripple } from '@orcado/yoyui/ripple';
+import { Divider } from '@orcado/yoyui/divider';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Slider } from '@orcado/yoyui/slider';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function TemplateDemo() {
     const [first, setFirst] = useState<number[]>([0, 0, 0]);

@@ -65,10 +65,10 @@ export function LoaderDataScrollerDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useRef, useState } from 'react';
-import { Button } from 'primereact/button';
-import { DataScroller } from 'primereact/datascroller';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { DataScroller } from '@orcado/yoyui/datascroller';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function LoaderDataScrollerDemo() {
@@ -136,10 +136,10 @@ export default function LoaderDataScrollerDemo() {
         `,
         typescript: `
 import React, { useEffect, useRef, useState } from 'react';
-import { Button } from 'primereact/button';
-import { DataScroller } from 'primereact/datascroller';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { DataScroller } from '@orcado/yoyui/datascroller';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {

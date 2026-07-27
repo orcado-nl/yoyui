@@ -40,7 +40,7 @@ export function CaptionDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function CaptionDemo() {
@@ -91,7 +91,7 @@ export default function CaptionDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function CaptionDoc() {

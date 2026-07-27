@@ -13,7 +13,7 @@ export function InvalidDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { SelectButton } from 'primereact/selectbutton';
+import { SelectButton } from '@orcado/yoyui/selectbutton';
 
 export default function InvalidDemo() {
     const options = ['Off', 'On'];
@@ -28,7 +28,7 @@ export default function InvalidDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { SelectButton, SelectButtonChangeEvent } from 'primereact/selectbutton';
+import { SelectButton, SelectButtonChangeEvent } from '@orcado/yoyui/selectbutton';
 
 export default function InvalidDemo() {
     const options: string[] = ['Off', 'On'];

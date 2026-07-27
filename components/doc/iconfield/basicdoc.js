@@ -20,9 +20,9 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React from "react";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
-import { InputText } from "primereact/inputtext";
+import { IconField } from "@orcado/yoyui/iconfield";
+import { InputIcon } from "@orcado/yoyui/inputicon";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function BasicDemo() {
     return (
@@ -42,9 +42,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from "react";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
-import { InputText } from "primereact/inputtext";
+import { IconField } from "@orcado/yoyui/iconfield";
+import { InputIcon } from "@orcado/yoyui/inputicon";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function BasicDemo() {
     return (

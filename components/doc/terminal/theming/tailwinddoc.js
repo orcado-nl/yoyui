@@ -21,8 +21,8 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React, { useEffect } from 'react';
-import { Terminal } from 'primereact/terminal';
-import { TerminalService } from 'primereact/terminalservice';
+import { Terminal } from '@orcado/yoyui/terminal';
+import { TerminalService } from '@orcado/yoyui/terminalservice';
 
 export default function UnstyledDemo() {
     const commandHandler = (text) => {
@@ -71,7 +71,7 @@ export default function UnstyledDemo() {
             <p>
                 Enter "<strong>date</strong>" to display the current date, "<strong>greet {'{0}'}</strong>" for a message, "<strong>random</strong>" to get a random number and "<strong>clear</strong>" to clear all commands.
             </p>
-            <Terminal welcomeMessage="Welcome to PrimeReact" prompt="primereact $" />
+            <Terminal welcomeMessage="Welcome to YoYui" prompt="yoyui $" />
         </div>
     );
 }
@@ -81,7 +81,7 @@ export default function UnstyledDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

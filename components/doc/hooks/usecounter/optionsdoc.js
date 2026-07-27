@@ -17,8 +17,8 @@ export function OptionsDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Button } from 'primereact/button';
-import { useCounter } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useCounter } from '@orcado/yoyui/hooks';
 
 export default function OptionsDemo() {
     const { count, increment, decrement, reset } = useCounter(10, { step: 0.25, min: 0, max: 15 });
@@ -37,8 +37,8 @@ export default function OptionsDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Button } from 'primereact/button';
-import { useCounter } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useCounter } from '@orcado/yoyui/hooks';
 
 export default function OptionsDemo() {
     const { count, increment, decrement, reset } = useCounter(10, { step: 0.25, min: 0, max: 15 });

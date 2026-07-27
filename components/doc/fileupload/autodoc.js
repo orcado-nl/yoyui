@@ -18,8 +18,8 @@ export function AutoDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
 
 export default function AutoDemo() {
     const toast = useRef(null);
@@ -38,8 +38,8 @@ export default function AutoDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
 
 export default function AutoDemo() {
     const toast = useRef<Toast>(null);

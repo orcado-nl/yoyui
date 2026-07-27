@@ -31,8 +31,8 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React from 'react';
-import { FloatLabel } from 'primereact/floatlabel';
-import { InputText } from 'primereact/inputtext';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function BasicDemo() {
     return (
@@ -50,7 +50,7 @@ export default function BasicDemo() {
     return (
         <DocSectionText {...props}>
             <p>
-                PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
                 <Link href="/tailwind">Tailwind Customization</Link> section for an example.
             </p>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

@@ -5,9 +5,9 @@ export function UsePassThroughDoc(props) {
     const code1 = {
         basic: `
 import React from 'react'; 
-import { PrimeReactProvider } from "primereact/api";
-import { usePassThrough } from "primereact/passthrough";
-import Tailwind from "primereact/passthrough/tailwind";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
+import { usePassThrough } from "@orcado/yoyui/passthrough";
+import Tailwind from "@orcado/yoyui/passthrough/tailwind";
 
 export default function UsePassThroughDemo() {
 

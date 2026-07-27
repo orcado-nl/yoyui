@@ -36,9 +36,9 @@ export function LoginDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
+import { Divider } from '@orcado/yoyui/divider';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Button } from '@orcado/yoyui/button';
 
 export default function LoginDemo() {
     return (
@@ -73,9 +73,9 @@ export default function LoginDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
-import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
+import { Divider } from '@orcado/yoyui/divider';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { Button } from '@orcado/yoyui/button';
 
 export default function LoginDemo() {
     return (

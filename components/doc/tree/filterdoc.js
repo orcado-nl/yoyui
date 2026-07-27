@@ -18,7 +18,7 @@ export function FilterDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Tree } from 'primereact/tree';
+import { Tree } from '@orcado/yoyui/tree';
 import { NodeService } from './service/NodeService';
 
 export default function FilterDemo() {
@@ -38,8 +38,8 @@ export default function FilterDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Tree } from 'primereact/tree';
-import { TreeNode } from 'primereact/treenode';
+import { Tree } from '@orcado/yoyui/tree';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function FilterDemo() {

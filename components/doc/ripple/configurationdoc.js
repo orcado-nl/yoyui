@@ -6,7 +6,7 @@ export function ConfigurationDoc(props) {
     const code = {
         basic: `
 //_app.js
-import { PrimeReactProvider } from 'primereact/api';
+import { PrimeReactProvider } from '@orcado/yoyui/api';
 
 export default function MyApp({ Component }) {
     const value = {

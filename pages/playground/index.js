@@ -4,18 +4,18 @@ const PlayGround = () => {
     return (
         <div>
             <Head>
-                <title>Playground - PrimeReact</title>
-                <meta name="description" content="Experience Primereact right now with the interactive environment." />
+                <title>Playground - YoYui</title>
+                <meta name="description" content="Experience YoYui right now with the interactive environment." />
             </Head>
             <div className="doc">
                 <div className="doc-main">
                     <div className="doc-intro">
                         <h1>Playground</h1>
-                        <p>Experience Primereact right now with the interactive environment.</p>
+                        <p>Experience YoYui right now with the interactive environment.</p>
                     </div>
                     <section className="py-4">
                         <iframe
-                            title="PrimeReact playground"
+                            title="YoYui playground"
                             className="w-full h-full"
                             style={{ border: '1px solid rgba(0, 0, 0, 0.1)', borderRadius: '2px', minHeight: '800px' }}
                             allowFullScreen

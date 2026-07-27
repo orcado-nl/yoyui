@@ -43,7 +43,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
+import { OrganizationChart } from '@orcado/yoyui/organizationchart';
 
 export default function BasicDoc() {
     const [data] = useState([
@@ -88,8 +88,8 @@ export default function BasicDoc() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
-import { TreeNode } from 'primereact/treenode';
+import { OrganizationChart } from '@orcado/yoyui/organizationchart';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function BasicDoc() {
     const [data] = useState<TreeNode[]>([

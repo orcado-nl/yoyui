@@ -101,8 +101,8 @@ export function LazyLoadDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
 
 export default function LazyLoadDemo() {
     const [nodes, setNodes] = useState([]);
@@ -204,9 +204,9 @@ export default function LazyLoadDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable, TreeTableEvent, TreeTablePageEvent } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable, TreeTableEvent, TreeTablePageEvent } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function LazyLoadDemo() {
     const [nodes, setNodes] = useState<TreeNode[]>([]);

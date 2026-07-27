@@ -57,8 +57,8 @@ export function LoadingDoc(props) {
         javascript: `
 import React, { useRef, useState } from 'react';
 //import { useRouter } from 'next/router';
-import { SplitButton } from 'primereact/splitbutton';
-import { Toast } from 'primereact/toast';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function LoadingDemo() {
     //const router = useRouter();
@@ -116,9 +116,9 @@ export default function LoadingDemo() {
         typescript: `
 import React, { useRef, useState } from 'react';
 //import { useRouter } from 'next/router';
-import { SplitButton } from 'primereact/splitbutton';
-import { MenuItem } from 'primereact/menuitem';
-import { Toast } from 'primereact/toast';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function LoadingDemo() {
     //const router = useRouter();

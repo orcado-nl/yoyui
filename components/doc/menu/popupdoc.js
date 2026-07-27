@@ -43,9 +43,9 @@ export function PopupDoc(props) {
 `,
         javascript: `
 import React, { useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Menu } from 'primereact/menu';
-import { Toast } from 'primereact/toast';
+import { Button } from '@orcado/yoyui/button';
+import { Menu } from '@orcado/yoyui/menu';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function PopupDoc() {
     const menuLeft = useRef(null);
@@ -92,10 +92,10 @@ export default function PopupDoc() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Menu } from 'primereact/menu';
-import { MenuItem } from 'primereact/menuitem';
-import { Toast } from 'primereact/toast';
+import { Button } from '@orcado/yoyui/button';
+import { Menu } from '@orcado/yoyui/menu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function PopupDoc() {
     const menuLeft = useRef<Menu>(null);

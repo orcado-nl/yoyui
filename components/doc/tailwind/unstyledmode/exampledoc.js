@@ -5,7 +5,7 @@ export function ExampleDoc(props) {
     const code = {
         javascript: `
 import React from 'react'; 
-import { Panel } from 'primereact/panel';
+import { Panel } from '@orcado/yoyui/panel';
 
 export default function TailwindDemo() {
     return (
@@ -21,7 +21,7 @@ export default function TailwindDemo() {
         "
       >
         <h1 className="text-4xl text-black dark:text-white font-bold text-center">
-          Tailwind CSS + PrimeReact
+          Tailwind CSS + YoYui
         </h1>
         <Panel header="Default Preset">
           <p>

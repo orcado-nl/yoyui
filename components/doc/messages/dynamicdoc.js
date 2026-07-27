@@ -29,8 +29,8 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Messages } from 'primereact/messages';
+import { Button } from '@orcado/yoyui/button';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function DynamicDemo() {
     const msgs = useRef(null);
@@ -60,8 +60,8 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Messages } from 'primereact/messages';
+import { Button } from '@orcado/yoyui/button';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function DynamicDemo() {
     const msgs = useRef(null);

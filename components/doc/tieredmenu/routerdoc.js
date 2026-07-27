@@ -49,7 +49,7 @@ export function RouterDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { TieredMenu } from 'primereact/tieredmenu';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
 import { useRouter } from 'next/router';
 
 export default function RouterDemo() {
@@ -99,8 +99,8 @@ export default function RouterDemo() {
         `,
         typescript: `
 import React from 'react';
-import { TieredMenu } from 'primereact/tieredmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 import { useRouter } from 'next/router';
 
 export default function RouterDemo() {

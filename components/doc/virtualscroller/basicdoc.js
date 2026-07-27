@@ -24,8 +24,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { VirtualScroller } from 'primereact/virtualscroller';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller } from '@orcado/yoyui/virtualscroller';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function BasicDemo() {
     const [items] = useState(Array.from({ length: 100000 }).map((_, i) => \`Item #\${i}\`));
@@ -51,8 +51,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { VirtualScroller, VirtualScrollerTemplateOptions } from 'primereact/virtualscroller';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller, VirtualScrollerTemplateOptions } from '@orcado/yoyui/virtualscroller';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function BasicDemo() {
     const [items] = useState<string[]>(Array.from({ length: 100000 }).map((_, i) => \`Item #\${i}\`));

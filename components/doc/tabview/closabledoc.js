@@ -34,7 +34,7 @@ export function ClosableDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { TabView, TabPanel } from 'primereact/tabview';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
 
 export default function ClosableDemo() {
     return (
@@ -71,7 +71,7 @@ export default function ClosableDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { TabView, TabPanel } from 'primereact/tabview';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
 
 export default function ClosableDemo() {
     return (

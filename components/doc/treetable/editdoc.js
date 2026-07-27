@@ -64,9 +64,9 @@ export function EditDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
 import { NodeService } from './service/NodeService';
 
 export default function EditDemo() {
@@ -131,10 +131,10 @@ export default function EditDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column, ColumnEditorOptions, ColumnEvent } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column, ColumnEditorOptions, ColumnEvent } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function EditDemo() {

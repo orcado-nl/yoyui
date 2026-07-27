@@ -57,10 +57,10 @@ export function ContextMenuDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 export default function ContextMenuDemo() {
@@ -115,10 +115,10 @@ export default function ContextMenuDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 interface Product {

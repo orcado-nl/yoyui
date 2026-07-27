@@ -40,9 +40,9 @@ export function VerticalDoc(props) {
         `,
         javascript: `
 import React, { useRef } from "react";
-import { Stepper } from 'primereact/stepper';
-import { StepperPanel } from 'primereact/stepperpanel';
-import { Button } from 'primereact/button';
+import { Stepper } from '@orcado/yoyui/stepper';
+import { StepperPanel } from '@orcado/yoyui/stepperpanel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const stepperRef = useRef(null);
@@ -82,9 +82,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef } from "react";
-import { Stepper } from 'primereact/stepper';
-import { StepperPanel } from 'primereact/stepperpanel';
-import { Button } from 'primereact/button';
+import { Stepper } from '@orcado/yoyui/stepper';
+import { StepperPanel } from '@orcado/yoyui/stepperpanel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const stepperRef = useRef(null);

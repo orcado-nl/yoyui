@@ -93,12 +93,12 @@ export function RowEditDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function RowEditingDemo() {
@@ -183,12 +183,12 @@ export default function RowEditingDemo() {
         `,
         typescript: `
 import React, { useEffect, useState } from 'react';
-import { DataTable, DataTableRowEditCompleteEvent } from 'primereact/datatable';
-import { Column, ColumnEditorOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { DataTable, DataTableRowEditCompleteEvent } from '@orcado/yoyui/datatable';
+import { Column, ColumnEditorOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { InputNumber, InputNumberValueChangeEvent } from '@orcado/yoyui/inputnumber';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {
