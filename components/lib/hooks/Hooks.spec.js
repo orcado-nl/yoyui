@@ -5,6 +5,7 @@ import { useEventListener } from './useEventListener';
 import { useIntersectionObserver } from './useIntersectionObserver';
 import { useLocalStorage } from './useStorage';
 import { useMatchMedia } from './useMatchMedia';
+import { useStyle } from './useStyle';
 
 describe('hooks', () => {
     describe('useCounter', () => {
@@ -178,6 +179,27 @@ describe('hooks', () => {
             expect(result.current).toBe(false);
 
             window.matchMedia = originalMatchMedia;
+        });
+    });
+
+    describe('useStyle', () => {
+        test('keeps a shared stylesheet when one consumer unmounts', () => {
+            const name = 'shared-style-test';
+            const selector = `style[data-primereact-style-id="${name}"]`;
+
+            document.head.querySelector(selector)?.remove();
+
+            const first = renderHook(() => useStyle('.shared-style-test {}', { name }));
+            const second = renderHook(() => useStyle('.shared-style-test {}', { name }));
+
+            expect(document.head.querySelector(selector)).toBeInTheDocument();
+
+            second.unmount();
+
+            expect(document.head.querySelector(selector)).toBeInTheDocument();
+
+            first.unmount();
+            document.head.querySelector(selector)?.remove();
         });
     });
 });

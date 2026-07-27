@@ -82,9 +82,8 @@ export const useStyle = (css, options = {}) => {
             load();
         }
 
-        return () => {
-            if (!manual) unload();
-        };
+        // Styles are shared by every mounted instance with the same name.
+        // Removing the shared element when one instance unmounts breaks the others.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [manual]);
 
