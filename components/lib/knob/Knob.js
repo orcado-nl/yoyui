@@ -16,7 +16,13 @@ export const Knob = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
-        const props = KnobBase.getProps(inProps, context);
+        const props = KnobBase.getProps(
+            {
+                ...inProps,
+                readOnly: inProps.readOnly ?? inProps.readonly
+            },
+            context
+        );
 
         const { ptm, cx, isUnstyled } = KnobBase.setMetaData({
             props
@@ -259,8 +265,8 @@ export const Knob = React.memo(
                 'aria-valuemin': props.min,
                 'aria-valuemax': props.max,
                 'aria-valuenow': props.value,
-                'aria-labelledby': props['aria-labelledby'],
-                'aria-label': props['aria-label'],
+                'aria-labelledby': props['aria-labelledby'] ?? props.ariaLabelledby,
+                'aria-label': props['aria-label'] ?? props.ariaLabel,
                 role: 'slider',
                 tabIndex: props.readOnly || props.disabled ? -1 : props.tabIndex,
                 onClick: (e) => onClick(e),

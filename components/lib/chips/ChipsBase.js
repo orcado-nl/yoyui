@@ -102,6 +102,7 @@ export const ChipsBase = ComponentBase.extend({
         addOnBlur: null,
         allowDuplicate: true,
         ariaLabelledBy: null,
+        ariaLabelledby: null,
         autoFocus: false,
         className: null,
         disabled: null,

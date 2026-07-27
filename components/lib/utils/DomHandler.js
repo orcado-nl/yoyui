@@ -1,17 +1,3 @@
-import { resolveConditional } from './ConditionalUtils';
-
-function handleSonarNested1(_k, _v) {
-    return `${_k.replaceAll(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}`;
-}
-
-function handleSonarNested2(_v, _k) {
-    return resolveConditional(
-        _v,
-        () => _k,
-        () => undefined
-    );
-}
-
 export default class DomHandler {
     /**
      * All data- properties like data-test-id
@@ -21,43 +7,49 @@ export default class DomHandler {
      * All ARIA properties like aria-label and focus-target for https://www.npmjs.com/package/@q42/floating-focus-a11y
      */
     static ARIA_PROPS = ['aria', 'focus-target'];
+
     static innerWidth(el) {
         if (el) {
             let width = el.offsetWidth;
             let style = getComputedStyle(el);
 
-            width = width + (Number.parseFloat(style.paddingLeft) + Number.parseFloat(style.paddingRight));
+            width = width + (parseFloat(style.paddingLeft) + parseFloat(style.paddingRight));
 
             return width;
         }
 
         return 0;
     }
+
     static width(el) {
         if (el) {
             let width = el.offsetWidth;
             let style = getComputedStyle(el);
 
-            width = width - (Number.parseFloat(style.paddingLeft) + Number.parseFloat(style.paddingRight));
+            width = width - (parseFloat(style.paddingLeft) + parseFloat(style.paddingRight));
 
             return width;
         }
 
         return 0;
     }
+
     static getBrowserLanguage() {
-        return navigator.userLanguage || (navigator.languages?.length && navigator.languages[0]) || navigator.language || navigator.browserLanguage || navigator.systemLanguage || 'en';
+        return navigator.userLanguage || (navigator.languages && navigator.languages.length && navigator.languages[0]) || navigator.language || navigator.browserLanguage || navigator.systemLanguage || 'en';
     }
+
     static getWindowScrollTop() {
         let doc = document.documentElement;
 
         return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     }
+
     static getWindowScrollLeft() {
         let doc = document.documentElement;
 
         return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     }
+
     static getOuterWidth(el, margin) {
         if (el) {
             let width = el.getBoundingClientRect().width || el.offsetWidth;
@@ -65,7 +57,7 @@ export default class DomHandler {
             if (margin) {
                 let style = getComputedStyle(el);
 
-                width = width + (Number.parseFloat(style.marginLeft) + Number.parseFloat(style.marginRight));
+                width = width + (parseFloat(style.marginLeft) + parseFloat(style.marginRight));
             }
 
             return width;
@@ -73,6 +65,7 @@ export default class DomHandler {
 
         return 0;
     }
+
     static getOuterHeight(el, margin) {
         if (el) {
             let height = el.getBoundingClientRect().height || el.offsetHeight;
@@ -80,7 +73,7 @@ export default class DomHandler {
             if (margin) {
                 let style = getComputedStyle(el);
 
-                height = height + (Number.parseFloat(style.marginTop) + Number.parseFloat(style.marginBottom));
+                height = height + (parseFloat(style.marginTop) + parseFloat(style.marginBottom));
             }
 
             return height;
@@ -88,6 +81,7 @@ export default class DomHandler {
 
         return 0;
     }
+
     static getClientHeight(el, margin) {
         if (el) {
             let height = el.clientHeight;
@@ -95,7 +89,7 @@ export default class DomHandler {
             if (margin) {
                 let style = getComputedStyle(el);
 
-                height = height + (Number.parseFloat(style.marginTop) + Number.parseFloat(style.marginBottom));
+                height = height + (parseFloat(style.marginTop) + parseFloat(style.marginBottom));
             }
 
             return height;
@@ -103,6 +97,7 @@ export default class DomHandler {
 
         return 0;
     }
+
     static getClientWidth(el, margin) {
         if (el) {
             let width = el.clientWidth;
@@ -110,7 +105,7 @@ export default class DomHandler {
             if (margin) {
                 let style = getComputedStyle(el);
 
-                width = width + (Number.parseFloat(style.marginLeft) + Number.parseFloat(style.marginRight));
+                width = width + (parseFloat(style.marginLeft) + parseFloat(style.marginRight));
             }
 
             return width;
@@ -118,6 +113,7 @@ export default class DomHandler {
 
         return 0;
     }
+
     static getViewport() {
         let win = window;
         let d = document;
@@ -126,11 +122,9 @@ export default class DomHandler {
         let w = win.innerWidth || e.clientWidth || g.clientWidth;
         let h = win.innerHeight || e.clientHeight || g.clientHeight;
 
-        return {
-            width: w,
-            height: h
-        };
+        return { width: w, height: h };
     }
+
     static getOffset(el) {
         if (el) {
             let rect = el.getBoundingClientRect();
@@ -146,17 +140,18 @@ export default class DomHandler {
             left: 'auto'
         };
     }
+
     static index(element) {
         if (element) {
             let children = element.parentNode.childNodes;
             let num = 0;
 
-            for (const _item of children) {
-                if (_item === element) {
+            for (let i = 0; i < children.length; i++) {
+                if (children[i] === element) {
                     return num;
                 }
 
-                if (_item.nodeType === 1) {
+                if (children[i].nodeType === 1) {
                     num++;
                 }
             }
@@ -164,40 +159,43 @@ export default class DomHandler {
 
         return -1;
     }
+
     static addMultipleClasses(element, className) {
         if (element && className) {
             if (element.classList) {
                 let styles = className.split(' ');
 
-                for (const _item2 of styles) {
-                    element.classList.add(_item2);
+                for (let i = 0; i < styles.length; i++) {
+                    element.classList.add(styles[i]);
                 }
             } else {
                 let styles = className.split(' ');
 
-                for (const _item3 of styles) {
-                    element.className = element.className + (' ' + _item3);
+                for (let i = 0; i < styles.length; i++) {
+                    element.className = element.className + (' ' + styles[i]);
                 }
             }
         }
     }
+
     static removeMultipleClasses(element, className) {
         if (element && className) {
             if (element.classList) {
                 let styles = className.split(' ');
 
-                for (const _item4 of styles) {
-                    element.classList.remove(_item4);
+                for (let i = 0; i < styles.length; i++) {
+                    element.classList.remove(styles[i]);
                 }
             } else {
                 let styles = className.split(' ');
 
-                for (const _item5 of styles) {
-                    element.className = element.className.replace(new RegExp(String.raw`(^|\b)${_item5.replaceAll(' ', '|')}(\b|$)`, 'gi'), ' ');
+                for (let i = 0; i < styles.length; i++) {
+                    element.className = element.className.replace(new RegExp('(^|\\b)' + styles[i].split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
                 }
             }
         }
     }
+
     static addClass(element, className) {
         if (element && className) {
             if (element.classList) {
@@ -207,15 +205,17 @@ export default class DomHandler {
             }
         }
     }
+
     static removeClass(element, className) {
         if (element && className) {
             if (element.classList) {
                 element.classList.remove(className);
             } else {
-                element.className = element.className.replace(new RegExp(String.raw`(^|\b)${className.replaceAll(' ', '|')}(\b|$)`, 'gi'), ' ');
+                element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
             }
         }
     }
+
     static hasClass(element, className) {
         if (element) {
             if (element.classList) {
@@ -227,14 +227,17 @@ export default class DomHandler {
 
         return false;
     }
+
     static addStyles(element, styles = {}) {
         if (element) {
             Object.entries(styles).forEach(([key, value]) => (element.style[key] = value));
         }
     }
+
     static find(element, selector) {
         return element ? Array.from(element.querySelectorAll(selector)) : [];
     }
+
     static findSingle(element, selector) {
         if (element) {
             return element.querySelector(selector);
@@ -242,6 +245,7 @@ export default class DomHandler {
 
         return null;
     }
+
     static setAttributes(element, attributes = {}) {
         if (element) {
             const computedStyles = (rule, value) => {
@@ -256,7 +260,7 @@ export default class DomHandler {
                         } else if (type === 'object') {
                             const _cv = Array.isArray(v)
                                 ? computedStyles(rule, v)
-                                : Object.entries(v).map(([_k, _v]) => resolveConditional(rule === 'style' && (!!_v || _v === 0), handleSonarNested1.bind(null, _k, _v), handleSonarNested2.bind(null, _v, _k)));
+                                : Object.entries(v).map(([_k, _v]) => (rule === 'style' && (!!_v || _v === 0) ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}` : _v ? _k : undefined));
 
                             cv = _cv.length ? cv.concat(_cv.filter((c) => !!c)) : cv;
                         }
@@ -268,30 +272,28 @@ export default class DomHandler {
 
             Object.entries(attributes).forEach(([key, value]) => {
                 if (value !== undefined && value !== null) {
-                    const matchedEvent = /^on(.+)/.exec(key);
+                    const matchedEvent = key.match(/^on(.+)/);
 
                     if (matchedEvent) {
                         element.addEventListener(matchedEvent[1].toLowerCase(), value);
                     } else if (key === 'p-bind') {
                         this.setAttributes(element, value);
                     } else {
-                        if (key === 'class') value = [...new Set(computedStyles('class', value))].join(' ').trim();
-                        else if (key === 'style') value = computedStyles('style', value).join(';').trim();
-                        element.$attrs ||= {};
-                        element.$attrs[key] = value;
+                        value = key === 'class' ? [...new Set(computedStyles('class', value))].join(' ').trim() : key === 'style' ? computedStyles('style', value).join(';').trim() : value;
+                        (element.$attrs = element.$attrs || {}) && (element.$attrs[key] = value);
                         element.setAttribute(key, value);
                     }
                 }
             });
         }
     }
+
     static getAttribute(element, name) {
         if (element) {
             const value = element.getAttribute(name);
-            const numericValue = Number(value);
 
-            if (!Number.isNaN(numericValue)) {
-                return numericValue;
+            if (!isNaN(value)) {
+                return +value;
             }
 
             if (value === 'true' || value === 'false') {
@@ -303,36 +305,41 @@ export default class DomHandler {
 
         return undefined;
     }
+
     static isAttributeEquals(element, name, value) {
         return element ? this.getAttribute(element, name) === value : false;
     }
+
     static isAttributeNotEquals(element, name, value) {
         return !this.isAttributeEquals(element, name, value);
     }
+
     static getHeight(el) {
         if (el) {
             let height = el.offsetHeight;
             let style = getComputedStyle(el);
 
-            height = height - (Number.parseFloat(style.paddingTop) + Number.parseFloat(style.paddingBottom) + Number.parseFloat(style.borderTopWidth) + Number.parseFloat(style.borderBottomWidth));
+            height = height - (parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth));
 
             return height;
         }
 
         return 0;
     }
+
     static getWidth(el) {
         if (el) {
             let width = el.offsetWidth;
             let style = getComputedStyle(el);
 
-            width = width - (Number.parseFloat(style.paddingLeft) + Number.parseFloat(style.paddingRight) + Number.parseFloat(style.borderLeftWidth) + Number.parseFloat(style.borderRightWidth));
+            width = width - (parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth));
 
             return width;
         }
 
         return 0;
     }
+
     static alignOverlay(overlay, target, appendTo, calculateMinWidth = true) {
         if (overlay && target) {
             if (appendTo === 'self') {
@@ -343,14 +350,10 @@ export default class DomHandler {
             }
         }
     }
+
     static absolutePosition(element, target, align = 'left') {
-        const runComplexBranch1 = () => {
-            let elementDimensions = element.offsetParent
-                ? {
-                      width: element.offsetWidth,
-                      height: element.offsetHeight
-                  }
-                : this.getHiddenElementDimensions(element);
+        if (element && target) {
+            let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
             let elementOuterHeight = elementDimensions.height;
             let elementOuterWidth = elementDimensions.width;
             let targetOuterHeight = target.offsetHeight;
@@ -383,28 +386,22 @@ export default class DomHandler {
                 } else {
                     left = targetOffsetPx + windowScrollLeft;
                 }
-            } else if (targetOffsetPx + targetOuterWidth - elementOuterWidth < 0) {
-                left = windowScrollLeft;
             } else {
-                left = targetOffsetPx + targetOuterWidth - elementOuterWidth + windowScrollLeft;
+                if (targetOffsetPx + targetOuterWidth - elementOuterWidth < 0) {
+                    left = windowScrollLeft;
+                } else {
+                    left = targetOffsetPx + targetOuterWidth - elementOuterWidth + windowScrollLeft;
+                }
             }
 
             element.style.top = top + 'px';
             element.style.left = left + 'px';
-        };
-
-        if (element && target) {
-            runComplexBranch1();
         }
     }
+
     static relativePosition(element, target) {
         if (element && target) {
-            let elementDimensions = element.offsetParent
-                ? {
-                      width: element.offsetWidth,
-                      height: element.offsetHeight
-                  }
-                : this.getHiddenElementDimensions(element);
+            let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
             const targetHeight = target.offsetHeight;
             const targetOffset = target.getBoundingClientRect();
             const viewport = this.getViewport();
@@ -439,13 +436,14 @@ export default class DomHandler {
             element.style.left = left + 'px';
         }
     }
-    static flipfitCollision(element, target, my = 'left top', at = 'left bottom', callback = undefined) {
+
+    static flipfitCollision(element, target, my = 'left top', at = 'left bottom', callback) {
         if (element && target) {
             const targetOffset = target.getBoundingClientRect();
             const viewport = this.getViewport();
             const myArr = my.split(' ');
             const atArr = at.split(' ');
-            const getPositionValue = (arr, isOffset) => (isOffset ? +arr.substring(arr.search(/[+-]/g)) || 0 : arr.substring(0, arr.search(/[+-]/g)) || arr);
+            const getPositionValue = (arr, isOffset) => (isOffset ? +arr.substring(arr.search(/(\+|-)/g)) || 0 : arr.substring(0, arr.search(/(\+|-)/g)) || arr);
             const position = {
                 my: {
                     x: getPositionValue(myArr[0]),
@@ -464,34 +462,12 @@ export default class DomHandler {
                 left: () => {
                     const totalOffset = position.my.offsetX + position.at.offsetX;
 
-                    return (
-                        totalOffset +
-                        targetOffset.left +
-                        (position.my.x === 'left'
-                            ? 0
-                            : -1 *
-                              resolveConditional(
-                                  position.my.x === 'center',
-                                  () => this.getOuterWidth(element) / 2,
-                                  () => this.getOuterWidth(element)
-                              ))
-                    );
+                    return totalOffset + targetOffset.left + (position.my.x === 'left' ? 0 : -1 * (position.my.x === 'center' ? this.getOuterWidth(element) / 2 : this.getOuterWidth(element)));
                 },
                 top: () => {
                     const totalOffset = position.my.offsetY + position.at.offsetY;
 
-                    return (
-                        totalOffset +
-                        targetOffset.top +
-                        (position.my.y === 'top'
-                            ? 0
-                            : -1 *
-                              resolveConditional(
-                                  position.my.y === 'center',
-                                  () => this.getOuterHeight(element) / 2,
-                                  () => this.getOuterHeight(element)
-                              ))
-                    );
+                    return totalOffset + targetOffset.top + (position.my.y === 'top' ? 0 : -1 * (position.my.y === 'center' ? this.getOuterHeight(element) / 2 : this.getOuterHeight(element)));
                 }
             };
             const alignWithAt = {
@@ -514,6 +490,7 @@ export default class DomHandler {
                         position.at.x = 'right';
                         position.my.offsetX *= -1;
                         position.at.offsetX *= -1;
+
                         this.right();
                     }
                 },
@@ -528,10 +505,12 @@ export default class DomHandler {
                         this.count.x = 0;
                     } else if (left + DomHandler.getOuterWidth(element) > viewport.width) {
                         this.count.x++;
+
                         position.my.x = 'right';
                         position.at.x = 'left';
                         position.my.offsetX *= -1;
                         position.at.offsetX *= -1;
+
                         this.left();
                     }
                 },
@@ -546,10 +525,12 @@ export default class DomHandler {
                         this.count.y = 0;
                     } else if (top < 0) {
                         this.count.y++;
+
                         position.my.y = 'top';
                         position.at.y = 'bottom';
                         position.my.offsetY *= -1;
                         position.at.offsetY *= -1;
+
                         this.bottom();
                     }
                 },
@@ -564,10 +545,12 @@ export default class DomHandler {
                         this.count.y = 0;
                     } else if (top + DomHandler.getOuterHeight(target) > viewport.height) {
                         this.count.y++;
+
                         position.my.y = 'bottom';
                         position.at.y = 'top';
                         position.my.offsetY *= -1;
                         position.at.offsetY *= -1;
+
                         this.top();
                     }
                 },
@@ -604,6 +587,7 @@ export default class DomHandler {
             }
         }
     }
+
     static findCollisionPosition(position) {
         if (position) {
             const isAxisY = position === 'top' || position === 'bottom';
@@ -625,6 +609,7 @@ export default class DomHandler {
             };
         }
     }
+
     static getParents(element, parents = []) {
         return element.parentNode === null ? parents : this.getParents(element.parentNode, parents.concat([element.parentNode]));
     }
@@ -637,18 +622,12 @@ export default class DomHandler {
     static getScrollableParents(element) {
         let scrollableParents = [];
 
-        const runComplexBranch4 = () => {
+        if (element) {
             // Get all parent elements
             let parents = this.getParents(element);
             // Regex to match auto or scroll overflow values
-            // Regex to match auto or scroll overflow values
             const overflowRegex = /(auto|scroll)/;
 
-            /**
-             * Checks if an element has overflow scroll/auto in any direction
-             * @param {HTMLElement} node - Element to check
-             * @returns {boolean} True if element has overflow scroll/auto
-             */
             /**
              * Checks if an element has overflow scroll/auto in any direction
              * @param {HTMLElement} node - Element to check
@@ -666,16 +645,11 @@ export default class DomHandler {
              * Adds a scrollable parent element to the collection
              * @param {HTMLElement} node - Element to add
              */
-            /**
-             * Adds a scrollable parent element to the collection
-             * @param {HTMLElement} node - Element to add
-             */
             const addScrollableParent = (node) => {
                 // For document/body/html elements, add window instead
                 scrollableParents.push(node.nodeName === 'BODY' || node.nodeName === 'HTML' || this.isDocument(node) ? window : node);
             };
 
-            // Iterate through all parent elements
             // Iterate through all parent elements
             for (let parent of parents) {
                 // Check for custom scroll selectors in data attribute
@@ -699,14 +673,11 @@ export default class DomHandler {
                     addScrollableParent(parent);
                 }
             }
-        };
-
-        if (element) {
-            runComplexBranch4();
         }
 
         return scrollableParents;
     }
+
     static getHiddenElementOuterHeight(element) {
         if (element) {
             element.style.visibility = 'hidden';
@@ -721,6 +692,7 @@ export default class DomHandler {
 
         return 0;
     }
+
     static getHiddenElementOuterWidth(element) {
         if (element) {
             element.style.visibility = 'hidden';
@@ -735,6 +707,7 @@ export default class DomHandler {
 
         return 0;
     }
+
     static getHiddenElementDimensions(element) {
         let dimensions = {};
 
@@ -749,16 +722,18 @@ export default class DomHandler {
 
         return dimensions;
     }
+
     static fadeIn(element, duration) {
         if (element) {
             element.style.opacity = 0;
-            let last = Date.now();
+
+            let last = +new Date();
             let opacity = 0;
 
             let tick = function () {
-                opacity = +element.style.opacity + (Date.now() - last) / duration;
+                opacity = +element.style.opacity + (new Date().getTime() - last) / duration;
                 element.style.opacity = opacity;
-                last = Date.now();
+                last = +new Date();
 
                 if (+opacity < 1) {
                     (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
@@ -768,11 +743,13 @@ export default class DomHandler {
             tick();
         }
     }
+
     static fadeOut(element, duration) {
         if (element) {
             let opacity = 1;
             let interval = 50;
             let gap = interval / duration;
+
             let fading = setInterval(() => {
                 opacity = opacity - gap;
 
@@ -785,56 +762,68 @@ export default class DomHandler {
             }, interval);
         }
     }
+
     static getUserAgent() {
         return navigator.userAgent;
     }
+
     static isIOS() {
         return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     }
+
     static isAndroid() {
         return /(android)/i.test(navigator.userAgent);
     }
+
     static isChrome() {
         return /(chrome)/i.test(navigator.userAgent);
     }
+
     static isClient() {
-        return !!(typeof window !== 'undefined' && window.document?.createElement);
+        return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
     }
+
     static isTouchDevice() {
         return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
     }
+
     static isFunction(obj) {
-        return !!(obj?.constructor && obj.call && obj.apply);
+        return !!(obj && obj.constructor && obj.call && obj.apply);
     }
+
     static appendChild(element, target) {
         if (this.isElement(target)) {
             target.appendChild(element);
-        } else if (target.el?.nativeElement) {
+        } else if (target.el && target.el.nativeElement) {
             target.el.nativeElement.appendChild(element);
         } else {
             throw new Error('Cannot append ' + target + ' to ' + element);
         }
     }
+
     static removeChild(element, target) {
         if (this.isElement(target)) {
-            element.remove();
-        } else if (target.el?.nativeElement) {
-            element.remove();
+            target.removeChild(element);
+        } else if (target.el && target.el.nativeElement) {
+            target.el.nativeElement.removeChild(element);
         } else {
             throw new Error('Cannot remove ' + element + ' from ' + target);
         }
     }
+
     static isElement(obj) {
         return typeof HTMLElement === 'object' ? obj instanceof HTMLElement : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === 'string';
     }
+
     static isDocument(obj) {
         return typeof Document === 'object' ? obj instanceof Document : obj && typeof obj === 'object' && obj !== null && obj.nodeType === 9;
     }
+
     static scrollInView(container, item) {
         let borderTopValue = getComputedStyle(container).getPropertyValue('border-top-width');
-        let borderTop = borderTopValue ? Number.parseFloat(borderTopValue) : 0;
+        let borderTop = borderTopValue ? parseFloat(borderTopValue) : 0;
         let paddingTopValue = getComputedStyle(container).getPropertyValue('padding-top');
-        let paddingTop = paddingTopValue ? Number.parseFloat(paddingTopValue) : 0;
+        let paddingTop = paddingTopValue ? parseFloat(paddingTopValue) : 0;
         let containerRect = container.getBoundingClientRect();
         let itemRect = item.getBoundingClientRect();
         let offset = itemRect.top + document.body.scrollTop - (containerRect.top + document.body.scrollTop) - borderTop - paddingTop;
@@ -848,6 +837,7 @@ export default class DomHandler {
             container.scrollTop = scroll + offset - elementHeight + itemHeight;
         }
     }
+
     static clearSelection() {
         if (window.getSelection) {
             if (window.getSelection().empty) {
@@ -855,22 +845,20 @@ export default class DomHandler {
             } else if (window.getSelection().removeAllRanges && window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).getClientRects().length > 0) {
                 window.getSelection().removeAllRanges();
             }
-        } else if (document.selection?.empty) {
+        } else if (document.selection && document.selection.empty) {
             try {
                 document.selection.empty();
             } catch (error) {
-                // Internet Explorer can reject an otherwise valid selection clear.
-                console.warn('Unable to clear the current document selection.', error); // eslint-disable-line no-console
-
-                return;
+                //ignore IE bug
             }
         }
     }
+
     static calculateScrollbarWidth(el) {
         if (el) {
             let style = getComputedStyle(el);
 
-            return el.offsetWidth - el.clientWidth - Number.parseFloat(style.borderLeftWidth) - Number.parseFloat(style.borderRightWidth);
+            return el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth);
         }
 
         if (this.calculatedScrollbarWidth != null) {
@@ -881,16 +869,20 @@ export default class DomHandler {
 
         scrollDiv.className = 'p-scrollbar-measure';
         document.body.appendChild(scrollDiv);
+
         let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 
-        scrollDiv.remove();
+        document.body.removeChild(scrollDiv);
+
         this.calculatedScrollbarWidth = scrollbarWidth;
 
         return scrollbarWidth;
     }
+
     static calculateBodyScrollbarWidth() {
         return window.innerWidth - document.documentElement.offsetWidth;
     }
+
     static getBrowser() {
         if (!this.browser) {
             let matched = this.resolveUserAgent();
@@ -911,33 +903,41 @@ export default class DomHandler {
 
         return this.browser;
     }
+
     static resolveUserAgent() {
         let ua = navigator.userAgent.toLowerCase();
-        let match = /(chrome) ([\w.]+)/.exec(ua) || /(webkit) ([\w.]+)/.exec(ua) || /(opera)(?:.*version|) ([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (!ua.includes('compatible') && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
+        let match = /(chrome)[ ]([\w.]+)/.exec(ua) || /(webkit)[ ]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ ]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
 
         return {
             browser: match[1] || '',
             version: match[2] || '0'
         };
     }
+
     static blockBodyScroll(className = 'p-overflow-hidden') {
-        // This method may be called repeatedly; the CSS-property check keeps those calls idempotent.
+        /* PR Ref: https://github.com/primefaces/primereact/pull/4976
+         * @todo This method is called several times after this PR. Refactors will be made to prevent this in future releases.
+         */
         const hasScrollbarWidth = !!document.body.style.getPropertyValue('--scrollbar-width');
 
         !hasScrollbarWidth && document.body.style.setProperty('--scrollbar-width', this.calculateBodyScrollbarWidth() + 'px');
         this.addClass(document.body, className);
     }
+
     static unblockBodyScroll(className = 'p-overflow-hidden') {
         document.body.style.removeProperty('--scrollbar-width');
         this.removeClass(document.body, className);
     }
+
     static isVisible(element) {
         // https://stackoverflow.com/a/59096915/502366 (in future use IntersectionObserver)
         return element && (element.clientHeight !== 0 || element.getClientRects().length !== 0 || getComputedStyle(element).display !== 'none');
     }
+
     static isExist(element) {
-        return !!(element?.nodeName && element.parentNode);
+        return !!(element !== null && typeof element !== 'undefined' && element.nodeName && element.parentNode);
     }
+
     static getFocusableElements(element, selector = '') {
         let focusableElements = DomHandler.find(
             element,
@@ -949,6 +949,7 @@ export default class DomHandler {
                 [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`
         );
+
         let visibleFocusableElements = [];
 
         for (let focusableElement of focusableElements) {
@@ -959,15 +960,17 @@ export default class DomHandler {
 
         return visibleFocusableElements;
     }
+
     static getFirstFocusableElement(element, selector) {
         const focusableElements = DomHandler.getFocusableElements(element, selector);
 
         return focusableElements.length > 0 ? focusableElements[0] : null;
     }
+
     static getLastFocusableElement(element, selector) {
         const focusableElements = DomHandler.getFocusableElements(element, selector);
 
-        return focusableElements.length > 0 ? focusableElements.at(-1) : null;
+        return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
     }
 
     /**
@@ -976,14 +979,10 @@ export default class DomHandler {
      * @param {HTMLElement} el a HTML element
      * @param {boolean} scrollTo flag to control whether to scroll to the element, false by default
      */
-    static focus(el, scrollTo = false) {
-        const preventScroll = !scrollTo;
+    static focus(el, scrollTo) {
+        const preventScroll = scrollTo === undefined ? true : !scrollTo;
 
-        el &&
-            document.activeElement !== el &&
-            el.focus({
-                preventScroll
-            });
+        el && document.activeElement !== el && el.focus({ preventScroll });
     }
 
     /**
@@ -1004,6 +1003,7 @@ export default class DomHandler {
 
         return firstFocusableElement;
     }
+
     static getCursorOffset(el, prevText, nextText, currentText) {
         if (el) {
             let style = getComputedStyle(el);
@@ -1022,18 +1022,21 @@ export default class DomHandler {
             ghostDiv.style.overflowWrap = style.overflowWrap;
             ghostDiv.style.whiteSpace = style.whiteSpace;
             ghostDiv.style.lineHeight = style.lineHeight;
-            ghostDiv.innerHTML = prevText.replaceAll(/\r\n|\r|\n/g, '<br />');
+            ghostDiv.innerHTML = prevText.replace(/\r\n|\r|\n/g, '<br />');
+
             let ghostSpan = document.createElement('span');
 
             ghostSpan.textContent = currentText;
             ghostDiv.appendChild(ghostSpan);
+
             let text = document.createTextNode(nextText);
 
             ghostDiv.appendChild(text);
             document.body.appendChild(ghostDiv);
+
             const { offsetLeft, offsetTop, clientHeight } = ghostSpan;
 
-            ghostDiv.remove();
+            document.body.removeChild(ghostDiv);
 
             return {
                 left: Math.abs(offsetLeft - el.scrollLeft),
@@ -1046,12 +1049,14 @@ export default class DomHandler {
             left: 'auto'
         };
     }
+
     static invokeElementMethod(element, methodName, args) {
-        element[methodName](...args);
+        element[methodName].apply(element, args);
     }
+
     static isClickable(element) {
         const targetNode = element.nodeName;
-        const parentNode = element.parentElement?.nodeName;
+        const parentNode = element.parentElement && element.parentElement.nodeName;
 
         return (
             targetNode === 'INPUT' ||
@@ -1068,6 +1073,7 @@ export default class DomHandler {
             this.hasClass(element.parentElement, 'p-radiobutton')
         );
     }
+
     static applyStyle(element, style) {
         if (typeof style === 'string') {
             element.style.cssText = style;
@@ -1077,6 +1083,7 @@ export default class DomHandler {
             }
         }
     }
+
     static exportCSV(csv, filename) {
         let blob = new Blob([csv], {
             type: 'application/csv;charset=utf-8;'
@@ -1085,10 +1092,7 @@ export default class DomHandler {
         if (window.navigator.msSaveOrOpenBlob) {
             navigator.msSaveOrOpenBlob(blob, filename + '.csv');
         } else {
-            const isDownloaded = DomHandler.saveAs({
-                name: filename + '.csv',
-                src: URL.createObjectURL(blob)
-            });
+            const isDownloaded = DomHandler.saveAs({ name: filename + '.csv', src: URL.createObjectURL(blob) });
 
             if (!isDownloaded) {
                 csv = 'data:text/csv;charset=utf-8,' + csv;
@@ -1096,11 +1100,12 @@ export default class DomHandler {
             }
         }
     }
+
     static saveAs(file) {
         if (file) {
             let link = document.createElement('a');
 
-            if ('download' in link) {
+            if (link.download !== undefined) {
                 const { name, src } = file;
 
                 link.setAttribute('href', src);
@@ -1108,7 +1113,7 @@ export default class DomHandler {
                 link.style.display = 'none';
                 document.body.appendChild(link);
                 link.click();
-                link.remove();
+                document.body.removeChild(link);
 
                 return true;
             }
@@ -1116,6 +1121,7 @@ export default class DomHandler {
 
         return false;
     }
+
     static createInlineStyle(nonce, styleContainer) {
         let styleElement = document.createElement('style');
 
@@ -1129,19 +1135,33 @@ export default class DomHandler {
 
         return styleElement;
     }
+
     static removeInlineStyle(styleElement) {
         if (this.isExist(styleElement)) {
-            styleElement.remove();
+            try {
+                styleElement.parentNode.removeChild(styleElement);
+            } catch (error) {
+                // style element may have already been removed in a fast refresh
+            }
+
             styleElement = null;
         }
 
         return styleElement;
     }
-    static addNonce(styleElement, nonce) {
-        const resolvedNonce = nonce || process.env.REACT_APP_CSS_NONCE;
 
-        if (resolvedNonce) styleElement.setAttribute('nonce', resolvedNonce);
+    static addNonce(styleElement, nonce) {
+        try {
+            if (!nonce) {
+                nonce = process.env.REACT_APP_CSS_NONCE;
+            }
+        } catch (error) {
+            // NOOP
+        }
+
+        nonce && styleElement.setAttribute('nonce', nonce);
     }
+
     static getTargetElement(target) {
         if (!target) {
             return null;
@@ -1155,7 +1175,7 @@ export default class DomHandler {
             return this.isExist(target.current) ? target.current : null;
         }
 
-        const isFunction = (obj) => !!(obj?.constructor && obj.call && obj.apply);
+        const isFunction = (obj) => !!(obj && obj.constructor && obj.call && obj.apply);
         const element = isFunction(target) ? target() : target;
 
         return this.isDocument(element) || this.isExist(element) ? element : null;
@@ -1176,7 +1196,7 @@ export default class DomHandler {
             rv.push(attrs[index].nodeName);
         }
 
-        rv.sort((left, right) => left.localeCompare(right));
+        rv.sort();
 
         return rv;
     }
@@ -1189,49 +1209,88 @@ export default class DomHandler {
      * elem2 = style="font-size: 28px; color: red"
      */
     static isEqualElement(elm1, elm2) {
-        return DomHandler.hasEqualAttributes(elm1, elm2) && DomHandler.hasEqualChildren(elm1, elm2);
-    }
-    static hasEqualAttributes(elm1, elm2) {
-        const attributes = DomHandler.getAttributeNames(elm1);
+        let attrs1;
+        let attrs2;
+        let name;
+        let node1;
+        let node2;
 
-        if (attributes.join(',') !== DomHandler.getAttributeNames(elm2).join(',')) return false;
+        // Compare attributes without order sensitivity
+        attrs1 = DomHandler.getAttributeNames(elm1);
+        attrs2 = DomHandler.getAttributeNames(elm2);
 
-        return attributes.every((name) => (name === 'style' ? DomHandler.hasEqualStyles(elm1.style, elm2.style) : elm1.getAttribute(name) === elm2.getAttribute(name)));
-    }
-    static hasEqualStyles(style1, style2) {
-        const digitsOnly = /^\d+$/;
-
-        return Object.keys(style1).every((key) => digitsOnly.test(key) || style1[key] === style2[key]);
-    }
-    static hasEqualChildren(elm1, elm2) {
-        let node1 = elm1.firstChild;
-        let node2 = elm2.firstChild;
-
-        while (node1 && node2) {
-            if (node1.nodeType !== node2.nodeType) return false;
-            if (node1.nodeType === 1 && !DomHandler.isEqualElement(node1, node2)) return false;
-            if (node1.nodeType !== 1 && node1.nodeValue !== node2.nodeValue) return false;
-
-            node1 = node1.nextSibling;
-            node2 = node2.nextSibling;
+        if (attrs1.join(',') !== attrs2.join(',')) {
+            // console.log("Found nodes with different sets of attributes; not equiv");
+            return false;
         }
 
-        return !node1 && !node2;
+        // ...and values
+        // unless you want to compare DOM0 event handlers
+        // (onclick="...")
+        for (let index = 0; index < attrs1.length; ++index) {
+            name = attrs1[index];
+
+            if (name === 'style') {
+                const astyle = elm1.style;
+                const bstyle = elm2.style;
+                const rexDigitsOnly = /^\d+$/;
+
+                for (const key of Object.keys(astyle)) {
+                    if (!rexDigitsOnly.test(key) && astyle[key] !== bstyle[key]) {
+                        // Not equivalent, stop
+                        //console.log("Found nodes with mis-matched values for attribute '" + name + "'; not equiv");
+                        return false;
+                    }
+                }
+            } else if (elm1.getAttribute(name) !== elm2.getAttribute(name)) {
+                // console.log("Found nodes with mis-matched values for attribute '" + name + "'; not equiv");
+                return false;
+            }
+        }
+
+        // Walk the children
+        for (node1 = elm1.firstChild, node2 = elm2.firstChild; node1 && node2; node1 = node1.nextSibling, node2 = node2.nextSibling) {
+            if (node1.nodeType !== node2.nodeType) {
+                // display("Found nodes of different types; not equiv");
+                return false;
+            }
+
+            if (node1.nodeType === 1) {
+                // Element
+                if (!DomHandler.isEqualElement(node1, node2)) {
+                    return false;
+                }
+            } else if (node1.nodeValue !== node2.nodeValue) {
+                // console.log("Found nodes with mis-matched nodeValues; not equiv");
+                return false;
+            }
+        }
+
+        if (node1 || node2) {
+            // One of the elements had more nodes than the other
+            // console.log("Found more children of one element than the other; not equivalent");
+            return false;
+        }
+
+        // Seem the same
+        return true;
     }
+
     static hasCSSAnimation(element) {
         if (element) {
             const style = getComputedStyle(element);
-            const animationDuration = Number.parseFloat(style.getPropertyValue('animation-duration') || '0');
+            const animationDuration = parseFloat(style.getPropertyValue('animation-duration') || '0');
 
             return animationDuration > 0;
         }
 
         return false;
     }
+
     static hasCSSTransition(element) {
         if (element) {
             const style = getComputedStyle(element);
-            const transitionDuration = Number.parseFloat(style.getPropertyValue('transition-duration') || '0');
+            const transitionDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
 
             return transitionDuration > 0;
         }

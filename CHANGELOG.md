@@ -202,11 +202,12 @@ This entry records all the changes to make sure the project adheres to the Sonar
 - Post-merge validation passes 31 Jest suites, 293 tests, and 145 snapshots.
 - The branch diff passes Git's whitespace validation.
 
-### Required changes for users
+### Deprecated prop aliases
 
-Update affected prop names if your code uses an old or incorrectly cased spelling:
+The previous spellings remain supported for compatibility and are deprecated in
+favor of the corrected names:
 
-| Previous spelling | Required spelling | Affected API |
+| Deprecated spelling | Preferred spelling | Affected API |
 | --- | --- | --- |
 | `readonly` | `readOnly` | InputOtp; any Knob workaround using the lowercase name |
 | `ariaLabelledby` | `ariaLabelledBy` | Chips, ContextMenu, and Tree |
@@ -216,9 +217,9 @@ Update affected prop names if your code uses an old or incorrectly cased spellin
 
 The Chips and ContextMenu corrections align runtime behavior with declarations that
 already exposed `ariaLabelledBy`; the Tree and InputOtp corrections align their
-declarations with the existing runtime names. Code that already uses `readOnly`,
-`ariaLabelledBy`, `aria-label`, `aria-labelledby`, and `onLoad` needs no prop-name
-changes.
+declarations with the existing runtime names. Existing code can migrate to
+`readOnly`, `ariaLabelledBy`, `aria-label`, `aria-labelledby`, and `onLoad` without
+being forced to change in this patch release.
 
 Review the following behavior changes where applicable:
 
@@ -244,157 +245,35 @@ Review the following behavior changes where applicable:
 No component names, export paths, or event payload shapes changed on the
 `optimisations` branch.
 
-## Unreleased - SonarQube quality and reliability overhaul (2026-07-23)
+## Unreleased - SonarQube cleanup (2026-07-27)
 
-This entry documents the repository-wide review and SonarQube remediation. It groups
-behavior-preserving edits by purpose so that the full scope is recorded without
-repeating the same mechanical cleanup for every component, test, and documentation
-page.
-
-### Fixed
-
-- Corrected Calendar date and time validation, including invalid-date detection,
-  millisecond range checks, day-of-year conversion, time-only parsing, date-time
-  parsing, selection updates, and keyboard navigation edge cases.
-- Hardened InputMask, InputNumber, InputOtp, and shared mask utilities around pasted
-  values, numeric validation, cursor placement, inserted characters, partially
-  completed values, and optional DOM state.
-- Preserved DataTable and TreeTable filtering semantics while simplifying local and
-  global filter evaluation, strict and lenient tree filtering, row and cell
-  selection, editing, expansion, frozen-column positioning, and keyboard handling.
-- Normalized Splitter children with the React children API so empty, single,
-  fragment-wrapped, and nested panels are handled consistently. Splitter resize and
-  nesting state attributes now use the DOM `dataset` API.
-- Fixed unsafe access to nullable menu, overlay, selection, and template state in
-  components including MegaMenu, PanelMenu, MultiSelect, TreeSelect, Dropdown,
-  VirtualScroller, and related overlays.
-- Corrected OrganizationChart column-span handling when child collections are absent.
-- Corrected conditional Tailwind button class selection and consolidated filled,
-  text, plain, and outlined class calculation.
-- Kept legacy Next.js links valid by restoring explicit anchor destinations where
-  required by the version of Next.js used by the documentation application.
-- Improved DOM utilities for element comparison, attribute and style handling,
-  overlay positioning, focus discovery, scrolling, selection cleanup, inline style
-  removal, downloads, and animation or transition detection.
-- Replaced weak pseudo-random demo car generation with the Web Crypto API.
-- Fixed documentation-only callback placement and rendering errors that could break
-  individual examples or the documentation build.
+The repository-wide SonarQube rewrite was audited and reduced to avoid changing
+PrimeReact 10 behavior merely to satisfy static-analysis metrics.
 
 ### Changed
 
-- Decomposed high-complexity rendering and event logic across Calendar, DataTable,
-  TreeTable, InputNumber, MultiSelect, VirtualScroller, SpeedDial, menu components,
-  utility modules, and documentation tooling into focused helpers.
-- Added a lazy `resolveConditional` utility for readable conditional branches that
-  must not evaluate the unselected value.
-- Removed duplicated branches, redundant conditions, unnecessary jumps, unused
-  imports and variables, dead assignments, and duplicate renderer implementations.
-- Replaced nested ternaries with named decisions and extracted nested render
-  functions where doing so improves readability and React reconciliation.
-- Modernized JavaScript usage with optional chaining, nullish assignment, `for...of`,
-  `Object.entries`, `Array.at`, `String.replaceAll`, `Number.parseFloat`,
-  `Number.isNaN`, `Date.now`, spread arguments, and explicit locale-aware sorting.
-- Reworked recursive class-name flattening, deep object equality, DOM equality, mask
-  processing, SpeedDial positioning, paginator rendering, and API-document
-  generation into smaller reusable operations.
-- Reduced avoidable array creation and discarded return values by using direct
-  iteration for side-effect-only work.
-- Added stable, value-derived React keys throughout component rendering,
-  documentation examples, landing pages, templates, and API documentation.
-- Improved JSX readability and text rendering by making punctuation and whitespace
-  explicit where React or assistive technology could interpret it ambiguously.
-
-### Accessibility and React correctness
-
-- Replaced non-navigation anchors with semantic buttons where appropriate and
-  corrected label, span, link, and interactive-element semantics.
-- Added or retained valid `href`, ARIA, focus, and keyboard behavior on interactive
-  elements.
-- Removed index-only keys from dynamic lists where stable domain values are
-  available.
-- Extracted nested JSX component definitions and render callbacks that caused
-  unstable component identities.
-- Added null guards around focus targets, active items, child collections, and
-  browser-only DOM operations.
-
-### Documentation and tooling
-
-- Rebranded generated API documentation and JetBrains Web Types metadata from
-  PrimeReact to YoYui. Legacy PrimeReact live-demo URLs now resolve to the
-  corresponding local YoYui documentation routes, and generated logo references use
-  the local YoYui asset.
-- Replaced PrimeReact website URLs throughout metadata, navigation, examples,
-  templates, TypeScript declaration comments, and generated documentation with the
-  canonical `https://yoyui.orcado.dev` host. Template subdomains now resolve to
-  their corresponding `/templates/<name>` routes.
-- Removed all upstream CDN and website runtime dependencies. Demo imagery now uses
-  assets bundled under `public/images`, unavailable component wireframes and
-  portraits use local accessible SVG fallbacks, and obsolete upstream-only
-  newsletter and merchandise links were removed.
-- Replaced the site, Open Graph, and `useFavicon` demo icons with `yoyui-icon.svg`.
-  The icon is now shipped from `public` and copied into the generated API
-  documentation output by `build-apidoc.js`. API documentation generation now
-  uses the public asset as its source, so selective Docker build contexts no
-  longer need to include a duplicate repository-root icon.
-- Corrected the Accordion template's Avatar and Badge import casing so documentation
-  builds remain portable to case-sensitive hosts.
-- Replaced both legacy topbar SVGs with YoYui artwork: the desktop header now uses
-  the YoYui emblem and wordmark, while compact layouts use the standalone emblem.
-  Both home links now expose YoYui-specific accessible labels. The matching topbar
-  and landing-footer wordmarks use a coral accent for the `o`, `u`, and `i`, keeping
-  the two `Y` characters in the existing violet and teal brand colors, with larger
-  lettering for improved legibility.
-- Preserved inherited `PrimeReactProvider`, `PrimeReactConfig`, and
-  `PrimeReactPTOptions` identifiers where they describe the library's actual public
-  API; changing those labels without renaming the exports would make the API
-  reference inaccurate.
-- Refactored component examples, theme and Tailwind documentation, API tables,
-  navigation, templates, landing pages, and generated code samples to follow the
-  same static-analysis and accessibility rules as the library.
-- Simplified `build-apidoc.js` and `build-webtypes.js` while preserving generated API
-  and Web Types output behavior.
-- Added `sonar-project.properties` with source, test, coverage, encoding, memory, and
-  exclusion settings for repeatable local analysis.
-- Updated Splitter tests to cover actual panel rendering in addition to its existing
-  empty, single, vertical, and nested-panel snapshots.
-- Updated affected snapshots and test fixtures after deterministic key and semantic
-  markup changes.
-- The SonarQube remediation branch itself does not change package dependencies,
-  package scripts, public import paths, public component props, or event payload
-  contracts. The separate optimization-branch API corrections and dependency
-  updates are documented above.
-
-### Required changes for users
-
-For the SonarQube remediation changes in this section, consumers using the supported
-public component API require no code changes. Apply the optimization-branch
-migrations in the preceding section when those changes are integrated.
-
-Only apply the following changes if the condition describes your project:
-
-- If application tests select exact elements from the YoYui documentation site or
-  compare its raw HTML snapshots, update selectors and snapshots for semantic
-  button/link markup and deterministic list keys. This does not affect the public
-  component API.
-- If code deep-imports undocumented files from `components/lib/utils`, verify strict
-  assumptions about DOM attribute coercion, element equality, or conditional
-  evaluation. Prefer the documented component APIs; use the native
-  `element.getAttribute()` when a string result is specifically required.
-- If custom pass-through code supplies non-boolean values for boolean Button props
-  such as `text`, `outlined`, or `plain`, change them to real booleans. Corrected
-  Tailwind conditions now follow the documented boolean contract.
-- If the demo `CarService` is copied into a runtime without Web Crypto, provide
-  `crypto.getRandomValues` or replace the demo-only random generator. Supported
-  modern browsers and current Node.js versions already provide this API.
-- If CI runs the new local SonarQube configuration and coverage is required, run the
-  Jest coverage task before the scanner so `coverage/lcov.info` exists. Set the
-  SonarQube host URL and token in the scanner environment rather than committing
-  credentials.
+- Removed the generated `runComplexBranch*`, `handleSonarNested*`, and
+  `resolveConditional` helper layer from components, documentation, API routes, and
+  metadata generators.
+- Restored the affected high-risk components to their established control flow while
+  retaining focused fixes covered by regression tests, including immutable TreeTable
+  sorting, menu search-timer cleanup, Tooltip visibility semantics, Calendar startup
+  behavior, ContextMenu state initialization, and shared-style lifetime handling.
+- Replaced unnecessary `Array.at`, `Array.toSorted`, `Object.hasOwn`, and
+  `String.replaceAll` substitutions in distributed component code with compatible
+  equivalents. This avoids raising the browser runtime requirement without an
+  intentional compatibility decision.
+- Added deprecated compatibility aliases for corrected Knob, InputOtp,
+  DeferredContent, Chips, ContextMenu, and Tree prop spellings. Existing consumers
+  can migrate without a breaking patch-release change.
+- Limited the default SonarQube source scope to the distributed library, services,
+  and maintained API tooling. Documentation and visual baselines no longer drive
+  production-component rewrites, and SCM analysis is no longer disabled.
+- Kept YoYui branding in generated API documentation and JetBrains Web Types output.
 
 ### Verification
 
-- SonarQube: **0 unresolved issues**, reduced from the initial 2,578 findings.
-- Jest: **26 suites, 280 tests, and 145 snapshots passed**.
+- Jest: **38 suites, 309 tests, and 145 snapshots passed**.
 - ESLint: passed with zero warnings.
 - TypeScript: passed.
 - Prettier verification: passed.

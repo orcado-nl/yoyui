@@ -95,6 +95,10 @@ export interface InputOtpProps extends Omit<React.DetailedHTMLProps<React.InputH
      */
     readOnly?: boolean | undefined;
     /**
+     * @deprecated Use `readOnly` instead.
+     */
+    readonly?: boolean | undefined;
+    /**
      * Specifies the input variant of the component.
      * @defaultValue outlined
      */

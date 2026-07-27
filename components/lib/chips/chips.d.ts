@@ -216,6 +216,10 @@ export interface ChipsProps extends Omit<React.DetailedHTMLProps<React.InputHTML
      */
     ariaLabelledBy?: string | undefined;
     /**
+     * @deprecated Use `ariaLabelledBy` instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Separator char to add an item when pressed in addition to the enter key.
      */
     separator?: string | undefined;

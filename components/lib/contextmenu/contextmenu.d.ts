@@ -152,6 +152,10 @@ export interface ContextMenuProps extends Omit<React.DetailedHTMLProps<React.HTM
      */
     ariaLabelledBy?: string | undefined;
     /**
+     * @deprecated Use `ariaLabelledBy` instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Base zIndex value to use in layering.
      * @defaultValue 0
      */

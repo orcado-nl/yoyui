@@ -593,6 +593,10 @@ export interface TreeProps {
      */
     ariaLabelledBy?: string | undefined;
     /**
+     * @deprecated Use `ariaLabelledBy` instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Template of toggler element.
      */
     togglerTemplate?: React.ReactNode | ((node: TreeNode, options: TreeTogglerTemplateOptions) => React.ReactNode);

@@ -1,4 +1,3 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -13,9 +12,13 @@ export const SelectButton = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = SelectButtonBase.getProps(inProps, context);
+
         const [focusedIndex, setFocusedIndex] = React.useState(0);
         const elementRef = React.useRef(null);
-        const { ptm, cx, isUnstyled } = SelectButtonBase.setMetaData({ props });
+
+        const { ptm, cx, isUnstyled } = SelectButtonBase.setMetaData({
+            props
+        });
 
         useHandleStyle(SelectButtonBase.css.styles, isUnstyled, { name: 'selectbutton', styled: true });
 
@@ -51,29 +54,21 @@ export const SelectButton = React.memo(
                     preventDefault: () => {
                         event.originalEvent.preventDefault();
                     },
-                    target: { name: props.name, id: props.id, value: newValue }
+                    target: {
+                        name: props.name,
+                        id: props.id,
+                        value: newValue
+                    }
                 });
             }
         };
 
         const getOptionLabel = (option) => {
-            return props.optionLabel
-                ? ObjectUtils.resolveFieldData(option, props.optionLabel)
-                : resolveConditional(
-                      option?.label !== undefined,
-                      () => option.label,
-                      () => option
-                  );
+            return props.optionLabel ? ObjectUtils.resolveFieldData(option, props.optionLabel) : option && option.label !== undefined ? option.label : option;
         };
 
         const getOptionValue = (option) => {
-            return props.optionValue
-                ? ObjectUtils.resolveFieldData(option, props.optionValue)
-                : resolveConditional(
-                      option?.value !== undefined,
-                      () => option.value,
-                      () => option
-                  );
+            return props.optionValue ? ObjectUtils.resolveFieldData(option, props.optionValue) : option && option.value !== undefined ? option.value : option;
         };
 
         const isOptionDisabled = (option) => {
@@ -81,14 +76,14 @@ export const SelectButton = React.memo(
                 return ObjectUtils.isFunction(props.optionDisabled) ? props.optionDisabled(option) : ObjectUtils.resolveFieldData(option, props.optionDisabled);
             }
 
-            return option?.disabled !== undefined ? option.disabled : false;
+            return option && option.disabled !== undefined ? option.disabled : false;
         };
 
         const isSelected = (option) => {
             let optionValue = getOptionValue(option);
 
             if (props.multiple) {
-                if (props.value?.length) {
+                if (props.value && props.value.length) {
                     return props.value.some((val) => ObjectUtils.equals(val, optionValue, props.dataKey));
                 }
             } else {
@@ -99,7 +94,7 @@ export const SelectButton = React.memo(
         };
 
         const createItems = () => {
-            if (props.options?.length) {
+            if (props.options && props.options.length) {
                 return props.options.map((option, index) => {
                     const isDisabled = props.disabled || isOptionDisabled(option);
                     const optionLabel = getOptionLabel(option);

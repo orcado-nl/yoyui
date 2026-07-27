@@ -1,4 +1,3 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -22,13 +21,7 @@ export const ToggleButton = React.memo(
 
         const hasLabel = props.onLabel && props.onLabel.length > 0 && props.offLabel && props.offLabel.length > 0;
         const hasIcon = props.onIcon && props.offIcon;
-        const label = hasLabel
-            ? resolveConditional(
-                  props.checked,
-                  () => props.onLabel,
-                  () => props.offLabel
-              )
-            : '\u00A0';
+        const label = hasLabel ? (props.checked ? props.onLabel : props.offLabel) : '\u00A0';
         const icon = props.checked ? props.onIcon : props.offIcon;
 
         const toggle = (e) => {

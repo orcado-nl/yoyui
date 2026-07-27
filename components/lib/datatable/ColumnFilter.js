@@ -1,6 +1,5 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import { FilterMatchMode, FilterOperator, PrimeReactContext, localeOption, PrimeReactConfig } from '../api/Api';
+import PrimeReact, { FilterMatchMode, FilterOperator, PrimeReactContext, localeOption } from '../api/Api';
 import { ariaLabel } from '../api/Locale';
 import { Button } from '../button/Button';
 import { ColumnBase } from '../column/ColumnBase';
@@ -33,14 +32,24 @@ export const ColumnFilter = React.memo((props) => {
 
     const getColumnPTOptions = (key, params) => {
         const cProps = getColumnProps();
-        const columnMetadata = { props: cProps, parent: props.metaData, hostName: props.hostName, state: { overlayVisible: overlayVisibleState }, ...params };
+
+        const columnMetadata = {
+            props: cProps,
+            parent: props.metaData,
+            hostName: props.hostName,
+            state: {
+                overlayVisible: overlayVisibleState
+            },
+            ...params
+        };
 
         return mergeProps(ptm(`column.${key}`, { column: columnMetadata }), ptm(`column.${key}`, columnMetadata), ptmo(cProps, key, columnMetadata));
     };
 
     const field = getColumnProp('filterField') || getColumnProp('field');
     const filterModel = props.filters[field];
-    const filterStoreModel = props.filtersStore?.[field];
+    const filterStoreModel = props.filtersStore && props.filtersStore[field];
+
     const [bindOverlayListener, unbindOverlayListener] = useOverlayListener({
         target: iconRef,
         overlay: overlayRef,
@@ -55,7 +64,7 @@ export const ColumnFilter = React.memo((props) => {
                 } else if (context.hideOverlaysOnDocumentScrolling) {
                     hide();
                 } else if (!DomHandler.isDocument(event.target)) {
-                    DomHandler.alignOverlay(overlayRef.current, iconRef.current, context?.appendTo || PrimeReactConfig.appendTo, false);
+                    DomHandler.alignOverlay(overlayRef.current, iconRef.current, (context && context.appendTo) || PrimeReact.appendTo, false);
                 }
             }
         },
@@ -85,8 +94,8 @@ export const ColumnFilter = React.memo((props) => {
     const matchModes = () => {
         return (
             getColumnProp('filterMatchModeOptions') ||
-            context?.filterMatchModeOptions[findDataType()].map((key) => ({ label: localeOption(key), value: key })) ||
-            PrimeReactConfig.filterMatchModeOptions[findDataType()].map((key) => ({ label: localeOption(key), value: key }))
+            (context && context.filterMatchModeOptions[findDataType()].map((key) => ({ label: localeOption(key), value: key }))) ||
+            PrimeReact.filterMatchModeOptions[findDataType()].map((key) => ({ label: localeOption(key), value: key }))
         );
     };
 
@@ -103,7 +112,7 @@ export const ColumnFilter = React.memo((props) => {
     };
 
     const isShowOperator = () => {
-        return getColumnProp('showFilterOperator') && filterModel?.operator && getColumnProp('showFilterMenuOptions');
+        return getColumnProp('showFilterOperator') && filterModel && filterModel.operator && getColumnProp('showFilterMenuOptions');
     };
 
     const showRemoveIcon = () => {
@@ -111,7 +120,7 @@ export const ColumnFilter = React.memo((props) => {
     };
 
     const isShowAddConstraint = () => {
-        return getColumnProp('showAddButton') && filterModel?.operator && fieldConstraints() && fieldConstraints().length < getColumnProp('maxConstraints') && getColumnProp('showFilterMenuOptions');
+        return getColumnProp('showAddButton') && filterModel && filterModel.operator && fieldConstraints() && fieldConstraints().length < getColumnProp('maxConstraints') && getColumnProp('showFilterMenuOptions');
     };
 
     const isOutsideClicked = (target) => {
@@ -125,24 +134,29 @@ export const ColumnFilter = React.memo((props) => {
     const getDefaultConstraint = () => {
         if (filterStoreModel) {
             if (filterStoreModel.operator) {
-                return { matchMode: filterStoreModel.constraints[0].matchMode, operator: filterStoreModel.operator };
+                return {
+                    matchMode: filterStoreModel.constraints[0].matchMode,
+                    operator: filterStoreModel.operator
+                };
             }
 
-            return { matchMode: filterStoreModel.matchMode };
+            return {
+                matchMode: filterStoreModel.matchMode
+            };
         }
     };
 
     const findDataType = () => {
         const dataType = getColumnProp('dataType');
         const matchMode = getColumnProp('filterMatchMode');
-        const hasMatchMode = (key) => context?.filterMatchModeOptions[key].includes(matchMode) || PrimeReactConfig.filterMatchModeOptions[key].includes(matchMode);
+        const hasMatchMode = (key) => (context && context.filterMatchModeOptions[key].some((mode) => mode === matchMode)) || PrimeReact.filterMatchModeOptions[key].some((mode) => mode === matchMode);
 
         if (matchMode === 'custom' && !hasMatchMode(dataType)) {
-            context?.filterMatchModeOptions[dataType].push(FilterMatchMode.CUSTOM) || PrimeReactConfig.filterMatchModeOptions[dataType].push(FilterMatchMode.CUSTOM);
+            (context && context.filterMatchModeOptions[dataType].push(FilterMatchMode.CUSTOM)) || PrimeReact.filterMatchModeOptions[dataType].push(FilterMatchMode.CUSTOM);
 
             return dataType;
         } else if (matchMode) {
-            return Object.keys((context && context.filterMatchModeOptions) || PrimeReactConfig.filterMatchModeOptions).find((key) => hasMatchMode(key)) || dataType;
+            return Object.keys((context && context.filterMatchModeOptions) || PrimeReact.filterMatchModeOptions).find((key) => hasMatchMode(key)) || dataType;
         }
 
         return dataType;
@@ -162,7 +176,7 @@ export const ColumnFilter = React.memo((props) => {
             filters[field].matchMode = defaultConstraint ? defaultConstraint.matchMode : filters[field].matchMode;
         }
 
-        filterClearCallback?.();
+        filterClearCallback && filterClearCallback();
         props.onFilterChange(filters);
         props.onFilterApply();
         hide();
@@ -171,7 +185,7 @@ export const ColumnFilter = React.memo((props) => {
     const applyFilter = () => {
         const filterApplyClickCallback = getColumnProp('onFilterApplyClick');
 
-        filterApplyClickCallback?.({ field, constraints: filterModel });
+        filterApplyClickCallback && filterApplyClickCallback({ field, constraints: filterModel });
         props.onFilterApply();
         hide();
     };
@@ -186,11 +200,12 @@ export const ColumnFilter = React.memo((props) => {
             case 'Tab':
                 hide();
                 break;
+
             case 'ArrowDown':
                 if (overlayVisibleState) {
                     const focusable = DomHandler.getFirstFocusableElement(overlayRef.current);
 
-                    focusable?.focus();
+                    focusable && focusable.focus();
                     event.preventDefault();
                 } else if (event.altKey) {
                     setOverlayVisibleState(true);
@@ -198,6 +213,7 @@ export const ColumnFilter = React.memo((props) => {
                 }
 
                 break;
+
             default:
                 break;
         }
@@ -206,7 +222,7 @@ export const ColumnFilter = React.memo((props) => {
     const onContentKeyDown = (event) => {
         if (event.key === 'Escape') {
             hide();
-            iconRef.current?.focus();
+            iconRef.current && iconRef.current.focus();
         }
     };
 
@@ -241,7 +257,8 @@ export const ColumnFilter = React.memo((props) => {
         let filters = { ...props.filters };
 
         filters[field].matchMode = matchMode;
-        filterMatchModeChangeCallback?.({ field, matchMode });
+
+        filterMatchModeChangeCallback && filterMatchModeChangeCallback({ field, matchMode });
         props.onFilterChange(filters);
         props.onFilterApply();
         hide();
@@ -252,7 +269,7 @@ export const ColumnFilter = React.memo((props) => {
         let item = event.target;
 
         switch (event.key) {
-            case 'ArrowDown': {
+            case 'ArrowDown':
                 const nextItem = findNextItem(item);
 
                 if (nextItem) {
@@ -263,9 +280,8 @@ export const ColumnFilter = React.memo((props) => {
 
                 event.preventDefault();
                 break;
-            }
 
-            case 'ArrowUp': {
+            case 'ArrowUp':
                 const prevItem = findPrevItem(item);
 
                 if (prevItem) {
@@ -276,12 +292,13 @@ export const ColumnFilter = React.memo((props) => {
 
                 event.preventDefault();
                 break;
-            }
 
             case 'Enter':
                 clear ? clearFilter() : onRowMatchModeChange(matchMode.value);
+
                 event.preventDefault();
                 break;
+
             default:
                 break;
         }
@@ -294,7 +311,8 @@ export const ColumnFilter = React.memo((props) => {
 
         filters[field].operator = value;
         props.onFilterChange(filters);
-        filterOperationChangeCallback?.({ field, operator: value });
+
+        filterOperationChangeCallback && filterOperationChangeCallback({ field, operator: value });
 
         if (!getColumnProp('showApplyButton')) {
             props.onFilterApply();
@@ -313,7 +331,7 @@ export const ColumnFilter = React.memo((props) => {
         }
 
         props.onFilterChange(filters);
-        filterMatchModeChangeCallback?.({ field, matchMode: value, index: index });
+        filterMatchModeChangeCallback && filterMatchModeChangeCallback({ field, matchMode: value, index: index });
 
         if (!getColumnProp('showApplyButton')) {
             props.onFilterApply();
@@ -327,7 +345,7 @@ export const ColumnFilter = React.memo((props) => {
         let newConstraint = { value: null, matchMode: defaultConstraint.matchMode };
 
         filters[field].constraints.push(newConstraint);
-        filterConstraintAddCallback?.({ field, constraint: newConstraint });
+        filterConstraintAddCallback && filterConstraintAddCallback({ field, constraint: newConstraint });
         props.onFilterChange(filters);
 
         if (!getColumnProp('showApplyButton')) {
@@ -340,7 +358,7 @@ export const ColumnFilter = React.memo((props) => {
         let filters = { ...props.filters };
         let removedConstraint = filters[field].constraints.splice(index, 1);
 
-        filterConstraintRemoveCallback?.({ field, constraint: removedConstraint });
+        filterConstraintRemoveCallback && filterConstraintRemoveCallback({ field, constraint: removedConstraint });
         props.onFilterChange(filters);
 
         if (!getColumnProp('showApplyButton')) {
@@ -351,25 +369,13 @@ export const ColumnFilter = React.memo((props) => {
     const findNextItem = (item) => {
         const nextItem = item.nextElementSibling;
 
-        return nextItem
-            ? resolveConditional(
-                  DomHandler.getAttribute(nextItem, 'data-p-column-filter-separator') === true,
-                  () => findNextItem(nextItem),
-                  () => nextItem
-              )
-            : item.parentElement.firstElementChild;
+        return nextItem ? (DomHandler.getAttribute(nextItem, 'data-p-column-filter-separator') === true ? findNextItem(nextItem) : nextItem) : item.parentElement.firstElementChild;
     };
 
     const findPrevItem = (item) => {
         const prevItem = item.previousElementSibling;
 
-        return prevItem
-            ? resolveConditional(
-                  DomHandler.getAttribute(prevItem, 'data-p-column-filter-separator') === true,
-                  () => findPrevItem(prevItem),
-                  () => prevItem
-              )
-            : item.parentElement.lastElementChild;
+        return prevItem ? (DomHandler.getAttribute(prevItem, 'data-p-column-filter-separator') === true ? findPrevItem(prevItem) : prevItem) : item.parentElement.lastElementChild;
     };
 
     const hide = () => {
@@ -378,7 +384,11 @@ export const ColumnFilter = React.memo((props) => {
 
     const onContentClick = (event) => {
         selfClick.current = true;
-        OverlayService.emit('overlay-click', { originalEvent: event, target: overlayRef.current });
+
+        OverlayService.emit('overlay-click', {
+            originalEvent: event,
+            target: overlayRef.current
+        });
     };
 
     const onContentMouseDown = () => {
@@ -386,9 +396,9 @@ export const ColumnFilter = React.memo((props) => {
     };
 
     const onOverlayEnter = () => {
-        ZIndexUtils.set('overlay', overlayRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.overlay || PrimeReactConfig.zIndex.overlay);
+        ZIndexUtils.set('overlay', overlayRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.overlay) || PrimeReact.zIndex.overlay);
         DomHandler.addStyles(overlayRef.current, { position: 'absolute', top: '0', left: '0' });
-        DomHandler.alignOverlay(overlayRef.current, iconRef.current, context?.appendTo || PrimeReactConfig.appendTo, false);
+        DomHandler.alignOverlay(overlayRef.current, iconRef.current, (context && context.appendTo) || PrimeReact.appendTo, false);
 
         overlayEventListener.current = (e) => {
             if (!isOutsideClicked(e.target)) {
@@ -433,6 +443,10 @@ export const ColumnFilter = React.memo((props) => {
         ];
     };
 
+    const filterLabel = () => {
+        return localeOption('filter');
+    };
+
     const noFilterLabel = () => {
         return localeOption('noFilter');
     };
@@ -457,30 +471,28 @@ export const ColumnFilter = React.memo((props) => {
         let filters = { ...props.filters };
         let meta = filters[field];
 
-        if (props.display === 'menu' && meta?.operator) {
-            filters[field].constraints[index].value = value;
-        } else {
-            filters[field].value = value;
-        }
-
+        props.display === 'menu' && meta && meta.operator ? (filters[field].constraints[index].value = value) : (filters[field].value = value);
         props.onFilterChange(filters);
     };
 
     const filterApplyCallback = (...args) => {
         args && filterCallback(args[0], args[1]);
+
         props.onFilterApply();
     };
 
     useUpdateEffect(() => {
         if (props.display === 'menu' && overlayVisibleState) {
-            DomHandler.alignOverlay(overlayRef.current, iconRef.current, context?.appendTo || PrimeReactConfig.appendTo, false);
+            DomHandler.alignOverlay(overlayRef.current, iconRef.current, (context && context.appendTo) || PrimeReact.appendTo, false);
         }
     });
+
     useMountEffect(() => {
         if (!overlayId.current) {
             overlayId.current = UniqueComponentId();
         }
     });
+
     useUnmountEffect(() => {
         if (overlayEventListener.current) {
             OverlayService.off('overlay-click', overlayEventListener.current);
@@ -517,7 +529,12 @@ export const ColumnFilter = React.memo((props) => {
     const createRowFilterElement = () => {
         if (props.display === 'row') {
             const content = createFilterElement(filterModel, 0);
-            const filterInputProps = mergeProps({ className: cx('filterInput') }, getColumnPTOptions('filterInput'));
+            const filterInputProps = mergeProps(
+                {
+                    className: cx('filterInput')
+                },
+                getColumnPTOptions('filterInput')
+            );
 
             return <div {...filterInputProps}>{content}</div>;
         }
@@ -534,9 +551,15 @@ export const ColumnFilter = React.memo((props) => {
             return null;
         }
 
-        const filterIconProps = mergeProps({ 'aria-hidden': true }, getColumnPTOptions('filterIcon'));
+        const filterIconProps = mergeProps(
+            {
+                'aria-hidden': true
+            },
+            getColumnPTOptions('filterIcon')
+        );
         const icon = props.filterIcon || <FilterIcon {...filterIconProps} />;
         const columnFilterIcon = IconUtils.getJSXIcon(icon, { ...filterIconProps }, { props });
+
         const label = overlayVisibleState ? ariaLabel('hideFilterMenu') : ariaLabel('showFilterMenu');
         const filterMenuButtonProps = mergeProps(
             {
@@ -546,10 +569,14 @@ export const ColumnFilter = React.memo((props) => {
                 'aria-expanded': overlayVisibleState,
                 'aria-label': label,
                 'aria-controls': overlayVisibleState ? overlayId.current : undefined,
-                onClick: (e) => toggleMenu(),
+                onClick: (e) => toggleMenu(e),
                 onKeyDown: (e) => onToggleButtonKeyDown(e)
             },
-            getColumnPTOptions('filterMenuButton', { context: { active: hasFilter() } })
+            getColumnPTOptions('filterMenuButton', {
+                context: {
+                    active: hasFilter()
+                }
+            })
         );
 
         return (
@@ -565,13 +592,27 @@ export const ColumnFilter = React.memo((props) => {
             return null;
         }
 
-        const filterClearIconProps = mergeProps({ 'aria-hidden': true }, getColumnPTOptions('filterClearIcon'));
+        const filterClearIconProps = mergeProps(
+            {
+                'aria-hidden': true
+            },
+            getColumnPTOptions('filterClearIcon')
+        );
         const icon = props.filterClearIcon || <FilterSlashIcon {...filterClearIconProps} />;
         const filterClearIcon = IconUtils.getJSXIcon(icon, { ...filterClearIconProps }, { props });
         const clearLabel = clearButtonLabel();
         const headerFilterClearButtonProps = mergeProps(
-            { className: cx('headerFilterClearButton', { hasRowFilter }), type: 'button', onClick: (e) => clearFilter(), 'aria-label': clearLabel },
-            getColumnPTOptions('headerFilterClearButton', { context: { hidden: hasRowFilter() } })
+            {
+                className: cx('headerFilterClearButton', { hasRowFilter }),
+                type: 'button',
+                onClick: (e) => clearFilter(e),
+                'aria-label': clearLabel
+            },
+            getColumnPTOptions('headerFilterClearButton', {
+                context: {
+                    hidden: hasRowFilter()
+                }
+            })
         );
 
         return (
@@ -586,12 +627,29 @@ export const ColumnFilter = React.memo((props) => {
         if (isShowMatchModes()) {
             const _matchModes = matchModes();
             const _noFilterLabel = noFilterLabel();
-            const filterSeparatorProps = mergeProps({ className: cx('filterSeparator'), 'data-p-column-filter-separator': true }, getColumnPTOptions('filterSeparator'));
+            const filterSeparatorProps = mergeProps(
+                {
+                    className: cx('filterSeparator'),
+                    'data-p-column-filter-separator': true
+                },
+                getColumnPTOptions('filterSeparator')
+            );
+
             const filterRowItemProps = mergeProps(
-                { className: cx('filterRowItem', { isRowMatchModeSelected, isShowMatchModes }), onClick: (e) => clearFilter(), onKeyDown: (e) => onRowMatchModeKeyDown(e, null, true) },
+                {
+                    className: cx('filterRowItem', { isRowMatchModeSelected, isShowMatchModes }),
+                    onClick: (e) => clearFilter(e),
+                    onKeyDown: (e) => onRowMatchModeKeyDown(e, null, true)
+                },
                 getColumnPTOptions('filterRowItem')
             );
-            const filterRowItemsProps = mergeProps({ className: cx('filterRowItems') }, getColumnPTOptions('filterRowItems'));
+
+            const filterRowItemsProps = mergeProps(
+                {
+                    className: cx('filterRowItems')
+                },
+                getColumnPTOptions('filterRowItems')
+            );
 
             return (
                 <ul {...filterRowItemsProps}>
@@ -599,8 +657,17 @@ export const ColumnFilter = React.memo((props) => {
                         const { value, label } = matchMode;
                         const tabIndex = i === 0 ? 0 : null;
                         const filterRowItemProps = mergeProps(
-                            { className: cx('filterRowItem', { isRowMatchModeSelected, isShowMatchModes, value }), onClick: () => onRowMatchModeChange(value), onKeyDown: (e) => onRowMatchModeKeyDown(e, matchMode), tabIndex },
-                            getColumnPTOptions('filterRowItem', { context: { highlighted: matchMode && isRowMatchModeSelected(value) } })
+                            {
+                                className: cx('filterRowItem', { isRowMatchModeSelected, isShowMatchModes, value }),
+                                onClick: () => onRowMatchModeChange(value),
+                                onKeyDown: (e) => onRowMatchModeKeyDown(e, matchMode),
+                                tabIndex
+                            },
+                            getColumnPTOptions('filterRowItem', {
+                                context: {
+                                    highlighted: matchMode && isRowMatchModeSelected(value)
+                                }
+                            })
                         );
 
                         return (
@@ -622,7 +689,12 @@ export const ColumnFilter = React.memo((props) => {
         if (isShowOperator()) {
             const options = operatorOptions();
             const value = operator();
-            const filterOperatorProps = mergeProps({ className: cx('filterOperator') }, getColumnPTOptions('filterOperator'));
+            const filterOperatorProps = mergeProps(
+                {
+                    className: cx('filterOperator')
+                },
+                getColumnPTOptions('filterOperator')
+            );
 
             return (
                 <div {...filterOperatorProps}>
@@ -687,8 +759,19 @@ export const ColumnFilter = React.memo((props) => {
 
     const createConstraints = () => {
         const _fieldConstraints = fieldConstraints();
-        const filterConstraintsProps = mergeProps({ className: cx('filterConstraints') }, getColumnPTOptions('filterConstraints'));
-        const filterConstraintProps = mergeProps({ className: cx('filterConstraint') }, getColumnPTOptions('filterConstraint'));
+        const filterConstraintsProps = mergeProps(
+            {
+                className: cx('filterConstraints')
+            },
+            getColumnPTOptions('filterConstraints')
+        );
+
+        const filterConstraintProps = mergeProps(
+            {
+                className: cx('filterConstraint')
+            },
+            getColumnPTOptions('filterConstraint')
+        );
 
         return (
             <div {...filterConstraintsProps}>
@@ -699,20 +782,7 @@ export const ColumnFilter = React.memo((props) => {
                     const filterRemoveProps = mergeProps(getColumnPTOptions('filterRemove'));
 
                     return (
-                        <div
-                            {...filterConstraintProps}
-                            key={
-                                fieldConstraint?.id ??
-                                fieldConstraint?.key ??
-                                fieldConstraint?.name ??
-                                fieldConstraint?.label ??
-                                fieldConstraint?.value ??
-                                fieldConstraint?.href ??
-                                fieldConstraint?.src ??
-                                fieldConstraint?.field ??
-                                JSON.stringify(fieldConstraint)
-                            }
-                        >
+                        <div {...filterConstraintProps} key={i}>
                             {matchModeDropdown}
                             {menuFilterElement}
                             <div {...filterRemoveProps}>{removeButton}</div>
@@ -726,7 +796,12 @@ export const ColumnFilter = React.memo((props) => {
     const createAddRule = () => {
         if (isShowAddConstraint()) {
             const addRuleLabel = addRuleButtonLabel();
-            const filterAddRuleProps = mergeProps({ className: cx('filterAddRule') }, getColumnPTOptions('filterAddRule'));
+            const filterAddRuleProps = mergeProps(
+                {
+                    className: cx('filterAddRule')
+                },
+                getColumnPTOptions('filterAddRule')
+            );
 
             return (
                 <div {...filterAddRuleProps}>
@@ -778,7 +853,12 @@ export const ColumnFilter = React.memo((props) => {
     const createButtonBar = () => {
         const clearButton = createFilterClearButton();
         const applyButton = createFilterApplyButton();
-        const filterButtonbarProps = mergeProps({ className: cx('filterButtonBar') }, getColumnPTOptions('filterButtonBar'));
+        const filterButtonbarProps = mergeProps(
+            {
+                className: cx('filterButtonBar')
+            },
+            getColumnPTOptions('filterButtonBar')
+        );
 
         return (
             <div {...filterButtonbarProps}>
@@ -815,15 +895,25 @@ export const ColumnFilter = React.memo((props) => {
                 className: cx('filterOverlay', { columnFilterProps: props, context, getColumnProp }),
                 onKeyDown: (e) => onContentKeyDown(e),
                 onClick: (e) => onContentClick(e),
-                onMouseDown: (e) => onContentMouseDown(),
+                onMouseDown: (e) => onContentMouseDown(e),
                 id: overlayId.current,
                 'aria-modal': overlayVisibleState,
                 role: 'dialog'
             },
             getColumnPTOptions('filterOverlay')
         );
+
         const transitionProps = mergeProps(
-            { classNames: cx('transition'), in: overlayVisibleState, timeout: { enter: 120, exit: 100 }, unmountOnExit: true, onEnter: onOverlayEnter, onEntered: onOverlayEntered, onExit: onOverlayExit, onExited: onOverlayExited },
+            {
+                classNames: cx('transition'),
+                in: overlayVisibleState,
+                timeout: { enter: 120, exit: 100 },
+                unmountOnExit: true,
+                onEnter: onOverlayEnter,
+                onEntered: onOverlayEntered,
+                onExit: onOverlayExit,
+                onExited: onOverlayExited
+            },
             getColumnPTOptions('transition')
         );
 
@@ -846,7 +936,12 @@ export const ColumnFilter = React.memo((props) => {
     const menuButton = createMenuButton();
     const clearButton = createClearButton();
     const overlay = createOverlay();
-    const columnFilter = mergeProps({ className: cx('columnFilter', { columnFilterProps: props }) }, getColumnPTOptions('columnFilter'));
+    const columnFilter = mergeProps(
+        {
+            className: cx('columnFilter', { columnFilterProps: props })
+        },
+        getColumnPTOptions('columnFilter')
+    );
 
     return (
         <div {...columnFilter}>
@@ -857,4 +952,5 @@ export const ColumnFilter = React.memo((props) => {
         </div>
     );
 });
+
 ColumnFilter.displayName = 'ColumnFilter';

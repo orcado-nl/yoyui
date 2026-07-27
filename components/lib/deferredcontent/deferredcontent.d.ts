@@ -60,6 +60,10 @@ export interface DeferredContentProps extends Omit<React.DetailedHTMLProps<React
      */
     onLoad?(event: React.SyntheticEvent): void;
     /**
+     * @deprecated Use `onLoad` instead.
+     */
+    onload?(event: React.SyntheticEvent): void;
+    /**
      * Used to get the child elements of the component.
      * @readonly
      */

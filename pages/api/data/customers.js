@@ -1,12 +1,11 @@
-import { resolveConditional } from '../../../components/lib/utils/ConditionalUtils';
-import path from 'node:path';
-import url from 'node:url';
+import path from 'path';
+import url from 'url';
 import { promises as fs } from 'fs-extra';
 
 function getSlice(queryObject, customers) {
     if (queryObject.first != null && queryObject.rows != null) {
-        let first = Number.parseInt(queryObject.first);
-        let rows = Number.parseInt(queryObject.rows);
+        let first = parseInt(queryObject.first);
+        let rows = parseInt(queryObject.rows);
 
         return customers.slice(first, first + rows);
     }
@@ -29,14 +28,7 @@ function sort(queryObject, customers) {
         } else if (typeof value1 === 'string' && typeof value2 === 'string') {
             result = value1.localeCompare(value2);
         } else {
-            result =
-                value1 < value2
-                    ? -1
-                    : resolveConditional(
-                          value1 > value2,
-                          () => 1,
-                          () => 0
-                      );
+            result = value1 < value2 ? -1 : value1 > value2 ? 1 : 0;
         }
 
         return queryObject.sortOrder * result;
@@ -60,6 +52,7 @@ const filters = {
 
         return stringValue.slice(0, filterValue.length) === filterValue;
     },
+
     contains: (value, filter) => {
         if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
             return true;
@@ -72,8 +65,9 @@ const filters = {
         let filterValue = removeAccents(filter.toString()).toLocaleLowerCase();
         let stringValue = removeAccents(value.toString()).toLocaleLowerCase();
 
-        return stringValue.includes(filterValue);
+        return stringValue.indexOf(filterValue) !== -1;
     },
+
     notContains: (value, filter) => {
         if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
             return true;
@@ -86,8 +80,9 @@ const filters = {
         let filterValue = removeAccents(filter.toString()).toLocaleLowerCase();
         let stringValue = removeAccents(value.toString()).toLocaleLowerCase();
 
-        return !stringValue.includes(filterValue);
+        return stringValue.indexOf(filterValue) === -1;
     },
+
     endsWith: (value, filter) => {
         if (filter === undefined || filter === null || filter.trim() === '') {
             return true;
@@ -100,8 +95,9 @@ const filters = {
         let filterValue = removeAccents(filter.toString()).toLocaleLowerCase();
         let stringValue = removeAccents(value.toString()).toLocaleLowerCase();
 
-        return stringValue.includes(filterValue, stringValue.length - filterValue.length);
+        return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
     },
+
     equals: (value, filter) => {
         if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
             return true;
@@ -117,6 +113,7 @@ const filters = {
 
         return removeAccents(value.toString()).toLocaleLowerCase() == removeAccents(filter.toString()).toLocaleLowerCase();
     },
+
     notEquals: (value, filter) => {
         if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
             return false;
@@ -132,13 +129,14 @@ const filters = {
 
         return removeAccents(value.toString()).toLocaleLowerCase() != removeAccents(filter.toString()).toLocaleLowerCase();
     },
+
     in: (value, filter) => {
         if (filter === undefined || filter === null || filter.length === 0) {
             return true;
         }
 
-        for (const _item of filter) {
-            if (equals(value, _item)) {
+        for (let i = 0; i < filter.length; i++) {
+            if (equals(value, filter[i])) {
                 return true;
             }
         }
@@ -168,12 +166,11 @@ function equals(obj1, obj2) {
         return true;
     }
 
-    const evaluateComplexCondition1 = () => obj1 && obj2 && typeof obj1 === 'object' && typeof obj2 === 'object';
-
-    if (evaluateComplexCondition1()) {
+    if (obj1 && obj2 && typeof obj1 === 'object' && typeof obj2 === 'object') {
         let i;
         let length;
         let key;
+
         let keys = Object.keys(obj1);
 
         length = keys.length;
@@ -183,7 +180,7 @@ function equals(obj1, obj2) {
         }
 
         for (i = length; i-- !== 0; ) {
-            if (!Object.hasOwn(obj2, keys[i])) {
+            if (!Object.prototype.hasOwnProperty.call(obj2, keys[i])) {
                 return false;
             }
         }
@@ -199,33 +196,33 @@ function equals(obj1, obj2) {
         return true;
     }
 
-    return Number.isNaN(obj1) && Number.isNaN(obj2);
+    return obj1 !== obj1 && obj2 !== obj2;
 }
 
 function removeAccents(str) {
     if (str && str.search(/[\xC0-\xFF]/g) > -1) {
         str = str
-            .replaceAll(/[\xC0-\xC5]/g, 'A')
-            .replaceAll('\xC6', 'AE')
-            .replaceAll('\xC7', 'C')
-            .replaceAll(/[\xC8-\xCB]/g, 'E')
-            .replaceAll(/[\xCC-\xCF]/g, 'I')
-            .replaceAll('\xD0', 'D')
-            .replaceAll('\xD1', 'N')
-            .replaceAll(/[\xD2-\xD6\xD8]/g, 'O')
-            .replaceAll(/[\xD9-\xDC]/g, 'U')
-            .replaceAll('\xDD', 'Y')
-            .replaceAll('\xDE', 'P')
-            .replaceAll(/[\xE0-\xE5]/g, 'a')
-            .replaceAll('\xE6', 'ae')
-            .replaceAll('\xE7', 'c')
-            .replaceAll(/[\xE8-\xEB]/g, 'e')
-            .replaceAll(/[\xEC-\xEF]/g, 'i')
-            .replaceAll('\xF1', 'n')
-            .replaceAll(/[\xF2-\xF6\xF8]/g, 'o')
-            .replaceAll(/[\xF9-\xFC]/g, 'u')
-            .replaceAll('\xFE', 'p')
-            .replaceAll(/[\xFD\xFF]/g, 'y');
+            .replace(/[\xC0-\xC5]/g, 'A')
+            .replace(/[\xC6]/g, 'AE')
+            .replace(/[\xC7]/g, 'C')
+            .replace(/[\xC8-\xCB]/g, 'E')
+            .replace(/[\xCC-\xCF]/g, 'I')
+            .replace(/[\xD0]/g, 'D')
+            .replace(/[\xD1]/g, 'N')
+            .replace(/[\xD2-\xD6\xD8]/g, 'O')
+            .replace(/[\xD9-\xDC]/g, 'U')
+            .replace(/[\xDD]/g, 'Y')
+            .replace(/[\xDE]/g, 'P')
+            .replace(/[\xE0-\xE5]/g, 'a')
+            .replace(/[\xE6]/g, 'ae')
+            .replace(/[\xE7]/g, 'c')
+            .replace(/[\xE8-\xEB]/g, 'e')
+            .replace(/[\xEC-\xEF]/g, 'i')
+            .replace(/[\xF1]/g, 'n')
+            .replace(/[\xF2-\xF6\xF8]/g, 'o')
+            .replace(/[\xF9-\xFC]/g, 'u')
+            .replace(/[\xFE]/g, 'p')
+            .replace(/[\xFD\xFF]/g, 'y');
     }
 
     return str;
@@ -233,7 +230,7 @@ function removeAccents(str) {
 
 function resolveFieldData(data, field) {
     if (data && field) {
-        if (!field.includes('.')) {
+        if (field.indexOf('.') == -1) {
             return data[field];
         }
 
@@ -278,15 +275,10 @@ export default async function handler(req, res) {
             }
         }
 
-        res.status(200).json({
-            customers: getSlice(query, customers),
-            totalRecords: customers.length
-        });
+        res.status(200).json({ customers: getSlice(query, customers), totalRecords: customers.length });
     } catch (error) {
         // eslint-disable-next-line no-console
         console.error(error);
-        res.status(500).json({
-            message: 'Internal Server Error'
-        });
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 }

@@ -1,4 +1,3 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -18,16 +17,17 @@ export const Panel = React.forwardRef((inProps, ref) => {
     const [collapsedState, setCollapsedState] = React.useState(props.collapsed);
     const elementRef = React.useRef(null);
     const contentRef = React.useRef(null);
-    const collapsed = props.toggleable
-        ? resolveConditional(
-              props.onToggle,
-              () => props.collapsed,
-              () => collapsedState
-          )
-        : false;
+    const collapsed = props.toggleable ? (props.onToggle ? props.collapsed : collapsedState) : false;
     const headerId = idState + '_header';
     const contentId = idState + '_content';
-    const { ptm, cx, isUnstyled } = PanelBase.setMetaData({ props, state: { id: idState, collapsed: collapsed } });
+
+    const { ptm, cx, isUnstyled } = PanelBase.setMetaData({
+        props,
+        state: {
+            id: idState,
+            collapsed: collapsed
+        }
+    });
 
     useHandleStyle(PanelBase.css.styles, isUnstyled, { name: 'panel' });
 
@@ -40,7 +40,10 @@ export const Panel = React.forwardRef((inProps, ref) => {
 
         if (event) {
             if (props.onToggle) {
-                props.onToggle({ originalEvent: event, value: !collapsed });
+                props.onToggle({
+                    originalEvent: event,
+                    value: !collapsed
+                });
             }
 
             event.preventDefault();
@@ -63,7 +66,15 @@ export const Panel = React.forwardRef((inProps, ref) => {
         props.onCollapse && event && props.onCollapse(event);
     };
 
-    React.useImperativeHandle(ref, () => ({ props, toggle, expand, collapse, getElement: () => elementRef.current, getContent: () => contentRef.current }));
+    React.useImperativeHandle(ref, () => ({
+        props,
+        toggle,
+        expand,
+        collapse,
+        getElement: () => elementRef.current,
+        getContent: () => contentRef.current
+    }));
+
     useMountEffect(() => {
         if (!idState) {
             setIdState(UniqueComponentId());
@@ -73,8 +84,21 @@ export const Panel = React.forwardRef((inProps, ref) => {
     const createToggleIcon = () => {
         if (props.toggleable) {
             const buttonId = idState + '_label';
-            const togglerProps = mergeProps({ className: cx('toggler'), onClick: toggle, id: buttonId, 'aria-controls': contentId, 'aria-expanded': !collapsed, type: 'button', role: 'button', 'aria-label': props.header }, ptm('toggler'));
+            const togglerProps = mergeProps(
+                {
+                    className: cx('toggler'),
+                    onClick: toggle,
+                    id: buttonId,
+                    'aria-controls': contentId,
+                    'aria-expanded': !collapsed,
+                    type: 'button',
+                    role: 'button',
+                    'aria-label': props.header
+                },
+                ptm('toggler')
+            );
             const togglerIconProps = mergeProps(ptm('togglericon'));
+
             const icon = collapsed ? props.expandIcon || <PlusIcon {...togglerIconProps} /> : props.collapseIcon || <MinusIcon {...togglerIconProps} />;
             const toggleIcon = IconUtils.getJSXIcon(icon, togglerIconProps, { props, collapsed });
 
@@ -93,16 +117,35 @@ export const Panel = React.forwardRef((inProps, ref) => {
         const header = ObjectUtils.getJSXElement(props.header, props);
         const icons = ObjectUtils.getJSXElement(props.icons, props);
         const togglerElement = createToggleIcon();
-        const titleProps = mergeProps({ id: headerId, className: cx('title') }, ptm('title'));
+
+        const titleProps = mergeProps(
+            {
+                id: headerId,
+                className: cx('title')
+            },
+            ptm('title')
+        );
         const titleElement = <span {...titleProps}>{header}</span>;
-        const iconsProps = mergeProps({ className: cx('icons') }, ptm('icons'));
+
+        const iconsProps = mergeProps(
+            {
+                className: cx('icons')
+            },
+            ptm('icons')
+        );
         const iconsElement = (
             <div {...iconsProps}>
                 {icons}
                 {togglerElement}
             </div>
         );
-        const headerProps = mergeProps({ className: cx('header') }, ptm('header'));
+
+        const headerProps = mergeProps(
+            {
+                className: cx('header')
+            },
+            ptm('header')
+        );
         const content = (
             <div {...headerProps}>
                 {titleElement}
@@ -136,11 +179,22 @@ export const Panel = React.forwardRef((inProps, ref) => {
 
     const createFooter = () => {
         const footer = ObjectUtils.getJSXElement(props.footer, props);
-        const footerProps = mergeProps({ className: cx('footer') }, ptm('footer'));
+
+        const footerProps = mergeProps(
+            {
+                className: cx('footer')
+            },
+            ptm('footer')
+        );
+
         const content = <div {...footerProps}>{footer}</div>;
 
         if (props.footerTemplate) {
-            const defaultContentOptions = { className: cx('footer'), element: content, props };
+            const defaultContentOptions = {
+                className: cx('footer'),
+                element: content,
+                props
+            };
 
             return ObjectUtils.getJSXElement(props.footerTemplate, defaultContentOptions);
         } else if (props.footer) {
@@ -151,9 +205,34 @@ export const Panel = React.forwardRef((inProps, ref) => {
     };
 
     const createContent = () => {
-        const toggleableContentProps = mergeProps({ ref: contentRef, className: cx('toggleableContent'), 'aria-hidden': collapsed, role: 'region', id: contentId, 'aria-labelledby': headerId }, ptm('toggleablecontent'));
-        const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
-        const transitionProps = mergeProps({ classNames: cx('transition'), timeout: { enter: 1000, exit: 450 }, in: !collapsed, unmountOnExit: true, options: props.transitionOptions }, ptm('transition'));
+        const toggleableContentProps = mergeProps(
+            {
+                ref: contentRef,
+                className: cx('toggleableContent'),
+                'aria-hidden': collapsed,
+                role: 'region',
+                id: contentId,
+                'aria-labelledby': headerId
+            },
+            ptm('toggleablecontent')
+        );
+        const contentProps = mergeProps(
+            {
+                className: cx('content')
+            },
+            ptm('content')
+        );
+
+        const transitionProps = mergeProps(
+            {
+                classNames: cx('transition'),
+                timeout: { enter: 1000, exit: 450 },
+                in: !collapsed,
+                unmountOnExit: true,
+                options: props.transitionOptions
+            },
+            ptm('transition')
+        );
 
         return (
             <CSSTransition nodeRef={contentRef} {...transitionProps}>
@@ -164,7 +243,16 @@ export const Panel = React.forwardRef((inProps, ref) => {
         );
     };
 
-    const rootProps = mergeProps({ id: idState, ref: elementRef, style: props.style, className: classNames(props.className, cx('root')) }, PanelBase.getOtherProps(props), ptm('root'));
+    const rootProps = mergeProps(
+        {
+            id: idState,
+            ref: elementRef,
+            style: props.style,
+            className: classNames(props.className, cx('root'))
+        },
+        PanelBase.getOtherProps(props),
+        ptm('root')
+    );
     const header = createHeader();
     const content = createContent();
     const footer = createFooter();
@@ -177,4 +265,5 @@ export const Panel = React.forwardRef((inProps, ref) => {
         </div>
     );
 });
+
 Panel.displayName = 'Panel';

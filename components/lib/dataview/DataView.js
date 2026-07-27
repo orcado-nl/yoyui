@@ -1,6 +1,5 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import { localeOption, PrimeReactContext, PrimeReactConfig } from '../api/Api';
+import PrimeReact, { localeOption, PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useMergeProps } from '../hooks/Hooks';
 import { BarsIcon } from '../icons/bars';
@@ -15,10 +14,15 @@ export const DataViewLayoutOptions = React.memo((inProps) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
     const props = DataViewLayoutOptionsBase.getProps(inProps, context);
-    const { ptm, cx } = DataViewLayoutOptionsBase.setMetaData({ props });
+    const { ptm, cx } = DataViewLayoutOptionsBase.setMetaData({
+        props
+    });
 
     const changeLayout = (event, layoutMode) => {
-        props.onChange({ originalEvent: event, value: layoutMode });
+        props.onChange({
+            originalEvent: event,
+            value: layoutMode
+        });
         event.preventDefault();
     };
 
@@ -26,9 +30,33 @@ export const DataViewLayoutOptions = React.memo((inProps) => {
     const gridIconProps = mergeProps(ptm('grid'));
     const listIcon = IconUtils.getJSXIcon(props.listIcon || <BarsIcon {...listIconProps} />, { ...listIconProps }, { props });
     const gridIcon = IconUtils.getJSXIcon(props.gridIcon || <ThLargeIcon {...gridIconProps} />, { ...gridIconProps }, { props });
-    const rootProps = mergeProps({ id: props.id, style: props.style, className: classNames(props.className, cx('root')) }, DataViewLayoutOptionsBase.getOtherProps(props), ptm('root'));
-    const listButtonProps = mergeProps({ type: 'button', className: cx('listButton'), onClick: (event) => changeLayout(event, 'list') }, ptm('listButton'));
-    const gridButtonProps = mergeProps({ type: 'button', className: cx('gridButton'), onClick: (event) => changeLayout(event, 'grid') }, ptm('gridButton'));
+    const rootProps = mergeProps(
+        {
+            id: props.id,
+            style: props.style,
+            className: classNames(props.className, cx('root'))
+        },
+        DataViewLayoutOptionsBase.getOtherProps(props),
+        ptm('root')
+    );
+
+    const listButtonProps = mergeProps(
+        {
+            type: 'button',
+            className: cx('listButton'),
+            onClick: (event) => changeLayout(event, 'list')
+        },
+        ptm('listButton')
+    );
+
+    const gridButtonProps = mergeProps(
+        {
+            type: 'button',
+            className: cx('gridButton'),
+            onClick: (event) => changeLayout(event, 'grid')
+        },
+        ptm('gridButton')
+    );
 
     return (
         <div {...rootProps}>
@@ -43,20 +71,29 @@ export const DataViewLayoutOptions = React.memo((inProps) => {
         </div>
     );
 });
+
 export const DataViewItem = React.memo((props) => {
     return props.template(props.item, props.layout);
 });
-const DataViewComponent = React.memo(
+
+export const DataView = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = DataViewBase.getProps(inProps, context);
         const [firstState, setFirstState] = React.useState(props.first);
         const [rowsState, setRowsState] = React.useState(props.rows);
-        const metaData = { props, state: { first: firstState, rows: rowsState } };
+        const metaData = {
+            props,
+            state: {
+                first: firstState,
+                rows: rowsState
+            }
+        };
         const { ptm, cx, isUnstyled } = DataViewBase.setMetaData(metaData);
 
         useHandleStyle(DataViewBase.css.styles, isUnstyled, { name: 'dataview' });
+
         const elementRef = React.useRef(null);
         const first = props.onPage ? props.first : firstState;
         const rows = props.onPage ? props.rows : rowsState;
@@ -66,13 +103,7 @@ const DataViewComponent = React.memo(
         };
 
         const getTotalRecords = () => {
-            return props.totalRecords
-                ? props.totalRecords
-                : resolveConditional(
-                      props.value,
-                      () => props.value.length,
-                      () => 0
-                  );
+            return props.totalRecords ? props.totalRecords : props.value ? props.value.length : 0;
         };
 
         const createPaginator = (position) => {
@@ -126,7 +157,7 @@ const DataViewComponent = React.memo(
             if (props.value) {
                 // performance optimization to prevent resolving field data in each loop
                 const lookupMap = new Map();
-                const comparator = ObjectUtils.localeComparator(context?.locale || PrimeReactConfig.locale);
+                const comparator = ObjectUtils.localeComparator((context && context.locale) || PrimeReact.locale);
                 const value = [...props.value];
 
                 for (let item of value) {
@@ -137,7 +168,7 @@ const DataViewComponent = React.memo(
                     let value1 = lookupMap.get(data1);
                     let value2 = lookupMap.get(data2);
 
-                    return ObjectUtils.sort(value1, value2, props.sortOrder, comparator, context?.nullSortOrder || PrimeReactConfig.nullSortOrder);
+                    return ObjectUtils.sort(value1, value2, props.sortOrder, comparator, (context && context.nullSortOrder) || PrimeReact.nullSortOrder);
                 });
 
                 return value;
@@ -148,10 +179,20 @@ const DataViewComponent = React.memo(
 
         const createLoader = () => {
             if (props.loading) {
-                const loadingIconProps = mergeProps({ className: cx('loadingIcon') }, ptm('loadingIcon'));
+                const loadingIconProps = mergeProps(
+                    {
+                        className: cx('loadingIcon')
+                    },
+                    ptm('loadingIcon')
+                );
                 const icon = props.loadingIcon || <SpinnerIcon {...loadingIconProps} spin />;
                 const loadingIcon = IconUtils.getJSXIcon(icon, { ...loadingIconProps }, { props });
-                const loadingOverlayProps = mergeProps({ className: cx('loadingOverlay') }, ptm('loadingOverlay'));
+                const loadingOverlayProps = mergeProps(
+                    {
+                        className: cx('loadingOverlay')
+                    },
+                    ptm('loadingOverlay')
+                );
 
                 return <div {...loadingOverlayProps}>{loadingIcon}</div>;
             }
@@ -177,14 +218,24 @@ const DataViewComponent = React.memo(
 
         const createEmptyMessage = () => {
             const content = props.emptyMessage || localeOption('emptyMessage');
-            const emptyMessageProps = mergeProps({ className: cx('emptyMessage') }, ptm('emptyMessage'));
+            const emptyMessageProps = mergeProps(
+                {
+                    className: cx('emptyMessage')
+                },
+                ptm('emptyMessage')
+            );
 
             return <div {...emptyMessageProps}>{content}</div>;
         };
 
         const createHeader = () => {
             if (props.header) {
-                const headerProps = mergeProps({ className: cx('header') }, ptm('header'));
+                const headerProps = mergeProps(
+                    {
+                        className: cx('header')
+                    },
+                    ptm('header')
+                );
 
                 return <div {...headerProps}>{props.header}</div>;
             }
@@ -194,7 +245,12 @@ const DataViewComponent = React.memo(
 
         const createFooter = () => {
             if (props.footer) {
-                const footerProps = mergeProps({ className: cx('footer') }, ptm('footer'));
+                const footerProps = mergeProps(
+                    {
+                        className: cx('footer')
+                    },
+                    ptm('footer')
+                );
 
                 return <div {...footerProps}>{props.footer}</div>;
             }
@@ -215,7 +271,12 @@ const DataViewComponent = React.memo(
         };
 
         const createContent = (value) => {
-            const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
+            const contentProps = mergeProps(
+                {
+                    className: cx('content')
+                },
+                ptm('content')
+            );
             let content = null;
 
             if (props.listTemplate) {
@@ -228,7 +289,12 @@ const DataViewComponent = React.memo(
                 }
             } else {
                 const items = createItems(value);
-                const gridProps = mergeProps({ className: cx('grid') }, ptm('grid'));
+                const gridProps = mergeProps(
+                    {
+                        className: cx('grid')
+                    },
+                    ptm('grid')
+                );
 
                 content = <div {...gridProps}>{items}</div>;
             }
@@ -246,7 +312,11 @@ const DataViewComponent = React.memo(
             return data;
         };
 
-        React.useImperativeHandle(ref, () => ({ props, getElement: () => elementRef.current }));
+        React.useImperativeHandle(ref, () => ({
+            props,
+            getElement: () => elementRef.current
+        }));
+
         const data = processData();
         const loader = createLoader();
         const topPaginator = createTopPaginator();
@@ -282,6 +352,4 @@ DataViewLayoutOptions.displayName = 'DataViewLayoutOptions';
 
 DataViewItem.displayName = 'DataViewItem';
 
-DataViewComponent.displayName = 'DataView';
-
-export { DataViewComponent as DataView };
+DataView.displayName = 'DataView';

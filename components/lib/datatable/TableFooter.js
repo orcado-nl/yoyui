@@ -1,4 +1,3 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { ColumnBase } from '../column/ColumnBase';
 import { ColumnGroupBase } from '../columngroup/ColumnGroupBase';
@@ -19,26 +18,28 @@ export const TableFooter = React.memo((props) => {
 
     const getRowPTOptions = (row, key) => {
         const rProps = getRowProps(row);
-        const rowMetaData = { props: rProps, parent: props.metaData, hostName: props.hostName };
+        const rowMetaData = {
+            props: rProps,
+            parent: props.metaData,
+            hostName: props.hostName
+        };
 
         return mergeProps(ptm(`row.${key}`, { row: rowMetaData }), ptm(`row.${key}`, rowMetaData), ptmo(rProps, key, rowMetaData));
     };
 
     const getColumnGroupPTOptions = (key) => {
         const cGProps = getColumnGroupProps();
-        const columnGroupMetaData = { props: getColumnGroupProps(), parent: props.metaData, hostName: props.hostName };
+        const columnGroupMetaData = {
+            props: getColumnGroupProps(),
+            parent: props.metaData,
+            hostName: props.hostName
+        };
 
         return mergeProps(ptm(`columnGroup.${key}`, { columnGroup: columnGroupMetaData }), ptm(`columnGroup.${key}`, columnGroupMetaData), ptmo(cGProps, key, columnGroupMetaData));
     };
 
     const hasFooter = () => {
-        return props.footerColumnGroup
-            ? true
-            : resolveConditional(
-                  props.columns,
-                  () => props.columns.some((col) => col && getColumnProp(col, 'footer')),
-                  () => false
-              );
+        return props.footerColumnGroup ? true : props.columns ? props.columns.some((col) => col && getColumnProp(col, 'footer')) : false;
     };
 
     const getColumnProp = (column, name) => {
@@ -64,30 +65,45 @@ export const TableFooter = React.memo((props) => {
         if (props.footerColumnGroup) {
             const rows = React.Children.toArray(ColumnGroupBase.getCProp(props.footerColumnGroup, 'children'));
 
-            return (
-                <>
-                    {rows.map((row) => {
-                        const { unstyled, __TYPE, ptOptions, ...rest } = RowBase.getProps(row.props, context);
-                        const rootProps = mergeProps({ role: 'row' }, unstyled ? { unstyled, ...rest } : rest, getRowPTOptions(row, 'root'));
+            return rows.map((row, i) => {
+                const { unstyled, __TYPE, ptOptions, ...rest } = RowBase.getProps(row.props, context);
 
-                        return (
-                            <tr {...rootProps} key={row?.id ?? row?.key ?? row?.name ?? row?.label ?? row?.value ?? row?.href ?? row?.src ?? row?.field ?? JSON.stringify(row)}>
-                                {createGroupFooterCells(row)}
-                            </tr>
-                        );
-                    })}
-                </>
-            );
+                const rootProps = mergeProps(
+                    {
+                        role: 'row'
+                    },
+                    unstyled ? { unstyled, ...rest } : rest,
+                    getRowPTOptions(row, 'root')
+                );
+
+                return (
+                    <tr {...rootProps} key={i}>
+                        {createGroupFooterCells(row)}
+                    </tr>
+                );
+            });
         }
 
-        const footerRowProps = mergeProps({ role: 'row' }, ptm('footerRow', { hostName: props.hostName }));
+        const footerRowProps = mergeProps(
+            {
+                role: 'row'
+            },
+            ptm('footerRow', { hostName: props.hostName })
+        );
 
         return <tr {...footerRowProps}>{createFooterCells(props.columns)}</tr>;
     };
 
     if (hasFooter()) {
         const content = createContent();
-        const tfootProps = mergeProps({ className: cx('tfoot'), role: 'rowgroup' }, getColumnGroupPTOptions('root'), ptm('tfoot', { hostName: props.hostName }));
+        const tfootProps = mergeProps(
+            {
+                className: cx('tfoot'),
+                role: 'rowgroup'
+            },
+            getColumnGroupPTOptions('root'),
+            ptm('tfoot', { hostName: props.hostName })
+        );
 
         return <tfoot {...tfootProps}>{content}</tfoot>;
     }

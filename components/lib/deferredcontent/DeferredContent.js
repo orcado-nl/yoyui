@@ -6,7 +6,13 @@ import { DeferredContentBase } from './DeferredContentBase';
 export const DeferredContent = React.forwardRef((inProps, ref) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
-    const props = DeferredContentBase.getProps(inProps, context);
+    const props = DeferredContentBase.getProps(
+        {
+            ...inProps,
+            onLoad: inProps.onLoad ?? inProps.onload
+        },
+        context
+    );
 
     const [loadedState, setLoadedState] = React.useState(false);
     const elementRef = React.useRef(null);

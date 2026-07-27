@@ -1,6 +1,5 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import { PrimeReactContext, ariaLabel, PrimeReactConfig } from '../api/Api';
+import PrimeReact, { PrimeReactContext, ariaLabel } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useEventListener, useMergeProps, useMountEffect, useResizeListener, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { BarsIcon } from '../icons/bars';
@@ -13,6 +12,7 @@ export const Menubar = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = MenubarBase.getProps(inProps, context);
+
         const [idState, setIdState] = React.useState(props.id);
         const [mobileActiveState, setMobileActiveState] = React.useState(false);
         const [focused, setFocused] = React.useState(false);
@@ -29,9 +29,16 @@ export const Menubar = React.memo(
         const searchValue = React.useRef('');
         const searchTimeout = React.useRef(null);
         const reverseTrigger = React.useRef(false);
-        const { ptm, cx, isUnstyled } = MenubarBase.setMetaData({ props, state: { id: idState, mobileActive: mobileActiveState } });
+        const { ptm, cx, isUnstyled } = MenubarBase.setMetaData({
+            props,
+            state: {
+                id: idState,
+                mobileActive: mobileActiveState
+            }
+        });
 
         useHandleStyle(MenubarBase.css.styles, isUnstyled, { name: 'menubar' });
+
         const [bindOutsideClickListener, unbindOutsideClickListener] = useEventListener({
             type: 'click',
             listener: (event) => {
@@ -45,6 +52,7 @@ export const Menubar = React.memo(
             },
             options: { capture: true }
         });
+
         const [bindResizeListener, unbindResizeListener] = useResizeListener({
             listener: (event) => {
                 if (!DomHandler.isTouchDevice()) {
@@ -69,6 +77,7 @@ export const Menubar = React.memo(
 
         const show = () => {
             setFocusedItemInfo({ index: findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+
             DomHandler.focus(rootMenuRef.current);
         };
 
@@ -82,6 +91,7 @@ export const Menubar = React.memo(
 
             setActiveItemPath([]);
             setFocusedItemInfo({ index: -1, level: 0, parentKey: '' });
+
             isFocus && DomHandler.focus(rootMenuRef.current);
             setDirty(false);
         };
@@ -103,14 +113,17 @@ export const Menubar = React.memo(
         };
 
         const isItemDisabled = (item) => getItemProp(item, 'disabled');
+
         const isItemSeparator = (item) => getItemProp(item, 'separator');
+
         const getProccessedItemLabel = (processedItem) => (processedItem ? getItemLabel(processedItem.item) : undefined);
+
         const isProccessedItemGroup = (processedItem) => processedItem && ObjectUtils.isNotEmpty(processedItem.items);
 
         const onFocus = (event) => {
             setFocused(true);
             setFocusedItemInfo(focusedItemInfo.index !== -1 ? focusedItemInfo : { index: findFirstFocusedItemIndex(), level: 0, parentKey: '' });
-            props.onFocus?.(event);
+            props.onFocus && props.onFocus(event);
         };
 
         const onBlur = (event) => {
@@ -118,7 +131,7 @@ export const Menubar = React.memo(
             setFocusedItemInfo({ index: -1, level: 0, parentKey: '' });
             searchValue.current = '';
             setDirty(false);
-            props.onBlur?.(event);
+            props.onBlur && props.onBlur(event);
         };
 
         const onKeyDown = (event) => {
@@ -129,40 +142,51 @@ export const Menubar = React.memo(
                 case 'ArrowDown':
                     onArrowDownKey(event);
                     break;
+
                 case 'ArrowUp':
                     onArrowUpKey(event);
                     break;
+
                 case 'ArrowLeft':
                     onArrowLeftKey(event);
                     break;
+
                 case 'ArrowRight':
                     onArrowRightKey(event);
                     break;
+
                 case 'Home':
                     onHomeKey(event);
                     break;
+
                 case 'End':
                     onEndKey(event);
                     break;
+
                 case 'Space':
                     onSpaceKey(event);
                     break;
+
                 case 'Enter':
                 case 'NumpadEnter':
                     onEnterKey(event);
                     break;
+
                 case 'Escape':
                     onEscapeKey(event);
                     break;
+
                 case 'Tab':
                     onTabKey(event);
                     break;
+
                 case 'PageDown':
                 case 'PageUp':
                 case 'Backspace':
                 case 'ShiftLeft':
                 case 'ShiftRight':
                     break;
+
                 default:
                     if (!metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
                         searchItems(event, event.key);
@@ -184,8 +208,10 @@ export const Menubar = React.memo(
             const _activeItemPath = activeItemPath.filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
             grouped && _activeItemPath.push(processedItem);
+
             setFocusedItemInfo({ index, level, parentKey });
             setActiveItemPath(_activeItemPath);
+
             grouped && setDirty(true);
             isFocus && DomHandler.focus(rootMenuRef.current);
         };
@@ -269,7 +295,7 @@ export const Menubar = React.memo(
             } else {
                 const parentItem = activeItemPath.find((p) => p.key === processedItem.parentKey);
 
-                if (focusedItemInfo.index === 0 && parentItem?.parentKey === '') {
+                if (focusedItemInfo.index === 0 && parentItem && parentItem.parentKey === '') {
                     setFocusedItemInfo({ index: -1, parentKey: parentItem ? parentItem.parentKey : '' });
                     searchValue.current = '';
                     onArrowLeftKey(event);
@@ -332,10 +358,10 @@ export const Menubar = React.memo(
 
         const onEnterKey = (event) => {
             if (focusedItemInfo.index !== -1) {
-                const element = DomHandler.findSingle(rootMenuRef.current, `li[data-id="${focusedItemId}"]`);
+                const element = DomHandler.findSingle(rootMenuRef.current, `li[data-id="${`${focusedItemId}`}"]`);
                 const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
-                anchorElement ? anchorElement.click() : element?.click();
+                anchorElement ? anchorElement.click() : element && element.click();
             }
 
             event.preventDefault();
@@ -401,11 +427,21 @@ export const Menubar = React.memo(
             return visibleItems.findIndex((processedItem) => isValidSelectedItem(processedItem));
         };
 
-        const findFirstFocusedItemIndex = findSelectedItemIndex;
-        const findLastFocusedItemIndex = findSelectedItemIndex;
+        const findFirstFocusedItemIndex = () => {
+            const selectedIndex = findSelectedItemIndex();
+
+            return selectedIndex;
+        };
+
+        const findLastFocusedItemIndex = () => {
+            const selectedIndex = findSelectedItemIndex();
+
+            return selectedIndex;
+        };
 
         const searchItems = (event, char) => {
             searchValue.current = (searchValue.current || '') + char;
+
             let itemIndex = -1;
             let matched = false;
 
@@ -452,20 +488,28 @@ export const Menubar = React.memo(
             const element = DomHandler.findSingle(rootMenuRef.current, `li[data-id="${id}"]`);
 
             if (element) {
-                element.scrollIntoView?.({ block: 'nearest', inline: 'start' });
+                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
             }
         };
 
         const createProcessedItems = (items, level = 0, parent = {}, parentKey = '') => {
             const _processedItems = [];
 
-            items?.forEach((item, index) => {
-                const key = (parentKey !== '' ? parentKey + '_' : '') + index;
-                const newItem = { item, index, level, key, parent, parentKey };
+            items &&
+                items.forEach((item, index) => {
+                    const key = (parentKey !== '' ? parentKey + '_' : '') + index;
+                    const newItem = {
+                        item,
+                        index,
+                        level,
+                        key,
+                        parent,
+                        parentKey
+                    };
 
-                newItem.items = createProcessedItems(item.items, level + 1, newItem, key);
-                _processedItems.push(newItem);
-            });
+                    newItem.items = createProcessedItems(item.items, level + 1, newItem, key);
+                    _processedItems.push(newItem);
+                });
 
             return _processedItems;
         };
@@ -475,29 +519,34 @@ export const Menubar = React.memo(
                 setIdState(UniqueComponentId());
             }
         });
+
         useUpdateEffect(() => {
             if (mobileActiveState) {
                 bindOutsideClickListener();
                 bindResizeListener();
-                ZIndexUtils.set('menu', rootMenuRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.menu || PrimeReactConfig.zIndex.menu);
+                ZIndexUtils.set('menu', rootMenuRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.menu) || PrimeReact.zIndex.menu);
             } else {
                 unbindResizeListener();
                 unbindOutsideClickListener();
                 ZIndexUtils.clear(rootMenuRef.current);
             }
         }, [mobileActiveState]);
+
         React.useEffect(() => {
             const itemsToProcess = props.model || [];
             const processed = createProcessedItems(itemsToProcess, 0, null, '');
 
-            setProcessedItems(processed); // eslint-disable-next-line react-hooks/exhaustive-deps
+            setProcessedItems(processed);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.model]);
+
         useUpdateEffect(() => {
             const processedItem = activeItemPath.find((p) => p.key === focusedItemInfo.parentKey);
             const _processedItems = processedItem ? processedItem.items : processedItems;
 
             setVisibleItems(_processedItems);
         }, [activeItemPath, focusedItemInfo, processedItems]);
+
         useUpdateEffect(() => {
             if (ObjectUtils.isNotEmpty(activeItemPath)) {
                 bindOutsideClickListener();
@@ -507,42 +556,42 @@ export const Menubar = React.memo(
                 unbindResizeListener();
             }
         }, [activeItemPath]);
+
         useUpdateEffect(() => {
             if (focusTrigger) {
-                const itemIndex =
-                    focusedItemInfo.index !== -1
-                        ? findNextItemIndex(focusedItemInfo.index)
-                        : resolveConditional(
-                              reverseTrigger.current,
-                              () => findLastItemIndex(),
-                              () => findFirstItemIndex()
-                          );
+                const itemIndex = focusedItemInfo.index !== -1 ? findNextItemIndex(focusedItemInfo.index) : reverseTrigger.current ? findLastItemIndex() : findFirstItemIndex();
 
                 changeFocusedItemIndex(itemIndex);
                 reverseTrigger.current = false;
                 setFocusTrigger(false);
             }
         }, [focusTrigger]);
+
         useUpdateEffect(() => {
-            setFocusedItemId(
-                focusedItemInfo.index !== -1
-                    ? `${idState}${resolveConditional(
-                          ObjectUtils.isNotEmpty(focusedItemInfo.parentKey),
-                          () => '_' + focusedItemInfo.parentKey,
-                          () => ''
-                      )}_${focusedItemInfo.index}`
-                    : null
-            );
+            setFocusedItemId(focusedItemInfo.index !== -1 ? `${idState}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null);
         }, [focusedItemInfo]);
+
         useUnmountEffect(() => {
             ZIndexUtils.clear(rootMenuRef.current);
         });
-        React.useImperativeHandle(ref, () => ({ props, toggle, getElement: () => elementRef.current, getRootMenu: () => rootMenuRef.current, getMenuButton: () => menuButtonRef.current }));
+
+        React.useImperativeHandle(ref, () => ({
+            props,
+            toggle,
+            getElement: () => elementRef.current,
+            getRootMenu: () => rootMenuRef.current,
+            getMenuButton: () => menuButtonRef.current
+        }));
 
         const createStartContent = () => {
             if (props.start) {
                 const start = ObjectUtils.getJSXElement(props.start, props);
-                const startProps = mergeProps({ className: cx('start') }, ptm('start'));
+                const startProps = mergeProps(
+                    {
+                        className: cx('start')
+                    },
+                    ptm('start')
+                );
 
                 return <div {...startProps}>{start}</div>;
             }
@@ -553,7 +602,12 @@ export const Menubar = React.memo(
         const createEndContent = () => {
             if (props.end) {
                 const end = ObjectUtils.getJSXElement(props.end, props);
-                const endProps = mergeProps({ className: cx('end') }, ptm('end'));
+                const endProps = mergeProps(
+                    {
+                        className: cx('end')
+                    },
+                    ptm('end')
+                );
 
                 return <div {...endProps}>{end}</div>;
             }
@@ -570,7 +624,8 @@ export const Menubar = React.memo(
                 {
                     ref: menuButtonRef,
                     href: '#',
-                    'aria-haspopup': !!(mobileActiveState && props.model && props.model.length > 0),
+                    tabIndex: '0',
+                    'aria-haspopup': mobileActiveState && props.model && props.model.length > 0 ? true : false,
                     'aria-expanded': mobileActiveState,
                     'aria-label': ariaLabel('navigation'),
                     'aria-controls': idState,
@@ -585,7 +640,10 @@ export const Menubar = React.memo(
             const popupIconProps = mergeProps(ptm('popupIcon'));
             const icon = props.menuIcon || <BarsIcon {...popupIconProps} />;
             const menuIcon = IconUtils.getJSXIcon(icon, { ...popupIconProps }, { props });
-            /* eslint-disable jsx-a11y/anchor-is-valid */ const button = <a {...buttonProps}>{menuIcon}</a>; /* eslint-enable */
+
+            /* eslint-disable */
+            const button = <a {...buttonProps}>{menuIcon}</a>;
+            /* eslint-enable */
 
             return button;
         };
@@ -616,7 +674,6 @@ export const Menubar = React.memo(
                 cx={cx}
             />
         );
-
         const rootProps = mergeProps(
             {
                 id: props.id,

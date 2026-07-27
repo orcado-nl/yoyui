@@ -10,4 +10,13 @@ describe('DeferredContent', () => {
         fireEvent.load(container.firstChild);
         expect(onLoad).toHaveBeenCalledTimes(1);
     });
+
+    test('supports the legacy lowercase callback without forwarding it', () => {
+        const onload = jest.fn();
+        const { container } = render(<DeferredContent onload={onload}>Loaded</DeferredContent>);
+
+        expect(onload).toHaveBeenCalledTimes(1);
+        fireEvent.load(container.firstChild);
+        expect(onload).toHaveBeenCalledTimes(1);
+    });
 });

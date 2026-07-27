@@ -8,4 +8,10 @@ describe('Chips', () => {
 
         expect(screen.getByRole('listbox')).toHaveAttribute('aria-labelledby', 'chips-label');
     });
+
+    test('supports the legacy ariaLabelledby spelling', () => {
+        render(<Chips value={[]} ariaLabelledby="legacy-chips-label" onChange={() => {}} unstyled />);
+
+        expect(screen.getByRole('listbox')).toHaveAttribute('aria-labelledby', 'legacy-chips-label');
+    });
 });

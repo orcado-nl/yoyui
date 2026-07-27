@@ -1,4 +1,3 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { ariaLabel } from '../api/Api';
 import { Checkbox } from '../checkbox/Checkbox';
@@ -11,6 +10,7 @@ import { MinusIcon } from '../icons/minus';
 import { Ripple } from '../ripple/Ripple';
 import { classNames, DomHandler, IconUtils, ObjectUtils } from '../utils/Utils';
 import { TreeTableBodyCell } from './TreeTableBodyCell';
+
 export const TreeTableRow = React.memo((props) => {
     const elementRef = React.useRef(null);
     const nodeTouched = React.useRef(false);
@@ -39,17 +39,12 @@ export const TreeTableRow = React.memo((props) => {
             }
         };
 
-        return mergeProps(
-            ptm(`column.${key}`, {
-                column: columnMetadata
-            }),
-            ptm(`column.${key}`, columnMetadata),
-            ptmo(cProps, key, columnMetadata)
-        );
+        return mergeProps(ptm(`column.${key}`, { column: columnMetadata }), ptm(`column.${key}`, columnMetadata), ptmo(cProps, key, columnMetadata));
     };
 
     const getColumnCheckboxPTOptions = (column, key) => {
         const cProps = getColumnProps(column);
+
         const columnMetadata = {
             props: cProps,
             parent: props.metaData,
@@ -60,13 +55,7 @@ export const TreeTableRow = React.memo((props) => {
             }
         };
 
-        return mergeProps(
-            ptm(`column.${key}`, {
-                column: columnMetadata
-            }),
-            ptm(`column.${key}`, columnMetadata),
-            ptmo(cProps, key, columnMetadata)
-        );
+        return mergeProps(ptm(`column.${key}`, { column: columnMetadata }), ptm(`column.${key}`, columnMetadata), ptmo(cProps, key, columnMetadata));
     };
 
     const getRowPTOptions = (key) => {
@@ -85,38 +74,41 @@ export const TreeTableRow = React.memo((props) => {
         return ptm(key, rowMetadata);
     };
 
+    const isLeaf = () => {
+        return props.node.leaf === false ? false : !(props.node.children && props.node.children.length);
+    };
+
     const onTogglerClick = (event) => {
         expanded ? collapse(event) : expand(event);
+
         event.preventDefault();
         event.stopPropagation();
     };
 
     const expand = (event, navigateFocusToChild = false) => {
-        let expandedKeys = props.expandedKeys
-            ? {
-                  ...props.expandedKeys
-              }
-            : {};
+        let expandedKeys = props.expandedKeys ? { ...props.expandedKeys } : {};
 
         expandedKeys[props.node.key] = true;
+
         props.onToggle({
             originalEvent: event,
             value: expandedKeys,
             navigateFocusToChild
         });
+
         invokeToggleEvents(event, true);
     };
 
     const collapse = (event) => {
-        let expandedKeys = {
-            ...props.expandedKeys
-        };
+        let expandedKeys = { ...props.expandedKeys };
 
         delete expandedKeys[props.node.key];
+
         props.onToggle({
             originalEvent: event,
             value: expandedKeys
         });
+
         invokeToggleEvents(event, false);
     };
 
@@ -150,33 +142,21 @@ export const TreeTableRow = React.memo((props) => {
 
     const onMouseEnter = (event) => {
         if (props.onRowMouseEnter) {
-            props.onRowMouseEnter({
-                originalEvent: event,
-                node: props.node,
-                index: props.rowIndex
-            });
+            props.onRowMouseEnter({ originalEvent: event, node: props.node, index: props.rowIndex });
         }
     };
 
     const onMouseLeave = (event) => {
         if (props.onRowMouseLeave) {
-            props.onRowMouseLeave({
-                originalEvent: event,
-                node: props.node,
-                index: props.rowIndex
-            });
+            props.onRowMouseLeave({ originalEvent: event, node: props.node, index: props.rowIndex });
         }
     };
 
     const onCheckboxChange = (event) => {
         const checked = isChecked();
-        let selectionKeys = props.selectionKeys
-            ? {
-                  ...props.selectionKeys
-              }
-            : {};
+        let selectionKeys = props.selectionKeys ? { ...props.selectionKeys } : {};
 
-        const runComplexBranch1 = () => {
+        if (checked) {
             if (props.propagateSelectionDown) {
                 propagateDown(props.node, false, selectionKeys);
             } else {
@@ -197,15 +177,11 @@ export const TreeTableRow = React.memo((props) => {
                     node: props.node
                 });
             }
-        };
-
-        const runComplexBranch2 = () => {
+        } else {
             if (props.propagateSelectionDown) {
                 propagateDown(props.node, true, selectionKeys);
             } else {
-                selectionKeys[props.node.key] = {
-                    checked: true
-                };
+                selectionKeys[props.node.key] = { checked: true };
             }
 
             if (props.propagateSelectionUp && props.onPropagateUp) {
@@ -222,12 +198,6 @@ export const TreeTableRow = React.memo((props) => {
                     node: props.node
                 });
             }
-        };
-
-        if (checked) {
-            runComplexBranch1();
-        } else {
-            runComplexBranch2();
         }
 
         if (props.onSelectionChange) {
@@ -246,31 +216,23 @@ export const TreeTableRow = React.memo((props) => {
         let checkedChildCount = 0;
 
         for (let child of props.node.children) {
-            if (selectionKeys[child.key]?.checked) {
+            if (selectionKeys[child.key] && selectionKeys[child.key].checked) {
                 checkedChildCount++;
             }
         }
 
         const parentKey = props.node.key;
         const children = ObjectUtils.findChildrenByKey(props.originalOptions, parentKey);
+
         let isParentPartiallyChecked = children.some((ele) => ele.key in selectionKeys);
         let isCompletelyChecked = children.every((ele) => ele.key in selectionKeys && selectionKeys[ele.key].checked);
 
         if (isParentPartiallyChecked && !isCompletelyChecked) {
-            selectionKeys[parentKey] = {
-                checked: false,
-                partialChecked: true
-            };
+            selectionKeys[parentKey] = { checked: false, partialChecked: true };
         } else if (isCompletelyChecked) {
-            selectionKeys[parentKey] = {
-                checked: true,
-                partialChecked: false
-            };
+            selectionKeys[parentKey] = { checked: true, partialChecked: false };
         } else if (check) {
-            selectionKeys[parentKey] = {
-                checked: false,
-                partialChecked: false
-            };
+            selectionKeys[parentKey] = { checked: false, partialChecked: false };
         } else {
             delete selectionKeys[parentKey];
         }
@@ -282,17 +244,14 @@ export const TreeTableRow = React.memo((props) => {
 
     const propagateDown = (node, check, selectionKeys) => {
         if (check) {
-            selectionKeys[node.key] = {
-                checked: true,
-                partialChecked: false
-            };
+            selectionKeys[node.key] = { checked: true, partialChecked: false };
         } else {
             delete selectionKeys[node.key];
         }
 
-        if (node.children?.length) {
-            for (const _item of node.children) {
-                propagateDown(_item, check, selectionKeys);
+        if (node.children && node.children.length) {
+            for (let i = 0; i < node.children.length; i++) {
+                propagateDown(node.children[i], check, selectionKeys);
             }
         }
     };
@@ -320,32 +279,40 @@ export const TreeTableRow = React.memo((props) => {
             case 'ArrowDown':
                 onArrowDownKey(event);
                 break;
+
             case 'ArrowUp':
                 onArrowUpKey(event);
                 break;
+
             case 'ArrowLeft':
                 onArrowLeftKey(event);
                 break;
+
             case 'ArrowRight':
                 onArrowRightKey(event);
                 break;
+
             case 'Home':
                 onHomeKey(event);
                 break;
+
             case 'End':
                 onEndKey(event);
                 break;
+
             case 'Enter':
             case 'NumpadEnter':
             case 'Space':
                 if (!DomHandler.isClickable(event.target)) {
-                    onEnterKey(event);
+                    onEnterKey(event, item);
                 }
 
                 break;
+
             case 'Tab':
-                onTabKey();
+                onTabKey(event);
                 break;
+
             default:
                 break;
         }
@@ -355,6 +322,7 @@ export const TreeTableRow = React.memo((props) => {
         const nextElementSibling = event.currentTarget.nextElementSibling;
 
         nextElementSibling && focusRowChange(event.currentTarget, nextElementSibling);
+
         event.preventDefault();
     };
 
@@ -362,17 +330,20 @@ export const TreeTableRow = React.memo((props) => {
         const previousElementSibling = event.currentTarget.previousElementSibling;
 
         previousElementSibling && focusRowChange(event.currentTarget, previousElementSibling);
+
         event.preventDefault();
     };
 
     const onArrowRightKey = (event) => {
         const ishiddenIcon = DomHandler.findSingle(event.currentTarget, 'button').style.visibility === 'hidden';
+        const togglerElement = DomHandler.findSingle(elementRef.current, '[data-pc-section="rowtoggler"]');
 
         if (ishiddenIcon) {
             return;
         }
 
         !expanded && expand(event, true);
+
         event.preventDefault();
     };
 
@@ -383,6 +354,7 @@ export const TreeTableRow = React.memo((props) => {
 
         const currentTarget = event.currentTarget;
         const ishiddenIcon = DomHandler.findSingle(currentTarget, 'button').style.visibility === 'hidden';
+        const togglerElement = DomHandler.findSingle(currentTarget, '[data-pc-section="rowtoggler"]');
 
         if (expanded && !ishiddenIcon) {
             collapse(event);
@@ -399,14 +371,16 @@ export const TreeTableRow = React.memo((props) => {
         const findFirstElement = DomHandler.findSingle(event.currentTarget.parentElement, `tr[aria-level="${props.level + 1}"]`);
 
         findFirstElement && DomHandler.focus(findFirstElement);
+
         event.preventDefault();
     };
 
     const onEndKey = (event) => {
         const nodes = DomHandler.find(event.currentTarget.parentElement, `tr[aria-level="${props.level + 1}"]`);
-        const findFirstElement = nodes.at(-1);
+        const findFirstElement = nodes[nodes.length - 1];
 
         DomHandler.focus(findFirstElement);
+
         event.preventDefault();
     };
 
@@ -421,6 +395,7 @@ export const TreeTableRow = React.memo((props) => {
         }
 
         props.onRowClick(event, props.node);
+
         nodeTouched.current = false;
     };
 
@@ -433,9 +408,9 @@ export const TreeTableRow = React.memo((props) => {
         });
 
         if (hasSelectedRow) {
-            const selectedNode = rows.find((node) => DomHandler.getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-checked') === 'true');
+            const selectedNodes = rows.filter((node) => DomHandler.getAttribute(node, 'data-p-highlight') || node.getAttribute('aria-checked') === 'true');
 
-            selectedNode.tabIndex = 0;
+            selectedNodes[0].tabIndex = 0;
 
             return;
         }
@@ -488,11 +463,11 @@ export const TreeTableRow = React.memo((props) => {
     };
 
     const isChecked = () => {
-        return props.selectionKeys ? props.selectionKeys[props.node.key]?.checked : false;
+        return props.selectionKeys ? props.selectionKeys[props.node.key] && props.selectionKeys[props.node.key].checked : false;
     };
 
     const isPartialChecked = () => {
-        return props.selectionKeys ? props.selectionKeys[props.node.key]?.partialChecked : false;
+        return props.selectionKeys ? props.selectionKeys[props.node.key] && props.selectionKeys[props.node.key].partialChecked : false;
     };
 
     const createToggler = (column) => {
@@ -505,29 +480,19 @@ export const TreeTableRow = React.memo((props) => {
             getColumnPTOptions(column, 'rowTogglerIcon')
         );
         const icon = expanded ? <ChevronDownIcon {...rowTogglerIconProps} /> : <ChevronRightIcon {...rowTogglerIconProps} />;
-        const togglerIcon = IconUtils.getJSXIcon(
-            props.togglerIcon || icon,
-            {
-                ...rowTogglerIconProps
-            },
-            {
-                props
-            }
-        );
+        const togglerIcon = IconUtils.getJSXIcon(props.togglerIcon || icon, { ...rowTogglerIconProps }, { props });
         const rowTogglerProps = mergeProps(
             {
                 type: 'button',
                 className: cx('rowToggler'),
                 onClick: (e) => onTogglerClick(e),
                 tabIndex: -1,
-                style: {
-                    marginLeft: props.level * 16 + 'px',
-                    visibility: props.node.leaf === false || props.node.children?.length ? 'visible' : 'hidden'
-                },
+                style: { marginLeft: props.level * 16 + 'px', visibility: props.node.leaf === false || (props.node.children && props.node.children.length) ? 'visible' : 'hidden' },
                 'aria-label': label
             },
             getColumnPTOptions(column, 'rowToggler')
         );
+
         let content = (
             <button {...rowTogglerProps}>
                 {togglerIcon}
@@ -543,10 +508,7 @@ export const TreeTableRow = React.memo((props) => {
                 element: content,
                 props,
                 expanded,
-                buttonStyle: {
-                    marginLeft: props.level * 16 + 'px',
-                    visibility: props.node.leaf === false || props.node.children?.length ? 'visible' : 'hidden'
-                }
+                buttonStyle: { marginLeft: props.level * 16 + 'px', visibility: props.node.leaf === false || (props.node.children && props.node.children.length) ? 'visible' : 'hidden' }
             };
 
             content = ObjectUtils.getJSXElement(props.togglerTemplate, props.node, defaultContentOptions);
@@ -565,22 +527,8 @@ export const TreeTableRow = React.memo((props) => {
                 },
                 getColumnPTOptions(column, 'rowCheckbox.icon')
             );
-            const icon = checked
-                ? props.checkboxIcon || <CheckIcon {...checkboxIconProps} />
-                : resolveConditional(
-                      partialChecked,
-                      () => props.checkboxIcon || <MinusIcon />,
-                      () => null
-                  );
-            const checkIcon = IconUtils.getJSXIcon(
-                icon,
-                {},
-                {
-                    props,
-                    checked,
-                    partialChecked
-                }
-            );
+            const icon = checked ? props.checkboxIcon || <CheckIcon {...checkboxIconProps} /> : partialChecked ? props.checkboxIcon || <MinusIcon /> : null;
+            const checkIcon = IconUtils.getJSXIcon(icon, {}, { props, checked, partialChecked });
             const rowCheckboxProps = mergeProps(
                 {
                     className: cx('rowCheckbox'),
@@ -625,7 +573,7 @@ export const TreeTableRow = React.memo((props) => {
                 selectOnEdit={props.selectOnEdit}
                 selected={isSelected()}
                 node={props.node}
-                rowData={props.node?.data}
+                rowData={props.node && props.node.data}
                 rowIndex={props.rowIndex}
                 ptCallbacks={props.ptCallbacks}
                 metaData={props.metaData}
@@ -692,12 +640,7 @@ export const TreeTableRow = React.memo((props) => {
     const rowProps = mergeProps(
         {
             tabIndex: 0,
-            className: classNames(
-                cx('row', {
-                    isSelected,
-                    rowProps: props
-                })
-            ),
+            className: classNames(cx('row', { isSelected, rowProps: props })),
             'aria-expanded': expanded,
             'aria-level': props.level + 1,
             'aria-posinset': props.ariaPosInSet,
@@ -706,7 +649,7 @@ export const TreeTableRow = React.memo((props) => {
             'aria-selected': isSelected(),
             style: props.node.style,
             onClick: (e) => onClick(e),
-            onTouchEnd: (e) => onTouchEnd(),
+            onTouchEnd: (e) => onTouchEnd(e),
             onContextMenu: (e) => onRightClick(e),
             onKeyDown: (e) => onKeyDown(e),
             onMouseEnter: (e) => onMouseEnter(e),
@@ -728,4 +671,5 @@ export const TreeTableRow = React.memo((props) => {
         </>
     );
 });
+
 TreeTableRow.displayName = 'TreeTableRow';

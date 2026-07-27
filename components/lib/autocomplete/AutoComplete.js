@@ -1,6 +1,5 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
-import { PrimeReactContext, localeOption, PrimeReactConfig } from '../api/Api';
+import PrimeReact, { PrimeReactContext, localeOption } from '../api/Api';
 import { Button } from '../button/Button';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useMergeProps, useMountEffect, useOverlayListener, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
@@ -13,6 +12,7 @@ import { Tooltip } from '../tooltip/Tooltip';
 import { DomHandler, IconUtils, ObjectUtils, UniqueComponentId, ZIndexUtils, classNames } from '../utils/Utils';
 import { AutoCompleteBase } from './AutoCompleteBase';
 import { AutoCompletePanel } from './AutoCompletePanel';
+
 export const AutoComplete = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
@@ -22,6 +22,7 @@ export const AutoComplete = React.memo(
         const [searchingState, setSearchingState] = React.useState(false);
         const [focusedState, setFocusedState] = React.useState(false);
         const [overlayVisibleState, setOverlayVisibleState] = React.useState(false);
+
         const metaData = {
             props,
             state: {
@@ -31,11 +32,10 @@ export const AutoComplete = React.memo(
                 overlayVisible: overlayVisibleState
             }
         };
+
         const { ptm, cx, sx, isUnstyled } = AutoCompleteBase.setMetaData(metaData);
 
-        useHandleStyle(AutoCompleteBase.css.styles, isUnstyled, {
-            name: 'autocomplete'
-        });
+        useHandleStyle(AutoCompleteBase.css.styles, isUnstyled, { name: 'autocomplete' });
         const elementRef = React.useRef(null);
         const overlayRef = React.useRef(null);
         const inputRef = React.useRef(props.inputRef);
@@ -80,7 +80,7 @@ export const AutoComplete = React.memo(
 
             if (ObjectUtils.isEmpty(query)) {
                 hide();
-                props.onClear?.(event);
+                props.onClear && props.onClear(event);
             } else if (query.length >= props.minLength) {
                 timeout.current = setTimeout(() => {
                     search(event, query, 'input');
@@ -94,8 +94,9 @@ export const AutoComplete = React.memo(
             //allow empty string but not undefined or null
             if (query === undefined || query === null) {
                 return;
-            } //do not search blank values on input change
+            }
 
+            //do not search blank values on input change
             if (source === 'input' && query.trim().length === 0) {
                 return;
             }
@@ -111,8 +112,9 @@ export const AutoComplete = React.memo(
 
         const selectItem = (event, option, preventInputFocus) => {
             if (props.multiple) {
-                inputRef.current.value = ''; // allows empty value/selectionlimit and within sectionlimit
+                inputRef.current.value = '';
 
+                // allows empty value/selectionlimit and within sectionlimit
                 if (!isSelected(option) && isAllowMoreValues()) {
                     const newValue = props.value ? [...props.value, option] : [option];
 
@@ -160,6 +162,7 @@ export const AutoComplete = React.memo(
 
         const formatValue = (value) => {
             if (ObjectUtils.isEmpty(value)) return '';
+
             if (typeof value === 'string') return value;
 
             if (props.selectedItemTemplate) {
@@ -189,17 +192,13 @@ export const AutoComplete = React.memo(
         };
 
         const onOverlayEnter = () => {
-            ZIndexUtils.set('overlay', overlayRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.overlay || PrimeReactConfig.zIndex.overlay);
-            DomHandler.addStyles(overlayRef.current, {
-                position: 'absolute',
-                top: '0',
-                left: '0'
-            });
+            ZIndexUtils.set('overlay', overlayRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.overlay) || PrimeReact.zIndex.overlay);
+            DomHandler.addStyles(overlayRef.current, { position: 'absolute', top: '0', left: '0' });
             alignOverlay();
         };
 
         const onOverlayEntering = () => {
-            if (props.autoHighlight && props.suggestions?.length) {
+            if (props.autoHighlight && props.suggestions && props.suggestions.length) {
                 autoHighlightFirstOption();
             }
         };
@@ -209,13 +208,13 @@ export const AutoComplete = React.memo(
 
             if (element) {
                 !isUnstyled() && DomHandler.addClass(element, 'p-highlight');
-                element.dataset.pHighlight = true;
+                element.setAttribute('data-p-highlight', true);
             }
         };
 
         const onOverlayEntered = () => {
             bindOverlayListener();
-            props.onShow?.();
+            props.onShow && props.onShow();
         };
 
         const onOverlayExit = () => {
@@ -224,13 +223,14 @@ export const AutoComplete = React.memo(
 
         const onOverlayExited = () => {
             ZIndexUtils.clear(overlayRef.current);
-            props.onHide?.();
+
+            props.onHide && props.onHide();
         };
 
         const alignOverlay = () => {
             const target = props.multiple ? multiContainerRef.current : inputRef.current;
 
-            DomHandler.alignOverlay(overlayRef.current, target, props.appendTo || context?.appendTo || PrimeReactConfig.appendTo);
+            DomHandler.alignOverlay(overlayRef.current, target, props.appendTo || (context && context.appendTo) || PrimeReact.appendTo);
         };
 
         const onPanelClick = (event) => {
@@ -281,126 +281,106 @@ export const AutoComplete = React.memo(
             if (overlayVisibleState) {
                 let highlightItem = DomHandler.findSingle(overlayRef.current, 'li[data-p-highlight="true"]');
 
-                const handleComplexCase1 = () => {
-                    if (highlightItem) {
-                        let nextElement = findNextItem(highlightItem);
-
-                        const runComplexBranch1 = () => {
-                            !isUnstyled() && DomHandler.addClass(nextElement, 'p-highlight');
-                            nextElement.dataset.pHighlight = true;
-                            !isUnstyled() && DomHandler.removeClass(highlightItem, 'p-highlight');
-                            highlightItem.dataset.pHighlight = false;
-                            DomHandler.scrollInView(getScrollableElement(), nextElement);
-                        };
-
-                        if (nextElement) {
-                            runComplexBranch1();
-                        }
-                    } else {
-                        highlightItem = DomHandler.findSingle(overlayRef.current, 'li');
-
-                        if (DomHandler.getAttribute(highlightItem, 'data-pc-section') === 'itemgroup') {
-                            highlightItem = findNextItem(highlightItem);
-                        }
-
-                        const runComplexBranch2 = () => {
-                            !isUnstyled() && DomHandler.addClass(highlightItem, 'p-highlight');
-                            highlightItem.dataset.pHighlight = true;
-                        };
-
-                        if (highlightItem) {
-                            runComplexBranch2();
-                        }
-                    }
-
-                    event.preventDefault();
-                };
-
-                const handleComplexCase2 = () => {
-                    if (highlightItem) {
-                        let previousElement = findPrevItem(highlightItem);
-
-                        const runComplexBranch3 = () => {
-                            !isUnstyled() && DomHandler.addClass(previousElement, 'p-highlight');
-                            previousElement.dataset.pHighlight = true;
-                            !isUnstyled() && DomHandler.removeClass(highlightItem, 'p-highlight');
-                            highlightItem.dataset.pHighlight = false;
-                            DomHandler.scrollInView(getScrollableElement(), previousElement);
-                        };
-
-                        if (previousElement) {
-                            runComplexBranch3();
-                        }
-                    }
-
-                    event.preventDefault();
-                };
-
-                const handleComplexCase3 = () => {
-                    if (highlightItem) {
-                        selectHighlightItem(event, highlightItem);
-                        hide();
-                        event.preventDefault();
-                    }
-                };
-
-                const handleComplexCase4 = () => {
-                    if (highlightItem) {
-                        selectHighlightItem(event, highlightItem);
-                    }
-
-                    hide();
-                };
-
-                switch (
-                    event.which //down
-                ) {
+                switch (event.which) {
+                    //down
                     case 40:
-                        handleComplexCase1();
+                        if (highlightItem) {
+                            let nextElement = findNextItem(highlightItem);
+
+                            if (nextElement) {
+                                !isUnstyled() && DomHandler.addClass(nextElement, 'p-highlight');
+                                nextElement.setAttribute('data-p-highlight', true);
+                                !isUnstyled() && DomHandler.removeClass(highlightItem, 'p-highlight');
+                                highlightItem.setAttribute('data-p-highlight', false);
+                                DomHandler.scrollInView(getScrollableElement(), nextElement);
+                            }
+                        } else {
+                            highlightItem = DomHandler.findSingle(overlayRef.current, 'li');
+
+                            if (DomHandler.getAttribute(highlightItem, 'data-pc-section') === 'itemgroup') {
+                                highlightItem = findNextItem(highlightItem);
+                            }
+
+                            if (highlightItem) {
+                                !isUnstyled() && DomHandler.addClass(highlightItem, 'p-highlight');
+                                highlightItem.setAttribute('data-p-highlight', true);
+                            }
+                        }
+
+                        event.preventDefault();
                         break;
+
                     //up
                     case 38:
-                        handleComplexCase2();
+                        if (highlightItem) {
+                            let previousElement = findPrevItem(highlightItem);
+
+                            if (previousElement) {
+                                !isUnstyled() && DomHandler.addClass(previousElement, 'p-highlight');
+                                previousElement.setAttribute('data-p-highlight', true);
+                                !isUnstyled() && DomHandler.removeClass(highlightItem, 'p-highlight');
+                                highlightItem.setAttribute('data-p-highlight', false);
+                                DomHandler.scrollInView(getScrollableElement(), previousElement);
+                            }
+                        }
+
+                        event.preventDefault();
                         break;
+
                     //enter
                     case 13:
-                        handleComplexCase3();
+                        if (highlightItem) {
+                            selectHighlightItem(event, highlightItem);
+                            hide();
+                            event.preventDefault();
+                        }
+
                         break;
+
                     //escape
                     case 27:
                         hide();
                         event.preventDefault();
                         break;
+
                     //tab
                     case 9:
-                        handleComplexCase4();
+                        if (highlightItem) {
+                            selectHighlightItem(event, highlightItem);
+                        }
+
+                        hide();
                         break;
+
                     default:
                         break;
                 }
             }
 
-            const runComplexBranch4 = () => {
-                const removedValue = props.value[props.value.length - 1];
-                const newValue = props.value.slice(0, -1);
+            if (props.multiple) {
+                switch (event.which) {
+                    //backspace
+                    case 8:
+                        if (props.value && props.value.length && !inputRef.current.value) {
+                            const removedValue = props.value[props.value.length - 1];
+                            const newValue = props.value.slice(0, -1);
 
-                updateModel(event, newValue);
+                            updateModel(event, newValue);
 
-                if (props.onUnselect) {
-                    props.onUnselect({
-                        originalEvent: event,
-                        value: removedValue
-                    });
+                            if (props.onUnselect) {
+                                props.onUnselect({
+                                    originalEvent: event,
+                                    value: removedValue
+                                });
+                            }
+                        }
+
+                        break;
+
+                    default:
+                        break;
                 }
-            };
-
-            const evaluateComplexCondition1 = () => props.multiple && event.which === 8 && props.value?.length && !inputRef.current.value;
-
-            if (evaluateComplexCondition1()) {
-                runComplexBranch4();
             }
-
-            props.onKeyPress?.(event);
         };
 
         const selectHighlightItem = (event, item) => {
@@ -416,30 +396,18 @@ export const AutoComplete = React.memo(
         const findNextItem = (item) => {
             const nextItem = item.nextElementSibling;
 
-            return nextItem
-                ? resolveConditional(
-                      DomHandler.getAttribute(nextItem, 'data-pc-section') === 'itemgroup',
-                      () => findNextItem(nextItem),
-                      () => nextItem
-                  )
-                : null;
+            return nextItem ? (DomHandler.getAttribute(nextItem, 'data-pc-section') === 'itemgroup' ? findNextItem(nextItem) : nextItem) : null;
         };
 
         const findPrevItem = (item) => {
             let prevItem = item.previousElementSibling;
 
-            return prevItem
-                ? resolveConditional(
-                      DomHandler.getAttribute(prevItem, 'data-pc-section') === 'itemgroup',
-                      () => findPrevItem(prevItem),
-                      () => prevItem
-                  )
-                : null;
+            return prevItem ? (DomHandler.getAttribute(prevItem, 'data-pc-section') === 'itemgroup' ? findPrevItem(prevItem) : prevItem) : null;
         };
 
         const onInputFocus = (event) => {
             setFocusedState(true);
-            props.onFocus?.(event);
+            props.onFocus && props.onFocus(event);
         };
 
         const forceItemSelection = (event) => {
@@ -453,6 +421,7 @@ export const AutoComplete = React.memo(
             const allItems = (props.suggestions || []).flatMap((group) => {
                 return group.items ? group.items : [group];
             });
+
             const item = allItems.find((it) => {
                 const value = props.field ? ObjectUtils.resolveFieldData(it, props.field) : it;
                 const trimmedValue = value ? ObjectUtils.trim(value).toLowerCase() : '';
@@ -465,7 +434,8 @@ export const AutoComplete = React.memo(
             } else {
                 inputRef.current.value = '';
                 updateModel(event, null);
-                props.onClear?.(event);
+
+                props.onClear && props.onClear(event);
             }
         };
 
@@ -476,24 +446,25 @@ export const AutoComplete = React.memo(
                 forceItemSelection(event);
             }
 
-            props.onBlur?.(event);
+            props.onBlur && props.onBlur(event);
         };
 
         const onMultiContainerClick = (event) => {
             DomHandler.focus(inputRef.current);
-            props.onClick?.(event);
+
+            props.onClick && props.onClick(event);
         };
 
         const onMultiInputFocus = (event) => {
             onInputFocus(event);
             !isUnstyled() && DomHandler.addClass(multiContainerRef.current, 'p-focus');
-            multiContainerRef.current.dataset.pFocus = true;
+            multiContainerRef.current.setAttribute('data-p-focus', true);
         };
 
         const onMultiInputBlur = (event) => {
             onInputBlur(event);
             !isUnstyled() && DomHandler.removeClass(multiContainerRef.current, 'p-focus');
-            multiContainerRef.current.dataset.pFocus = false;
+            multiContainerRef.current.setAttribute('data-p-focus', false);
         };
 
         const isSelected = (val) => {
@@ -519,11 +490,13 @@ export const AutoComplete = React.memo(
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
         }, [inputRef, props.inputRef]);
+
         React.useEffect(() => {
             if (ObjectUtils.isNotEmpty(props.value)) {
                 selectedItem.current = props.value;
             }
         }, [props.value]);
+
         useMountEffect(() => {
             if (!idState) {
                 setIdState(UniqueComponentId());
@@ -535,17 +508,20 @@ export const AutoComplete = React.memo(
 
             alignOverlay();
         });
+
         useUpdateEffect(() => {
-            if (searchingState && props.autoHighlight && props.suggestions?.length) {
+            if (searchingState && props.autoHighlight && props.suggestions && props.suggestions.length) {
                 autoHighlightFirstOption();
             }
         }, [searchingState]);
+
         useUpdateEffect(() => {
             if (searchingState) {
                 ObjectUtils.isNotEmpty(props.suggestions) || props.showEmptyMessage ? show() : hide();
                 setSearchingState(false);
             }
         }, [props.suggestions]);
+
         useUpdateEffect(() => {
             if (inputRef.current && !props.multiple) {
                 updateInputField(props.value);
@@ -555,6 +531,7 @@ export const AutoComplete = React.memo(
                 alignOverlay();
             }
         });
+
         useUnmountEffect(() => {
             if (timeout.current) {
                 clearTimeout(timeout.current);
@@ -562,6 +539,7 @@ export const AutoComplete = React.memo(
 
             ZIndexUtils.clear(overlayRef.current);
         });
+
         React.useImperativeHandle(ref, () => ({
             props,
             search,
@@ -590,12 +568,7 @@ export const AutoComplete = React.memo(
                     aria-controls={ariaControls}
                     aria-haspopup="listbox"
                     aria-expanded={overlayVisibleState}
-                    className={classNames(
-                        props.inputClassName,
-                        cx('input', {
-                            context
-                        })
-                    )}
+                    className={classNames(props.inputClassName, cx('input', { context }))}
                     style={props.inputStyle}
                     autoComplete="off"
                     readOnly={props.readOnly}
@@ -611,15 +584,14 @@ export const AutoComplete = React.memo(
                     onMouseDown={props.onMouseDown}
                     onKeyUp={props.onKeyUp}
                     onKeyDown={onInputKeyDown}
+                    onKeyPress={props.onKeyPress}
                     onContextMenu={props.onContextMenu}
                     onClick={props.onClick}
                     onDoubleClick={props.onDblClick}
                     pt={ptm('input')}
                     unstyled={props.unstyled}
                     {...ariaProps}
-                    __parentMetadata={{
-                        parent: metaData
-                    }}
+                    __parentMetadata={{ parent: metaData }}
                 />
             );
         };
@@ -651,17 +623,7 @@ export const AutoComplete = React.memo(
                         ptm('removeTokenIcon')
                     );
                     const icon = props.removeTokenIcon || <TimesCircleIcon {...removeTokenIconProps} />;
-                    const removeTokenIcon =
-                        !props.disabled &&
-                        IconUtils.getJSXIcon(
-                            icon,
-                            {
-                                ...removeTokenIconProps
-                            },
-                            {
-                                props
-                            }
-                        );
+                    const removeTokenIcon = !props.disabled && IconUtils.getJSXIcon(icon, { ...removeTokenIconProps }, { props });
                     const tokenProps = mergeProps(
                         {
                             className: cx('token')
@@ -742,9 +704,7 @@ export const AutoComplete = React.memo(
             const containerProps = mergeProps(
                 {
                     ref: multiContainerRef,
-                    className: cx('container', {
-                        context
-                    }),
+                    className: cx('container', { context }),
                     onClick: allowMoreValues ? onMultiContainerClick : undefined,
                     onContextMenu: props.onContextMenu,
                     onMouseDown: props.onMouseDown,
@@ -776,9 +736,7 @@ export const AutoComplete = React.memo(
                         onClick={onDropdownClick}
                         aria-label={ariaLabel}
                         pt={ptm('dropdownButton')}
-                        __parentMetadata={{
-                            parent: metaData
-                        }}
+                        __parentMetadata={{ parent: metaData }}
                     />
                 );
             }
@@ -795,15 +753,7 @@ export const AutoComplete = React.memo(
                     ptm('loadingIcon')
                 );
                 const icon = props.loadingIcon || <SpinnerIcon {...loadingIconProps} spin />;
-                const loaderIcon = IconUtils.getJSXIcon(
-                    icon,
-                    {
-                        ...loadingIconProps
-                    },
-                    {
-                        props
-                    }
-                );
+                const loaderIcon = IconUtils.getJSXIcon(icon, { ...loadingIconProps }, { props });
 
                 return loaderIcon;
             }
@@ -827,12 +777,7 @@ export const AutoComplete = React.memo(
                 id: idState,
                 ref: elementRef,
                 style: props.style,
-                className: classNames(
-                    props.className,
-                    cx('root', {
-                        focusedState
-                    })
-                )
+                className: classNames(props.className, cx('root', { focusedState }))
             },
             otherProps,
             ptm('root')
@@ -872,4 +817,5 @@ export const AutoComplete = React.memo(
         );
     })
 );
+
 AutoComplete.displayName = 'AutoComplete';

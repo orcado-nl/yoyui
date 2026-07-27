@@ -1,4 +1,3 @@
-import { resolveConditional } from '../../../lib/utils/ConditionalUtils';
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { getDemoDelay } from '@/components/demo/DemoUtils';
@@ -43,18 +42,7 @@ export function LazyVirtualScrollDoc(props) {
     const loadingTemplate = (options) => {
         return (
             <div className="flex align-items-center" style={{ height: '17px', flexGrow: '1', overflow: 'hidden' }}>
-                <Skeleton
-                    width={
-                        options.cellEven
-                            ? resolveConditional(
-                                  options.field === 'year',
-                                  () => '30%',
-                                  () => '40%'
-                              )
-                            : '60%'
-                    }
-                    height="1rem"
-                />
+                <Skeleton width={options.cellEven ? (options.field === 'year' ? '30%' : '40%') : '60%'} height="1rem" />
             </div>
         );
     };

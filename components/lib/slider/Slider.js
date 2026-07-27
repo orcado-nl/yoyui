@@ -4,11 +4,13 @@ import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useEventListener, useMergeProps } from '../hooks/Hooks';
 import { DomHandler, ObjectUtils, classNames } from '../utils/Utils';
 import { SliderBase } from './SliderBase';
+
 export const Slider = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = SliderBase.getProps(inProps, context);
+
         const elementRef = React.useRef(null);
         const handleIndex = React.useRef(0);
         const sliderHandleClick = React.useRef(false);
@@ -21,29 +23,17 @@ export const Slider = React.memo(
         const value = props.range ? (props.value ?? [props.min, props.max]) : (props.value ?? props.min ?? 0);
         const horizontal = props.orientation === 'horizontal';
         const vertical = props.orientation === 'vertical';
-        const [bindDocumentMouseMoveListener, unbindDocumentMouseMoveListener] = useEventListener({
-            type: 'mousemove',
-            listener: (event) => onDrag(event)
-        });
-        const [bindDocumentMouseUpListener, unbindDocumentMouseUpListener] = useEventListener({
-            type: 'mouseup',
-            listener: (event) => onDragEnd(event)
-        });
-        const [bindDocumentTouchMoveListener, unbindDocumentTouchMoveListener] = useEventListener({
-            type: 'touchmove',
-            listener: (event) => onDrag(event)
-        });
-        const [bindDocumentTouchEndListener, unbindDocumentTouchEndListener] = useEventListener({
-            type: 'touchend',
-            listener: (event) => onDragEnd(event)
-        });
+
+        const [bindDocumentMouseMoveListener, unbindDocumentMouseMoveListener] = useEventListener({ type: 'mousemove', listener: (event) => onDrag(event) });
+        const [bindDocumentMouseUpListener, unbindDocumentMouseUpListener] = useEventListener({ type: 'mouseup', listener: (event) => onDragEnd(event) });
+        const [bindDocumentTouchMoveListener, unbindDocumentTouchMoveListener] = useEventListener({ type: 'touchmove', listener: (event) => onDrag(event) });
+        const [bindDocumentTouchEndListener, unbindDocumentTouchEndListener] = useEventListener({ type: 'touchend', listener: (event) => onDragEnd(event) });
+
         const { ptm, cx, sx, isUnstyled } = SliderBase.setMetaData({
             props
         });
 
-        useHandleStyle(SliderBase.css.styles, isUnstyled, {
-            name: 'slider'
-        });
+        useHandleStyle(SliderBase.css.styles, isUnstyled, { name: 'slider' });
 
         const spin = (event, dir) => {
             const val = props.range ? value[handleIndex.current] : value;
@@ -81,13 +71,13 @@ export const Slider = React.memo(
         const onDragEnd = (event) => {
             if (dragging.current) {
                 dragging.current = false;
+
                 const newValue = setValue(event);
 
-                props.onSlideEnd?.({
-                    originalEvent: event,
-                    value: newValue
-                });
+                props.onSlideEnd && props.onSlideEnd({ originalEvent: event, value: newValue });
+
                 touchId.current = undefined;
+
                 unbindDocumentMouseMoveListener();
                 unbindDocumentMouseUpListener();
                 unbindDocumentTouchMoveListener();
@@ -102,7 +92,7 @@ export const Slider = React.memo(
         };
 
         const onTouchStart = (event, index) => {
-            if (event.changedTouches?.[0]) {
+            if (event.changedTouches && event.changedTouches[0]) {
                 touchId.current = event.changedTouches[0].identifier;
             }
 
@@ -124,26 +114,32 @@ export const Slider = React.memo(
                 case 'ArrowUp':
                     spin(event, 1);
                     break;
+
                 case 'ArrowLeft':
                 case 'ArrowDown':
                     spin(event, -1);
                     break;
+
                 case 'PageUp':
                     spin(event, 10);
                     event.preventDefault();
                     break;
+
                 case 'PageDown':
                     spin(event, -10);
                     event.preventDefault();
                     break;
+
                 case 'Home':
                     spin(event, -value);
                     event.preventDefault();
                     break;
+
                 case 'End':
                     spin(event, props.max);
                     event.preventDefault();
                     break;
+
                 default:
                     break;
             }
@@ -158,10 +154,7 @@ export const Slider = React.memo(
                 updateDomData();
                 const value = setValue(event);
 
-                props.onSlideEnd?.({
-                    originalEvent: event,
-                    value
-                });
+                props.onSlideEnd && props.onSlideEnd({ originalEvent: event, value });
             }
 
             sliderHandleClick.current = false;
@@ -187,6 +180,7 @@ export const Slider = React.memo(
 
         const setValue = (event) => {
             let handleValue;
+
             const { pageX, pageY } = trackTouch(event);
 
             if (!pageX || !pageY) {
@@ -218,10 +212,10 @@ export const Slider = React.memo(
         };
 
         const updateValue = (event, val) => {
-            let parsedValue = Number.parseFloat(val.toFixed(10));
+            let parsedValue = parseFloat(val.toFixed(10));
             let newValue = parsedValue;
 
-            const runComplexBranch1 = () => {
+            if (props.range) {
                 if (handleIndex.current === 0) {
                     if (parsedValue < props.min) {
                         parsedValue = props.min;
@@ -243,9 +237,7 @@ export const Slider = React.memo(
                         value: newValue
                     });
                 }
-            };
-
-            const runComplexBranch3 = () => {
+            } else {
                 if (parsedValue < props.min) {
                     parsedValue = props.min;
                 } else if (parsedValue > props.max) {
@@ -260,12 +252,6 @@ export const Slider = React.memo(
                         value: newValue
                     });
                 }
-            };
-
-            if (props.range) {
-                runComplexBranch1();
-            } else {
-                runComplexBranch3();
             }
 
             return newValue;
@@ -274,25 +260,17 @@ export const Slider = React.memo(
         const createHandle = (leftValue, bottomValue, index) => {
             leftValue = ObjectUtils.isEmpty(leftValue) ? null : leftValue;
             bottomValue = ObjectUtils.isEmpty(bottomValue) ? null : bottomValue;
+
             const style = {
                 transition: dragging.current ? 'none' : null,
                 left: leftValue != null ? leftValue + '%' : null,
                 bottom: bottomValue != null ? bottomValue + '%' : null
             };
+
             const handleProps = mergeProps(
                 {
-                    className: cx('handle', {
-                        index,
-                        handleIndex
-                    }),
-                    style: {
-                        ...sx('handle', {
-                            dragging,
-                            leftValue,
-                            bottomValue
-                        }),
-                        ...style
-                    },
+                    className: cx('handle', { index, handleIndex }),
+                    style: { ...sx('handle', { dragging, leftValue, bottomValue }), ...style },
                     tabIndex: props.tabIndex,
                     role: 'slider',
                     onMouseDown: (event) => onMouseDown(event, index),
@@ -313,26 +291,18 @@ export const Slider = React.memo(
         const createRangeSlider = () => {
             const handleValueStart = ((value[0] < props.min ? props.min : value[0] - props.min) * 100) / (props.max - props.min);
             const handleValueEnd = ((value[1] > props.max ? props.max : value[1] - props.min) * 100) / (props.max - props.min);
+
             const rangeStartHandle = horizontal ? createHandle(handleValueStart, null, 0) : createHandle(null, handleValueStart, 0);
             const rangeEndHandle = horizontal ? createHandle(handleValueEnd, null, 1) : createHandle(null, handleValueEnd, 1);
             const rangeSliderWidth = handleValueEnd > handleValueStart ? handleValueEnd - handleValueStart : handleValueStart - handleValueEnd;
-            const rangeSliderPosition = Math.min(handleValueStart, handleValueEnd);
-            const rangeStyle = horizontal
-                ? {
-                      left: rangeSliderPosition + '%',
-                      width: rangeSliderWidth + '%'
-                  }
-                : {
-                      bottom: rangeSliderPosition + '%',
-                      height: rangeSliderWidth + '%'
-                  };
+            const rangeSliderPosition = handleValueEnd > handleValueStart ? handleValueStart : handleValueEnd;
+
+            const rangeStyle = horizontal ? { left: rangeSliderPosition + '%', width: rangeSliderWidth + '%' } : { bottom: rangeSliderPosition + '%', height: rangeSliderWidth + '%' };
+
             const rangeProps = mergeProps(
                 {
                     className: cx('range'),
-                    style: {
-                        ...sx('range'),
-                        ...rangeStyle
-                    }
+                    style: { ...sx('range'), ...rangeStyle }
                 },
                 ptm('range')
             );
@@ -357,21 +327,13 @@ export const Slider = React.memo(
                 handleValue = ((value - props.min) * 100) / (props.max - props.min);
             }
 
-            const rangeStyle = horizontal
-                ? {
-                      width: handleValue + '%'
-                  }
-                : {
-                      height: handleValue + '%'
-                  };
+            const rangeStyle = horizontal ? { width: handleValue + '%' } : { height: handleValue + '%' };
             const handle = horizontal ? createHandle(handleValue, null, null) : createHandle(null, handleValue, null);
+
             const rangeProps = mergeProps(
                 {
                     className: cx('range'),
-                    style: {
-                        ...sx('range'),
-                        ...rangeStyle
-                    }
+                    style: { ...sx('range'), ...rangeStyle }
                 },
                 ptm('range')
             );
@@ -388,19 +350,15 @@ export const Slider = React.memo(
             props,
             getElement: () => elementRef.current
         }));
+
         const otherProps = SliderBase.getOtherProps(props);
         const ariaProps = ObjectUtils.reduceKeys(otherProps, DomHandler.ARIA_PROPS);
+
         const content = props.range ? createRangeSlider() : createSingleSlider();
         const rootProps = mergeProps(
             {
                 style: props.style,
-                className: classNames(
-                    props.className,
-                    cx('root', {
-                        vertical,
-                        horizontal
-                    })
-                ),
+                className: classNames(props.className, cx('root', { vertical, horizontal })),
                 onClick: onBarClick
             },
             SliderBase.getOtherProps(props),
@@ -414,4 +372,5 @@ export const Slider = React.memo(
         );
     })
 );
+
 Slider.displayName = 'Slider';

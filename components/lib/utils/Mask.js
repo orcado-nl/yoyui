@@ -13,10 +13,7 @@ export function mask(el, options) {
         onBlur: null
     };
 
-    options = {
-        ...defaultOptions,
-        ...options
-    };
+    options = { ...defaultOptions, ...options };
     let tests;
     let partialPosition;
     let len;
@@ -56,16 +53,13 @@ export function mask(el, options) {
             if (el.setSelectionRange) {
                 begin = el.selectionStart;
                 end = el.selectionEnd;
-            } else if (document.selection?.createRange) {
+            } else if (document.selection && document.selection.createRange) {
                 range = document.selection.createRange();
                 begin = 0 - range.duplicate().moveStart('character', -100000);
                 end = begin + range.text.length;
             }
 
-            return {
-                begin: begin,
-                end: end
-            };
+            return { begin: begin, end: end };
         }
     };
 
@@ -88,21 +82,17 @@ export function mask(el, options) {
     };
 
     const getValue = () => {
-        return options.unmask ? getUnmaskedValue() : el?.value;
+        return options.unmask ? getUnmaskedValue() : el && el.value;
     };
 
     const seekNext = (pos) => {
-        do {
-            pos++;
-        } while (pos < len && !tests[pos]);
+        while (++pos < len && !tests[pos]) {}
 
         return pos;
     };
 
     const seekPrev = (pos) => {
-        do {
-            pos--;
-        } while (pos >= 0 && !tests[pos]);
+        while (--pos >= 0 && !tests[pos]) {}
 
         return pos;
     };
@@ -157,7 +147,7 @@ export function mask(el, options) {
         let curVal = el.value;
         let pos = caret();
 
-        const runComplexBranch1 = () => {
+        if (oldVal && oldVal.length && oldVal.length > curVal.length) {
             // a deletion or backspace happened
             checkVal(true);
 
@@ -172,9 +162,7 @@ export function mask(el, options) {
             }
 
             caret(pos.begin, pos.begin);
-        };
-
-        const runComplexBranch3 = () => {
+        } else {
             checkVal(true);
 
             while (pos.begin < len && !tests[pos.begin]) {
@@ -182,12 +170,6 @@ export function mask(el, options) {
             }
 
             caret(pos.begin, pos.begin);
-        };
-
-        if (oldVal?.length && oldVal.length > curVal.length) {
-            runComplexBranch1();
-        } else {
-            runComplexBranch3();
         }
 
         if (options.onComplete && isCompleted()) {
@@ -200,15 +182,14 @@ export function mask(el, options) {
 
     const onBlur = (e) => {
         checkVal();
-        options.onBlur?.(e);
+        options.onBlur && options.onBlur(e);
         updateModel(e);
 
         if (el.value !== focusText) {
-            el.dispatchEvent(
-                new Event('change', {
-                    bubbles: true
-                })
-            );
+            let event = document.createEvent('HTMLEvents');
+
+            event.initEvent('change', true, false);
+            el.dispatchEvent(event);
         }
     };
 
@@ -231,18 +212,14 @@ export function mask(el, options) {
             end = pos.end;
 
             if (end - begin === 0) {
-                if (k === 46) {
-                    end = seekNext(begin - 1);
-                    begin = end;
-                    end = seekNext(end);
-                } else {
-                    begin = seekPrev(begin);
-                }
+                begin = k !== 46 ? seekPrev(begin) : (end = seekNext(begin - 1));
+                end = k === 46 ? seekNext(end) : end;
             }
 
             clearBuffer(begin, end);
             shiftL(begin, end - 1);
             updateModel(e);
+
             e.preventDefault();
         } else if (k === 13) {
             // enter
@@ -280,11 +257,12 @@ export function mask(el, options) {
 
             p = seekNext(pos.begin - 1);
 
-            const runComplexBranch4 = () => {
-                c = String.fromCodePoint(k);
+            if (p < len) {
+                c = String.fromCharCode(k);
 
                 if (tests[p].test(c)) {
                     shiftR(p);
+
                     buffer[p] = c;
                     writeBuffer();
                     next = seekNext(p);
@@ -304,10 +282,6 @@ export function mask(el, options) {
                         completed = isCompleted();
                     }
                 }
-            };
-
-            if (p < len) {
-                runComplexBranch4();
             }
 
             e.preventDefault();
@@ -337,90 +311,65 @@ export function mask(el, options) {
         el.value = buffer.join('');
     };
 
-    const matchEditablePosition = (test, index, startPosition) => {
-        let position = startPosition;
-
-        buffer[index] = getPlaceholder(index);
-
-        while (position++ < test.length) {
-            const character = test.charAt(position - 1);
-
-            if (tests[index].test(character)) {
-                buffer[index] = character;
-
-                return { position, matched: true, exhausted: false };
-            }
-        }
-
-        clearBuffer(index + 1, len);
-
-        return { position, matched: false, exhausted: true };
-    };
-
-    const matchLiteralPosition = (test, index, startPosition, lastMatch) => {
-        const position = buffer[index] === test.charAt(startPosition) ? startPosition + 1 : startPosition;
-
-        return { position, lastMatch: index < partialPosition ? index : lastMatch };
-    };
-
-    const parseMaskValue = (test) => {
+    const checkVal = (allow) => {
+        //try to place characters where they belong
+        let test = el.value;
         let lastMatch = -1;
-        let position = 0;
-        let index = 0;
+        let i;
+        let c;
+        let pos;
 
-        for (; index < len; index++) {
-            if (tests[index]) {
-                const result = matchEditablePosition(test, index, position);
+        for (i = 0, pos = 0; i < len; i++) {
+            if (tests[i]) {
+                buffer[i] = getPlaceholder(i);
 
-                position = result.position;
-                lastMatch = result.matched ? index : lastMatch;
+                while (pos++ < test.length) {
+                    c = test.charAt(pos - 1);
 
-                if (result.exhausted) {
+                    if (tests[i].test(c)) {
+                        buffer[i] = c;
+                        lastMatch = i;
+                        break;
+                    }
+                }
+
+                if (pos > test.length) {
+                    clearBuffer(i + 1, len);
                     break;
                 }
             } else {
-                ({ position, lastMatch } = matchLiteralPosition(test, index, position, lastMatch));
+                if (buffer[i] === test.charAt(pos)) {
+                    pos++;
+                }
+
+                if (i < partialPosition) {
+                    lastMatch = i;
+                }
             }
         }
 
-        return { lastMatch, nextPosition: partialPosition ? index : firstNonMaskPos };
-    };
-
-    const applyCheckedValue = (allow, lastMatch) => {
         if (allow) {
             writeBuffer();
+        } else if (lastMatch + 1 < partialPosition) {
+            if (options.autoClear || buffer.join('') === defaultBuffer) {
+                // Invalid value. Remove it and replace it with the
+                // mask, which is the default behavior.
+                if (el.value) {
+                    el.value = '';
+                }
 
-            return;
-        }
-
-        if (lastMatch + 1 >= partialPosition) {
+                clearBuffer(0, len);
+            } else {
+                // Invalid value, but we opt to show the value to the
+                // user and allow them to correct their mistake.
+                writeBuffer();
+            }
+        } else {
             writeBuffer();
             el.value = el.value.substring(0, lastMatch + 1);
-
-            return;
         }
 
-        if (options.autoClear || buffer.join('') === defaultBuffer) {
-            // Invalid value. Remove it and replace it with the mask.
-            if (el.value) {
-                el.value = '';
-            }
-
-            clearBuffer(0, len);
-
-            return;
-        }
-
-        // Keep the invalid value visible so the user can correct it.
-        writeBuffer();
-    };
-
-    const checkVal = (allow) => {
-        const { lastMatch, nextPosition } = parseMaskValue(el.value);
-
-        applyCheckedValue(allow, lastMatch);
-
-        return nextPosition;
+        return partialPosition ? i : firstNonMaskPos;
     };
 
     const onFocus = (e) => {
@@ -432,7 +381,9 @@ export function mask(el, options) {
         let pos;
 
         focusText = el.value;
+
         pos = checkVal();
+
         caretTimeoutId = setTimeout(() => {
             if (el !== document.activeElement) {
                 return;
@@ -540,10 +491,14 @@ export function mask(el, options) {
             a: '[A-Za-z]',
             '*': '[A-Za-z0-9]'
         };
+
         androidChrome = DomHandler.isChrome() && DomHandler.isAndroid();
+
         let maskTokens = options.mask.split('');
 
-        for (const [i, c] of maskTokens.entries()) {
+        for (let i = 0; i < maskTokens.length; i++) {
+            let c = maskTokens[i];
+
             if (c === '?') {
                 len--;
                 partialPosition = i;
@@ -564,17 +519,15 @@ export function mask(el, options) {
 
         buffer = [];
 
-        for (const [i, c] of maskTokens.entries()) {
-            const runComplexBranch8 = () => {
+        for (let i = 0; i < maskTokens.length; i++) {
+            let c = maskTokens[i];
+
+            if (c !== '?') {
                 if (defs[c]) {
                     buffer.push(getPlaceholder(i));
                 } else {
                     buffer.push(c);
                 }
-            };
-
-            if (c !== '?') {
-                runComplexBranch8();
             }
         }
 

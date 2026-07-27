@@ -1,4 +1,3 @@
-import { resolveConditional } from '../utils/ConditionalUtils';
 import * as React from 'react';
 import { PrimeReactContext } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
@@ -16,14 +15,25 @@ export const Dock = React.memo(
         const context = React.useContext(PrimeReactContext);
         const props = DockBase.getProps(inProps, context);
         const [idState, setIdState] = React.useState(props.id);
-        const { ptm, cx, isUnstyled } = DockBase.setMetaData({ props, state: { id: idState, currentIndex: currentIndexState } });
+        const { ptm, cx, isUnstyled } = DockBase.setMetaData({
+            props,
+            state: {
+                id: idState,
+                currentIndex: currentIndexState
+            }
+        });
         const elementRef = React.useRef(null);
         const listRef = React.useRef(null);
 
         useHandleStyle(DockBase.css.styles, isUnstyled, { name: 'dock' });
 
         const getPTOptions = (key, item, index) => {
-            return ptm(key, { context: { index, item } });
+            return ptm(key, {
+                context: {
+                    index,
+                    item
+                }
+            });
         };
 
         const onListMouseLeave = () => {
@@ -45,13 +55,13 @@ export const Dock = React.memo(
         const onListFocus = (event) => {
             setFocused(true);
             changeFocusedOptionIndex(0);
-            props.onFocus?.(event);
+            props.onFocus && props.onFocus(event);
         };
 
         const onListBlur = (event) => {
             setFocused(false);
             setFocusedOptionIndex(-1);
-            props.onBlur?.(event);
+            props.onBlur && props.onBlur(event);
         };
 
         const onListKeyDown = (event) => {
@@ -63,6 +73,7 @@ export const Dock = React.memo(
 
                     event.preventDefault();
                     break;
+
                 case 'ArrowUp':
                     if (props.position === 'left' || props.position === 'right') {
                         onArrowUpKey();
@@ -70,6 +81,7 @@ export const Dock = React.memo(
 
                     event.preventDefault();
                     break;
+
                 case 'ArrowRight':
                     if (props.position === 'top' || props.position === 'bottom') {
                         onArrowDownKey();
@@ -77,6 +89,7 @@ export const Dock = React.memo(
 
                     event.preventDefault();
                     break;
+
                 case 'ArrowLeft':
                     if (props.position === 'top' || props.position === 'bottom') {
                         onArrowUpKey();
@@ -84,20 +97,24 @@ export const Dock = React.memo(
 
                     event.preventDefault();
                     break;
+
                 case 'Home':
                     onHomeKey();
                     event.preventDefault();
                     break;
+
                 case 'End':
                     onEndKey();
                     event.preventDefault();
                     break;
+
                 case 'Enter':
                 case 'NumpadEnter':
                 case 'Space':
-                    onSpaceKey();
+                    onSpaceKey(event);
                     event.preventDefault();
                     break;
+
                 default:
                     break;
             }
@@ -124,10 +141,10 @@ export const Dock = React.memo(
         };
 
         const onSpaceKey = () => {
-            const element = DomHandler.findSingle(listRef.current, `li[id="${focusedOptionIndex}"]`);
+            const element = DomHandler.findSingle(listRef.current, `li[id="${`${focusedOptionIndex}`}"]`);
             const anchorElement = element && DomHandler.findSingle(element, '[data-pc-section="action"]');
 
-            anchorElement ? anchorElement.click() : element?.click();
+            anchorElement ? anchorElement.click() : element && element.click();
         };
 
         const findNextOptionIndex = (index) => {
@@ -146,7 +163,7 @@ export const Dock = React.memo(
 
         const changeFocusedOptionIndex = (index) => {
             const menuitems = DomHandler.find(listRef.current, 'li[data-pc-section="menuitem"][data-p-disabled="false"]');
-            let order = Math.min(menuitems.length - 1, Math.max(0, index));
+            let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
             setFocusedOptionIndex(menuitems[order].getAttribute('id'));
         };
@@ -164,12 +181,26 @@ export const Dock = React.memo(
             const key = item.id || idState + '_' + index;
             const contentClassName = classNames('p-dock-action', { 'p-disabled': disabled });
             const iconClassName = classNames('p-dock-action-icon', _icon);
-            const iconProps = mergeProps({ className: cx('icon') }, getPTOptions('icon', item, index));
+            const iconProps = mergeProps(
+                {
+                    className: cx('icon')
+                },
+                getPTOptions('icon', item, index)
+            );
             const icon = IconUtils.getJSXIcon(_icon, { ...iconProps }, { props });
             const actionProps = mergeProps(
-                { href: url || '#', onFocus: (event) => event.stopPropagation(), className: cx('action', { disabled }), tabIndex: -1, target, 'data-pr-tooltip': label, onClick: (e) => onItemClick(e, item) },
+                {
+                    href: url || '#',
+                    onFocus: (event) => event.stopPropagation(),
+                    className: cx('action', { disabled }),
+                    tabIndex: -1,
+                    target,
+                    'data-pr-tooltip': label,
+                    onClick: (e) => onItemClick(e, item)
+                },
                 getPTOptions('action', item, index)
             );
+
             let content = (
                 <a {...actionProps}>
                     {icon}
@@ -178,16 +209,33 @@ export const Dock = React.memo(
             );
 
             if (template) {
-                const defaultContentOptions = { onClick: (e) => onItemClick(e, item), className: contentClassName, iconClassName, 'aria-hidden': 'true', tabIndex: -1, element: content, props, index };
+                const defaultContentOptions = {
+                    onClick: (e) => onItemClick(e, item),
+                    className: contentClassName,
+                    iconClassName,
+                    'aria-hidden': 'true',
+                    tabIndex: -1,
+                    element: content,
+                    props,
+                    index
+                };
 
                 content = ObjectUtils.getJSXElement(template, item, defaultContentOptions);
             }
 
-            const contentProps = mergeProps({ className: cx('content') }, getPTOptions('content', item, index));
+            const contentProps = mergeProps(
+                {
+                    className: cx('content')
+                },
+                getPTOptions('content', item, index)
+            );
+
             const active = isItemActive(key);
+
             const menuitemProps = mergeProps(
                 {
                     id: key,
+                    role: 'menuitem',
                     'aria-label': label,
                     'aria-disabled': disabled,
                     'data-p-focused': active,
@@ -213,7 +261,12 @@ export const Dock = React.memo(
         const createHeader = () => {
             if (props.header) {
                 const header = ObjectUtils.getJSXElement(props.header, { props });
-                const headerProps = mergeProps({ className: cx('header') }, ptm('header'));
+                const headerProps = mergeProps(
+                    {
+                        className: cx('header')
+                    },
+                    ptm('header')
+                );
 
                 return <div {...headerProps}>{header}</div>;
             }
@@ -229,13 +282,7 @@ export const Dock = React.memo(
                     className: cx('menu'),
                     role: 'menu',
                     'aria-orientation': props.position === 'bottom' || props.position === 'top' ? 'horizontal' : 'vertical',
-                    'aria-activedescendant': focused
-                        ? resolveConditional(
-                              focusedOptionIndex !== -1,
-                              () => focusedOptionIndex,
-                              () => null
-                          )
-                        : undefined,
+                    'aria-activedescendant': focused ? (focusedOptionIndex !== -1 ? focusedOptionIndex : null) : undefined,
                     tabIndex: props.tabIndex || 0,
                     onFocus: onListFocus,
                     onBlur: onListBlur,
@@ -251,7 +298,12 @@ export const Dock = React.memo(
         const createFooter = () => {
             if (props.footer) {
                 const footer = ObjectUtils.getJSXElement(props.footer, { props });
-                const footerProps = mergeProps({ className: cx('footer') }, ptm('footer'));
+                const footerProps = mergeProps(
+                    {
+                        className: cx('footer')
+                    },
+                    ptm('footer')
+                );
 
                 return <div {...footerProps}>{footer}</div>;
             }

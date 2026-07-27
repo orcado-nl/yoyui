@@ -3,12 +3,15 @@ import { PrimeReactContext } from '../api/Api';
 import { useEventListener, useMountEffect, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { DomHandler, ObjectUtils } from '../utils/Utils';
 import { StyleClassBase } from './StyleClassBase';
+
 export const StyleClass = React.forwardRef((inProps, ref) => {
     const context = React.useContext(PrimeReactContext);
     const props = StyleClassBase.getProps(inProps, context);
+
     const targetRef = React.useRef(null);
     const animating = React.useRef(false);
     const elementRef = React.useRef(null);
+
     const [bindTargetEnterListener, unbindTargetEnterListener] = useEventListener({
         type: 'animationend',
         listener: () => {
@@ -27,6 +30,7 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
             animating.current = false;
         }
     });
+
     const [bindTargetLeaveListener, unbindTargetLeaveListener] = useEventListener({
         type: 'animationend',
         listener: () => {
@@ -40,6 +44,7 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
             animating.current = false;
         }
     });
+
     const [bindDocumentClickListener, unbindDocumentClickListener] = useEventListener({
         type: 'click',
         listener: (event) => {
@@ -51,6 +56,7 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
         },
         when: props.hideOnOutsideClick
     });
+
     const [bindClickListener, unbindClickListener] = useEventListener({
         type: 'click',
         listener: () => {
@@ -69,7 +75,7 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
     });
 
     const enter = () => {
-        const runComplexBranch1 = () => {
+        if (props.enterActiveClassName) {
             if (!animating.current) {
                 animating.current = true;
 
@@ -92,13 +98,9 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
                     DomHandler.removeClass(targetRef.current, props.enterFromClassName);
                 }
 
-                bindTargetEnterListener({
-                    target: targetRef.current
-                });
+                bindTargetEnterListener({ target: targetRef.current });
             }
-        };
-
-        const runComplexBranch3 = () => {
+        } else {
             // enterClassName will be deprecated, use enterFromClassName
             if (props.enterClassName) {
                 DomHandler.removeClass(targetRef.current, props.enterClassName);
@@ -111,21 +113,13 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
             if (props.enterToClassName) {
                 DomHandler.addClass(targetRef.current, props.enterToClassName);
             }
-        };
-
-        if (props.enterActiveClassName) {
-            runComplexBranch1();
-        } else {
-            runComplexBranch3();
         }
 
-        bindDocumentClickListener({
-            target: elementRef.current?.ownerDocument
-        });
+        bindDocumentClickListener({ target: elementRef.current && elementRef.current.ownerDocument });
     };
 
     const leave = () => {
-        const runComplexBranch4 = () => {
+        if (props.leaveActiveClassName) {
             if (!animating.current) {
                 animating.current = true;
                 DomHandler.addClass(targetRef.current, props.leaveActiveClassName);
@@ -139,13 +133,9 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
                     DomHandler.removeClass(targetRef.current, props.leaveFromClassName);
                 }
 
-                bindTargetLeaveListener({
-                    target: targetRef.current
-                });
+                bindTargetLeaveListener({ target: targetRef.current });
             }
-        };
-
-        const runComplexBranch6 = () => {
+        } else {
             // leaveClassName will be deprecated, use leaveFromClassName
             if (props.leaveClassName) {
                 DomHandler.removeClass(targetRef.current, props.leaveClassName);
@@ -158,12 +148,6 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
             if (props.leaveToClassName) {
                 DomHandler.addClass(targetRef.current, props.leaveToClassName);
             }
-        };
-
-        if (props.leaveActiveClassName) {
-            runComplexBranch4();
-        } else {
-            runComplexBranch6();
         }
 
         if (props.hideOnOutsideClick) {
@@ -178,13 +162,17 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
 
         switch (props.selector) {
             case '@next':
-                return elementRef.current?.nextElementSibling;
+                return elementRef.current && elementRef.current.nextElementSibling;
+
             case '@prev':
-                return elementRef.current?.previousElementSibling;
+                return elementRef.current && elementRef.current.previousElementSibling;
+
             case '@parent':
-                return elementRef.current?.parentElement;
+                return elementRef.current && elementRef.current.parentElement;
+
             case '@grandparent':
-                return elementRef.current?.parentElement.parentElement;
+                return elementRef.current && elementRef.current.parentElement.parentElement;
+
             default:
                 return document.querySelector(props.selector);
         }
@@ -193,9 +181,7 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
     const init = () => {
         Promise.resolve().then(() => {
             elementRef.current = ObjectUtils.getRefElement(props.nodeRef);
-            bindClickListener({
-                target: elementRef.current
-            });
+            bindClickListener({ target: elementRef.current });
         });
     };
 
@@ -218,9 +204,11 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
         getElement: () => elementRef.current,
         getTarget: () => targetRef.current
     }));
+
     useMountEffect(() => {
         init();
     });
+
     useUpdateEffect(() => {
         init();
 
@@ -228,10 +216,12 @@ export const StyleClass = React.forwardRef((inProps, ref) => {
             unbindClickListener();
         };
     });
+
     useUnmountEffect(() => {
         destroy();
     });
 
     return props.children;
 });
+
 StyleClass.displayName = 'StyleClass';

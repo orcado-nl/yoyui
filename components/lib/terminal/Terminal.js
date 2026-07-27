@@ -68,7 +68,7 @@ export const Terminal = React.memo(
                 if (commandsState && commandsState.length > 0) {
                     let commands = [...commandsState];
 
-                    commands.at(-1).response = res;
+                    commands[commands.length - 1].response = res;
                     setCommandsState(commands);
                 }
             };

@@ -22,4 +22,16 @@ describe('Knob', () => {
         fireEvent.keyDown(slider, { code: 'ArrowUp' });
         expect(onChange).not.toHaveBeenCalled();
     });
+
+    test('supports the legacy read-only and aria prop spellings', () => {
+        const onChange = jest.fn();
+
+        render(<Knob value={50} readonly ariaLabel="Legacy label" onChange={onChange} unstyled />);
+
+        const slider = screen.getByRole('slider', { name: 'Legacy label' });
+
+        expect(slider).toHaveAttribute('tabindex', '-1');
+        fireEvent.keyDown(slider, { code: 'ArrowUp' });
+        expect(onChange).not.toHaveBeenCalled();
+    });
 });

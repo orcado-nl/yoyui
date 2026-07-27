@@ -102,6 +102,18 @@ export interface KnobProps extends Omit<React.DetailedHTMLProps<React.InputHTMLA
      */
     readOnly?: boolean | undefined;
     /**
+     * @deprecated Use `readOnly` instead.
+     */
+    readonly?: boolean | undefined;
+    /**
+     * @deprecated Use the standard `aria-label` property instead.
+     */
+    ariaLabel?: string | undefined;
+    /**
+     * @deprecated Use the standard `aria-labelledby` property instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Whether the show the value inside the knob.
      * @defaultValue true
      */

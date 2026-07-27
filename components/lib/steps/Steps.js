@@ -132,7 +132,7 @@ export const Steps = React.memo(
         const findLastItem = () => {
             const siblings = DomHandler.find(listRef.current, '[data-pc-section="menuitem"]');
 
-            return siblings ? siblings.at(-1).children[0] : null;
+            return siblings ? siblings[siblings.length - 1].children[0] : null;
         };
 
         const setFocusToMenuitem = (target, focusableItem) => {

@@ -86,7 +86,7 @@ export const CascadeSelect = React.memo(
         };
 
         const isOptionGroup = (option, level) => {
-            return Object.hasOwn(option, props.optionGroupChildren[level]);
+            return Object.prototype.hasOwnProperty.call(option, props.optionGroupChildren[level]);
         };
 
         const updateSelectionPath = () => {
