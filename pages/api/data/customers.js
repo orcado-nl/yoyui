@@ -1,6 +1,6 @@
-import path from 'path';
-import url from 'url';
-import { promises as fs } from 'fs-extra';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import url from 'node:url';
 
 function getSlice(queryObject, customers) {
     if (queryObject.first != null && queryObject.rows != null) {

@@ -1,6 +1,6 @@
 const TypeDoc = require('typedoc');
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 
 const rootDir = path.resolve(__dirname, '../');
 const distDir = path.resolve(rootDir, 'dist');
