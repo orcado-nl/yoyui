@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { getDemoDelay, isVisualTestMode } from './DemoUtils';
 
 const DeferredDemo = ({ options, children, onLoad }) => {
     const [visible, setVisible] = useState(false);
@@ -8,6 +9,19 @@ const DeferredDemo = ({ options, children, onLoad }) => {
     const elementRef = useRef(null);
 
     useEffect(() => {
+        if (isVisualTestMode()) {
+            const element = elementRef.current;
+
+            const activate = () => {
+                setVisible(true);
+                onLoad();
+            };
+
+            element?.addEventListener('yoyui:activate-deferred-demo', activate, { once: true });
+
+            return () => element?.removeEventListener('yoyui:activate-deferred-demo', activate);
+        }
+
         const handleIntersection = ([entry]) => {
             clearTimeout(timeoutRef.current);
 
@@ -16,7 +30,7 @@ const DeferredDemo = ({ options, children, onLoad }) => {
                     setVisible(true);
                     observerRef.current.unobserve(elementRef.current);
                     onLoad();
-                }, 350);
+                }, getDemoDelay(350));
             }
         };
 

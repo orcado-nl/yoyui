@@ -3,13 +3,14 @@ const {
     assertPageHealth,
     componentRoutes,
     disableLongRunningIntervals,
-    enableDarkMode,
+    enableVisualTestMode,
     freezeDynamicContent,
     hideDocumentationChrome,
     isolateDocumentationPage,
+    navigateToDocumentationPage,
     settleDocumentationContent,
     slugFromPath,
-    waitForDocumentationPage
+    waitForChartCanvases
 } = require('./helpers');
 
 if (componentRoutes.length !== 94) {
@@ -20,6 +21,7 @@ test.describe('component documentation visual parity', () => {
     test.beforeEach(async ({ page }) => {
         await isolateDocumentationPage(page);
         await disableLongRunningIntervals(page);
+        await enableVisualTestMode(page);
     });
 
     for (const route of componentRoutes) {
@@ -34,16 +36,11 @@ test.describe('component documentation visual parity', () => {
                 });
                 page.on('pageerror', (error) => browserErrors.push(error.message));
 
-                await page.goto(`${route.path}/`, { waitUntil: 'domcontentloaded' });
-                await waitForDocumentationPage(page, browserErrors);
-
-                if (colorScheme === 'dark') {
-                    await enableDarkMode(page);
-                }
-
+                await navigateToDocumentationPage(page, route.path, colorScheme, browserErrors);
                 await hideDocumentationChrome(page);
                 await settleDocumentationContent(page);
                 await freezeDynamicContent(page);
+                await waitForChartCanvases(page);
                 await assertPageHealth(page, browserErrors);
                 await expect(page.locator('.doc-main')).toHaveScreenshot(`${slugFromPath(route.path)}-${colorScheme}.png`, {
                     mask: route.path === '/calendar' ? [page.locator('.p-datepicker-inline')] : []

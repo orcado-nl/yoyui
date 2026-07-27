@@ -154,6 +154,8 @@ const inputTextStyles = `
 /* Floating Label */
 .p-float-label {
     display: block;
+    max-width: 100%;
+    min-width: 0;
     position: relative;
 }
 

@@ -231,6 +231,49 @@ test.describe('Calendar documentation migration parity', () => {
     });
 });
 
+test.describe('Mention documentation responsive layout', () => {
+    test('Float Label remains contained on mobile', async ({ page }) => {
+        test.skip(page.viewportSize()?.width !== 390, 'Mobile-specific intrinsic textarea sizing regression.');
+
+        await page.goto('/mention/', { waitUntil: 'domcontentloaded' });
+        await waitForDocumentationPage(page);
+
+        const section = getSection(page, 'Float Label');
+        const card = section.locator('.card');
+        const floatLabel = card.locator('.p-float-label');
+        const mention = floatLabel.locator('.p-mention');
+        const input = mention.locator('.p-mention-input');
+
+        await expect(floatLabel).toBeVisible();
+
+        const geometry = await card.evaluate((element) => {
+            const wrapper = element.querySelector('.p-float-label');
+            const mentionRoot = wrapper.querySelector('.p-mention');
+            const textarea = mentionRoot.querySelector('.p-mention-input');
+            const wrapperStyle = getComputedStyle(wrapper);
+
+            return {
+                bodyClientWidth: document.body.clientWidth,
+                bodyScrollWidth: document.body.scrollWidth,
+                cardClientWidth: element.clientWidth,
+                cardScrollWidth: element.scrollWidth,
+                inputWidth: textarea.getBoundingClientRect().width,
+                mentionWidth: mentionRoot.getBoundingClientRect().width,
+                wrapperMaxWidth: wrapperStyle.maxWidth,
+                wrapperMinWidth: wrapperStyle.minWidth,
+                wrapperWidth: wrapper.getBoundingClientRect().width
+            };
+        });
+
+        expect(geometry.wrapperMaxWidth).toBe('100%');
+        expect(geometry.wrapperMinWidth).toBe('0px');
+        expect(geometry.cardScrollWidth).toBeLessThanOrEqual(geometry.cardClientWidth);
+        expect(geometry.mentionWidth).toBeLessThanOrEqual(geometry.wrapperWidth);
+        expect(geometry.inputWidth).toBeLessThanOrEqual(geometry.wrapperWidth);
+        expect(geometry.bodyScrollWidth).toBeLessThanOrEqual(geometry.bodyClientWidth);
+    });
+});
+
 test.describe('selection overlay documentation interactions', () => {
     const overlayCases = [
         { control: '.p-dropdown', heading: 'Basic', panel: '.p-dropdown-panel', route: '/dropdown/' },

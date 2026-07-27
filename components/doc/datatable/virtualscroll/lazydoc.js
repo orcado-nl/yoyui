@@ -1,6 +1,7 @@
 import { resolveConditional } from '../../../lib/utils/ConditionalUtils';
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
+import { getDemoDelay } from '@/components/demo/DemoUtils';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Skeleton } from '@/components/lib/skeleton/Skeleton';
@@ -35,7 +36,7 @@ export function LazyVirtualScrollDoc(props) {
                 setVirtualCars(_virtualCars);
                 setLazyLoading(false);
             },
-            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
+            getDemoDelay(250, 1000)
         );
     };
 

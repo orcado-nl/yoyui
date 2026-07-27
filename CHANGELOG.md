@@ -1,5 +1,34 @@
 # Changelog
 
+## Documentation regression corrections (2026-07-27)
+
+### Component and audit corrections
+
+- Restored responsive floating-label sizing so controls with an intrinsic width,
+  including the Mention Float Label example, shrink to their available card width
+  instead of widening mobile pages.
+- Corrected ContextMenu's initial active-item path to use an empty collection,
+  preventing its first focused-item update from calling array operations on a
+  string.
+- Contained DataTable roots and made their headers horizontally scrollable in
+  narrow documentation cards, keeping wide editable tables accessible through
+  their existing wrapper scrollbars without widening the mobile page.
+- Made deferred documentation examples and simulated DataTable network delays
+  deterministic only during visual-test runs. Hosted examples retain their
+  original loading behavior, while the audit now waits for every deferred and
+  virtualized loading state to finish before measuring or capturing the page.
+- Changed dark-mode visual navigation so documentation components mount after the
+  dark theme is active. This ensures Chart examples read the intended theme
+  variables when creating their datasets and options.
+- Added stable-canvas detection before Chart screenshots and focused mobile
+  containment coverage for floating-label Mention controls.
+
+### Required changes for users
+
+No consumer code changes are required. Public component props and APIs are
+unchanged; these corrections restore PrimeReact 10.9.7-compatible responsive
+layout and make documentation regression checks deterministic.
+
 ## Calendar migration parity (2026-07-26)
 
 ### Component corrections

@@ -48,6 +48,11 @@ const disableLongRunningIntervals = (page) =>
         };
     });
 
+const enableVisualTestMode = (page) =>
+    page.addInitScript(() => {
+        window.__YOYUI_VISUAL_TEST__ = true;
+    });
+
 const waitForDocumentationPage = async (page, browserErrors = []) => {
     await page.waitForLoadState('domcontentloaded');
 
@@ -58,6 +63,7 @@ const waitForDocumentationPage = async (page, browserErrors = []) => {
 
         throw new Error(`${error.message}${details.length > 0 ? `\nBrowser errors:\n${details.join('\n')}` : ''}`);
     }
+
     await page.evaluate(async () => {
         await document.fonts?.ready;
 
@@ -75,7 +81,60 @@ const waitForDocumentationPage = async (page, browserErrors = []) => {
     });
 };
 
+const navigateToDocumentationPage = async (page, routePath, colorScheme, browserErrors = []) => {
+    const route = routePath.endsWith('/') ? routePath : `${routePath}/`;
+    const requiresDarkThemeBeforeMount = colorScheme === 'dark' && routePath === '/chart';
+
+    if (requiresDarkThemeBeforeMount) {
+        await page.route(
+            `**${route}`,
+            async (requestRoute) => {
+                const response = await requestRoute.fetch();
+                const body = (await response.text()).replace('/themes/lara-light-cyan/theme.css', '/themes/lara-dark-cyan/theme.css');
+
+                await requestRoute.fulfill({ body, response });
+            },
+            { times: 1 }
+        );
+        await page.goto(route, { waitUntil: 'domcontentloaded' });
+        await waitForDocumentationPage(page, browserErrors);
+        await enableDarkMode(page);
+
+        return;
+    }
+
+    await page.goto(route, { waitUntil: 'domcontentloaded' });
+    await waitForDocumentationPage(page, browserErrors);
+
+    if (colorScheme === 'dark') {
+        await enableDarkMode(page);
+    }
+};
+
 const settleDocumentationContent = async (page) => {
+    const maximumDeferredDemos = 200;
+
+    for (let index = 0; index < maximumDeferredDemos; index++) {
+        const loadingPlaceholders = page.locator('.deferred-demo-loading');
+        const loadingPlaceholder = loadingPlaceholders.first();
+        const previousCount = await loadingPlaceholders.count();
+
+        if (previousCount === 0) {
+            break;
+        }
+
+        await loadingPlaceholder.evaluate((element) => {
+            element.parentElement.dispatchEvent(new Event('yoyui:activate-deferred-demo'));
+        });
+        await page.waitForFunction((count) => document.querySelectorAll('.deferred-demo-loading').length < count, previousCount, { timeout: 5_000 });
+    }
+
+    const deferredDemoCount = await page.locator('.deferred-demo-loading').count();
+
+    if (deferredDemoCount > 0) {
+        throw new Error(`Documentation did not settle: ${deferredDemoCount} deferred demos remain after activating ${maximumDeferredDemos}.`);
+    }
+
     await page.evaluate(async () => {
         const step = Math.max(window.innerHeight * 0.8, 300);
         let previousHeight = 0;
@@ -96,8 +155,73 @@ const settleDocumentationContent = async (page) => {
         window.scrollTo(0, 0);
         await new Promise(requestAnimationFrame);
     });
-    await page.waitForTimeout(250);
+    await page.waitForTimeout(100);
+    await page.locator('.p-datatable-loading-overlay, .p-virtualscroller-loading').first().waitFor({ state: 'detached', timeout: 5_000 });
+    await page.locator('.p-inputtextarea-resizable').evaluateAll((textareas) => {
+        for (const textarea of textareas) {
+            textarea.style.overflow = 'hidden';
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+    });
     await waitForDocumentationPage(page);
+};
+
+const waitForChartCanvases = async (page) => {
+    if ((await page.locator('.p-chart canvas').count()) === 0) {
+        return;
+    }
+
+    await page.evaluate(async () => {
+        const delay = (duration) => new Promise((resolve) => setTimeout(resolve, duration));
+        const canvases = Array.from(document.querySelectorAll('.p-chart canvas'));
+
+        const hasRenderedPixels = (canvas) => {
+            const context = canvas.getContext('2d');
+
+            if (!context || canvas.width === 0 || canvas.height === 0) {
+                return false;
+            }
+
+            const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+            for (let index = 3; index < pixels.length; index += 4) {
+                if (pixels[index] !== 0) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+
+        const capture = () => canvases.map((canvas) => canvas.toDataURL('image/png')).join('|');
+        const timeoutAt = performance.now() + 15_000;
+        let previousCapture = null;
+        let stableSince = null;
+
+        while (performance.now() < timeoutAt) {
+            await delay(150);
+
+            if (!canvases.every(hasRenderedPixels)) {
+                previousCapture = null;
+                stableSince = null;
+                continue;
+            }
+
+            const currentCapture = capture();
+
+            if (currentCapture === previousCapture) {
+                if (stableSince !== null && performance.now() - stableSince >= 1_000) {
+                    return;
+                }
+            } else {
+                previousCapture = currentCapture;
+                stableSince = performance.now();
+            }
+        }
+
+        throw new Error('Chart canvases did not finish rendering within 15 seconds.');
+    });
 };
 
 const freezeDynamicContent = async (page) => {
@@ -126,7 +250,7 @@ const enableDarkMode = async (page) => {
     const toggle = page.locator('.layout-topbar button').filter({ has: page.locator('.pi-sun') });
 
     await toggle.click();
-    await page.locator('.layout-wrapper.layout-dark').waitFor({ state: 'visible' });
+    await page.locator('.layout-dark').first().waitFor({ state: 'visible' });
     await page.locator('link#theme-link[href*="-dark-"]').waitFor({ state: 'attached' });
     await page.waitForFunction(() => {
         const link = document.querySelector('link#theme-link');
@@ -223,12 +347,15 @@ module.exports = {
     assertPageHealth,
     componentRoutes,
     disableLongRunningIntervals,
+    enableVisualTestMode,
     enableDarkMode,
     freezeDynamicContent,
     hideDocumentationChrome,
     isolateDocumentationPage,
     isActionableBrowserError,
+    navigateToDocumentationPage,
     settleDocumentationContent,
     slugFromPath,
+    waitForChartCanvases,
     waitForDocumentationPage
 };
