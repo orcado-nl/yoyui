@@ -1,5 +1,31 @@
 # Changelog
 
+## Calendar migration parity (2026-07-26)
+
+### Component corrections
+
+- Restored PrimeReact 10 Calendar startup behavior so a hidden, non-inline
+  `touchUI` Calendar no longer creates its modal mask or disables document
+  scrolling during mount.
+- Restored the documentation page scrollbar and the original available content
+  width. This also returns the fluid inputs and calendar trigger buttons in the
+  Icon example to their PrimeReact 10 dimensions and keeps both built-in and
+  custom trigger icons centered.
+- Added Calendar interaction checks at desktop, tablet, and mobile Chromium
+  viewports for document scrolling, compact input and trigger geometry, icon
+  centering, connected input/button edges, overlay positioning, and scroll-lock
+  behavior.
+- Re-recorded the six reviewed Linux Chromium Calendar baselines after restoring
+  the PrimeReact 10 layout.
+- Extended the all-component documentation health check to fail whenever a page
+  unexpectedly disables vertical document scrolling.
+
+### Required changes for users
+
+No consumer code changes are required. The Calendar correction restores the
+behavior and layout from PrimeReact 10.9.7; existing Calendar props and public
+APIs are unchanged.
+
 ## Documentation visual parity (2026-07-24)
 
 ### Component and documentation corrections

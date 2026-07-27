@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { PrimeReactProvider } from '../api/Api';
 import { Calendar } from './Calendar';
 
@@ -89,5 +89,26 @@ describe('Calendar', () => {
                 expect(month).toHaveClass('p-disabled');
             }
         });
+    });
+
+    test('touchUI only locks body scrolling while its overlay is open', () => {
+        const { container, unmount } = render(
+            <PrimeReactProvider>
+                <Calendar touchUI />
+            </PrimeReactProvider>
+        );
+
+        expect(document.body).not.toHaveClass('p-overflow-hidden');
+        expect(document.body.querySelector('.p-datepicker-mask-scrollblocker')).not.toBeInTheDocument();
+
+        fireEvent.focus(container.querySelector('.p-inputtext'));
+
+        expect(document.body).toHaveClass('p-overflow-hidden');
+        expect(document.body.querySelector('.p-datepicker-mask-scrollblocker')).toBeInTheDocument();
+
+        unmount();
+
+        expect(document.body).not.toHaveClass('p-overflow-hidden');
+        expect(document.body.querySelector('.p-datepicker-mask-scrollblocker')).not.toBeInTheDocument();
     });
 });

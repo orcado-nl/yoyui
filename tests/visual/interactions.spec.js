@@ -126,6 +126,111 @@ test.describe('VirtualScroller documentation interactions', () => {
     });
 });
 
+test.describe('Calendar documentation migration parity', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('/calendar/', { waitUntil: 'domcontentloaded' });
+        await waitForDocumentationPage(page);
+    });
+
+    test('the long documentation page retains vertical scrolling', async ({ page }) => {
+        const initialState = await page.evaluate(() => ({
+            bodyOverflowY: getComputedStyle(document.body).overflowY,
+            clientHeight: document.documentElement.clientHeight,
+            scrollHeight: document.documentElement.scrollHeight,
+            scrollY: window.scrollY
+        }));
+
+        expect(initialState.bodyOverflowY).toBe('auto');
+        expect(initialState.scrollHeight).toBeGreaterThan(initialState.clientHeight);
+        expect(initialState.scrollY).toBe(0);
+
+        await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+        await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+    });
+
+    test('icon inputs and triggers preserve the PrimeReact 10 compact geometry', async ({ page }) => {
+        const section = getSection(page, 'Icon');
+        const controls = section.locator('.card .p-calendar');
+
+        await expect(controls).toHaveCount(3);
+        await controls.first().scrollIntoViewIfNeeded();
+
+        const geometry = await controls.evaluateAll((elements) => {
+            const rounded = (value) => Math.round(value * 10) / 10;
+
+            return elements.map((root) => {
+                const input = root.querySelector('.p-inputtext');
+                const trigger = root.querySelector('.p-datepicker-trigger');
+                const icon = trigger?.querySelector('svg.p-icon, .pi-clock');
+
+                if (!input || !trigger || !icon) {
+                    throw new Error('Calendar icon example is missing an input, trigger, or icon');
+                }
+
+                const rootBox = root.getBoundingClientRect();
+                const inputBox = input.getBoundingClientRect();
+                const triggerBox = trigger.getBoundingClientRect();
+                const iconBox = icon.getBoundingClientRect();
+
+                return {
+                    connectedEdgeGap: rounded(triggerBox.left - inputBox.right),
+                    iconCenterXDifference: rounded(iconBox.left + iconBox.width / 2 - (triggerBox.left + triggerBox.width / 2)),
+                    iconCenterYDifference: rounded(iconBox.top + iconBox.height / 2 - (triggerBox.top + triggerBox.height / 2)),
+                    inputHeight: rounded(inputBox.height),
+                    rootHeight: rounded(rootBox.height),
+                    triggerHeight: rounded(triggerBox.height),
+                    triggerWidth: rounded(triggerBox.width)
+                };
+            });
+        });
+
+        expect(await page.locator('html').evaluate((element) => getComputedStyle(element).fontSize)).toBe('14px');
+
+        for (const control of geometry) {
+            expect(control.rootHeight).toBeLessThanOrEqual(41);
+            expect(Math.abs(control.inputHeight - control.triggerHeight)).toBeLessThanOrEqual(0.5);
+            expect(Math.abs(control.rootHeight - control.triggerHeight)).toBeLessThanOrEqual(0.5);
+            expect(Math.abs(control.triggerWidth - 42)).toBeLessThanOrEqual(0.5);
+            expect(Math.abs(control.connectedEdgeGap)).toBeLessThanOrEqual(0.5);
+            expect(Math.abs(control.iconCenterXDifference)).toBeLessThanOrEqual(0.5);
+            expect(Math.abs(control.iconCenterYDifference)).toBeLessThanOrEqual(0.5);
+        }
+    });
+
+    test('icon trigger opens an aligned popup without disabling page scrolling', async ({ page }) => {
+        const section = getSection(page, 'Icon');
+        const calendar = section.locator('.p-calendar').first();
+        const trigger = calendar.locator('.p-datepicker-trigger');
+
+        await calendar.scrollIntoViewIfNeeded();
+        await trigger.click();
+
+        const panel = page.locator('.p-datepicker:not(.p-datepicker-inline)');
+
+        await expect(panel).toBeVisible();
+
+        const calendarBox = await calendar.boundingBox();
+        const panelBox = await panel.boundingBox();
+        const viewport = page.viewportSize();
+        const bodyOverflowY = await page.locator('body').evaluate((element) => getComputedStyle(element).overflowY);
+        const verticalGap = Math.min(Math.abs(panelBox.y - (calendarBox.y + calendarBox.height)), Math.abs(panelBox.y + panelBox.height - calendarBox.y));
+
+        expect(calendarBox).not.toBeNull();
+        expect(panelBox).not.toBeNull();
+        expect(viewport).not.toBeNull();
+        expect(Math.abs(panelBox.x - calendarBox.x)).toBeLessThanOrEqual(1);
+        expect(verticalGap).toBeLessThanOrEqual(1);
+        expect(panelBox.x).toBeGreaterThanOrEqual(0);
+        expect(panelBox.y).toBeGreaterThanOrEqual(0);
+        expect(panelBox.x + panelBox.width).toBeLessThanOrEqual(viewport.width + 1);
+        expect(panelBox.y + panelBox.height).toBeLessThanOrEqual(viewport.height + 1);
+        expect(bodyOverflowY).toBe('auto');
+
+        await page.keyboard.press('Escape');
+        await expect(panel).toBeHidden();
+    });
+});
+
 test.describe('selection overlay documentation interactions', () => {
     const overlayCases = [
         { control: '.p-dropdown', heading: 'Basic', panel: '.p-dropdown-panel', route: '/dropdown/' },

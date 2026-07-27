@@ -3359,8 +3359,6 @@ export const Calendar = React.memo(
                         overlayRef.current.style.width = DomHandler.getOuterWidth(overlayRef.current) + 'px';
                     }
                 }
-            } else {
-                alignOverlay();
             }
 
             if (props.value) {

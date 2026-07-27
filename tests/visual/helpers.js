@@ -188,6 +188,7 @@ const assertPageHealth = async (page, browserErrors) => {
 
         return {
             bodyClientWidth: document.body.clientWidth,
+            bodyOverflowY: getComputedStyle(document.body).overflowY,
             bodyScrollWidth: document.body.scrollWidth,
             brokenImages,
             outOfViewportElements,
@@ -197,6 +198,10 @@ const assertPageHealth = async (page, browserErrors) => {
 
     if (health.bodyScrollWidth > health.bodyClientWidth + 1) {
         throw new Error(`Page has horizontal overflow: ${JSON.stringify(health)}`);
+    }
+
+    if (health.bodyOverflowY !== 'auto') {
+        throw new Error(`Page unexpectedly disables vertical scrolling: ${JSON.stringify(health)}`);
     }
 
     if (health.brokenImages.length > 0) {
