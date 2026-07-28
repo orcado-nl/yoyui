@@ -219,6 +219,8 @@ const styles = `
         height: 12px;
         right: 1px;
         bottom: 1px;
+        border: none;
+        background: transparent;
     }
 
     .p-dialog-draggable .p-dialog-header {
