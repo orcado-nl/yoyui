@@ -1,6 +1,6 @@
-<img src="./yoyui-icon.svg" alt="YoYui logo" width="64" />
+# YoYui
 
-# yOyUi
+<img src="./yoyui-icon.svg" alt="YoYui logo" width="64" />
 
 **YoYui** is an internal fork of [PrimeReact](https://github.com/primefaces/primereact), maintained by **Orcado**. Its documentation is available at [yoyui.orcado.dev](https://yoyui.orcado.dev).
 
