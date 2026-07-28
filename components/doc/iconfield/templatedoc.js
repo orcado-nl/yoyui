@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { IconField } from '@/components/lib/iconfield/IconField';
@@ -41,9 +41,9 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from "react";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
-import { InputText } from "primereact/inputtext";
+import { IconField } from "@orcado/yoyui/iconfield";
+import { InputIcon } from "@orcado/yoyui/inputicon";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function TemplateDemo() {
     return (
@@ -82,9 +82,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from "react";
-import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
-import { InputText } from "primereact/inputtext";
+import { IconField } from "@orcado/yoyui/iconfield";
+import { InputIcon } from "@orcado/yoyui/inputicon";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function TemplateDemo() {
     return (

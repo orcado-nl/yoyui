@@ -2,7 +2,7 @@
  *
  * Galleria is a content gallery component.
  *
- * [Live Demo](https://www.primereact.org/galleria)
+ * [Live Demo](https://yoyui.orcado.dev/galleria)
  *
  * @module galleria
  *
@@ -380,13 +380,13 @@ export interface GalleriaProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Galleria**
+ * **YoYui - Galleria**
  *
  * _Galleria is a content gallery component._
  *
- * [Live Demo](https://www.primereact.org/galleria/)
+ * [Live Demo](https://yoyui.orcado.dev/galleria/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

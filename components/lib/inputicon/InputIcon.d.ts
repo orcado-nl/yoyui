@@ -2,7 +2,7 @@
  *
  * InputIcon displays an icon.
  *
- * [Live Demo](https://www.primereact.org/iconfield/)
+ * [Live Demo](https://yoyui.orcado.dev/iconfield/)
  *
  * @module inputicon
  *
@@ -65,13 +65,13 @@ export interface InputIconProps extends React.DetailedHTMLProps<React.InputHTMLA
 }
 
 /**
- * **PrimeReact - InputIcon**
+ * **YoYui - InputIcon**
  *
  * _InputIcon is an extension to standard input element with theming and keyfiltering._
  *
- * [Live Demo](https://www.primereact.org/inputtext/)
+ * [Live Demo](https://yoyui.orcado.dev/inputtext/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

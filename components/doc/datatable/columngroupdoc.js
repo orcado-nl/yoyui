@@ -106,10 +106,10 @@ export function ColumnGroupDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ColumnGroup } from 'primereact/columngroup';
-import { Row } from 'primereact/row';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ColumnGroup } from '@orcado/yoyui/columngroup';
+import { Row } from '@orcado/yoyui/row';
 
 export default function ColumnGroupDemo() {
     const [sales] = useState([
@@ -209,10 +209,10 @@ export default function ColumnGroupDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ColumnGroup } from 'primereact/columngroup';
-import { Row } from 'primereact/row';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ColumnGroup } from '@orcado/yoyui/columngroup';
+import { Row } from '@orcado/yoyui/row';
 
 interface Sale {
     product: string;

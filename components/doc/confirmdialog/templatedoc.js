@@ -41,9 +41,9 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
+import { ConfirmDialog, confirmDialog } from '@orcado/yoyui/confirmdialog';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
 
 export default function TemplateDemo() {
     const toast = useRef(null);
@@ -84,9 +84,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
+import { ConfirmDialog, confirmDialog } from '@orcado/yoyui/confirmdialog';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
 
 export default function TemplateDemo() {
     const toast = useRef(null);

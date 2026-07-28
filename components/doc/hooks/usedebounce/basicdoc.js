@@ -15,8 +15,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { InputText } from 'primereact/inputtext';
-import { useDebounce } from 'primereact/hooks';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { useDebounce } from '@orcado/yoyui/hooks';
 
 export default function BasicDemo() {
     const [inputValue, debouncedValue, setInputValue] = useDebounce('', 400);
@@ -33,8 +33,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { InputText } from 'primereact/inputtext';
-import { useDebounce } from 'primereact/hooks';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { useDebounce } from '@orcado/yoyui/hooks';
 
 export default function BasicDemo() {
     const [inputValue, debouncedValue, setInputValue] = useDebounce('', 400);

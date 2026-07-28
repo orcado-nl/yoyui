@@ -9,36 +9,15 @@ export function ThumbnailDoc(props) {
     const [images, setImages] = useState(null);
     const [position, setPosition] = useState('bottom');
     const positionOptions = [
-        {
-            label: 'Bottom',
-            value: 'bottom'
-        },
-        {
-            label: 'Top',
-            value: 'top'
-        },
-        {
-            label: 'Left',
-            value: 'left'
-        },
-        {
-            label: 'Right',
-            value: 'right'
-        }
+        { label: 'Bottom', value: 'bottom' },
+        { label: 'Top', value: 'top' },
+        { label: 'Left', value: 'left' },
+        { label: 'Right', value: 'right' }
     ];
     const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
+        { breakpoint: '991px', numVisible: 4 },
+        { breakpoint: '767px', numVisible: 3 },
+        { breakpoint: '575px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -60,8 +39,8 @@ export function ThumbnailDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
-import { RadioButton } from 'primereact/radiobutton';
+import { Galleria } from '@orcado/yoyui/galleria';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import { PhotoService } from './service/PhotoService';
 
 export default function ThumbnailDemo() {
@@ -135,8 +114,8 @@ export default function ThumbnailDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
-import { RadioButton } from 'primereact/radiobutton';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
+import { RadioButton } from '@orcado/yoyui/radiobutton';
 import { PhotoService } from './service/PhotoService';
 
 export default function ThumbnailDemo() {
@@ -211,8 +190,8 @@ export default function ThumbnailDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

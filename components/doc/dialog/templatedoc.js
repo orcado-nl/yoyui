@@ -10,7 +10,7 @@ export function TemplateDoc(props) {
 
     const headerElement = (
         <div className="inline-flex align-items-center justify-content-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
             <span className="font-bold white-space-nowrap">Amy Elsner</span>
         </div>
     );
@@ -35,8 +35,8 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { Button } from '@orcado/yoyui/button';
+import { Dialog } from '@orcado/yoyui/dialog';
 import { Avatar } from '@/components/lib/avatar/Avatar';
 
 export default function TemplateDemo() {
@@ -44,7 +44,7 @@ export default function TemplateDemo() {
 
     const headerElement = (
         <div className="inline-flex align-items-center justify-content-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
             <span className="font-bold white-space-nowrap">Amy Elsner</span>
         </div>
     );
@@ -70,8 +70,8 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { Button } from '@orcado/yoyui/button';
+import { Dialog } from '@orcado/yoyui/dialog';
 import { Avatar } from '@/components/lib/avatar/Avatar';
 
 export default function TemplateDemo() {
@@ -79,7 +79,7 @@ export default function TemplateDemo() {
 
     const headerElement = (
         <div className="inline-flex align-items-center justify-content-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
             <span className="font-bold white-space-nowrap">Amy Elsner</span>
         </div>
     );

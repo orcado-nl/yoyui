@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useMergeProps, useMountEffect, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { Portal } from '../portal/Portal';
@@ -10,15 +10,11 @@ export const BlockUI = React.forwardRef((inProps, ref) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
     const props = BlockUIBase.getProps(inProps, context);
-
     const [visibleState, setVisibleState] = React.useState(props.blocked);
     const elementRef = React.useRef(null);
     const maskRef = React.useRef(null);
     const activeElementRef = React.useRef(null);
-
-    const { ptm, cx, isUnstyled } = BlockUIBase.setMetaData({
-        props
-    });
+    const { ptm, cx, isUnstyled } = BlockUIBase.setMetaData({ props });
 
     useHandleStyle(BlockUIBase.css.styles, isUnstyled, { name: 'blockui' });
 
@@ -45,65 +41,43 @@ export const BlockUI = React.forwardRef((inProps, ref) => {
 
         if (props.fullScreen) {
             DomHandler.unblockBodyScroll();
-            activeElementRef.current && activeElementRef.current.focus();
+            activeElementRef.current?.focus();
         }
 
-        props.onUnblocked && props.onUnblocked();
+        props.onUnblocked?.();
     };
 
     const onPortalMounted = () => {
         if (props.fullScreen) {
             DomHandler.blockBodyScroll();
-            activeElementRef.current && activeElementRef.current.blur();
+            activeElementRef.current?.blur();
         }
 
         if (props.autoZIndex) {
             const key = props.fullScreen ? 'modal' : 'overlay';
 
-            ZIndexUtils.set(key, maskRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, props.baseZIndex || (context && context.zIndex[key]) || PrimeReact.zIndex[key]);
+            ZIndexUtils.set(key, maskRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, props.baseZIndex || context?.zIndex[key] || PrimeReactConfig.zIndex[key]);
         }
 
-        props.onBlocked && props.onBlocked();
+        props.onBlocked?.();
     };
 
     useMountEffect(() => {
         visibleState && block();
     });
-
     useUpdateEffect(() => {
         props.blocked ? block() : unblock();
     }, [props.blocked]);
-
     useUnmountEffect(() => {
         props.fullScreen && DomHandler.unblockBodyScroll();
-
         ZIndexUtils.clear(maskRef.current);
     });
-
-    React.useImperativeHandle(ref, () => ({
-        props,
-        block,
-        unblock,
-        getElement: () => elementRef.current
-    }));
+    React.useImperativeHandle(ref, () => ({ props, block, unblock, getElement: () => elementRef.current }));
 
     const createMask = () => {
         if (visibleState) {
             const appendTo = props.fullScreen ? document.body : 'self';
-            const maskProps = mergeProps(
-                {
-                    className: classNames(props.className, cx('mask')),
-                    style: {
-                        ...props.style,
-                        position: props.fullScreen ? 'fixed' : 'absolute',
-                        top: '0',
-                        left: '0',
-                        width: '100%',
-                        height: '100%'
-                    }
-                },
-                ptm('mask')
-            );
+            const maskProps = mergeProps({ className: classNames(props.className, cx('mask')), style: { ...props.style, position: props.fullScreen ? 'fixed' : 'absolute', top: '0', left: '0', width: '100%', height: '100%' } }, ptm('mask'));
             const content = props.template ? ObjectUtils.getJSXElement(props.template, props) : null;
             const mask = (
                 <div ref={maskRef} {...maskProps}>

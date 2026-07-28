@@ -4,7 +4,7 @@ import { Column } from '@/components/lib/column/Column';
 import { ContextMenu } from '@/components/lib/contextmenu/ContextMenu';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Toast } from '@/components/lib/toast/Toast';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ProductService } from '../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -57,10 +57,10 @@ export function ContextMenuDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 export default function ContextMenuDemo() {
@@ -115,10 +115,10 @@ export default function ContextMenuDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { ContextMenu } from 'primereact/contextmenu';
-import { Toast } from 'primereact/toast';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 interface Product {
@@ -206,8 +206,8 @@ export default function ContextMenuDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    DataTable has exclusive integration with ContextMenu using the <i>onContextMenu</i> event to open a menu on right click alont with
-                    <i>contextMenuSelection</i> and <i>onContextMenuSelectionChange</i> properties to control the selection via the menu.
+                    DataTable has exclusive integration with ContextMenu using the <i>onContextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> and <i>onContextMenuSelectionChange</i> properties to control the
+                    selection via the menu.
                 </p>
             </DocSectionText>
             <DeferredDemo onLoad={loadDemoData}>

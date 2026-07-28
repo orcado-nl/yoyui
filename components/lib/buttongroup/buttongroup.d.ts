@@ -2,7 +2,7 @@
  *
  * A set of Buttons can be displayed together using the ButtonGroup component.
  *
- * [Live Demo](https://www.primereact.org/button/)
+ * [Live Demo](https://yoyui.orcado.dev/button/)
  *
  * @module buttongroup
  *
@@ -72,13 +72,13 @@ export interface ButtonGroupProps {
 }
 
 /**
- * **PrimeReact - ButtonGroup**
+ * **YoYui - ButtonGroup**
  *
  * _ButtonGroup appears on top of the input field when focused._
  *
- * [Live Demo](https://www.primereact.org/button/)
+ * [Live Demo](https://yoyui.orcado.dev/button/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  *

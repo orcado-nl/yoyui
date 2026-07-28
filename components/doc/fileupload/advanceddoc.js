@@ -9,7 +9,7 @@ export function AdvancedDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { FileUpload } from 'primereact/fileupload';
+import { FileUpload } from '@orcado/yoyui/fileupload';
 
 export default function AdvanceDemo() {
         
@@ -22,8 +22,8 @@ export default function AdvanceDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
 
 export default function AdvanceDemo() {
         

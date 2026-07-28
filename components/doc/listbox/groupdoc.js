@@ -41,7 +41,7 @@ export function GroupDoc(props) {
     const groupTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />
+                <img alt={option.name} src="/images/flag/flag_placeholder.png" className={`flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />
                 <div>{option.label}</div>
             </div>
         );
@@ -54,7 +54,7 @@ export function GroupDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { ListBox } from 'primereact/listbox';
+import { ListBox } from '@orcado/yoyui/listbox';
 
 export default function GroupDemo() {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -94,7 +94,7 @@ export default function GroupDemo() {
     const groupTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
+                <img alt={option.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
                 <div>{option.label}</div>
             </div>
         );
@@ -110,7 +110,7 @@ export default function GroupDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { ListBox, ListBoxChangeEvent } from 'primereact/listbox';
+import { ListBox, ListBoxChangeEvent } from '@orcado/yoyui/listbox';
 
 interface City {
     label: string;
@@ -161,7 +161,7 @@ export default function GroupDemo() {
     const groupTemplate = (option: City) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }}/>
+                <img alt={option.name} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }}/>
                 <div>{option.label}</div>
             </div>
         );

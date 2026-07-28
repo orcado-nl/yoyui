@@ -2,7 +2,7 @@
  *
  * Badge represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primereact.org/badge)
+ * [Live Demo](https://yoyui.orcado.dev/badge)
  *
  * @module badge
  *
@@ -80,13 +80,13 @@ export interface BadgeProps extends Omit<React.DetailedHTMLProps<React.HTMLAttri
 }
 
 /**
- * **PrimeReact - Badge**
+ * **YoYui - Badge**
  *
  * _Badge represents people using icons, labels and images._
  *
- * [Live Demo](https://www.primereact.org/badge/)
+ * [Live Demo](https://yoyui.orcado.dev/badge/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

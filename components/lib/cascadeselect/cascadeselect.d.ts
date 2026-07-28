@@ -2,7 +2,7 @@
  *
  * CascadeSelect is a form component to select a value from a nested structure of options.
  *
- * [Live Demo](https://www.primereact.org/cascadeselect/)
+ * [Live Demo](https://yoyui.orcado.dev/cascadeselect/)
  *
  * @module cascadeselect
  *
@@ -352,13 +352,13 @@ export interface CascadeSelectProps extends Omit<React.DetailedHTMLProps<React.I
 }
 
 /**
- * **PrimeReact - CascadeSelect**
+ * **YoYui - CascadeSelect**
  *
  * _CascadeSelect is a form component to select a value from a nested structure of options._
  *
- * [Live Demo](https://www.primereact.org/cascadeselect/)
+ * [Live Demo](https://yoyui.orcado.dev/cascadeselect/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

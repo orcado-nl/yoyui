@@ -3,7 +3,7 @@
  * Column component defines various options to specify corresponding features.
  * It is a helper component for DataTable and TreeTable.
  *
- * [Live Demo](https://www.primereact.org/datatable/)
+ * [Live Demo](https://yoyui.orcado.dev/datatable/)
  *
  * @module column
  *
@@ -1167,13 +1167,13 @@ export interface ColumnProps {
 }
 
 /**
- * **PrimeReact - Column**
+ * **YoYui - Column**
  *
  * _Column is a helper component for DataTable and TreeTable._
  *
- * [Live Demo](https://www.primereact.org/column/)
+ * [Live Demo](https://yoyui.orcado.dev/column/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

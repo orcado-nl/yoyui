@@ -2,7 +2,7 @@
  *
  * ProgressBar is a process status indicator.
  *
- * [Live Demo](https://www.primereact.org/progressbar)
+ * [Live Demo](https://yoyui.orcado.dev/progressbar)
  *
  * @module progressbar
  *
@@ -104,13 +104,13 @@ export interface ProgressBarProps extends Omit<React.DetailedHTMLProps<React.HTM
 }
 
 /**
- * **PrimeReact - ProgressBar**
+ * **YoYui - ProgressBar**
  *
  * _ProgressBar is a process status indicator._
  *
- * [Live Demo](https://www.primereact.org/progressbar/)
+ * [Live Demo](https://yoyui.orcado.dev/progressbar/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

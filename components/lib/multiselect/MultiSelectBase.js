@@ -1,4 +1,4 @@
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { ObjectUtils, classNames } from '../utils/Utils';
 
@@ -8,7 +8,7 @@ const classes = {
             'p-multiselect-chip': props.display === 'chip' && (props.maxSelectedLabels == null ? true : props.value?.length <= props.maxSelectedLabels),
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled',
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled',
             'p-multiselect-clearable': props.showClear && !props.disabled,
             'p-focus': focusedState,
             'p-inputwrapper-filled': ObjectUtils.isNotEmpty(props.value),
@@ -25,10 +25,10 @@ const classes = {
             'p-multiselect-inline': props.inline,
             'p-multiselect-flex': props.flex,
             'p-multiselect-limited': !allowOptionSelect,
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
-    list: ({ virtualScrollerOptions }) => (virtualScrollerOptions ? 'p-multiselect-items p-component' : 'p-multiselect-items p-component'),
+    list: 'p-multiselect-items p-component',
     labelContainer: 'p-multiselect-label-container',
     triggerIcon: 'p-multiselect-trigger-icon p-c',
     trigger: 'p-multiselect-trigger',

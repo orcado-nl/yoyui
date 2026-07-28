@@ -14,6 +14,7 @@ export const InputOtpBase = ComponentBase.extend({
         invalid: false,
         disabled: false,
         readOnly: false,
+        readonly: null,
         variant: null,
         tabIndex: null,
         length: 4,

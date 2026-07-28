@@ -16,35 +16,20 @@ export const Stepper = React.memo(
         const props = StepperBase.getProps(inProps, context);
         const start = ObjectUtils.getJSXElement(props.start, props);
         const end = ObjectUtils.getJSXElement(props.end, props);
-        const { ptm, cx, isUnstyled, ptmo } = StepperBase.setMetaData({
-            props
-        });
+        const { ptm, cx, isUnstyled, ptmo } = StepperBase.setMetaData({ props });
         const [idState, setIdState] = React.useState(props.id);
         const [activeStepState, setActiveStepState] = React.useState(props.activeStep);
         const navRef = React.useRef();
 
         useHandleStyle(StepperBase.css.styles, isUnstyled, { name: 'stepper' });
-
-        const startProps = mergeProps(
-            {
-                className: cx('start')
-            },
-            ptm('start')
-        );
-
-        const endProps = mergeProps(
-            {
-                className: cx('end')
-            },
-            ptm('end')
-        );
+        const startProps = mergeProps({ className: cx('start') }, ptm('start'));
+        const endProps = mergeProps({ className: cx('end') }, ptm('end'));
 
         useMountEffect(() => {
             if (!idState) {
                 setIdState(UniqueComponentId());
             }
         });
-
         useUpdateEffect(() => {
             if (props.activeStep >= 0 && props.activeStep <= stepperPanels().length - 1) {
                 updateActiveStep(undefined, props.activeStep);
@@ -73,8 +58,7 @@ export const Stepper = React.memo(
 
         const updateActiveStep = (event, index) => {
             setActiveStepState(index);
-
-            props.onChangeStep && props.onChangeStep({ originalEvent: event, index });
+            props.onChangeStep?.({ originalEvent: event, index });
         };
 
         const getStepHeaderActionId = (index) => {
@@ -115,21 +99,10 @@ export const Stepper = React.memo(
 
         const getStepPT = (step, key, index) => {
             const count = stepperPanels().length;
-
             const stepMetaData = {
                 props: step.props,
-                parent: {
-                    props: props
-                },
-                context: {
-                    index,
-                    count,
-                    first: index === 0,
-                    last: index === count - 1,
-                    active: isStepActive(index),
-                    highlighted: index < activeStepState,
-                    disabled: isItemDisabled(index)
-                }
+                parent: { props: props },
+                context: { index, count, first: index === 0, last: index === count - 1, active: isStepActive(index), highlighted: index < activeStepState, disabled: isItemDisabled(index) }
             };
 
             return mergeProps(ptm(`stepperpanel.${key}`, { stepperpanel: stepMetaData }), ptm(`stepperpanel.${key}`, stepMetaData), ptmo(getStepProp(step, 'pt'), key, stepMetaData));
@@ -175,6 +148,7 @@ export const Stepper = React.memo(
                             getStepProp={getStepProp}
                             cx={cx}
                         />
+
                         {index !== stepperPanels().length - 1 && (
                             <StepperSeparator template={step.children?.separator} separatorClass={cx('stepper.separator')} stepperpanel={step} index={index} active={isStepActive(index)} highlighted={index < activeStepState} getStepPT={getStepPT} />
                         )}
@@ -220,20 +194,8 @@ export const Stepper = React.memo(
 
         const createHorizontal = () => {
             const items = createPanel();
-            const navProps = mergeProps(
-                {
-                    className: classNames(cx('nav')),
-                    ref: navRef
-                },
-                ptm('nav')
-            );
-
-            const panelContainerProps = mergeProps(
-                {
-                    className: cx('panelContainer')
-                },
-                ptm('panelContainer')
-            );
+            const navProps = mergeProps({ className: classNames(cx('nav')), ref: navRef }, ptm('nav'));
+            const panelContainerProps = mergeProps({ className: cx('panelContainer') }, ptm('panelContainer'));
 
             return (
                 <>
@@ -246,7 +208,6 @@ export const Stepper = React.memo(
         const createVertical = () => {
             return stepperPanels().map((step, index) => {
                 const contentRef = React.createRef(null);
-
                 const navProps = mergeProps({
                     ref: navRef,
                     className: cx('stepper.panel', { props, index, isStepActive }),
@@ -257,25 +218,9 @@ export const Stepper = React.memo(
                     'data-p-disabled': isItemDisabled(index),
                     'data-p-active': isStepActive(index)
                 });
-
-                const headerProps = mergeProps({
-                    className: cx('stepper.header', { step, isStepActive, isItemDisabled, index }),
-                    ...getStepPT(step, 'header', index)
-                });
-
-                const transitionProps = mergeProps({
-                    classNames: cx('stepper.content'),
-                    ...getStepPT(step, 'transition', index),
-                    timeout: { enter: 1000, exit: 450 },
-                    in: isStepActive(index),
-                    unmountOnExit: true
-                });
-
-                const toggleableContentProps = mergeProps({
-                    ref: contentRef,
-                    className: cx('stepper.toggleableContent'),
-                    ...getStepPT(step, 'toggleableContent', index)
-                });
+                const headerProps = mergeProps({ className: cx('stepper.header', { step, isStepActive, isItemDisabled, index }), ...getStepPT(step, 'header', index) });
+                const transitionProps = mergeProps({ classNames: cx('stepper.content'), ...getStepPT(step, 'transition', index), timeout: { enter: 1000, exit: 450 }, in: isStepActive(index), unmountOnExit: true });
+                const toggleableContentProps = mergeProps({ ref: contentRef, className: cx('stepper.toggleableContent'), ...getStepPT(step, 'toggleableContent', index) });
 
                 return (
                     <div key={getStepKey(step, index)} {...navProps}>
@@ -331,14 +276,7 @@ export const Stepper = React.memo(
             });
         };
 
-        const rootProps = mergeProps(
-            {
-                className: classNames(cx('root')),
-                role: 'tablist'
-            },
-            StepperBase.getOtherProps(props),
-            ptm('root')
-        );
+        const rootProps = mergeProps({ className: classNames(cx('root')), role: 'tablist' }, StepperBase.getOtherProps(props), ptm('root'));
 
         return (
             <div {...rootProps}>
@@ -350,5 +288,4 @@ export const Stepper = React.memo(
         );
     })
 );
-
 StepperBase.displayName = 'StepperBase';

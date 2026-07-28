@@ -525,7 +525,7 @@ export const Tooltip = React.memo(
                     className: classNames(props.className, cx('root', { positionState, classNameState })),
                     style: props.style,
                     role: 'tooltip',
-                    'aria-hidden': visibleState,
+                    'aria-hidden': !visibleState,
                     onMouseEnter: (e) => onMouseEnter(e),
                     onMouseLeave: (e) => onMouseLeave(e)
                 },

@@ -1,9 +1,15 @@
 import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { Skeleton } from './Skeleton';
 
 import { snapshot } from '../../test';
 
 describe('Skeleton', () => {
+    test('renders a hidden loading placeholder', () => {
+        const { container } = render(<Skeleton />);
+
+        expect(container.firstChild).toHaveAttribute('aria-hidden', 'true');
+    });
     snapshot(<Skeleton />, 'default');
     snapshot(<Skeleton shape="circle" />, 'shape circle');
     snapshot(<Skeleton shape="rectangle" />, 'shape rectangle');

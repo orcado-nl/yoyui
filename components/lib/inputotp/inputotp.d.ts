@@ -2,7 +2,7 @@
  *
  * InputOtp is an extension to standard input element with theming and keyfiltering.
  *
- * [Live Demo](https://www.primereact.org/inputotp/)
+ * [Live Demo](https://yoyui.orcado.dev/inputotp/)
  *
  * @module inputotp
  *
@@ -93,6 +93,10 @@ export interface InputOtpProps extends Omit<React.DetailedHTMLProps<React.InputH
      * When present, it specifies that an input field is read-only.
      * @defaultValue false
      */
+    readOnly?: boolean | undefined;
+    /**
+     * @deprecated Use `readOnly` instead.
+     */
     readonly?: boolean | undefined;
     /**
      * Specifies the input variant of the component.
@@ -160,13 +164,13 @@ export interface InputOtpProps extends Omit<React.DetailedHTMLProps<React.InputH
 }
 
 /**
- * **PrimeReact - InputOtp**
+ * **YoYui - InputOtp**
  *
  * _InputOtp is an extension to standard input element with theming and keyfiltering._
  *
- * [Live Demo](https://www.primereact.org/inputotp/)
+ * [Live Demo](https://yoyui.orcado.dev/inputotp/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -2,7 +2,7 @@
  *
  * Message is used to display inline message with various severities.
  *
- * [Live Demo](https://www.primereact.org/message)
+ * [Live Demo](https://yoyui.orcado.dev/message)
  *
  * @module message
  *
@@ -90,13 +90,13 @@ export interface MessageProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - Message**
+ * **YoYui - Message**
  *
  * _Message is used to display inline message with various severities._
  *
- * [Live Demo](https://www.primereact.org/message/)
+ * [Live Demo](https://yoyui.orcado.dev/message/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

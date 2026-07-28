@@ -1,9 +1,9 @@
 import { DomHandler } from '../utils/Utils';
 
 export const KeyFilter = {
-    /* eslint-disable */
+    /* eslint-disable no-useless-escape */
     DEFAULT_MASKS: {
-        pint: /[\d]/,
+        pint: /\d/,
         int: /[\d\-]/,
         pnum: /[\d\.]/,
         money: /[\d\.\s,]/,

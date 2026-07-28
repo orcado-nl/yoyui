@@ -2,7 +2,7 @@
  *
  * MultiStateCheckbox is used to select a state from given multiple states.
  *
- * [Live Demo](https://www.primereact.org/multistatecheckbox/)
+ * [Live Demo](https://yoyui.orcado.dev/multistatecheckbox/)
  *
  * @module multistatecheckbox
  *
@@ -256,13 +256,13 @@ export interface MultiStateCheckboxProps extends Omit<React.DetailedHTMLProps<Re
 }
 
 /**
- * **PrimeReact - MultiStateCheckbox**
+ * **YoYui - MultiStateCheckbox**
  *
  * _MultiStateCheckbox is used to select a state from given multiple states._
  *
- * [Live Demo](https://www.primereact.org/multistatecheckbox/)
+ * [Live Demo](https://yoyui.orcado.dev/multistatecheckbox/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -2,7 +2,7 @@
  *
  * ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration.
  *
- * [Live Demo](https://www.primereact.org/contextmenu/)
+ * [Live Demo](https://yoyui.orcado.dev/contextmenu/)
  *
  * @module contextmenu
  *
@@ -152,6 +152,10 @@ export interface ContextMenuProps extends Omit<React.DetailedHTMLProps<React.HTM
      */
     ariaLabelledBy?: string | undefined;
     /**
+     * @deprecated Use `ariaLabelledBy` instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Base zIndex value to use in layering.
      * @defaultValue 0
      */
@@ -206,13 +210,13 @@ export interface ContextMenuProps extends Omit<React.DetailedHTMLProps<React.HTM
 }
 
 /**
- * **PrimeReact - ContextMenu**
+ * **YoYui - ContextMenu**
  *
  * _ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu. Refer to documentation of the individual documentation of the components having a special integration._
  *
- * [Live Demo](https://www.primereact.org/contextmenu/)
+ * [Live Demo](https://yoyui.orcado.dev/contextmenu/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

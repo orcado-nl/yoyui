@@ -10,7 +10,7 @@ export function LifeCyleDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Panel } from 'primereact/panel';
+import { Panel } from '@orcado/yoyui/panel';
 
 export default function LifeCyleDemo() {
     const panelPt = {
@@ -34,7 +34,7 @@ export default function LifeCyleDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Panel } from 'primereact/panel';
+import { Panel } from '@orcado/yoyui/panel';
 
 export default function LifeCyleDemo() {
     const panelPt = {
@@ -63,7 +63,7 @@ export default function LifeCyleDemo() {
             <DocSectionText {...props}>
                 <p>
                     Lifecycle hooks of components are exposed as pass through using the <i>hooks</i> property so that callback functions can be registered. Available callbacks are <i>useMountEffect</i>, <i>useUpdateEffect</i>, <i>useUnmountEffect</i>
-                    . Refer to the React.js documentation for detailed information about lifecycle hooks.
+                    {'. '}Refer to the React.js documentation for detailed information about lifecycle hooks.
                 </p>
             </DocSectionText>
 

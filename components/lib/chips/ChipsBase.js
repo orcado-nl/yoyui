@@ -84,7 +84,7 @@ const classes = {
     inputToken: 'p-chips-input-token',
     container: ({ props, context }) =>
         classNames('p-inputtext p-chips-multiple-container', {
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     root: ({ isFilled, focusedState, disabled, invalid }) =>
         classNames('p-chips p-component p-inputwrapper', {
@@ -102,6 +102,7 @@ export const ChipsBase = ComponentBase.extend({
         addOnBlur: null,
         allowDuplicate: true,
         ariaLabelledBy: null,
+        ariaLabelledby: null,
         autoFocus: false,
         className: null,
         disabled: null,

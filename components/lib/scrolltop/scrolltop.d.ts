@@ -2,7 +2,7 @@
  *
  * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
  *
- * [Live Demo](https://www.primereact.org/scrolltop/)
+ * [Live Demo](https://yoyui.orcado.dev/scrolltop/)
  *
  * @module scrolltop
  *
@@ -128,13 +128,13 @@ export interface ScrollTopProps {
 }
 
 /**
- * **PrimeReact - ScrollTop**
+ * **YoYui - ScrollTop**
  *
  * _ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly._
  *
- * [Live Demo](https://www.primereact.org/scrolltop/)
+ * [Live Demo](https://yoyui.orcado.dev/scrolltop/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

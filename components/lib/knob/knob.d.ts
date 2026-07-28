@@ -2,7 +2,7 @@
  *
  * Knob is a form component to define number inputs with a dial.
  *
- * [Live Demo](https://www.primereact.org/knob/)
+ * [Live Demo](https://yoyui.orcado.dev/knob/)
  *
  * @module knob
  *
@@ -102,6 +102,18 @@ export interface KnobProps extends Omit<React.DetailedHTMLProps<React.InputHTMLA
      */
     readOnly?: boolean | undefined;
     /**
+     * @deprecated Use `readOnly` instead.
+     */
+    readonly?: boolean | undefined;
+    /**
+     * @deprecated Use the standard `aria-label` property instead.
+     */
+    ariaLabel?: string | undefined;
+    /**
+     * @deprecated Use the standard `aria-labelledby` property instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Whether the show the value inside the knob.
      * @defaultValue true
      */
@@ -178,13 +190,13 @@ export interface KnobProps extends Omit<React.DetailedHTMLProps<React.InputHTMLA
 }
 
 /**
- * **PrimeReact - Knob**
+ * **YoYui - Knob**
  *
  * _Knob is a form component to define number inputs with a dial._
  *
- * [Live Demo](https://www.primereact.org/knob/)
+ * [Live Demo](https://yoyui.orcado.dev/knob/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

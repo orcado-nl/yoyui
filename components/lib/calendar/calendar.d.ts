@@ -2,7 +2,7 @@
  *
  * Calendar also known as DatePicker, is a form component to work with dates.
  *
- * [Live Demo](https://www.primereact.org/calendar/)
+ * [Live Demo](https://yoyui.orcado.dev/calendar/)
  *
  * @module calendar
  *
@@ -991,13 +991,13 @@ export interface CalendarProps<TMode extends CalendarSelectionMode = 'single', T
 }
 
 /**
- * **PrimeReact - Calendar**
+ * **YoYui - Calendar**
  *
  * _Calendar also known as DatePicker, is a form component to work with dates._
  *
- * [Live Demo](https://www.primereact.org/calendar/)
+ * [Live Demo](https://yoyui.orcado.dev/calendar/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

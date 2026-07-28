@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useEventListener, useMergeProps, useMountEffect, useOverlayListener, useUnmountEffect, useUpdateEffect, useGlobalOnEscapeKey, ESC_KEY_HANDLING_PRIORITIES, useDisplayOrder } from '../hooks/Hooks';
 import { OverlayService } from '../overlayservice/OverlayService';
@@ -14,12 +14,7 @@ export const ColorPicker = React.memo(
         const context = React.useContext(PrimeReactContext);
         const props = ColorPickerBase.getProps(inProps, context);
         const [overlayVisibleState, setOverlayVisibleState] = React.useState(false);
-        const { ptm, cx, isUnstyled } = ColorPickerBase.setMetaData({
-            props,
-            state: {
-                overlayVisible: overlayVisibleState
-            }
-        });
+        const { ptm, cx, isUnstyled } = ColorPickerBase.setMetaData({ props, state: { overlayVisible: overlayVisibleState } });
         const isCloseOnEscape = overlayVisibleState && props.closeOnEscape;
         const overlayDisplayOrder = useDisplayOrder('overlay-panel', isCloseOnEscape);
 
@@ -41,7 +36,6 @@ export const ColorPicker = React.memo(
         const hueDragging = React.useRef(false);
         const hsbValue = React.useRef(null);
         const colorDragging = React.useRef(false);
-
         const [bindOverlayListener, unbindOverlayListener] = useOverlayListener({
             target: elementRef,
             overlay: overlayRef,
@@ -56,7 +50,6 @@ export const ColorPicker = React.memo(
             },
             when: overlayVisibleState
         });
-
         const [bindDocumentMouseMoveListener, unbindDocumentMouseMoveListener] = useEventListener({
             type: 'mousemove',
             listener: (event) => {
@@ -64,7 +57,6 @@ export const ColorPicker = React.memo(
                 hueDragging.current && pickHue(event);
             }
         });
-
         const [bindDocumentMouseUpListener, unbindDocumentMouseUpListener] = useEventListener({
             type: 'mouseup',
             listener: () => {
@@ -77,10 +69,7 @@ export const ColorPicker = React.memo(
 
         const onPanelClick = (event) => {
             if (!props.inline) {
-                OverlayService.emit('overlay-click', {
-                    originalEvent: event,
-                    target: elementRef.current
-                });
+                OverlayService.emit('overlay-click', { originalEvent: event, target: elementRef.current });
             }
         };
 
@@ -115,12 +104,7 @@ export const ColorPicker = React.memo(
             const yPos = getPositionY(event);
             const hue = Math.floor((360 * (150 - Math.max(0, Math.min(150, yPos - top)))) / 150);
 
-            hsbValue.current = validateHSB({
-                h: hue,
-                s: hsbValue.current.s,
-                b: hsbValue.current.b
-            });
-
+            hsbValue.current = validateHSB({ h: hue, s: hsbValue.current.s, b: hsbValue.current.b });
             updateColorSelector();
             updateHue();
             updateModel();
@@ -182,12 +166,7 @@ export const ColorPicker = React.memo(
             const saturation = Math.floor((100 * Math.max(0, Math.min(150, (event.pageX || event.changedTouches[0].pageX) - left))) / 150);
             const brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, (event.pageY || event.changedTouches[0].pageY) - top)))) / 150);
 
-            hsbValue.current = validateHSB({
-                h: hsbValue.current.h,
-                s: saturation,
-                b: brightness
-            });
-
+            hsbValue.current = validateHSB({ h: hsbValue.current.h, s: saturation, b: brightness });
             updateColorHandle();
             updateInput();
             updateModel();
@@ -198,15 +177,12 @@ export const ColorPicker = React.memo(
                 case 'hex':
                     onChange(HSBtoHEX(hsbValue.current));
                     break;
-
                 case 'rgb':
                     onChange(HSBtoRGB(hsbValue.current));
                     break;
-
                 case 'hsb':
                     onChange(hsbValue.current);
                     break;
-
                 default:
                     break;
             }
@@ -220,15 +196,12 @@ export const ColorPicker = React.memo(
                     case 'hex':
                         hsb = HEXtoHSB(value);
                         break;
-
                     case 'rgb':
                         hsb = RGBtoHSB(value);
                         break;
-
                     case 'hsb':
                         hsb = value;
                         break;
-
                     default:
                         break;
                 }
@@ -245,26 +218,13 @@ export const ColorPicker = React.memo(
 
         const onChange = (value) => {
             if (props.onChange) {
-                props.onChange({
-                    value: value,
-                    stopPropagation: () => {},
-                    preventDefault: () => {},
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: value
-                    }
-                });
+                props.onChange({ value: value, stopPropagation: () => {}, preventDefault: () => {}, target: { name: props.name, id: props.id, value: value } });
             }
         };
 
         const updateColorSelector = () => {
             if (colorSelectorRef.current) {
-                let newHsbValue = validateHSB({
-                    h: hsbValue.current.h,
-                    s: 100,
-                    b: 100
-                });
+                let newHsbValue = validateHSB({ h: hsbValue.current.h, s: 100, b: 100 });
 
                 colorSelectorRef.current.style.backgroundColor = '#' + HSBtoHEX(newHsbValue);
             }
@@ -300,15 +260,14 @@ export const ColorPicker = React.memo(
         const onOverlayEnter = () => {
             const styles = !props.inline ? { position: 'absolute', top: '0', left: '0' } : undefined;
 
-            ZIndexUtils.set('overlay', overlayRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.overlay) || PrimeReact.zIndex.overlay);
+            ZIndexUtils.set('overlay', overlayRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.overlay || PrimeReactConfig.zIndex.overlay);
             DomHandler.addStyles(overlayRef.current, styles);
             alignOverlay();
         };
 
         const onOverlayEntered = () => {
             bindOverlayListener();
-
-            props.onShow && props.onShow();
+            props.onShow?.();
         };
 
         const onOverlayExit = () => {
@@ -317,8 +276,7 @@ export const ColorPicker = React.memo(
 
         const onOverlayExited = () => {
             ZIndexUtils.clear(overlayRef.current);
-
-            props.onHide && props.onHide();
+            props.onHide?.();
         };
 
         const onInputClick = () => {
@@ -330,34 +288,28 @@ export const ColorPicker = React.memo(
         };
 
         const onInputKeydown = (event) => {
-            switch (event.which) {
-                //space
+            switch (
+                event.which //space
+            ) {
                 case 32:
                     togglePanel();
                     event.preventDefault();
-                    break;
-
-                //escape and tab
+                    break; //escape and tab
                 case 27:
                 case 9:
                     hide();
                     break;
-
                 default:
                     break;
             }
         };
 
         const validateHSB = (hsb) => {
-            return {
-                h: Math.min(360, Math.max(0, hsb.h)),
-                s: Math.min(100, Math.max(0, hsb.s)),
-                b: Math.min(100, Math.max(0, hsb.b))
-            };
+            return { h: Math.min(360, Math.max(0, hsb.h)), s: Math.min(100, Math.max(0, hsb.s)), b: Math.min(100, Math.max(0, hsb.b)) };
         };
 
         const HEXtoRGB = (hex) => {
-            const hexValue = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16);
+            const hexValue = Number.parseInt(hex.includes('#') ? hex.substring(1) : hex, 16);
 
             return { r: hexValue >> 16, g: (hexValue & 0x00ff00) >> 8, b: hexValue & 0x0000ff };
         };
@@ -367,11 +319,7 @@ export const ColorPicker = React.memo(
         };
 
         const RGBtoHSB = (rgb) => {
-            let hsb = {
-                h: 0,
-                s: 0,
-                b: 0
-            };
+            let hsb = { h: 0, s: 0, b: 0 };
             let min = Math.min(rgb.r, rgb.g, rgb.b);
             let max = Math.max(rgb.r, rgb.g, rgb.b);
             let delta = max - min;
@@ -404,21 +352,13 @@ export const ColorPicker = React.memo(
         };
 
         const HSBtoRGB = (hsb) => {
-            let rgb = {
-                r: null,
-                g: null,
-                b: null
-            };
+            let rgb = { r: 0, g: 0, b: 0 };
             let h = Math.round(hsb.h);
             let s = Math.round((hsb.s * 255) / 100);
             let v = Math.round((hsb.b * 255) / 100);
 
             if (s === 0) {
-                rgb = {
-                    r: v,
-                    g: v,
-                    b: v
-                };
+                rgb = { r: v, g: v, b: v };
             } else {
                 let t1 = v;
                 let t2 = ((255 - s) * v) / 255;
@@ -463,15 +403,7 @@ export const ColorPicker = React.memo(
         };
 
         const RGBtoHEX = (rgb) => {
-            let hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
-
-            for (let key in hex) {
-                if (hex[key].length === 1) {
-                    hex[key] = '0' + hex[key];
-                }
-            }
-
-            return hex.join('');
+            return [rgb.r, rgb.g, rgb.b].map((channel) => channel.toString(16).padStart(2, '0')).join('');
         };
 
         const HSBtoHEX = (hsb) => {
@@ -487,24 +419,14 @@ export const ColorPicker = React.memo(
 
         const alignOverlay = () => {
             if (inputRef.current) {
-                DomHandler.alignOverlay(overlayRef.current, inputRef.current.parentElement, props.appendTo || (context && context.appendTo) || PrimeReact.appendTo);
+                DomHandler.alignOverlay(overlayRef.current, inputRef.current.parentElement, props.appendTo || context?.appendTo || PrimeReactConfig.appendTo);
             }
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            show,
-            hide,
-            focus: () => DomHandler.focus(inputRef.current),
-            getElement: () => elementRef.current,
-            getOverlay: () => overlayRef.current,
-            getInput: () => inputRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, show, hide, focus: () => DomHandler.focus(inputRef.current), getElement: () => elementRef.current, getOverlay: () => overlayRef.current, getInput: () => inputRef.current }));
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
         }, [inputRef, props.inputRef]);
-
         useMountEffect(() => {
             updateHSBValue(props.value);
             updateUI();
@@ -515,48 +437,25 @@ export const ColorPicker = React.memo(
 
             alignOverlay();
         });
-
         useUpdateEffect(() => {
             if (!colorDragging.current && !hueDragging.current) {
                 updateHSBValue(props.value);
             }
         }, [props.value]);
-
         useUpdateEffect(() => {
             updateUI();
         });
-
         useUnmountEffect(() => {
             ZIndexUtils.clear(overlayRef.current);
         });
 
         const createColorSelector = () => {
             const selectorProps = mergeProps(
-                {
-                    ref: colorSelectorRef,
-                    className: cx('selector'),
-                    onMouseDown: (e) => onColorMousedown(e),
-                    onTouchStart: (e) => onColorDragStart(e),
-                    onTouchMove: (e) => onDrag(e),
-                    onTouchEnd: onDragEnd
-                },
+                { ref: colorSelectorRef, className: cx('selector'), onMouseDown: (e) => onColorMousedown(e), onTouchStart: (e) => onColorDragStart(e), onTouchMove: (e) => onDrag(e), onTouchEnd: onDragEnd },
                 ptm('selector')
             );
-
-            const colorProps = mergeProps(
-                {
-                    className: cx('color')
-                },
-                ptm('color')
-            );
-
-            const colorHandlerProps = mergeProps(
-                {
-                    ref: colorHandleRef,
-                    className: cx('colorHandle')
-                },
-                ptm('colorHandle')
-            );
+            const colorProps = mergeProps({ className: cx('color') }, ptm('color'));
+            const colorHandlerProps = mergeProps({ ref: colorHandleRef, className: cx('colorHandle') }, ptm('colorHandle'));
 
             return (
                 <div {...selectorProps}>
@@ -568,23 +467,8 @@ export const ColorPicker = React.memo(
         };
 
         const createHue = () => {
-            const hueProps = mergeProps(
-                {
-                    className: cx('hue'),
-                    onMouseDown: (e) => onHueMousedown(e),
-                    onTouchStart: (e) => onHueDragStart(e),
-                    onTouchMove: (e) => onDrag(e),
-                    onTouchEnd: onDragEnd
-                },
-                ptm('hue')
-            );
-
-            const hueHandlerProps = mergeProps(
-                {
-                    className: cx('hueHandle')
-                },
-                ptm('hueHandle')
-            );
+            const hueProps = mergeProps({ className: cx('hue'), onMouseDown: (e) => onHueMousedown(e), onTouchStart: (e) => onHueDragStart(e), onTouchMove: (e) => onDrag(e), onTouchEnd: onDragEnd }, ptm('hue'));
+            const hueHandlerProps = mergeProps({ className: cx('hueHandle') }, ptm('hueHandle'));
 
             return (
                 <div ref={hueViewRef} {...hueProps}>
@@ -596,12 +480,7 @@ export const ColorPicker = React.memo(
         const createContent = () => {
             const colorSelector = createColorSelector();
             const hue = createHue();
-            const contentProps = mergeProps(
-                {
-                    className: cx('content')
-                },
-                ptm('content')
-            );
+            const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
 
             return (
                 <div {...contentProps}>
@@ -640,16 +519,7 @@ export const ColorPicker = React.memo(
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip);
         const content = createContent();
         const input = createInput();
-        const rootProps = mergeProps(
-            {
-                id: props.id,
-                ref: elementRef,
-                style: props.style,
-                className: classNames(props.className, cx('root'))
-            },
-            ColorPickerBase.getOtherProps(props),
-            ptm('root')
-        );
+        const rootProps = mergeProps({ id: props.id, ref: elementRef, style: props.style, className: classNames(props.className, cx('root')) }, ColorPickerBase.getOtherProps(props), ptm('root'));
 
         return (
             <>

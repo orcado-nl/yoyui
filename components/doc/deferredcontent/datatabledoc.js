@@ -29,10 +29,10 @@ export function DataTableDoc(props) {
         `,
         javascript: `
 import React, { useState, useRef } from 'react';
-import { DeferredContent } from 'primereact/deferredcontent';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast';
+import { DeferredContent } from '@orcado/yoyui/deferredcontent';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 export default function DataTableDemo() {
@@ -62,10 +62,10 @@ export default function DataTableDemo() {
         `,
         typescript: `
 import React, { useState, useRef } from 'react';
-import { DeferredContent } from 'primereact/deferredcontent';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast';
+import { DeferredContent } from '@orcado/yoyui/deferredcontent';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Toast } from '@orcado/yoyui/toast';
 import { ProductService } from './service/ProductService';
 
 export default function DataTableDemo() {

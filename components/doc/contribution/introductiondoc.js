@@ -5,8 +5,7 @@ export function IntroductionDoc(props) {
     const code = {
         code1: {
             basic: `
-git clone https://github.com/primefaces/primereact.git
-cd primereact
+git clone https://github.com/orcado-nl/yoyui.git
 `
         },
         code2: {
@@ -30,12 +29,9 @@ npm run dev
 
     return (
         <DocSectionText {...props}>
-            <p>
-                PrimeReact is a popular React library maintained by PrimeTek, a company renowned for its comprehensive set of UI components for various frameworks. PrimeTek is dedicated to providing high-quality, versatile, and accessible UI
-                components that help developers build better applications faster.
-            </p>
+            <p>YoYui is a popular React library maintained by Orcado, after a licensing change from the original developers PrimeTek.</p>
             <h3>Development Setup</h3>
-            <p>To begin with, clone the PrimeReact repository from GitHub</p>
+            <p>To begin with, clone the YoYui repository from GitHub</p>
             <DocSectionCode code={code.code1} hideToggleCode hideStackBlitz />
             <p>
                 Then run the showcase in your local environment at <i>http://localhost:3000/</i>.

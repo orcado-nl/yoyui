@@ -2,7 +2,7 @@
  *
  * ColorPicker is an input component to select a color.
  *
- * [Live Demo](https://www.primereact.org/colorpicker/)
+ * [Live Demo](https://yoyui.orcado.dev/colorpicker/)
  *
  * @module colorpicker
  *
@@ -249,13 +249,13 @@ export interface ColorPickerProps extends Omit<React.DetailedHTMLProps<React.Inp
 }
 
 /**
- * **PrimeReact - ColorPicker**
+ * **YoYui - ColorPicker**
  *
  * _ColorPicker is an input component to select a color._
  *
- * [Live Demo](https://www.primereact.org/colorpicker/)
+ * [Live Demo](https://yoyui.orcado.dev/colorpicker/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

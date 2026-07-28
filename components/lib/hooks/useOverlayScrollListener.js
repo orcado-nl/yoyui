@@ -1,86 +1,93 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { DomHandler, ObjectUtils } from '../utils/Utils';
-import { usePrevious } from './usePrevious';
-import { useUnmountEffect } from './useUnmountEffect';
 
 export const useOverlayScrollListener = ({ target, listener, options, when = true }) => {
     const context = React.useContext(PrimeReactContext);
     const targetRef = React.useRef(null);
-    const listenerRef = React.useRef(null);
-    const scrollableParentsRef = React.useRef([]);
-    let prevListener = usePrevious(listener);
-    let prevOptions = usePrevious(options);
+    const listenerRef = React.useRef(listener);
+    const hideOnScroll = context ? context.hideOverlaysOnDocumentScrolling : PrimeReactConfig.hideOverlaysOnDocumentScrolling;
+    const configRef = React.useRef({ target, options, when, hideOnScroll });
+    const registrationRef = React.useRef(null);
 
-    const bind = (bindOptions = {}) => {
-        if (ObjectUtils.isNotEmpty(bindOptions.target)) {
-            unbind();
-            (bindOptions.when || when) && (targetRef.current = DomHandler.getTargetElement(bindOptions.target));
+    listenerRef.current = listener;
+    configRef.current = { target, options, when, hideOnScroll };
+
+    const unbind = React.useCallback(() => {
+        const registration = registrationRef.current;
+
+        if (registration) {
+            registration.nodes.forEach((node) => node.removeEventListener('scroll', registration.listener, registration.options));
+            registrationRef.current = null;
         }
+    }, []);
 
-        if (!listenerRef.current && targetRef.current) {
-            const hideOnScroll = context ? context.hideOverlaysOnDocumentScrolling : PrimeReact.hideOverlaysOnDocumentScrolling;
-            const nodes = (scrollableParentsRef.current = DomHandler.getScrollableParents(targetRef.current));
+    const bind = React.useCallback(
+        (bindOptions = {}) => {
+            const config = configRef.current;
+            const hasTargetOverride = ObjectUtils.isNotEmpty(bindOptions.target);
+            const shouldBind = Object.prototype.hasOwnProperty.call(bindOptions, 'when') ? bindOptions.when : config.when;
 
-            // Ensure window/body is always included as fallback
-            if (!nodes.some((node) => node === document.body || node === window)) {
-                nodes.push(hideOnScroll ? window : document.body);
+            if (hasTargetOverride) {
+                unbind();
+                targetRef.current = shouldBind ? DomHandler.getTargetElement(bindOptions.target) : null;
+            } else if (!targetRef.current && shouldBind) {
+                targetRef.current = DomHandler.getTargetElement(config.target);
             }
 
-            listenerRef.current = (event) => listener && listener(event);
-            nodes.forEach((node) => node.addEventListener('scroll', listenerRef.current, options));
-        }
-    };
+            if (!shouldBind || registrationRef.current || !targetRef.current) {
+                return;
+            }
 
-    const unbind = () => {
-        if (listenerRef.current) {
-            const nodes = scrollableParentsRef.current;
+            const nodes = DomHandler.getScrollableParents(targetRef.current);
 
-            nodes.forEach((node) => node.removeEventListener('scroll', listenerRef.current, options));
+            if (!nodes.some((node) => node === document.body || node === window)) {
+                nodes.push(config.hideOnScroll ? window : document.body);
+            }
 
-            listenerRef.current = null;
-        }
-    };
+            const eventListener = (event) => listenerRef.current?.(event);
+            const registration = {
+                nodes,
+                listener: eventListener,
+                options: config.options,
+                hideOnScroll: config.hideOnScroll
+            };
 
-    const dispose = () => {
-        unbind();
-        // #5927 prevent memory leak by releasing
-        scrollableParentsRef.current = null;
-        prevListener = null;
-        prevOptions = null;
-    };
-
-    const updateTarget = React.useCallback(() => {
-        if (when) {
-            targetRef.current = DomHandler.getTargetElement(target);
-        } else {
-            unbind();
-            targetRef.current = null;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [target, when]);
+            registration.nodes.forEach((node) => node.addEventListener('scroll', registration.listener, registration.options));
+            registrationRef.current = registration;
+        },
+        [unbind]
+    );
 
     React.useEffect(() => {
-        updateTarget();
-    }, [updateTarget]);
+        const nextTarget = when ? DomHandler.getTargetElement(target) : null;
+        const targetChanged = targetRef.current !== nextTarget;
+        const wasBound = !!registrationRef.current;
+
+        if (targetChanged || !when) {
+            unbind();
+            targetRef.current = nextTarget;
+
+            if (targetChanged && wasBound && when) {
+                bind();
+            }
+        }
+    }, [bind, target, unbind, when]);
 
     React.useEffect(() => {
-        const listenerChanged = `${prevListener}` !== `${listener}`;
-        const optionsChanged = prevOptions !== options;
-        const listenerExists = listenerRef.current;
+        const registration = registrationRef.current;
+        const configChanged = registration && (registration.options !== options || registration.hideOnScroll !== hideOnScroll);
 
-        if (listenerExists && (listenerChanged || optionsChanged)) {
+        if (configChanged) {
             unbind();
-            when && bind();
-        } else if (!listenerExists) {
-            dispose();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [listener, options, when]);
 
-    useUnmountEffect(() => {
-        dispose();
-    });
+            if (when) {
+                bind();
+            }
+        }
+    }, [bind, hideOnScroll, options, unbind, when]);
+
+    React.useEffect(() => unbind, [unbind]);
 
     return [bind, unbind];
 };

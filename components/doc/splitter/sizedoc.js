@@ -12,7 +12,7 @@ export function SizeDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { Splitter, SplitterPanel } from '@orcado/yoyui/splitter';
 
 export default function SizeDemo() {
     return (
@@ -25,7 +25,7 @@ export default function SizeDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { Splitter, SplitterPanel } from '@orcado/yoyui/splitter';
 
 export default function SizeDemo() {
     return (
@@ -42,8 +42,7 @@ export default function SizeDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Initial dimension of a panel is percentage based and defined using the <i>size</i> property. In addition,
-                    <i>minSize</i> is provided to set a minimum value during a resize.
+                    Initial dimension of a panel is percentage based and defined using the <i>size</i> property. In addition, <i>minSize</i> is provided to set a minimum value during a resize.
                 </p>
             </DocSectionText>
             <div className="card">

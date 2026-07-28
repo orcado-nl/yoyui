@@ -10,12 +10,19 @@ const midX = 50;
 const midY = 50;
 const minRadians = (4 * Math.PI) / 3;
 const maxRadians = -Math.PI / 3;
+const roundCoordinate = (value) => Number(value.toFixed(12));
 
 export const Knob = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
-        const props = KnobBase.getProps(inProps, context);
+        const props = KnobBase.getProps(
+            {
+                ...inProps,
+                readOnly: inProps.readOnly ?? inProps.readonly
+            },
+            context
+        );
 
         const { ptm, cx, isUnstyled } = KnobBase.setMetaData({
             props
@@ -79,21 +86,21 @@ export const Knob = React.memo(
 
         const valueRadians = () => mapRange(props.value, props.min, props.max, minRadians, maxRadians);
 
-        const minX = () => midX + Math.cos(minRadians) * radius;
+        const minX = () => roundCoordinate(midX + Math.cos(minRadians) * radius);
 
-        const minY = () => midY - Math.sin(minRadians) * radius;
+        const minY = () => roundCoordinate(midY - Math.sin(minRadians) * radius);
 
-        const maxX = () => midX + Math.cos(maxRadians) * radius;
+        const maxX = () => roundCoordinate(midX + Math.cos(maxRadians) * radius);
 
-        const maxY = () => midY - Math.sin(maxRadians) * radius;
+        const maxY = () => roundCoordinate(midY - Math.sin(maxRadians) * radius);
 
-        const zeroX = () => midX + Math.cos(zeroRadians()) * radius;
+        const zeroX = () => roundCoordinate(midX + Math.cos(zeroRadians()) * radius);
 
-        const zeroY = () => midY - Math.sin(zeroRadians()) * radius;
+        const zeroY = () => roundCoordinate(midY - Math.sin(zeroRadians()) * radius);
 
-        const valueX = () => midX + Math.cos(valueRadians()) * radius;
+        const valueX = () => roundCoordinate(midX + Math.cos(valueRadians()) * radius);
 
-        const valueY = () => midY - Math.sin(valueRadians()) * radius;
+        const valueY = () => roundCoordinate(midY - Math.sin(valueRadians()) * radius);
 
         const largeArc = () => (Math.abs(zeroRadians() - valueRadians()) < Math.PI ? 0 : 1);
 
@@ -178,7 +185,7 @@ export const Knob = React.memo(
         };
 
         const onKeyDown = (event) => {
-            if (!props.disabled && !props.readonly) {
+            if (!props.disabled && !props.readOnly) {
                 switch (event.code) {
                     case 'ArrowRight':
                     case 'ArrowUp':
@@ -258,15 +265,15 @@ export const Knob = React.memo(
                 'aria-valuemin': props.min,
                 'aria-valuemax': props.max,
                 'aria-valuenow': props.value,
-                'aria-labelledby': props.ariaLabelledby,
-                'aria-label': props.ariaLabel,
+                'aria-labelledby': props['aria-labelledby'] ?? props.ariaLabelledby,
+                'aria-label': props['aria-label'] ?? props.ariaLabel,
                 role: 'slider',
-                tabIndex: props.readonly || props.disabled ? -1 : props.tabIndex,
+                tabIndex: props.readOnly || props.disabled ? -1 : props.tabIndex,
                 onClick: (e) => onClick(e),
                 onMouseDown: (e) => onMouseDown(e),
-                onMouseUp: (e) => onMouseUp(e),
-                onTouchStart: (e) => onTouchStart(e),
-                onTouchEnd: (e) => onTouchEnd(e),
+                onMouseUp: (e) => onMouseUp(),
+                onTouchStart: (e) => onTouchStart(),
+                onTouchEnd: (e) => onTouchEnd(),
                 onKeyDown: (e) => onKeyDown(e)
             },
             ptm('svg')

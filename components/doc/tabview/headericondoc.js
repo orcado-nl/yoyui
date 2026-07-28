@@ -34,7 +34,7 @@ export function HeaderIconDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { TabView, TabPanel } from 'primereact/tabview';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
 
 export default function HeaderIconDemo() {
     return (
@@ -71,7 +71,7 @@ export default function HeaderIconDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { TabView, TabPanel } from 'primereact/tabview';
+import { TabView, TabPanel } from '@orcado/yoyui/tabview';
 
 export default function HeaderIconDemo() {
     return (

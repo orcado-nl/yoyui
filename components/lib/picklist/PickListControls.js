@@ -17,16 +17,16 @@ export const PickListControls = React.memo((props) => {
     const moveDownIcon = props.moveDownIcon || <AngleDownIcon />;
     const moveBottomIcon = props.moveBottomIcon || <AngleDoubleDownIcon />;
 
-    const moveDisabled = !props.selection || !props.selection.length;
+    const moveDisabled = !props.selection?.length;
 
     const moveUp = (event) => {
         const selectedItems = props.selection;
 
-        if (selectedItems && selectedItems.length) {
+        if (selectedItems?.length) {
             let list = [...props.list];
 
-            for (let i = 0; i < selectedItems.length; i++) {
-                const selectedItem = selectedItems[i];
+            for (const _item of selectedItems) {
+                const selectedItem = _item;
                 const selectedItemIndex = ObjectUtils.findIndexInList(selectedItem, list, props.dataKey);
 
                 if (selectedItemIndex !== 0) {
@@ -53,11 +53,11 @@ export const PickListControls = React.memo((props) => {
     const moveTop = (event) => {
         const selectedItems = props.selection;
 
-        if (selectedItems && selectedItems.length) {
+        if (selectedItems?.length) {
             let list = [...props.list];
 
-            for (let i = 0; i < selectedItems.length; i++) {
-                const selectedItem = selectedItems[i];
+            for (const _item2 of selectedItems) {
+                const selectedItem = _item2;
                 const selectedItemIndex = ObjectUtils.findIndexInList(selectedItem, list, props.dataKey);
 
                 if (selectedItemIndex !== 0) {
@@ -82,7 +82,7 @@ export const PickListControls = React.memo((props) => {
     const moveDown = (event) => {
         const selectedItems = props.selection;
 
-        if (selectedItems && selectedItems.length) {
+        if (selectedItems?.length) {
             let list = [...props.list];
 
             for (let i = selectedItems.length - 1; i >= 0; i--) {
@@ -113,7 +113,7 @@ export const PickListControls = React.memo((props) => {
     const moveBottom = (event) => {
         const selectedItems = props.selection;
 
-        if (selectedItems && selectedItems.length) {
+        if (selectedItems?.length) {
             let list = [...props.list];
 
             for (let i = selectedItems.length - 1; i >= 0; i--) {

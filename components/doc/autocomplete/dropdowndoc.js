@@ -8,9 +8,9 @@ export function DropdownDoc(props) {
     const [items, setItems] = useState([]);
 
     const search = (event) => {
-        let _items = [...Array(10).keys()];
+        let _items = [...new Array(10).keys()];
 
-        setItems(event.query ? [...Array(10).keys()].map((item) => event.query + '-' + item) : _items);
+        setItems(event.query ? [...new Array(10).keys()].map((item) => event.query + '-' + item) : _items);
     };
 
     const code = {
@@ -19,7 +19,7 @@ export function DropdownDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { AutoComplete } from "primereact/autocomplete";
+import { AutoComplete } from "@orcado/yoyui/autocomplete";
 
 export default function DropdownDemo() {
     const [value, setValue] = useState('');
@@ -39,7 +39,7 @@ export default function DropdownDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { AutoComplete, AutoCompleteCompleteEvent } from "primereact/autocomplete";
+import { AutoComplete, AutoCompleteCompleteEvent } from "@orcado/yoyui/autocomplete";
 
 export default function DropdownDemo() {
     const [value, setValue] = useState<string>('');

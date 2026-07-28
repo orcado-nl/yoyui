@@ -2,7 +2,7 @@
  *
  * TabView is a container component to group content with tabs.
  *
- * [Live Demo](https://www.primereact.org/tabview/)
+ * [Live Demo](https://yoyui.orcado.dev/tabview/)
  *
  * Helper Components:
  *
@@ -440,13 +440,13 @@ export interface TabViewProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - TabPanel**
+ * **YoYui - TabPanel**
  *
  * _TabView is a container component to group content with tabs._
  *
- * [Live Demo](https://www.primereact.org/tabview/)
+ * [Live Demo](https://yoyui.orcado.dev/tabview/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  *

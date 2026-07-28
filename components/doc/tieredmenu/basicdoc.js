@@ -79,7 +79,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { TieredMenu } from 'primereact/tieredmenu';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
 
 export default function BasicDemo() {
     const items = [
@@ -159,8 +159,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react';
-import { TieredMenu } from 'primereact/tieredmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function BasicDemo() {
     const items: MenuItem[] = [

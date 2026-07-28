@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext, localeOption } from '../api/Api';
+import { PrimeReactContext, localeOption, PrimeReactConfig } from '../api/Api';
 import { Button } from '../button/Button';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { CSSTransition } from '../csstransition/CSSTransition';
@@ -10,11 +10,11 @@ import { DomHandler, IconUtils, ObjectUtils, ZIndexUtils, classNames } from '../
 import { ConfirmPopupBase } from './ConfirmPopupBase';
 
 export const confirmPopup = (props = {}) => {
-    props = { ...props, ...{ visible: props.visible === undefined ? true : props.visible } };
+    props = { ...props, visible: props.visible === undefined ? true : props.visible };
     props.visible && OverlayService.emit('confirm-popup', props);
 
     const show = (updatedProps = {}) => {
-        OverlayService.emit('confirm-popup', { ...props, ...updatedProps, ...{ visible: true } });
+        OverlayService.emit('confirm-popup', { ...props, ...updatedProps, visible: true });
     };
 
     const hide = () => {
@@ -29,20 +29,12 @@ export const ConfirmPopup = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = ConfirmPopupBase.getProps(inProps, context);
-
         const [visibleState, setVisibleState] = React.useState(props.visible);
         const [reshowState, setReshowState] = React.useState(false);
-        const metaData = {
-            props,
-            state: {
-                visible: visibleState,
-                reshow: reshowState
-            }
-        };
+        const metaData = { props, state: { visible: visibleState, reshow: reshowState } };
         const { ptm, cx, isUnstyled } = ConfirmPopupBase.setMetaData(metaData);
 
         useHandleStyle(ConfirmPopupBase.css.styles, isUnstyled, { name: 'confirmpopup' });
-
         const overlayRef = React.useRef(null);
         const acceptBtnRef = React.useRef(null);
         const rejectBtnRef = React.useRef(null);
@@ -54,7 +46,6 @@ export const ConfirmPopup = React.memo(
         const getCurrentProps = () => confirmProps.current || props;
         const getPropValue = (key) => (confirmProps.current || props)[key];
         const callbackFromProp = (key, ...param) => ObjectUtils.getPropValue(getPropValue(key), param);
-
         const acceptLabel = getPropValue('acceptLabel') || localeOption('accept');
         const rejectLabel = getPropValue('rejectLabel') || localeOption('reject');
         const isCloseOnEscape = props.dismissable && props.closeOnEscape && visibleState;
@@ -67,7 +58,6 @@ export const ConfirmPopup = React.memo(
             when: isCloseOnEscape && displayOrder,
             priority: [ESC_KEY_HANDLING_PRIORITIES.DIALOG, displayOrder]
         });
-
         const [bindOverlayListener, unbindOverlayListener] = useOverlayListener({
             target: getPropValue('target'),
             overlay: overlayRef,
@@ -91,11 +81,7 @@ export const ConfirmPopup = React.memo(
 
         const onPanelClick = (event) => {
             isPanelClicked.current = true;
-
-            OverlayService.emit('overlay-click', {
-                originalEvent: event,
-                target: getPropValue('target')
-            });
+            OverlayService.emit('overlay-click', { originalEvent: event, target: getPropValue('target') });
         };
 
         const accept = () => {
@@ -127,9 +113,7 @@ export const ConfirmPopup = React.memo(
                     !isOutsideClicked(e.target) && (isPanelClicked.current = true);
                 };
 
-                OverlayService.on('overlay-click', overlayEventListener.current);
-
-                // Remember the focused element before we opened the dialog
+                OverlayService.on('overlay-click', overlayEventListener.current); // Remember the focused element before we opened the dialog
                 // so we can return focus to it once we close the dialog.
                 focusElementOnHide.current = document.activeElement;
             }
@@ -149,22 +133,21 @@ export const ConfirmPopup = React.memo(
         };
 
         const onEnter = () => {
-            ZIndexUtils.set('overlay', overlayRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.overlay) || PrimeReact.zIndex.overlay);
+            ZIndexUtils.set('overlay', overlayRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.overlay || PrimeReactConfig.zIndex.overlay);
             DomHandler.addStyles(overlayRef.current, { position: 'absolute', top: '0', left: '0' });
             align();
         };
 
         const onEntered = () => {
             bindOverlayListener();
-
             const defaultFocus = getPropValue('defaultFocus');
 
             if (defaultFocus === undefined || defaultFocus === 'accept') {
-                acceptBtnRef.current && acceptBtnRef.current.focus();
+                acceptBtnRef.current?.focus();
             }
 
             if (defaultFocus === 'reject') {
-                rejectBtnRef.current && rejectBtnRef.current.focus();
+                rejectBtnRef.current?.focus();
             }
 
             callbackFromProp('onShow');
@@ -182,7 +165,6 @@ export const ConfirmPopup = React.memo(
         const align = () => {
             if (getPropValue('target')) {
                 DomHandler.absolutePosition(overlayRef.current, getPropValue('target'));
-
                 const containerOffset = DomHandler.getOffset(overlayRef.current);
                 const targetOffset = DomHandler.getOffset(getPropValue('target'));
                 let arrowLeft = 0;
@@ -200,7 +182,7 @@ export const ConfirmPopup = React.memo(
         };
 
         const isOutsideClicked = (target) => {
-            return overlayRef && overlayRef.current && !(overlayRef.current.isSameNode(target) || overlayRef.current.contains(target));
+            return overlayRef?.current && !(overlayRef.current.isSameNode(target) || overlayRef.current.contains(target));
         };
 
         const confirm = (updatedProps) => {
@@ -220,10 +202,8 @@ export const ConfirmPopup = React.memo(
         };
 
         React.useEffect(() => {
-            props.visible ? show() : hide();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+            props.visible ? show() : hide(); // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.visible]);
-
         React.useEffect(() => {
             if (!props.target && !props.message) {
                 OverlayService.on('confirm-popup', confirm);
@@ -231,14 +211,11 @@ export const ConfirmPopup = React.memo(
 
             return () => {
                 OverlayService.off('confirm-popup', confirm);
-            };
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+            }; // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.target]);
-
         useUpdateEffect(() => {
             reshowState && show();
         }, [reshowState]);
-
         useUnmountEffect(() => {
             if (overlayEventListener.current) {
                 OverlayService.off('overlay-click', overlayEventListener.current);
@@ -248,37 +225,15 @@ export const ConfirmPopup = React.memo(
             OverlayService.off('confirm-popup', confirm);
             ZIndexUtils.clear(overlayRef.current);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            confirm
-        }));
+        React.useImperativeHandle(ref, () => ({ props, confirm }));
 
         const createContent = () => {
             const currentProps = getCurrentProps();
             const message = ObjectUtils.getJSXElement(getPropValue('message'), currentProps);
-
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                ptm('icon')
-            );
-
+            const iconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
             const icon = IconUtils.getJSXIcon(getPropValue('icon'), { ...iconProps }, { props: currentProps });
-            const messageProps = mergeProps(
-                {
-                    className: cx('message')
-                },
-                ptm('message')
-            );
-
-            const contentProps = mergeProps(
-                {
-                    className: cx('content')
-                },
-                ptm('content')
-            );
+            const messageProps = mergeProps({ className: cx('message') }, ptm('message'));
+            const contentProps = mergeProps({ className: cx('content') }, ptm('content'));
 
             return (
                 <div {...contentProps}>
@@ -290,21 +245,8 @@ export const ConfirmPopup = React.memo(
 
         const createFooter = () => {
             const acceptClassName = classNames('p-confirm-popup-accept p-button-sm', getPropValue('acceptClassName'));
-            const rejectClassName = classNames(
-                'p-confirm-popup-reject p-button-sm',
-                {
-                    'p-button-text': !getPropValue('rejectClassName')
-                },
-                getPropValue('rejectClassName')
-            );
-
-            const footerProps = mergeProps(
-                {
-                    className: cx('footer')
-                },
-                ptm('footer')
-            );
-
+            const rejectClassName = classNames('p-confirm-popup-reject p-button-sm', { 'p-button-text': !getPropValue('rejectClassName') }, getPropValue('rejectClassName'));
+            const footerProps = mergeProps({ className: cx('footer') }, ptm('footer'));
             const rejectButtonProps = mergeProps({
                 ref: rejectBtnRef,
                 label: rejectLabel,
@@ -313,11 +255,8 @@ export const ConfirmPopup = React.memo(
                 onClick: reject,
                 pt: ptm('rejectButton'),
                 unstyled: props.unstyled,
-                __parentMetadata: {
-                    parent: metaData
-                }
+                __parentMetadata: { parent: metaData }
             });
-
             const acceptButtonProps = mergeProps({
                 ref: acceptBtnRef,
                 label: acceptLabel,
@@ -326,11 +265,8 @@ export const ConfirmPopup = React.memo(
                 onClick: accept,
                 pt: ptm('acceptButton'),
                 unstyled: props.unstyled,
-                __parentMetadata: {
-                    parent: metaData
-                }
+                __parentMetadata: { parent: metaData }
             });
-
             const content = (
                 <div {...footerProps}>
                     <Button {...rejectButtonProps} />
@@ -339,17 +275,7 @@ export const ConfirmPopup = React.memo(
             );
 
             if (getPropValue('footer')) {
-                const defaultContentOptions = {
-                    accept,
-                    reject,
-                    className: 'p-confirm-popup-footer',
-                    acceptClassName,
-                    rejectClassName,
-                    acceptLabel,
-                    rejectLabel,
-                    element: content,
-                    props: getCurrentProps()
-                };
+                const defaultContentOptions = { accept, reject, className: 'p-confirm-popup-footer', acceptClassName, rejectClassName, acceptLabel, rejectLabel, element: content, props: getCurrentProps() };
 
                 return ObjectUtils.getJSXElement(getPropValue('footer'), defaultContentOptions);
             }
@@ -358,41 +284,19 @@ export const ConfirmPopup = React.memo(
         };
 
         const rootProps = mergeProps(
-            {
-                ref: overlayRef,
-                id: getPropValue('id'),
-                className: classNames(props.className, cx('root', { context, getPropValue })),
-                style: getPropValue('style'),
-                onClick: onPanelClick
-            },
+            { ref: overlayRef, id: getPropValue('id'), className: classNames(props.className, cx('root', { context, getPropValue })), style: getPropValue('style'), onClick: onPanelClick },
             ConfirmPopupBase.getOtherProps(props),
             ptm('root')
         );
-
         const transitionProps = mergeProps(
-            {
-                classNames: cx('transition'),
-                in: visibleState,
-                timeout: { enter: 120, exit: 100 },
-                options: getPropValue('transitionOptions'),
-                unmountOnExit: true,
-                onEnter,
-                onEntered,
-                onExit,
-                onExited
-            },
+            { classNames: cx('transition'), in: visibleState, timeout: { enter: 120, exit: 100 }, options: getPropValue('transitionOptions'), unmountOnExit: true, onEnter, onEntered, onExit, onExited },
             ptm('transition')
         );
 
         const createTemplateElement = () => {
             const currentProps = getCurrentProps();
             const message = ObjectUtils.getJSXElement(getPropValue('message'), currentProps);
-            const templateElementProps = {
-                message,
-                acceptBtnRef,
-                rejectBtnRef,
-                hide
-            };
+            const templateElementProps = { message, acceptBtnRef, rejectBtnRef, hide };
 
             return (
                 <CSSTransition nodeRef={overlayRef} {...transitionProps}>
@@ -420,5 +324,4 @@ export const ConfirmPopup = React.memo(
         return <Portal element={element} appendTo={getPropValue('appendTo')} visible={getPropValue('visible')} />;
     })
 );
-
 ConfirmPopup.displayName = 'ConfirmPopup';

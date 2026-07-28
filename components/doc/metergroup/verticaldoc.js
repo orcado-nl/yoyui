@@ -9,7 +9,7 @@ export function VerticalDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useRef } from 'react';
-import { MeterGroup } from 'primereact/metergroup';
+import { MeterGroup } from '@orcado/yoyui/metergroup';
 
 export default function VerticalDemo() {
     const values = [
@@ -28,7 +28,7 @@ export default function VerticalDemo() {
         `,
         typescript: `
 import React, { useEffect, useRef } from 'react';
-import { MeterGroup } from 'primereact/metergroup';
+import { MeterGroup } from '@orcado/yoyui/metergroup';
 
 export default function VerticalDemo() {
     const values = [

@@ -15,7 +15,7 @@ export function SeverityDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { Tag } from 'primereact/tag';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function SeverityDemo() {
     return (
@@ -33,7 +33,7 @@ export default function SeverityDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Tag } from 'primereact/tag';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function SeverityDemo() {
     return (

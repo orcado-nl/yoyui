@@ -26,7 +26,7 @@ export function ItemWithoutThumbnailsDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ItemWithoutThumbnailsDemo() {
@@ -54,7 +54,7 @@ export default function ItemWithoutThumbnailsDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ItemWithoutThumbnailsDemo() {
@@ -83,8 +83,8 @@ export default function ItemWithoutThumbnailsDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

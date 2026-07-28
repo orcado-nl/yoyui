@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { FilterService, PrimeReactContext } from '../api/Api';
+import { FilterService, PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { useMergeProps, useUpdateEffect } from '../hooks/Hooks';
 import { DomHandler, ObjectUtils, UniqueComponentId, classNames } from '../utils/Utils';
@@ -7,13 +7,11 @@ import { PickListBase } from './PickListBase';
 import { PickListControls } from './PickListControls';
 import { PickListSubList } from './PickListSubList';
 import { PickListTransferControls } from './PickListTransferControls';
-
 export const PickList = React.memo(
     React.forwardRef((inProps, ref) => {
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = PickListBase.getProps(inProps, context);
-
         const [sourceSelectionState, setSourceSelectionState] = React.useState([]);
         const [targetSelectionState, setTargetSelectionState] = React.useState([]);
         const [sourceFilterValueState, setSourceFilterValueState] = React.useState('');
@@ -21,8 +19,10 @@ export const PickList = React.memo(
         const [attributeSelectorState, setAttributeSelectorState] = React.useState(props.id);
         const [focusedOptionIndex, setFocusedOptionIndex] = React.useState(-1);
         const [focusedOptionId, setFocusedOptionId] = React.useState(null);
-        const [focused, setFocused] = React.useState({ source: false, target: false });
-
+        const [focused, setFocused] = React.useState({
+            source: false,
+            target: false
+        });
         const metaData = {
             props,
             state: {
@@ -35,7 +35,9 @@ export const PickList = React.memo(
         };
         const { ptm, cx, isUnstyled } = PickListBase.setMetaData(metaData);
 
-        useHandleStyle(PickListBase.css.styles, isUnstyled, { name: 'picklist' });
+        useHandleStyle(PickListBase.css.styles, isUnstyled, {
+            name: 'picklist'
+        });
         const elementRef = React.useRef(null);
         const sourceListElementRef = React.useRef(null);
         const targetListElementRef = React.useRef(null);
@@ -68,20 +70,16 @@ export const PickList = React.memo(
                     case 'up':
                         scrollInView(listElement, -1);
                         break;
-
                     case 'top':
                         listElement.scrollTop = 0;
                         break;
-
                     case 'down':
                         scrollInView(listElement, 1);
                         break;
-
                     case 'bottom':
-                        /* TODO: improve this code block */
+                        // Wait for the transferred items to render before scrolling to the new end.
                         setTimeout(() => (listElement.scrollTop = listElement.scrollHeight), 100);
                         break;
-
                     default:
                         break;
                 }
@@ -100,7 +98,6 @@ export const PickList = React.memo(
 
         const onTransfer = (event) => {
             const { originalEvent, source, target, direction } = event;
-
             let selectedValue = [];
 
             switch (direction) {
@@ -115,7 +112,6 @@ export const PickList = React.memo(
                     }
 
                     break;
-
                 case 'allToTarget':
                     selectedValue = props.source;
 
@@ -127,9 +123,7 @@ export const PickList = React.memo(
                     }
 
                     selectedValue = [];
-
                     break;
-
                 case 'toSource':
                     selectedValue = targetSelection;
 
@@ -141,7 +135,6 @@ export const PickList = React.memo(
                     }
 
                     break;
-
                 case 'allToSource':
                     selectedValue = props.target;
 
@@ -154,17 +147,28 @@ export const PickList = React.memo(
 
                     selectedValue = [];
                     break;
-
                 default:
                     break;
             }
 
-            onSelectionChange({ originalEvent, value: selectedValue }, 'sourceSelection', props.onSourceSelectionChange);
-            onSelectionChange({ originalEvent, value: selectedValue }, 'targetSelection', props.onTargetSelectionChange);
-
+            onSelectionChange(
+                {
+                    originalEvent,
+                    value: selectedValue
+                },
+                'sourceSelection',
+                props.onSourceSelectionChange
+            );
+            onSelectionChange(
+                {
+                    originalEvent,
+                    value: selectedValue
+                },
+                'targetSelection',
+                props.onTargetSelectionChange
+            );
             setTargetSelectionState([]);
             setSourceSelectionState([]);
-
             handleChange(event, source, target);
         };
 
@@ -193,7 +197,10 @@ export const PickList = React.memo(
             const [setFilterState, onFilterChange] = type === 'source' ? [setSourceFilterValueState, props.onSourceFilterChange] : [setTargetFilterValueState, props.onTargetFilterChange];
 
             if (onFilterChange) {
-                onFilterChange({ originalEvent, value });
+                onFilterChange({
+                    originalEvent,
+                    value
+                });
             } else {
                 setFilterState(value);
             }
@@ -228,7 +235,7 @@ export const PickList = React.memo(
 
         const findCurrentFocusedIndex = (listElement) => {
             if (focusedOptionIndex === -1) {
-                const itemList = listElement && listElement.children ? [...listElement.children] : [];
+                const itemList = listElement?.children ? [...listElement.children] : [];
                 let selectedOptionIndex = findFirstSelectedOptionIndex(listElement, itemList);
 
                 if (props.autoOptionFocus && selectedOptionIndex === -1) {
@@ -258,19 +265,24 @@ export const PickList = React.memo(
         };
 
         const onListFocus = (event, type) => {
-            setFocused({ ...focused, [type]: true });
-
+            setFocused({
+                ...focused,
+                [type]: true
+            });
             const listElement = getListElement(type);
             const currentFocusedIndex = findCurrentFocusedIndex(listElement);
 
             changeFocusedOptionIndex(currentFocusedIndex, type);
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onListBlur = (event, type) => {
-            setFocused({ ...focused, [type]: false });
+            setFocused({
+                ...focused,
+                [type]: false
+            });
             setFocusedOptionIndex(-1);
-            props.onBlur && props.onBlur(event);
+            props.onBlur?.(event);
         };
 
         const onItemClick = (event, type, arrowKeyClick = false) => {
@@ -306,73 +318,104 @@ export const PickList = React.memo(
             }
 
             if (isSource) {
-                onSelectionChange({ originalEvent: originalEvent, value: selection }, 'sourceSelection', props.onSourceSelectionChange);
+                onSelectionChange(
+                    {
+                        originalEvent: originalEvent,
+                        value: selection
+                    },
+                    'sourceSelection',
+                    props.onSourceSelectionChange
+                );
             } else {
-                onSelectionChange({ originalEvent: originalEvent, value: selection }, 'targetSelection', props.onTargetSelectionChange);
+                onSelectionChange(
+                    {
+                        originalEvent: originalEvent,
+                        value: selection
+                    },
+                    'targetSelection',
+                    props.onTargetSelectionChange
+                );
             }
         };
 
         const onOptionMouseDown = ({ index, type }) => {
-            setFocused({ ...focused, [type]: true });
+            setFocused({
+                ...focused,
+                [type]: true
+            });
             setFocusedOptionIndex(index);
         };
 
         const onListKeyDown = (event, type) => {
+            const handleComplexCase1 = () => {
+                if (event.ctrlKey) {
+                    const isSource = type === 'source';
+
+                    if (isSource) {
+                        setSourceSelectionState([...sourceList]);
+                    } else {
+                        setTargetSelectionState([...targetList]);
+                    }
+
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: isSource ? [...sourceList] : [...targetList]
+                        },
+                        isSource ? 'sourceSelection' : 'targetSelection',
+                        isSource ? props.onSourceSelectionChange : props.onTargetSelectionChange
+                    );
+                    event.preventDefault();
+                }
+            };
+
+            const handleComplexCase2 = () => {
+                if (event.ctrlKey) {
+                    const isSource = type === 'source';
+
+                    if (isSource) {
+                        setSourceSelectionState([]);
+                    } else {
+                        setTargetSelectionState([]);
+                    }
+
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: []
+                        },
+                        isSource ? 'sourceSelection' : 'targetSelection',
+                        isSource ? props.onSourceSelectionChange : props.onTargetSelectionChange
+                    );
+                    event.preventDefault();
+                }
+            };
+
             switch (event.code) {
                 case 'ArrowDown':
                     onArrowDownKey(event, type);
                     break;
-
                 case 'ArrowUp':
                     onArrowUpKey(event, type);
                     break;
-
                 case 'Home':
                     onHomeKey(event, type);
                     break;
-
                 case 'End':
                     onEndKey(event, type);
                     break;
-
                 case 'Enter':
                 case 'NumpadEnter':
                     onEnterKey(event, type);
                     break;
-
                 case 'Space':
                     onSpaceKey(event, type);
                     break;
-
                 case 'KeyA':
-                    if (event.ctrlKey) {
-                        const isSource = type === 'source';
-
-                        if (isSource) {
-                            setSourceSelectionState([...sourceList]);
-                        } else {
-                            setTargetSelectionState([...targetList]);
-                        }
-
-                        onSelectionChange({ originalEvent: event, value: isSource ? [...sourceList] : [...targetList] }, isSource ? 'sourceSelection' : 'targetSelection', isSource ? props.onSourceSelectionChange : props.onTargetSelectionChange);
-                        event.preventDefault();
-                    }
-
+                    handleComplexCase1();
                     break;
                 case 'KeyD':
-                    if (event.ctrlKey) {
-                        const isSource = type === 'source';
-
-                        if (isSource) {
-                            setSourceSelectionState([]);
-                        } else {
-                            setTargetSelectionState([]);
-                        }
-
-                        onSelectionChange({ originalEvent: event, value: [] }, isSource ? 'sourceSelection' : 'targetSelection', isSource ? props.onSourceSelectionChange : props.onTargetSelectionChange);
-                        event.preventDefault();
-                    }
-
+                    handleComplexCase2();
                     break;
                 default:
                     break;
@@ -386,7 +429,14 @@ export const PickList = React.memo(
             changeFocusedOptionIndex(optionIndex, type);
 
             if (visibleList && visibleList.length > 0 && event.shiftKey) {
-                onItemClick({ originalEvent: event, value: visibleList[optionIndex] }, type, true);
+                onItemClick(
+                    {
+                        originalEvent: event,
+                        value: visibleList[optionIndex]
+                    },
+                    type,
+                    true
+                );
             }
 
             event.preventDefault();
@@ -399,7 +449,14 @@ export const PickList = React.memo(
             changeFocusedOptionIndex(optionIndex, type);
 
             if (visibleList && visibleList.length > 0 && event.shiftKey) {
-                onItemClick({ originalEvent: event, value: visibleList[optionIndex] }, type, true);
+                onItemClick(
+                    {
+                        originalEvent: event,
+                        value: visibleList[optionIndex]
+                    },
+                    type,
+                    true
+                );
             }
 
             event.preventDefault();
@@ -410,11 +467,18 @@ export const PickList = React.memo(
             const visibleList = getVisibleList(type === 'source' ? props.source : props.target, type);
             const items = DomHandler.find(listElement, '[data-pc-section="item"]');
             const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-            const id = focusedItem && focusedItem.getAttribute('id');
-            const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+            const id = focusedItem?.getAttribute('id');
+            const matchedOptionIndex = [...items].indexOf(focusedItem);
 
             if (visibleList && visibleList.length > 0) {
-                onItemClick({ originalEvent: event, value: visibleList[matchedOptionIndex], id }, type);
+                onItemClick(
+                    {
+                        originalEvent: event,
+                        value: visibleList[matchedOptionIndex],
+                        id
+                    },
+                    type
+                );
             }
 
             event.preventDefault();
@@ -422,7 +486,6 @@ export const PickList = React.memo(
 
         const onSpaceKey = (event, type) => {
             event.preventDefault();
-
             const isSource = type === 'source';
             const selection = isSource ? sourceSelectionState : targetSelectionState;
 
@@ -432,14 +495,27 @@ export const PickList = React.memo(
                 const items = DomHandler.find(listElement, '[data-pc-section="item"]');
                 const selectedItemIndex = ObjectUtils.findIndexInList(selection[0], [...listItems]);
                 const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-                const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
-
+                const matchedOptionIndex = [...items].indexOf(focusedItem);
                 const rangeSelection = [...listItems].slice(Math.min(selectedItemIndex, matchedOptionIndex), Math.max(selectedItemIndex, matchedOptionIndex) + 1);
 
                 if (isSource) {
-                    onSelectionChange({ originalEvent: event, value: rangeSelection }, 'sourceSelection', props.onSourceSelectionChange);
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: rangeSelection
+                        },
+                        'sourceSelection',
+                        props.onSourceSelectionChange
+                    );
                 } else {
-                    onSelectionChange({ originalEvent: event, value: rangeSelection }, 'targetSelection', props.onTargetSelectionChange);
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: rangeSelection
+                        },
+                        'targetSelection',
+                        props.onTargetSelectionChange
+                    );
                 }
             } else {
                 onEnterKey(event, type);
@@ -453,13 +529,27 @@ export const PickList = React.memo(
                 const listElement = getListElement(type);
                 const items = DomHandler.find(listElement, '[data-pc-section="item"]');
                 const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-                const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+                const matchedOptionIndex = [...items].indexOf(focusedItem);
                 const selection = [...listItems].slice(0, matchedOptionIndex + 1);
 
                 if (isSource) {
-                    onSelectionChange({ originalEvent: event, value: selection }, 'sourceSelection', props.onSourceSelectionChange);
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: selection
+                        },
+                        'sourceSelection',
+                        props.onSourceSelectionChange
+                    );
                 } else {
-                    onSelectionChange({ originalEvent: event, value: selection }, 'targetSelection', props.onTargetSelectionChange);
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: selection
+                        },
+                        'targetSelection',
+                        props.onTargetSelectionChange
+                    );
                 }
             } else {
                 changeFocusedOptionIndex(0, type);
@@ -476,13 +566,27 @@ export const PickList = React.memo(
                 const isSource = type === 'source';
                 const listItems = isSource ? sourceList : targetList;
                 const focusedItem = DomHandler.findSingle(listElement, `[data-pc-section="item"][id=${focusedOptionIndex}]`);
-                const matchedOptionIndex = [...items].findIndex((item) => item === focusedItem);
+                const matchedOptionIndex = [...items].indexOf(focusedItem);
                 const selection = [...listItems].slice(matchedOptionIndex, items.length);
 
                 if (isSource) {
-                    onSelectionChange({ originalEvent: event, value: selection }, 'sourceSelection', props.onSourceSelectionChange);
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: selection
+                        },
+                        'sourceSelection',
+                        props.onSourceSelectionChange
+                    );
                 } else {
-                    onSelectionChange({ originalEvent: event, value: selection }, 'targetSelection', props.onTargetSelectionChange);
+                    onSelectionChange(
+                        {
+                            originalEvent: event,
+                            value: selection
+                        },
+                        'targetSelection',
+                        props.onTargetSelectionChange
+                    );
                 }
             } else {
                 changeFocusedOptionIndex(items.length - 1, type);
@@ -494,7 +598,6 @@ export const PickList = React.memo(
         const findNextOptionIndex = (index, type) => {
             const listElement = getListElement(type);
             const items = DomHandler.find(listElement, '[data-pc-section="item"]');
-
             const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
             return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
@@ -510,9 +613,7 @@ export const PickList = React.memo(
 
         const changeFocusedOptionIndex = (index, type) => {
             const listElement = getListElement(type);
-
             const items = DomHandler.find(listElement, '[data-pc-section="item"]');
-
             let order;
 
             if (index >= items.length) {
@@ -532,7 +633,10 @@ export const PickList = React.memo(
             const element = DomHandler.findSingle(listElement, `[data-pc-section="item"][id="${id}"]`);
 
             if (element) {
-                element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+                element.scrollIntoView?.({
+                    block: 'nearest',
+                    inline: 'start'
+                });
             }
         };
 
@@ -542,8 +646,7 @@ export const PickList = React.memo(
 
         const createStyle = () => {
             if (!styleElementRef.current) {
-                styleElementRef.current = DomHandler.createInlineStyle((context && context.nonce) || PrimeReact.nonce, context && context.styleContainer);
-
+                styleElementRef.current = DomHandler.createInlineStyle(context?.nonce || PrimeReactConfig.nonce, context?.styleContainer);
                 let innerHTML = `
 @media screen and (max-width: ${props.breakpoint}) {
     .p-picklist[${attributeSelectorState}] {
@@ -578,7 +681,6 @@ export const PickList = React.memo(
             props,
             getElement: () => elementRef.current
         }));
-
         useUpdateEffect(() => {
             if (attributeSelectorState) {
                 elementRef.current.setAttribute(attributeSelectorState, '');
@@ -589,7 +691,6 @@ export const PickList = React.memo(
                 destroyStyle();
             };
         }, [attributeSelectorState, props.breakpoint]);
-
         useUpdateEffect(() => {
             if (!props.id && !attributeSelectorState) {
                 setAttributeSelectorState(UniqueComponentId());
@@ -601,16 +702,13 @@ export const PickList = React.memo(
                 reorderDirection.current = null;
             }
         });
-
         useUpdateEffect(() => {
             let _focusedOptionId = focusedOptionIndex !== -1 ? focusedOptionIndex : null;
 
             setFocusedOptionId(_focusedOptionId);
         }, [focusedOptionIndex]);
-
         const sourceItemTemplate = props.sourceItemTemplate ? props.sourceItemTemplate : props.itemTemplate;
         const targetItemTemplate = props.targetItemTemplate ? props.targetItemTemplate : props.itemTemplate;
-
         const rootProps = mergeProps(
             {
                 id: attributeSelectorState,
@@ -654,7 +752,7 @@ export const PickList = React.memo(
                     onListKeyDown={(e) => onListKeyDown(e, 'source')}
                     onListFocus={(e) => onListFocus(e, 'source')}
                     onListBlur={(e) => onListBlur(e, 'source')}
-                    onOptionMouseDown={(index) => onOptionMouseDown(index, 'source')}
+                    onOptionMouseDown={(index) => onOptionMouseDown(index)}
                     onItemClick={(e) => onItemClick(e, 'source')}
                     focusedOptionId={focused.source ? focusedOptionId : null}
                     ariaActivedescendant={focused.source ? focusedOptionId : null}
@@ -711,7 +809,7 @@ export const PickList = React.memo(
                     onListKeyDown={(e) => onListKeyDown(e, 'target')}
                     onListFocus={(e) => onListFocus(e, 'target')}
                     onListBlur={(e) => onListBlur(e, 'target')}
-                    onOptionMouseDown={(index) => onOptionMouseDown(index, 'target')}
+                    onOptionMouseDown={(index) => onOptionMouseDown(index)}
                     onItemClick={(e) => onItemClick(e, 'target')}
                     focusedOptionId={focused.target ? focusedOptionId : null}
                     ariaActivedescendant={focused.target ? focusedOptionId : null}
@@ -758,5 +856,4 @@ export const PickList = React.memo(
         );
     })
 );
-
 PickList.displayName = 'PickList';

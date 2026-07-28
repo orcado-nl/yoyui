@@ -17,7 +17,7 @@ const classes = {
 };
 
 const inlineStyles = {
-    checkbox: ({ selectedOption }) => selectedOption && selectedOption.style
+    checkbox: ({ selectedOption }) => selectedOption?.style
 };
 
 export const MultiStateCheckboxBase = ComponentBase.extend({

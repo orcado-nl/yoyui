@@ -24,8 +24,8 @@ export function FloatLabelDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { MultiSelect } from 'primereact/multiselect';
-import { FloatLabel } from 'primereact/floatlabel';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
 
 export default function FloatLabelDemo() {
     const [selectedCities, setSelectedCities] = useState(null);
@@ -49,8 +49,8 @@ export default function FloatLabelDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { FloatLabel } from 'primereact/floatlabel';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
 
 interface City {
     name: string;

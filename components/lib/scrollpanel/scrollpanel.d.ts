@@ -2,7 +2,7 @@
  *
  * ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar.
  *
- * [Live Demo](https://www.primereact.org/scrollpanel/)
+ * [Live Demo](https://yoyui.orcado.dev/scrollpanel/)
  *
  * @module scrollpanel
  *
@@ -81,13 +81,13 @@ export interface ScrollPanelProps extends Omit<React.DetailedHTMLProps<React.HTM
 }
 
 /**
- * **PrimeReact - ScrollPanel**
+ * **YoYui - ScrollPanel**
  *
  * _ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar._
  *
- * [Live Demo](https://www.primereact.org/scrollpanel/)
+ * [Live Demo](https://yoyui.orcado.dev/scrollpanel/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

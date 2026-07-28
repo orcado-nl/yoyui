@@ -2,7 +2,7 @@
  *
  * Manubar is an input component that provides real-time suggestions when being typed.
  *
- * [Live Demo](https://www.primereact.org/menubar/)
+ * [Live Demo](https://yoyui.orcado.dev/menubar/)
  *
  * @module menubar
  *
@@ -205,13 +205,13 @@ export interface MenubarProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - Menubar**
+ * **YoYui - Menubar**
  *
  * _Manubar is an input component that provides real-time suggestions when being typed._
  *
- * [Live Demo](https://www.primereact.org/menubar/)
+ * [Live Demo](https://yoyui.orcado.dev/menubar/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -1,7 +1,7 @@
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Dropdown } from '@/components/lib/dropdown/Dropdown';
-import Link from 'next/link';
+
 import { useState, useRef } from 'react';
 
 export function LazyVirtualScrollDoc(props) {
@@ -30,7 +30,7 @@ export function LazyVirtualScrollDoc(props) {
                 items.current = _items;
                 setLoading(false);
             },
-            Math.random() * 1000 + 250
+            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
         );
     };
 
@@ -41,7 +41,7 @@ export function LazyVirtualScrollDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function LazyVirtualScrollDemo() {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -69,7 +69,7 @@ export default function LazyVirtualScrollDemo() {
                 items.current = _items;
                 setLoading(false);
             },
-            Math.random() * 1000 + 250
+            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
         );
     };
     return (
@@ -88,7 +88,7 @@ export default function LazyVirtualScrollDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
 
 type ItemType = { label: string; value: number };
 
@@ -118,7 +118,7 @@ export default function LazyVirtualScrollDemo() {
                 items.current = _items;
                 setLoading(false);
             },
-            Math.random() * 1000 + 250
+            (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250
         );
     };
 

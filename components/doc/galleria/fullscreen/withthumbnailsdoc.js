@@ -8,24 +8,11 @@ import { PhotoService } from '../../../../service/PhotoService';
 export function WithThumbnailsDoc(props) {
     const [images, setImages] = useState(null);
     const galleria = useRef(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '1500px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '1024px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 2
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+        { breakpoint: '1500px', numVisible: 5 },
+        { breakpoint: '1024px', numVisible: 3 },
+        { breakpoint: '768px', numVisible: 2 },
+        { breakpoint: '560px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -49,8 +36,8 @@ export function WithThumbnailsDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function WithThumbnailsDemo() {
@@ -100,8 +87,8 @@ export default function WithThumbnailsDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function WithThumbnailsDemo() {
@@ -152,8 +139,8 @@ export default function WithThumbnailsDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

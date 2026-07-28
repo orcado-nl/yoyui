@@ -59,10 +59,10 @@ export function TooltipDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
-import { Tooltip } from 'primereact/tooltip';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
+import { Tooltip } from '@orcado/yoyui/tooltip';
 import { useRouter } from 'next/router';
-import { Toast } from 'primereact/toast';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function TooltipDemo() {
     const toast = useRef(null);
@@ -120,11 +120,11 @@ export default function TooltipDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
-import { Tooltip } from 'primereact/tooltip';
-import { Toast } from 'primereact/toast';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Toast } from '@orcado/yoyui/toast';
 import { useRouter } from 'next/router';
-import { MenuItem } from 'primereact/menuitem';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function TooltipDoc() {
     const toast = useRef<Toast>(null);

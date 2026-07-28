@@ -13,7 +13,7 @@ const classes = {
         }),
     input: ({ props, context }) =>
         classNames('p-inputnumber-input', {
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     buttonGroup: 'p-inputnumber-button-group',
     incrementButton: ({ props }) =>

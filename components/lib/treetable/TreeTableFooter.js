@@ -31,7 +31,7 @@ export const TreeTableFooter = React.memo((props) => {
     };
 
     const createFooterCell = (column, index) => {
-        const footerCellProps = mergeProps(
+        const { key, ...footerCellProps } = mergeProps(
             {
                 key: column.field || index,
                 className: getColumnProp(column, 'footerClassName') || getColumnProp(column, 'className'),
@@ -44,7 +44,11 @@ export const TreeTableFooter = React.memo((props) => {
 
         const content = ObjectUtils.getJSXElement(getColumnProp(column, 'footer'), { props: getColumnProps(column) });
 
-        return <td {...footerCellProps}>{content}</td>;
+        return (
+            <td key={key} {...footerCellProps}>
+                {content}
+            </td>
+        );
     };
 
     const createFooterRow = (row, index) => {

@@ -16,7 +16,7 @@ export function NamedClassDoc(props) {
     const code2 = {
         basic: `
 import React from 'react';
-import { Panel } from 'primereact/panel';
+import { Panel } from '@orcado/yoyui/panel';
 import './custompanel.css';
 
 export default function PanelDemo() {

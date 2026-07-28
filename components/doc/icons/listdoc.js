@@ -17,19 +17,18 @@ export function ListDoc(props) {
         }
 
         if (event.target.value && icons) {
-            let sanitizedInput = event.target.value.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
-
+            let sanitizedInput = event.target.value.replaceAll(/[^\w\s]/gi, '').replaceAll(/\s/g, '');
             let newFilteredIcons = icons.filter((icon) => {
                 return (
                     icon.icon.tags.some((tag) =>
                         tag
-                            .replace(/[^\w\s]/gi, '')
-                            .replace(/\s/g, '')
+                            .replaceAll(/[^\w\s]/gi, '')
+                            .replaceAll(/\s/g, '')
                             .includes(sanitizedInput.toLowerCase())
                     ) ||
                     icon.properties.name
-                        .replace(/[^\w\s]/gi, '')
-                        .replace(/\s/g, '')
+                        .replaceAll(/[^\w\s]/gi, '')
+                        .replaceAll(/\s/g, '')
                         .toLowerCase()
                         .includes(sanitizedInput.toLowerCase())
                 );
@@ -44,13 +43,12 @@ export function ListDoc(props) {
             data.sort((icon1, icon2) => {
                 if (icon1.properties.name < icon2.properties.name) {
                     return -1;
-                } else if (icon1.properties.name < icon2.properties.name) {
+                } else if (icon1.properties.name > icon2.properties.name) {
                     return 1;
                 }
 
                 return 0;
             });
-
             setIcons(data);
             setFilteredIcons(data);
         });
@@ -68,19 +66,18 @@ export function ListDoc(props) {
 
             <div className="card">
                 <div className="grid text-center">
-                    {filteredIcons &&
-                        filteredIcons.map((iconMeta) => {
-                            const { icon, properties } = iconMeta;
+                    {filteredIcons?.map((iconMeta) => {
+                        const { icon, properties } = iconMeta;
 
-                            return (
-                                icon.tags.indexOf('deprecate') === -1 && (
-                                    <div className="col-12 md:col-2 mb-5" key={properties.name}>
-                                        <i className={'text-2xl mb-3 text-color-secondary pi pi-' + properties.name} />
-                                        <div>pi-{properties.name}</div>
-                                    </div>
-                                )
-                            );
-                        })}
+                        return (
+                            !icon.tags.includes('deprecate') && (
+                                <div className="col-12 md:col-2 mb-5" key={properties.name}>
+                                    <i className={'text-2xl mb-3 text-color-secondary pi pi-' + properties.name} />
+                                    <div>pi-{properties.name}</div>
+                                </div>
+                            )
+                        );
+                    })}
                 </div>
             </div>
         </>

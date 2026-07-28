@@ -2,7 +2,7 @@
  *
  * Dock is a navigation component consisting of menuitems.
  *
- * [Live Demo](https://www.primereact.org/dock/)
+ * [Live Demo](https://yoyui.orcado.dev/dock/)
  *
  * @module dock
  *
@@ -175,13 +175,13 @@ export interface DockProps extends Omit<React.DetailedHTMLProps<React.HTMLAttrib
 }
 
 /**
- * **PrimeReact - Dock**
+ * **YoYui - Dock**
  *
  * _Dock is a navigation component consisting of menuitems._
  *
- * [Live Demo](https://www.primereact.org/dock/)
+ * [Live Demo](https://yoyui.orcado.dev/dock/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

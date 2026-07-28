@@ -9,39 +9,20 @@ import { ProductService } from '../../../service/ProductService';
 export function BasicDoc(props) {
     const [products, setProducts] = useState([]);
     const responsiveOptions = [
-        {
-            breakpoint: '1400px',
-            numVisible: 2,
-            numScroll: 1
-        },
-        {
-            breakpoint: '1199px',
-            numVisible: 3,
-            numScroll: 1
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 2,
-            numScroll: 1
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1,
-            numScroll: 1
-        }
+        { breakpoint: '1400px', numVisible: 2, numScroll: 1 },
+        { breakpoint: '1199px', numVisible: 3, numScroll: 1 },
+        { breakpoint: '767px', numVisible: 2, numScroll: 1 },
+        { breakpoint: '575px', numVisible: 1, numScroll: 1 }
     ];
 
     const getSeverity = (product) => {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -55,7 +36,7 @@ export function BasicDoc(props) {
         return (
             <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
                 <div className="mb-3">
-                    <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.name} className="w-6 shadow-2" />
+                    <img src={`/images/product/${product.image}`} alt={product.name} className="w-6 shadow-2" />
                 </div>
                 <div>
                     <h4 className="mb-1">{product.name}</h4>
@@ -76,9 +57,9 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Carousel } from 'primereact/carousel';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { Carousel } from '@orcado/yoyui/carousel';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function BasicDemo() {
@@ -130,7 +111,7 @@ export default function BasicDemo() {
         return (
             <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
                 <div className="mb-3">
-                    <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.name} className="w-6 shadow-2" />
+                    <img src={\`/images/product/\${product.image}\`} alt={product.name} className="w-6 shadow-2" />
                 </div>
                 <div>
                     <h4 className="mb-1">{product.name}</h4>
@@ -154,9 +135,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Carousel, CarouselResponsiveOption } from 'primereact/carousel';
-import { Tag } from 'primereact/tag';
+import { Button } from '@orcado/yoyui/button';
+import { Carousel, CarouselResponsiveOption } from '@orcado/yoyui/carousel';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {
@@ -221,7 +202,7 @@ export default function BasicDemo() {
         return (
             <div className="border-1 surface-border border-round m-2 text-center py-5 px-3">
                 <div className="mb-3">
-                    <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.name} className="w-6 shadow-2" />
+                    <img src={\`/images/product/\${product.image}\`} alt={product.name} className="w-6 shadow-2" />
                 </div>
                 <div>
                     <h4 className="mb-1">{product.name}</h4>

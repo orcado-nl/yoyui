@@ -6,20 +6,10 @@ import { PhotoService } from '../../../service/PhotoService';
 
 export function BasicDoc(props) {
     const [images, setImages] = useState(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '991px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '767px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '575px',
-            numVisible: 1
-        }
+        { breakpoint: '991px', numVisible: 4 },
+        { breakpoint: '767px', numVisible: 3 },
+        { breakpoint: '575px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -41,7 +31,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function BasicDemo() {
@@ -83,7 +73,7 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria, GalleriaResponsiveOptions } from 'primereact/galleria';
+import { Galleria, GalleriaResponsiveOptions } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function BasicDemo() {
@@ -126,8 +116,8 @@ export default function BasicDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

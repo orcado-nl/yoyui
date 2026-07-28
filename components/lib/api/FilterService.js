@@ -41,7 +41,7 @@ export const FilterService = {
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
-            return stringValue.slice(0, filterValue.length) === filterValue;
+            return stringValue.startsWith(filterValue);
         },
         contains(value, filter, filterLocale) {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
@@ -55,7 +55,7 @@ export const FilterService = {
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
-            return stringValue.indexOf(filterValue) !== -1;
+            return stringValue.includes(filterValue);
         },
         notContains(value, filter, filterLocale) {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
@@ -69,7 +69,7 @@ export const FilterService = {
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
-            return stringValue.indexOf(filterValue) === -1;
+            return !stringValue.includes(filterValue);
         },
         endsWith(value, filter, filterLocale) {
             if (filter === undefined || filter === null || filter.trim() === '') {
@@ -83,7 +83,7 @@ export const FilterService = {
             let filterValue = ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
             let stringValue = ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale);
 
-            return stringValue.indexOf(filterValue, stringValue.length - filterValue.length) !== -1;
+            return stringValue.includes(filterValue, stringValue.length - filterValue.length);
         },
         equals(value, filter, filterLocale) {
             if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
@@ -120,8 +120,8 @@ export const FilterService = {
                 return true;
             }
 
-            for (let i = 0; i < filter.length; i++) {
-                if (ObjectUtils.equals(value, filter[i])) {
+            for (const _item of filter) {
+                if (ObjectUtils.equals(value, _item)) {
                     return true;
                 }
             }
@@ -133,8 +133,8 @@ export const FilterService = {
                 return true;
             }
 
-            for (let i = 0; i < filter.length; i++) {
-                if (ObjectUtils.equals(value, filter[i])) {
+            for (const _item2 of filter) {
+                if (ObjectUtils.equals(value, _item2)) {
                     return false;
                 }
             }
@@ -142,7 +142,7 @@ export const FilterService = {
             return true;
         },
         between(value, filter) {
-            if (filter == null || filter[0] == null || filter[1] == null) {
+            if (filter?.[0] == null || filter[1] == null) {
                 return true;
             }
 

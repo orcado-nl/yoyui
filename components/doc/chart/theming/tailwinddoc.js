@@ -16,7 +16,7 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Chart } from 'primereact/chart';
+import { Chart } from '@orcado/yoyui/chart';
 
 export default function UnstyledDemo() {
     const [chartData, setChartData] = useState({});
@@ -67,16 +67,14 @@ export default function UnstyledDemo() {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
-                    <Link href="/tailwind">Tailwind Customization</Link> section for an example.
-                </p>
-                <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
-                <p>A playground sample with the pre-built Tailwind theme.</p>
-                <DocSectionCode code={code2} dependencies={{ 'chart.js': '3.9.1' }} embedded />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                <Link href="/tailwind">Tailwind Customization</Link> section for an example.
+            </p>
+            <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
+            <p>A playground sample with the pre-built Tailwind theme.</p>
+            <DocSectionCode code={code2} dependencies={{ 'chart.js': '3.9.1' }} embedded />
+        </DocSectionText>
     );
 }

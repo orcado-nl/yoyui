@@ -21,7 +21,7 @@ export function TemplateDoc(props) {
     };
 
     const imageBodyTemplate = (product) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.image} className="w-6rem shadow-2 border-round" />;
+        return <img src={`/images/product/${product.image}`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
     const priceBodyTemplate = (product) => {
@@ -58,6 +58,7 @@ export function TemplateDoc(props) {
             <Button icon="pi pi-refresh" rounded raised />
         </div>
     );
+
     const footer = `In total there are ${products ? products.length : 0} products.`;
 
     const code = {
@@ -73,11 +74,11 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Button } from '@orcado/yoyui/button';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function TemplateDemo() {
@@ -92,7 +93,7 @@ export default function TemplateDemo() {
     };
 
     const imageBodyTemplate = (product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
+        return <img src={\`/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
     const priceBodyTemplate = (product) => {
@@ -147,11 +148,11 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Button } from '@orcado/yoyui/button';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {
@@ -179,7 +180,7 @@ export default function TemplateDemo() {
     };
 
     const imageBodyTemplate = (product: Product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
+        return <img src={\`/images/product/\${product.image}\`} alt={product.image} className="w-6rem shadow-2 border-round" />;
     };
 
     const priceBodyTemplate = (product: Product) => {

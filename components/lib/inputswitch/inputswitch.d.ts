@@ -2,7 +2,7 @@
  *
  * InputSwitch is used to select a boolean value.
  *
- * [Live Demo](https://www.primereact.org/inputswitch/)
+ * [Live Demo](https://yoyui.orcado.dev/inputswitch/)
  *
  * @module inputswitch
  *
@@ -171,13 +171,13 @@ export interface InputSwitchProps extends Omit<React.DetailedHTMLProps<React.Inp
 }
 
 /**
- * **PrimeReact - InputSwitch**
+ * **YoYui - InputSwitch**
  *
  * _InputSwitch is used to select a boolean value._
  *
- * [Live Demo](https://www.primereact.org/inputswitch/)
+ * [Live Demo](https://yoyui.orcado.dev/inputswitch/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

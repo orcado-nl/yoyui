@@ -2,7 +2,7 @@
  *
  * Rating component is a star based selection input.
  *
- * [Live Demo](https://www.primereact.org/rating/)
+ * [Live Demo](https://yoyui.orcado.dev/rating/)
  *
  * @module rating
  *
@@ -174,13 +174,13 @@ export interface RatingProps extends Omit<React.DetailedHTMLProps<React.InputHTM
 }
 
 /**
- * **PrimeReact - Rating**
+ * **YoYui - Rating**
  *
  * _Rating component is a star based selection input._
  *
- * [Live Demo](https://www.primereact.org/rating/)
+ * [Live Demo](https://yoyui.orcado.dev/rating/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

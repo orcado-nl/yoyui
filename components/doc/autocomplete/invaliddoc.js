@@ -8,7 +8,7 @@ export function InvalidDoc(props) {
     const [items, setItems] = useState([]);
 
     const search = (event) => {
-        setItems([...Array(10).keys()].map((item) => event.query + '-' + item));
+        setItems([...new Array(10).keys()].map((item) => event.query + '-' + item));
     };
 
     const code = {
@@ -17,7 +17,7 @@ export function InvalidDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { AutoComplete } from "primereact/autocomplete";
+import { AutoComplete } from "@orcado/yoyui/autocomplete";
 
 export default function InvalidDemo() {
     const [value, setValue] = useState('');
@@ -36,7 +36,7 @@ export default function InvalidDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { AutoComplete, AutoCompleteCompleteEvent } from "primereact/autocomplete";
+import { AutoComplete, AutoCompleteCompleteEvent } from "@orcado/yoyui/autocomplete";
 
 export default function InvalidDemo() {
     const [value, setValue] = useState<string>('');

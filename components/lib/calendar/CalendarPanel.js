@@ -23,19 +23,8 @@ export const CalendarPanel = React.forwardRef((props, ref) => {
             },
             props.ptm('panel', { hostName: props.hostName })
         );
-
         const transitionProps = mergeProps(
-            {
-                classNames: cx('transition'),
-                in: props.in,
-                timeout: { enter: 120, exit: 100 },
-                options: props.transitionOptions,
-                unmountOnExit: true,
-                onEnter: props.onEnter,
-                onEntered: props.onEntered,
-                onExit: props.onExit,
-                onExited: props.onExited
-            },
+            { classNames: cx('transition'), in: props.in, timeout: { enter: 120, exit: 100 }, options: props.transitionOptions, unmountOnExit: true, onEnter: props.onEnter, onEntered: props.onEntered, onExit: props.onExit, onExited: props.onExited },
             props.ptm('transition', { hostName: props.hostName })
         );
 
@@ -52,5 +41,4 @@ export const CalendarPanel = React.forwardRef((props, ref) => {
 
     return props.inline ? element : <Portal element={element} appendTo={props.appendTo} />;
 });
-
 CalendarPanel.displayName = 'CalendarPanel';

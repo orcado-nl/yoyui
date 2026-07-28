@@ -20,7 +20,7 @@ export function DateTemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from '@orcado/yoyui/calendar';
 
 export default function DateTemplateDemo() {
     const [date, setDate] = useState(null);
@@ -44,8 +44,8 @@ export default function DateTemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar } from '@orcado/yoyui/calendar';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function DateTemplateDemo() {
     const [date, setDate] = useState<Nullable<Date>>(null);

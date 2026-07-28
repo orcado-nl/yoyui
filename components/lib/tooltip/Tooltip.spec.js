@@ -25,6 +25,7 @@ describe('Tooltip', () => {
 
         expect(tooltip).toBeVisible();
         expect(tooltip.parentElement).toHaveClass('p-tooltip p-component p-tooltip-active');
+        expect(tooltip.parentElement).toHaveAttribute('aria-hidden', 'false');
         expect(tooltip.parentElement).toHaveStyle({ 'z-index': '6666' });
     });
     test('when using tooltip with auto zindex the zindex should be automatically assigned', async () => {
@@ -152,14 +153,12 @@ describe('Tooltip', () => {
         // Arrange
         const tooltipText = /Disabled/i;
         const { container } = render(
-            <>
-                <PrimeReactProvider>
-                    <Tooltip target=".disabled-button" />
-                    <span className="disabled-button" data-pr-tooltip="A Disabled Button">
-                        <Button type="button" label="Save" icon="pi pi-check" disabled />
-                    </span>
-                </PrimeReactProvider>
-            </>
+            <PrimeReactProvider>
+                <Tooltip target=".disabled-button" />
+                <span className="disabled-button" data-pr-tooltip="A Disabled Button">
+                    <Button type="button" label="Save" icon="pi pi-check" disabled />
+                </span>
+            </PrimeReactProvider>
         );
         const input = container.getElementsByClassName('disabled-button')[0];
 

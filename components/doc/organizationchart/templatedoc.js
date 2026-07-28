@@ -15,14 +15,8 @@ export function TemplateDoc(props) {
                     expanded: true,
                     data: 'ar',
                     children: [
-                        {
-                            label: 'Argentina',
-                            data: 'ar'
-                        },
-                        {
-                            label: 'Croatia',
-                            data: 'hr'
-                        }
+                        { label: 'Argentina', data: 'ar' },
+                        { label: 'Croatia', data: 'hr' }
                     ]
                 },
                 {
@@ -30,14 +24,8 @@ export function TemplateDoc(props) {
                     expanded: true,
                     data: 'fr',
                     children: [
-                        {
-                            label: 'France',
-                            data: 'fr'
-                        },
-                        {
-                            label: 'Morocco',
-                            data: 'ma'
-                        }
+                        { label: 'France', data: 'fr' },
+                        { label: 'Morocco', data: 'ma' }
                     ]
                 }
             ]
@@ -47,7 +35,7 @@ export function TemplateDoc(props) {
     const nodeTemplate = (node) => {
         return (
             <div className="flex flex-column align-items-center">
-                <img alt={node.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`w-2rem shadow-2 flag flag-${node.data}`} />
+                <img alt={node.label} src="/images/flag/flag_placeholder.png" className={`w-2rem shadow-2 flag flag-${node.data}`} />
                 <div className="mt-3 font-medium text-lg">{node.label}</div>
             </div>
         );
@@ -59,7 +47,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
+import { OrganizationChart } from '@orcado/yoyui/organizationchart';
 
 export default function TemplateDemo() {
     const [data] = useState([
@@ -105,7 +93,7 @@ export default function TemplateDemo() {
     const nodeTemplate = (node) => {
         return (
             <div className="flex flex-column align-items-center">
-                <img alt={node.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
+                <img alt={node.label} src="/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
                 <div className="mt-3 font-medium text-lg">{node.label}</div>
             </div>
         );
@@ -120,8 +108,8 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { OrganizationChart } from 'primereact/organizationchart';
-import { TreeNode } from 'primereact/treenode';
+import { OrganizationChart } from '@orcado/yoyui/organizationchart';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function TemplateDemo() {
     const [data] = useState<TreeNode[]>([
@@ -167,7 +155,7 @@ export default function TemplateDemo() {
     const nodeTemplate = (node: TreeNode) => {
         return (
             <div className="flex flex-column align-items-center">
-                <img alt={node.label} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
+                <img alt={node.label} src="/images/flag/flag_placeholder.png" className={\`w-2rem shadow-2 flag flag-\${node.data}\`} />
                 <div className="mt-3 font-medium text-lg">{node.label}</div>
             </div>
         );

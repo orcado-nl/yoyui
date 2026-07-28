@@ -45,7 +45,7 @@ export function LazyDoc(props) {
 
                 let value = [...nodes];
 
-                value[parseInt(event.node.key, 10)] = node;
+                value[Number.parseInt(event.node.key, 10)] = node;
                 setNodes(value);
                 setLoading(false);
             }, 200);
@@ -65,7 +65,7 @@ export function LazyDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree } from 'primereact/tree';
+import { Tree } from '@orcado/yoyui/tree';
 
 export default function LazyDemo() {
     const [nodes, setNodes] = useState([]);
@@ -109,7 +109,7 @@ export default function LazyDemo() {
 
                 let value = [...nodes];
                 
-                value[parseInt(event.node.key, 10)] = node;
+                value[Number.parseInt(event.node.key, 10)] = node;
                 setNodes(value);
                 setLoading(false);
             }, 200);
@@ -132,8 +132,8 @@ export default function LazyDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { Tree } from 'primereact/tree';
-import { TreeNode } from 'primereact/treenode';
+import { Tree } from '@orcado/yoyui/tree';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function LazyDemo() {
     const [nodes, setNodes] = useState<TreeNode[]>([]);
@@ -177,7 +177,7 @@ export default function LazyDemo() {
 
                 let value = [...nodes];
                 
-                value[parseInt(event.node.key, 10)] = node;
+                value[Number.parseInt(event.node.key, 10)] = node;
                 setNodes(value);
                 setLoading(false);
             }, 200);

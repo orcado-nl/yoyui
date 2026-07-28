@@ -8,6 +8,33 @@ import { VirtualScroller } from '../virtualscroller/VirtualScroller';
 import { MultiSelectHeader } from './MultiSelectHeader';
 import { MultiSelectItem } from './MultiSelectItem';
 
+function renderSonarNested1Element(listProps, content) {
+    return <ul {...listProps}>{content}</ul>;
+}
+
+function renderSonarNested1(ref, panelProps, content, footer) {
+    return (
+        <div ref={ref} {...panelProps}>
+            {content}
+            {footer}
+        </div>
+    );
+}
+
+function renderSonarNested2({ ref, transitionProps, panelProps, firstHiddenElementProps, header, content, footer, lastHiddenElementProps }) {
+    return (
+        <CSSTransition nodeRef={ref} {...transitionProps}>
+            <div ref={ref} {...panelProps}>
+                <span {...firstHiddenElementProps} />
+                {header}
+                {content}
+                {footer}
+                <span {...lastHiddenElementProps} />
+            </div>
+        </CSSTransition>
+    );
+}
+
 export const MultiSelectPanel = React.memo(
     React.forwardRef((props, ref) => {
         const virtualScrollerRef = React.useRef(null);
@@ -17,10 +44,7 @@ export const MultiSelectPanel = React.memo(
         const { ptm, cx, sx, isUnstyled } = props;
 
         const getPTOptions = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
+            return ptm(key, { hostName: props.hostName, ...options });
         };
 
         const onEnter = () => {
@@ -48,11 +72,11 @@ export const MultiSelectPanel = React.memo(
                 virtualScrollerRef.current.scrollToIndex(0);
             }
 
-            props.onFilterInputChange && props.onFilterInputChange(event);
+            props.onFilterInputChange?.(event);
         };
 
         const isEmptyFilter = () => {
-            return !(props.visibleOptions && props.visibleOptions.length) && props.hasFilter;
+            return !props.visibleOptions?.length && props.hasFilter;
         };
 
         const createHeader = () => {
@@ -107,13 +131,7 @@ export const MultiSelectPanel = React.memo(
 
         const createEmptyFilter = () => {
             const emptyFilterMessage = ObjectUtils.getJSXElement(props.emptyFilterMessage, props) || localeOption('emptyFilterMessage');
-
-            const emptyMessageProps = mergeProps(
-                {
-                    className: cx('emptyMessage')
-                },
-                getPTOptions('emptyMessage')
-            );
+            const emptyMessageProps = mergeProps({ className: cx('emptyMessage') }, getPTOptions('emptyMessage'));
 
             return (
                 <li {...emptyMessageProps} key="emptyFilterMessage">
@@ -124,13 +142,7 @@ export const MultiSelectPanel = React.memo(
 
         const createEmptyContent = () => {
             const emptyMessage = ObjectUtils.getJSXElement(props.emptyMessage, props) || localeOption('emptyMessage');
-
-            const emptyMessageProps = mergeProps(
-                {
-                    className: cx('emptyMessage')
-                },
-                getPTOptions('emptyMessage')
-            );
+            const emptyMessageProps = mergeProps({ className: cx('emptyMessage') }, getPTOptions('emptyMessage'));
 
             return (
                 <li {...emptyMessageProps} key="emptyMessage">
@@ -146,13 +158,7 @@ export const MultiSelectPanel = React.memo(
             if (isItemGroup) {
                 const groupContent = props.optionGroupTemplate ? ObjectUtils.getJSXElement(props.optionGroupTemplate, option, index) : props.getOptionGroupLabel(option);
                 const key = index + '_' + props.getOptionGroupRenderKey(option);
-                const itemGroupProps = mergeProps(
-                    {
-                        className: cx('itemGroup'),
-                        style: sx('itemGroup', { scrollerOptions })
-                    },
-                    getPTOptions('itemGroup')
-                );
+                const itemGroupProps = mergeProps({ className: cx('itemGroup'), style: sx('itemGroup', { scrollerOptions }) }, getPTOptions('itemGroup'));
 
                 return (
                     <li key={key} {...itemGroupProps}>
@@ -201,30 +207,27 @@ export const MultiSelectPanel = React.memo(
             if (props.virtualScrollerOptions) {
                 const virtualScrollerProps = {
                     ...props.virtualScrollerOptions,
-                    ...{
-                        style: { ...props.virtualScrollerOptions.style, ...{ height: props.scrollHeight } },
-                        className: classNames('p-multiselect-items-wrapper', props.virtualScrollerOptions.className),
-                        items: props.visibleOptions,
-                        autoSize: true,
-                        onLazyLoad: (event) => props.virtualScrollerOptions.onLazyLoad({ ...event, ...{ filter: props.filterValue } }),
-                        itemTemplate: (item, options) => item && createItem(item, options.index, options),
-                        contentTemplate: (options) => {
-                            const content = isEmptyFilter() ? createEmptyFilter() : options.children;
+                    style: { ...props.virtualScrollerOptions.style, height: props.scrollHeight },
+                    className: classNames('p-multiselect-items-wrapper', props.virtualScrollerOptions.className),
+                    items: props.visibleOptions,
+                    autoSize: true,
+                    onLazyLoad: (event) => props.virtualScrollerOptions.onLazyLoad({ ...event, filter: props.filterValue }),
+                    itemTemplate: (item, options) => item && createItem(item, options.index, options),
+                    contentTemplate: (options) => {
+                        const content = isEmptyFilter() ? createEmptyFilter() : options.children;
+                        const listProps = mergeProps(
+                            {
+                                ref: options.contentRef,
+                                style: options.style,
+                                className: classNames(options.className, cx('list', { virtualScrollerProps: props.virtualScrollerOptions })),
+                                role: 'listbox',
+                                'aria-multiselectable': true,
+                                id: props.listId
+                            },
+                            getPTOptions('list')
+                        );
 
-                            const listProps = mergeProps(
-                                {
-                                    ref: options.contentRef,
-                                    style: options.style,
-                                    className: classNames(options.className, cx('list', { virtualScrollerProps: props.virtualScrollerOptions })),
-                                    role: 'listbox',
-                                    'aria-multiselectable': true,
-                                    id: props.listId
-                                },
-                                getPTOptions('list')
-                            );
-
-                            return <ul {...listProps}>{content}</ul>;
-                        }
+                        return renderSonarNested1Element(listProps, content);
                     }
                 };
 
@@ -232,24 +235,8 @@ export const MultiSelectPanel = React.memo(
             }
 
             const items = createItems();
-
-            const wrapperProps = mergeProps(
-                {
-                    className: cx('wrapper'),
-                    style: { maxHeight: props.scrollHeight }
-                },
-                getPTOptions('wrapper')
-            );
-
-            const listProps = mergeProps(
-                {
-                    className: cx('list'),
-                    role: 'listbox',
-                    'aria-multiselectable': true,
-                    id: props.listId
-                },
-                getPTOptions('list')
-            );
+            const wrapperProps = mergeProps({ className: cx('wrapper'), style: { maxHeight: props.scrollHeight } }, getPTOptions('wrapper'));
+            const listProps = mergeProps({ className: cx('list'), role: 'listbox', 'aria-multiselectable': true, id: props.listId }, getPTOptions('list'));
 
             return (
                 <div {...wrapperProps}>
@@ -263,42 +250,19 @@ export const MultiSelectPanel = React.memo(
             const header = createHeader();
             const content = createContent();
             const footer = createFooter();
-
             const panelProps = mergeProps(
-                {
-                    className: classNames(props.panelClassName, cx('panel', { panelProps: props, context, allowOptionSelect })),
-                    style: props.panelStyle,
-                    onClick: props.onClick,
-                    'data-pr-is-overlay': true
-                },
+                { className: classNames(props.panelClassName, cx('panel', { panelProps: props, context, allowOptionSelect })), style: props.panelStyle, onClick: props.onClick, 'data-pr-is-overlay': true },
                 getPTOptions('panel')
             );
 
             if (props.inline) {
-                return (
-                    <div ref={ref} {...panelProps}>
-                        {content}
-                        {footer}
-                    </div>
-                );
+                return renderSonarNested1(ref, panelProps, content, footer);
             }
 
             const transitionProps = mergeProps(
-                {
-                    classNames: cx('transition'),
-                    in: props.in,
-                    timeout: { enter: 120, exit: 100 },
-                    options: props.transitionOptions,
-                    appear: true,
-                    unmountOnExit: true,
-                    onEnter,
-                    onEntered,
-                    onExit: props.onExit,
-                    onExited: props.onExited
-                },
+                { classNames: cx('transition'), in: props.in, timeout: { enter: 120, exit: 100 }, options: props.transitionOptions, appear: true, unmountOnExit: true, onEnter, onEntered, onExit: props.onExit, onExited: props.onExited },
                 getPTOptions('transition')
             );
-
             const firstHiddenElementProps = mergeProps(
                 {
                     ref: props.firstHiddenFocusableElementOnOverlay,
@@ -311,7 +275,6 @@ export const MultiSelectPanel = React.memo(
                 },
                 ptm('hiddenFirstFocusableEl')
             );
-
             const lastHiddenElementProps = mergeProps(
                 {
                     ref: props.lastHiddenFocusableElementOnOverlay,
@@ -325,17 +288,7 @@ export const MultiSelectPanel = React.memo(
                 ptm('hiddenLastFocusableEl')
             );
 
-            return (
-                <CSSTransition nodeRef={ref} {...transitionProps}>
-                    <div ref={ref} {...panelProps}>
-                        <span {...firstHiddenElementProps} />
-                        {header}
-                        {content}
-                        {footer}
-                        <span {...lastHiddenElementProps} />
-                    </div>
-                </CSSTransition>
-            );
+            return renderSonarNested2({ ref, transitionProps, panelProps, firstHiddenElementProps, header, content, footer, lastHiddenElementProps });
         };
 
         const element = createElement();
@@ -347,5 +300,4 @@ export const MultiSelectPanel = React.memo(
         return <Portal element={element} appendTo={props.appendTo} />;
     })
 );
-
 MultiSelectPanel.displayName = 'MultiSelectPanel';

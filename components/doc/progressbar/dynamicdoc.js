@@ -13,7 +13,7 @@ export function DynamicDoc(props) {
         let _val = value;
 
         interval.current = setInterval(() => {
-            _val = _val + (Math.floor(Math.random() * 10) + 1);
+            _val = _val + ((crypto.getRandomValues(new Uint32Array(1))[0] % 10) + 1);
 
             if (_val >= 100) {
                 _val = 100;
@@ -38,8 +38,8 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { ProgressBar } from 'primereact/progressbar';
-import { Toast } from 'primereact/toast';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function DynamicDemo() {
     const [value, setValue] = useState(0);
@@ -50,7 +50,7 @@ export default function DynamicDemo() {
         let _val = value;
 
         interval.current = setInterval(() => {
-            _val += Math.floor(Math.random() * 10) + 1;
+            _val += (crypto.getRandomValues(new Uint32Array(1))[0] % 10) + 1;
 
             if (_val >= 100) {
                 _val = 100;
@@ -79,8 +79,8 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { ProgressBar } from 'primereact/progressbar';
-import { Toast } from 'primereact/toast';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function DynamicDemo() {
     const [value, setValue] = useState<number>(0);
@@ -91,7 +91,7 @@ export default function DynamicDemo() {
         let _val = value;
 
         interval.current = setInterval(() => {
-            _val += Math.floor(Math.random() * 10) + 1;
+            _val += (crypto.getRandomValues(new Uint32Array(1))[0] % 10) + 1;
 
             if (_val >= 100) {
                 _val = 100;

@@ -1,10 +1,9 @@
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { InputNumber } from '@/components/lib/inputnumber/InputNumber';
-import { useState } from 'react';
 
 export function DisabledDoc(props) {
-    const [value, setValue] = useState(50);
+    const value = 50;
 
     const code = {
         basic: `
@@ -12,7 +11,7 @@ export function DisabledDoc(props) {
 `,
         javascript: `
 import React, { useState } from "react";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
 
 export default function DisabledDemo() {
     const [value, setValue] = useState(50);
@@ -26,7 +25,7 @@ export default function DisabledDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
 
 export default function DisabledDemo() {
     const [value, setValue] = useState<number>(50);

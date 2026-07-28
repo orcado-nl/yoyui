@@ -70,8 +70,8 @@ export function CommandDoc(props) {
 `,
         javascript: `
 import React, { useRef } from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { Toast } from 'primereact/toast';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function CommandDemo() {
     const toast = useRef(null);
@@ -142,9 +142,9 @@ export default function CommandDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { MenuItem } from 'primereact/menuitem';
-import { Toast } from 'primereact/toast';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function CommandDemo() {
     const toast = useRef<Toast>(null);

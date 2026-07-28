@@ -5,15 +5,15 @@ export function NextJSDoc(props) {
         <>
             <DocSectionText {...props}>
                 <p>
-                    PrimeReact has first class support for SSR and{' '}
+                    YoYui has first class support for SSR and{' '}
                     <a alt="NextJS" href="https://nextjs.org/">
                         Next.JS
-                    </a>
+                    </a>{' '}
                     , in fact this website is also built with Next.js
                 </p>
             </DocSectionText>
             <div className="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/OrRffCobuts" frameBorder="0" allowFullScreen title="Getting Started With NextJs" />
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/OrRffCobuts" style={{ border: 0 }} allowFullScreen title="Getting Started With NextJs" />
             </div>
         </>
     );

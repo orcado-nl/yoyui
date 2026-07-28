@@ -49,7 +49,7 @@ export function RouterDoc(props) {
 `,
         javascript: `
 import React from 'react'; 
-import { Menubar } from 'primereact/menubar';
+import { Menubar } from '@orcado/yoyui/menubar';
 import { useRouter } from 'next/router';
 
 export default function RouterDemo() {
@@ -101,8 +101,8 @@ export default function RouterDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Menubar } from 'primereact/menubar';
-import { MenuItem } from 'primereact/menuitem';
+import { Menubar } from '@orcado/yoyui/menubar';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 import { useRouter } from 'next/router';
 
 export default function RouterDemo() {

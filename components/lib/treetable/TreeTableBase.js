@@ -7,6 +7,9 @@ const styles = `
     .p-treetable {
         position: relative;
     }
+    .p-treetable-scrollable {
+        overflow: hidden;
+    }
     .p-treetable > .p-treetable-wrapper {
         overflow: auto;
     }
@@ -138,6 +141,7 @@ const classes = {
     root: ({ props, isRowSelectionMode }) =>
         classNames('p-treetable p-component', {
             'p-treetable-hoverable-rows': props.rowHover,
+            'p-treetable-scrollable': props.scrollable,
             'p-treetable-selectable': isRowSelectionMode(),
             'p-treetable-resizable': props.resizableColumns,
             'p-treetable-resizable-fit': props.resizableColumns && props.columnResizeMode === 'fit',
@@ -190,7 +194,7 @@ const classes = {
     row: ({ isSelected, rowProps: props }) => ({
         'p-highlight': isSelected(),
         'p-highlight-contextmenu': props.contextMenuSelectionKey && props.contextMenuSelectionKey === props.node.key,
-        'p-row-odd': parseInt(String(props.rowIndex).split('_').pop(), 10) % 2 !== 0
+        'p-row-odd': Number.parseInt(String(props.rowIndex).split('_').pop(), 10) % 2 !== 0
     }),
     rowCheckbox: ({ partialChecked }) => classNames('p-treetable-checkbox', { 'p-indeterminate': partialChecked }),
     rowToggler: 'p-treetable-toggler p-link p-unselectable-text',

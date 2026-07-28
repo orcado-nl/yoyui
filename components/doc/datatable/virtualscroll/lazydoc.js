@@ -1,5 +1,6 @@
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
+import { getDemoDelay } from '@/components/demo/DemoUtils';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Skeleton } from '@/components/lib/skeleton/Skeleton';
@@ -11,7 +12,6 @@ export function LazyVirtualScrollDoc(props) {
     const [virtualCars, setVirtualCars] = useState(Array.from({ length: 100000 }));
     const [lazyLoading, setLazyLoading] = useState(false);
     let loadLazyTimeout = null;
-
     let cars = null;
 
     const loadDemoData = () => {
@@ -23,24 +23,19 @@ export function LazyVirtualScrollDoc(props) {
 
         if (loadLazyTimeout) {
             clearTimeout(loadLazyTimeout);
-        }
+        } //simulate remote connection with a timeout
 
-        //simulate remote connection with a timeout
         loadLazyTimeout = setTimeout(
             () => {
                 let _virtualCars = [...virtualCars];
-                let { first, last } = event;
+                let { first, last } = event; //load data of required page
+                const loadedCars = cars.slice(first, last); //populate page of virtual cars
 
-                //load data of required page
-                const loadedCars = cars.slice(first, last);
-
-                //populate page of virtual cars
-                Array.prototype.splice.apply(_virtualCars, [...[first, last - first], ...loadedCars]);
-
+                Array.prototype.splice.apply(_virtualCars, [first, last - first, ...loadedCars]);
                 setVirtualCars(_virtualCars);
                 setLazyLoading(false);
             },
-            Math.random() * 1000 + 250
+            getDemoDelay(250, 1000)
         );
     };
 
@@ -66,9 +61,9 @@ export function LazyVirtualScrollDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Skeleton } from 'primereact/skeleton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Skeleton } from '@orcado/yoyui/skeleton';
 import { CarService } from './service/CarService';
 
 export default function LazyVirtualScrollDemo() {
@@ -97,7 +92,7 @@ export default function LazyVirtualScrollDemo() {
 
             setVirtualCars(_virtualCars);
             setLazyLoading(false);
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const loadingTemplate = (options) => {
@@ -125,10 +120,10 @@ export default function LazyVirtualScrollDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Skeleton } from 'primereact/skeleton';
-import { VirtualScrollerLazyEvent, VirtualScrollerLoadingTemplateOptions } from 'primereact/virtualscroller';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { VirtualScrollerLazyEvent, VirtualScrollerLoadingTemplateOptions } from '@orcado/yoyui/virtualscroller';
 import { CarService } from './service/CarService';
 
 interface Car {
@@ -165,7 +160,7 @@ export default function LazyVirtualScrollDemo() {
 
             setVirtualCars(_virtualCars);
             setLazyLoading(false);
-        }, Math.random() * 1000 + 250);
+        }, (crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32) * 1000 + 250);
     };
 
     const loadingTemplate = (options: VirtualScrollerLoadingTemplateOptions) => {

@@ -9,24 +9,24 @@ export function PreviewDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Image } from 'primereact/image';
+import { Image } from '@orcado/yoyui/image';
 
 export default function PreviewDemo() {
     return (
         <div className="card flex justify-content-center">
-            <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
+            <Image src="/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
         </div>
     )
 }
         `,
         typescript: `
 import React from 'react'; 
-import { Image } from 'primereact/image';
+import { Image } from '@orcado/yoyui/image';
 
 export default function PreviewDemo() {
     return (
         <div className="card flex justify-content-center">
-            <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
+            <Image src="/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
         </div>
     )
 }
@@ -41,7 +41,7 @@ export default function PreviewDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
+                <Image src="/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
             </div>
             <DocSectionCode code={code} />
         </>

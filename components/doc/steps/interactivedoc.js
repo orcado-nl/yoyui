@@ -40,8 +40,8 @@ export function InteractiveDoc(props) {
 `,
         javascript: `
 import React, { useState, useRef } from 'react';
-import { Steps } from 'primereact/steps';
-import { Toast } from 'primereact/toast';
+import { Steps } from '@orcado/yoyui/steps';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function InteractiveDemo() {
     const [activeIndex, setActiveIndex] = useState(1);
@@ -83,9 +83,9 @@ export default function InteractiveDemo() {
         `,
         typescript: `
 import React, { useState, useRef } from 'react';
-import { Steps } from 'primereact/steps';
-import { Toast } from 'primereact/toast';
-import { MenuItem } from 'primereact/menuitem';
+import { Steps } from '@orcado/yoyui/steps';
+import { Toast } from '@orcado/yoyui/toast';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function InteractiveDemo() {
     const [activeIndex, setActiveIndex] = useState<number>(1);

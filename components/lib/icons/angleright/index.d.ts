@@ -8,11 +8,11 @@ import { IconBaseProps } from '../../iconbase';
 export interface AngleRightIconProps extends IconBaseProps {}
 
 /**
- * **PrimeReact - AngleRightIcon**
+ * **YoYui - AngleRightIcon**
  *
- * [Live Demo](https://www.primereact.org/icons/)
+ * [Live Demo](https://yoyui.orcado.dev/icons/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

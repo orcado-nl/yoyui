@@ -10,6 +10,14 @@ import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
+function renderSonarNested1Element(option, getSeverity) {
+    return <Tag value={option} severity={getSeverity(option)} />;
+}
+
+function renderSonarNested1(rowData, getSeverity) {
+    return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData.inventoryStatus)} />;
+}
+
 export function RowEditDoc(props) {
     const [products, setProducts] = useState(null);
     const [statuses] = useState(['INSTOCK', 'LOWSTOCK', 'OUTOFSTOCK']);
@@ -22,13 +30,10 @@ export function RowEditDoc(props) {
         switch (value) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -39,7 +44,6 @@ export function RowEditDoc(props) {
         let { newData, index } = e;
 
         _products[index] = newData;
-
         setProducts(_products);
     };
 
@@ -55,7 +59,7 @@ export function RowEditDoc(props) {
                 onChange={(e) => options.editorCallback(e.value)}
                 placeholder="Select a Status"
                 itemTemplate={(option) => {
-                    return <Tag value={option} severity={getSeverity(option)} />;
+                    return renderSonarNested1Element(option, getSeverity);
                 }}
             />
         );
@@ -66,7 +70,7 @@ export function RowEditDoc(props) {
     };
 
     const statusBodyTemplate = (rowData) => {
-        return <Tag value={rowData.inventoryStatus} severity={getSeverity(rowData.inventoryStatus)} />;
+        return renderSonarNested1(rowData, getSeverity);
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -89,12 +93,12 @@ export function RowEditDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 export default function RowEditingDemo() {
@@ -179,12 +183,12 @@ export default function RowEditingDemo() {
         `,
         typescript: `
 import React, { useEffect, useState } from 'react';
-import { DataTable, DataTableRowEditCompleteEvent } from 'primereact/datatable';
-import { Column, ColumnEditorOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { DataTable, DataTableRowEditCompleteEvent } from '@orcado/yoyui/datatable';
+import { Column, ColumnEditorOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { InputNumber, InputNumberValueChangeEvent } from '@orcado/yoyui/inputnumber';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { ProductService } from './service/ProductService';
 
 interface Product {

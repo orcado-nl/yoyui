@@ -7,7 +7,7 @@ export function StyledDoc(props) {
                 <p>List of class names used in the styled mode.</p>
             </DocSectionText>
             <div className="doc-tablewrapper">
-                <table class="doc-table">
+                <table className="doc-table">
                     <thead>
                         <tr>
                             <th>Name</th>

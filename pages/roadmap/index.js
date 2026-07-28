@@ -8,19 +8,11 @@ const Roadmap = () => {
                 <meta
                     name="description"
                     content="These are planned to be implemented in parallel to the regular
-                        maintenance work of the PrimeReact library"
+                        maintenance work of the YoYui library"
                 />
             </Head>
             <div className="doc-intro">
-                <h1>Roadmap</h1>
-                <p>
-                    At{' '}
-                    <a href="https://www.primetek.com.tr/" className="font-medium hover:underline text-primary">
-                        PrimeTek
-                    </a>
-                    , we are passionate about improving PrimeReact and would like to share our ideas for 2024 with the community. These are planned to be implemented in parallel to the regular maintenance work of the library involving review of issue
-                    tickets, PRs and PrimeReact PRO support.
-                </p>
+                <h1>Old roadmap</h1>
             </div>
 
             <div className="overflow-auto">

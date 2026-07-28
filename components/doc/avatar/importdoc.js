@@ -4,8 +4,8 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 export function ImportDoc(props) {
     const code = {
         basic: `
-import { Avatar } from 'primereact/avatar';
-import { AvatarGroup } from 'primereact/avatargroup';   //Optional for grouping
+import { Avatar } from '@orcado/yoyui/avatar';
+import { AvatarGroup } from '@orcado/yoyui/avatargroup';   //Optional for grouping
         `
     };
 

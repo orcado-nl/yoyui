@@ -11,7 +11,6 @@ export function DynamicDoc(props) {
         { name: 'Research', key: 'R' }
     ];
     const [selectedCategory, setSelectedCategory] = useState(categories[1]);
-
     const code = {
         basic: `
 {categories.map((category) => {
@@ -25,7 +24,7 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { RadioButton } from "primereact/radiobutton";
+import { RadioButton } from "@orcado/yoyui/radiobutton";
 
 export default function DynamicDemo() {
     const categories = [
@@ -54,7 +53,7 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { RadioButton, RadioButtonChangeEvent } from "primereact/radiobutton";
+import { RadioButton, RadioButtonChangeEvent } from "@orcado/yoyui/radiobutton";
 
 interface Category {
     name: string;

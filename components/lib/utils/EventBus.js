@@ -16,12 +16,12 @@ export default function EventBus() {
         off(type, handler) {
             let handlers = allHandlers.get(type);
 
-            handlers && handlers.splice(handlers.indexOf(handler) >>> 0, 1);
+            handlers?.splice(handlers.indexOf(handler) >>> 0, 1);
         },
         emit(type, evt) {
             let handlers = allHandlers.get(type);
 
-            handlers && handlers.slice().forEach((handler) => handler(evt));
+            handlers?.slice().forEach((handler) => handler(evt));
         }
     };
 }

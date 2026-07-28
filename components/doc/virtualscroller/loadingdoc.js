@@ -10,9 +10,7 @@ export function LoadingDoc(props) {
     const [items] = useState(Array.from({ length: 100000 }).map((_, i) => `Item #${i}`));
 
     const itemTemplate = (item, options) => {
-        const className = classNames('flex align-items-center p-2', {
-            'surface-hover': options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { 'surface-hover': options.odd });
 
         return (
             <div className={className} style={{ height: options.props.itemSize + 'px' }}>
@@ -22,9 +20,7 @@ export function LoadingDoc(props) {
     };
 
     const loadingTemplate = (options) => {
-        const className = classNames('flex align-items-center p-2', {
-            odd: options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { odd: options.odd });
 
         return (
             <div className={className} style={{ height: '50px' }}>
@@ -40,9 +36,9 @@ export function LoadingDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { VirtualScroller } from 'primereact/virtualscroller';
-import { Skeleton } from 'primereact/skeleton';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller } from '@orcado/yoyui/virtualscroller';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function LoadingDemo() {
     const [items] = useState(Array.from({ length: 100000 }).map((_, i) => \`Item #\${i}\`));
@@ -87,9 +83,9 @@ export default function LoadingDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { VirtualScroller, VirtualScrollerTemplateOptions } from 'primereact/virtualscroller';
-import { Skeleton } from 'primereact/skeleton';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller, VirtualScrollerTemplateOptions } from '@orcado/yoyui/virtualscroller';
+import { Skeleton } from '@orcado/yoyui/skeleton';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function LoadingDemo() {
     const [items] = useState<string[]>(Array.from({ length: 100000 }).map((_, i) => \`Item #\${i}\`));

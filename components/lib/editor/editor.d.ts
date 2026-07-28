@@ -2,7 +2,7 @@
  *
  * Editor is rich text editor component based on Quill.
  *
- * [Live Demo](https://www.primereact.org/editor/)
+ * [Live Demo](https://yoyui.orcado.dev/editor/)
  *
  * @module editor
  *
@@ -182,13 +182,13 @@ export interface EditorProps extends Omit<React.DetailedHTMLProps<React.InputHTM
 }
 
 /**
- * **PrimeReact - Editor**
+ * **YoYui - Editor**
  *
  * _Editor is rich text editor component based on Quill._
  *
- * [Live Demo](https://www.primereact.org/editor/)
+ * [Live Demo](https://yoyui.orcado.dev/editor/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

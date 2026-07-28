@@ -22,8 +22,8 @@ export function SizeDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
 
 export default function SizeDemo() {
     const [visible, setVisible] = useState(false);
@@ -44,8 +44,8 @@ export default function SizeDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
 
 export default function SizeDemo() {
     const [visible, setVisible] = useState<boolean>(false);

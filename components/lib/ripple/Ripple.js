@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useMergeProps, useMountEffect, useStyle, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { DomHandler, classNames } from '../utils/Utils';
 import { RippleBase } from './RippleBase';
@@ -12,7 +12,7 @@ export const Ripple = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = RippleBase.getProps(inProps, context);
-        const isRippleActive = (context && context.ripple) || PrimeReact.ripple;
+        const isRippleActive = context?.ripple || PrimeReactConfig.ripple;
 
         const metaData = {
             props
@@ -25,7 +25,7 @@ export const Ripple = React.memo(
         });
 
         const getTarget = () => {
-            return inkRef.current && inkRef.current.parentElement;
+            return inkRef.current?.parentElement;
         };
 
         const bindEvents = () => {
@@ -122,7 +122,7 @@ export const Ripple = React.memo(
             ptm('root')
         );
 
-        return <span role="presentation" ref={inkRef} {...rootProps} onAnimationEnd={onAnimationEnd} />;
+        return <span ref={inkRef} {...rootProps} onAnimationEnd={onAnimationEnd} />;
     })
 );
 

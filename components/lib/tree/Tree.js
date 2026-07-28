@@ -483,7 +483,7 @@ export const Tree = React.memo(
                     className: classNames(props.contentClassName, cx('container')),
                     role: 'tree',
                     'aria-label': props.ariaLabel,
-                    'aria-labelledby': props.ariaLabelledBy,
+                    'aria-labelledby': props.ariaLabelledBy ?? props.ariaLabelledby,
                     style: props.contentStyle,
                     ...ariaProps
                 },

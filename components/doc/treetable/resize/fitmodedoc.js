@@ -22,8 +22,8 @@ export function FitModeDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
 import { NodeService } from './service/NodeService';
 
 export default function FitModeDemo() {
@@ -46,9 +46,9 @@ export default function FitModeDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function FitModeDemo() {
@@ -138,8 +138,7 @@ export default function FitModeDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i>
-                    that does not change the overall table width.
+                    Columns can be resized with drag and drop when <i>resizableColumns</i> is enabled. Default resize mode is <i>fit</i> that does not change the overall table width.
                 </p>
             </DocSectionText>
             <div className="card">

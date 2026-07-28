@@ -4,7 +4,7 @@ import { Button } from '@/components/lib/button/Button';
 import { Card } from '@/components/lib/card/Card';
 
 export function AdvancedDoc(props) {
-    const header = <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />;
+    const header = <img alt="Card" src="/images/usercard.png" />;
     const footer = (
         <>
             <Button label="Save" icon="pi pi-check" />
@@ -22,12 +22,12 @@ export function AdvancedDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 
 export default function AdvancedDemo() {
     const header = (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+        <img alt="Card" src="/images/usercard.png" />
     );
     const footer = (
         <>
@@ -50,12 +50,12 @@ export default function AdvancedDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 
 export default function AdvancedDemo() {
     const header = (
-        <img alt="Card" src="https://primefaces.org/cdn/primereact/images/usercard.png" />
+        <img alt="Card" src="/images/usercard.png" />
     );
     const footer = (
         <>

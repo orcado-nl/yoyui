@@ -1,18 +1,15 @@
 import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Knob } from '@/components/lib/knob/Knob';
-import { useState } from 'react';
 
 export function ReadOnlyDoc(props) {
-    const [value, setValue] = useState(50);
-
     const code = {
         basic: `
 <Knob value={50} readOnly />
         `,
         javascript: `
 import React from 'react';
-import { Knob } from 'primereact/knob';
+import { Knob } from '@orcado/yoyui/knob';
 
 export default function ReadOnlyDemo() {
     return (
@@ -24,7 +21,7 @@ export default function ReadOnlyDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Knob } from 'primereact/knob';
+import { Knob } from '@orcado/yoyui/knob';
 
 export default function ReadOnlyDemo() {
     return (

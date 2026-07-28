@@ -2,7 +2,7 @@ import { DocSectionCode } from '@/components/doc/common/docsectioncode';
 import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -32,8 +32,8 @@ export function DisabledRowSelectionDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
 
 export default function DisabledRowSelectionDemo() {
@@ -65,8 +65,8 @@ export default function DisabledRowSelectionDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable, DataTableSelectionChangeEvent, DataTableDataSelectableEvent } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable, DataTableSelectionChangeEvent, DataTableDataSelectableEvent } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
 
 interface Product {

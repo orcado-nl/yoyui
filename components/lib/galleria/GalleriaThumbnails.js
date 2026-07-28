@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext, ariaLabel, localeOption } from '../api/Api';
+import { PrimeReactContext, ariaLabel, localeOption, PrimeReactConfig } from '../api/Api';
 import { useMergeProps, useMountEffect, usePrevious, useResizeListener, useUpdateEffect } from '../hooks/Hooks';
 import { ChevronDownIcon } from '../icons/chevrondown';
 import { ChevronLeftIcon } from '../icons/chevronleft';
@@ -13,17 +13,11 @@ const GalleriaThumbnailItem = React.memo((props) => {
     const { ptm, cx } = props;
 
     const getPTOptions = (key, options) => {
-        return ptm(key, {
-            hostName: props.hostName,
-            ...options
-        });
+        return ptm(key, { hostName: props.hostName, ...options });
     };
 
     const onItemClick = (event) => {
-        props.onItemClick({
-            originalEvent: event,
-            index: props.index
-        });
+        props.onItemClick({ originalEvent: event, index: props.index });
     };
 
     const ariaPageLabel = (value) => {
@@ -32,10 +26,7 @@ const GalleriaThumbnailItem = React.memo((props) => {
 
     const onThumbnailKeydown = (event) => {
         if (event.code === 'Enter' || event.code === 'NumpadEnter' || event.code === 'Space') {
-            props.onItemClick({
-                originalEvent: event,
-                index: props.index
-            });
+            props.onItemClick({ originalEvent: event, index: props.index });
             event.preventDefault();
         }
 
@@ -43,30 +34,24 @@ const GalleriaThumbnailItem = React.memo((props) => {
             case 'ArrowRight':
                 onRightKey();
                 break;
-
             case 'ArrowLeft':
                 onLeftKey();
                 break;
-
             case 'Home':
                 onHomeKey();
                 event.preventDefault();
                 break;
-
             case 'End':
                 onEndKey();
                 event.preventDefault();
                 break;
-
             case 'ArrowUp':
             case 'ArrowDown':
                 event.preventDefault();
                 break;
-
             case 'Tab':
                 onTabKey();
                 break;
-
             default:
                 break;
         }
@@ -74,7 +59,6 @@ const GalleriaThumbnailItem = React.memo((props) => {
 
     const onRightKey = () => {
         const indicators = DomHandler.find(props.itemsContainerRef.current, '[data-pc-section="thumbnailitem"]');
-
         const activeIndex = findFocusedIndicatorIndex();
 
         changedFocusedIndicator(activeIndex, activeIndex + 1 === indicators.length ? indicators.length - 1 : activeIndex + 1);
@@ -83,7 +67,7 @@ const GalleriaThumbnailItem = React.memo((props) => {
     const onLeftKey = () => {
         const activeIndex = findFocusedIndicatorIndex();
 
-        changedFocusedIndicator(activeIndex, activeIndex - 1 <= 0 ? 0 : activeIndex - 1);
+        changedFocusedIndicator(activeIndex, Math.max(0, activeIndex - 1));
     };
 
     const onHomeKey = () => {
@@ -102,10 +86,8 @@ const GalleriaThumbnailItem = React.memo((props) => {
     const onTabKey = () => {
         const indicators = [...DomHandler.find(props.itemsContainerRef.current, '[data-pc-section="thumbnailitem"]')];
         const highlightedIndex = indicators.findIndex((ind) => DomHandler.getAttribute(ind, 'data-p-active') === true);
-
         const activeIndicator = DomHandler.findSingle(props.itemsContainerRef.current, '[tabindex="0"]');
-
-        const activeIndex = indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+        const activeIndex = indicators.indexOf(activeIndicator.parentElement);
 
         indicators[activeIndex].children[0].tabIndex = '-1';
         indicators[highlightedIndex].children[0].tabIndex = '0';
@@ -115,7 +97,7 @@ const GalleriaThumbnailItem = React.memo((props) => {
         const indicators = [...DomHandler.find(props.itemsContainerRef.current, '[data-pc-section="thumbnailitem"]')];
         const activeIndicator = DomHandler.findSingle(props.itemsContainerRef.current, '[data-pc-section="thumbnailitem"] > [tabindex="0"]');
 
-        return indicators.findIndex((ind) => ind === activeIndicator.parentElement);
+        return indicators.indexOf(activeIndicator.parentElement);
     };
 
     const changedFocusedIndicator = (prevInd, nextInd) => {
@@ -126,8 +108,7 @@ const GalleriaThumbnailItem = React.memo((props) => {
         indicators[nextInd].children[0].focus();
     };
 
-    const content = props.template && props.template(props.item);
-
+    const content = props.template?.(props.item);
     const thumbnailItemProps = mergeProps(
         {
             className: classNames(props.className, cx('thumbnailItem', { subProps: props })),
@@ -143,15 +124,8 @@ const GalleriaThumbnailItem = React.memo((props) => {
         },
         getPTOptions('thumbnailItem')
     );
-
     const thumbnailItemContentProps = mergeProps(
-        {
-            className: cx('thumbnailItemContent'),
-            tabIndex: props.current ? '0' : '-1',
-            'aria-label': ariaPageLabel(props.index + 1),
-            'aria-current': props.current ? 'page' : undefined,
-            onClick: onItemClick
-        },
+        { className: cx('thumbnailItemContent'), tabIndex: props.current ? '0' : '-1', 'aria-label': ariaPageLabel(props.index + 1), 'aria-current': props.current ? 'page' : undefined, onClick: onItemClick },
         getPTOptions('thumbnailItemContent')
     );
 
@@ -175,16 +149,8 @@ export const GalleriaThumbnails = React.memo(
         const prevNumVisible = usePrevious(numVisibleState);
         const prevActiveItemIndex = usePrevious(props.activeItemIndex);
         const context = React.useContext(PrimeReactContext);
-
         const { ptm, cx, sx } = props;
-
-        const getPTOptions = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
-        };
-
+        const getPTOptions = (key, options) => ptm(key, { hostName: props.hostName, ...options });
         const [bindWindowResizeListener] = useResizeListener({
             listener: () => {
                 calculatePosition();
@@ -232,7 +198,6 @@ export const GalleriaThumbnails = React.memo(
 
         const navBackward = (e) => {
             stopSlideShow();
-
             let prevItemIndex = props.activeItemIndex !== 0 ? props.activeItemIndex - 1 : 0;
             let diff = prevItemIndex + totalShiftedItemsState;
 
@@ -240,9 +205,7 @@ export const GalleriaThumbnails = React.memo(
                 step(1);
             }
 
-            props.onActiveItemChange({
-                index: props.circular && props.activeItemIndex === 0 ? props.value.length - 1 : prevItemIndex
-            });
+            props.onActiveItemChange({ index: props.circular && props.activeItemIndex === 0 ? props.value.length - 1 : prevItemIndex });
 
             if (e.cancelable) {
                 e.preventDefault();
@@ -251,16 +214,13 @@ export const GalleriaThumbnails = React.memo(
 
         const navForward = (e) => {
             stopSlideShow();
-
             let nextItemIndex = props.activeItemIndex + 1;
 
             if (nextItemIndex + totalShiftedItemsState > getMedianItemIndex() && (-1 * totalShiftedItemsState < getTotalPageNumber() - 1 || props.circular)) {
                 step(-1);
             }
 
-            props.onActiveItemChange({
-                index: props.circular && props.value.length - 1 === props.activeItemIndex ? 0 : nextItemIndex
-            });
+            props.onActiveItemChange({ index: props.circular && props.value.length - 1 === props.activeItemIndex ? 0 : nextItemIndex });
 
             if (e.cancelable) {
                 e.preventDefault();
@@ -269,7 +229,6 @@ export const GalleriaThumbnails = React.memo(
 
         const onItemClick = (event) => {
             stopSlideShow();
-
             let selectedItemIndex = event.index;
 
             if (selectedItemIndex !== props.activeItemIndex) {
@@ -290,15 +249,13 @@ export const GalleriaThumbnails = React.memo(
                     }
                 }
 
-                props.onActiveItemChange({
-                    index: selectedItemIndex
-                });
+                props.onActiveItemChange({ index: selectedItemIndex });
             }
         };
 
         const onTransitionEnd = (e) => {
             if (itemsContainerRef.current && e.propertyName === 'transform') {
-                document.body.setAttribute('data-p-items-hidden', 'false');
+                document.body.dataset.pItemsHidden = 'false';
                 !props.isUnstyled() && DomHandler.addClass(itemsContainerRef.current, 'p-items-hidden');
                 itemsContainerRef.current.style.transition = '';
             }
@@ -307,10 +264,7 @@ export const GalleriaThumbnails = React.memo(
         const onTouchStart = (e) => {
             let touchobj = e.changedTouches[0];
 
-            startPos.current = {
-                x: touchobj.pageX,
-                y: touchobj.pageY
-            };
+            startPos.current = { x: touchobj.pageX, y: touchobj.pageY };
         };
 
         const onTouchMove = (e) => {
@@ -345,7 +299,7 @@ export const GalleriaThumbnails = React.memo(
 
         const createStyle = () => {
             if (!thumbnailsStyle.current) {
-                thumbnailsStyle.current = DomHandler.createInlineStyle((context && context.nonce) || PrimeReact.nonce, context && context.styleContainer);
+                thumbnailsStyle.current = DomHandler.createInlineStyle(context?.nonce || PrimeReactConfig.nonce, context?.styleContainer);
             }
 
             let innerHTML = `
@@ -357,18 +311,18 @@ export const GalleriaThumbnails = React.memo(
         `;
 
             if (props.responsiveOptions) {
-                const comparator = ObjectUtils.localeComparator((context && context.locale) || PrimeReact.locale);
+                const comparator = ObjectUtils.localeComparator(context?.locale || PrimeReactConfig.locale);
 
                 responsiveOptions.current = [...props.responsiveOptions];
                 responsiveOptions.current.sort((data1, data2) => {
                     const value1 = data1.breakpoint;
                     const value2 = data2.breakpoint;
 
-                    return ObjectUtils.sort(value1, value2, -1, comparator, (context && context.nullSortOrder) || PrimeReact.nullSortOrder);
+                    return ObjectUtils.sort(value1, value2, -1, comparator, context?.nullSortOrder || PrimeReactConfig.nullSortOrder);
                 });
 
-                for (let i = 0; i < responsiveOptions.current.length; i++) {
-                    let res = responsiveOptions.current[i];
+                for (const _item of responsiveOptions.current) {
+                    let res = _item;
 
                     innerHTML =
                         innerHTML +
@@ -390,14 +344,12 @@ export const GalleriaThumbnails = React.memo(
         const calculatePosition = () => {
             if (itemsContainerRef.current && responsiveOptions.current) {
                 let windowWidth = window.innerWidth;
-                let matchedResponsiveData = {
-                    numVisible: props.numVisible
-                };
+                let matchedResponsiveData = { numVisible: props.numVisible };
 
-                for (let i = 0; i < responsiveOptions.current.length; i++) {
-                    let res = responsiveOptions.current[i];
+                for (const _item2 of responsiveOptions.current) {
+                    let res = _item2;
 
-                    if (parseInt(res.breakpoint, 10) >= windowWidth) {
+                    if (Number.parseInt(res.breakpoint, 10) >= windowWidth) {
                         matchedResponsiveData = res;
                     }
                 }
@@ -418,11 +370,10 @@ export const GalleriaThumbnails = React.memo(
             calculatePosition();
             bindWindowResizeListener();
         });
-
         useUpdateEffect(() => {
-            let totalShiftedItems = totalShiftedItemsState;
-
             if (prevNumVisible !== numVisibleState || prevActiveItemIndex !== props.activeItemIndex) {
+                let totalShiftedItems;
+
                 if (props.activeItemIndex <= getMedianItemIndex()) {
                     totalShiftedItems = 0;
                 } else if (props.value.length - numVisibleState + getMedianItemIndex() < props.activeItemIndex) {
@@ -440,7 +391,7 @@ export const GalleriaThumbnails = React.memo(
                 itemsContainerRef.current.style.transform = props.isVertical ? `translate3d(0, ${totalShiftedItems * (100 / numVisibleState)}%, 0)` : `translate3d(${totalShiftedItems * (100 / numVisibleState)}%, 0, 0)`;
 
                 if (prevActiveItemIndex !== props.activeItemIndex) {
-                    document.body.setAttribute('data-p-items-hidden', 'false');
+                    document.body.dataset.pItemsHidden = 'false';
                     !props.isUnstyled() && DomHandler.removeClass(itemsContainerRef.current, 'p-items-hidden');
                     itemsContainerRef.current.style.transition = 'transform 500ms ease 0s';
                 }
@@ -458,7 +409,7 @@ export const GalleriaThumbnails = React.memo(
 
                 return (
                     <GalleriaThumbnailItem
-                        key={index}
+                        key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)}
                         index={index}
                         containerId={props.containerId}
                         itemsContainerRef={itemsContainerRef}
@@ -480,13 +431,7 @@ export const GalleriaThumbnails = React.memo(
         const createBackwardNavigator = () => {
             if (props.showThumbnailNavigators) {
                 let isDisabled = (!props.circular && props.activeItemIndex === 0) || props.value.length <= numVisibleState;
-
-                const previousThumbnailIconProps = mergeProps(
-                    {
-                        className: cx('previousThumbnailIcon')
-                    },
-                    getPTOptions('previousThumbnailIcon')
-                );
+                const previousThumbnailIconProps = mergeProps({ className: cx('previousThumbnailIcon') }, getPTOptions('previousThumbnailIcon'));
                 const icon = props.isVertical ? props.prevThumbnailIcon || <ChevronUpIcon {...previousThumbnailIconProps} /> : props.prevThumbnailIcon || <ChevronLeftIcon {...previousThumbnailIconProps} />;
                 const prevThumbnailIcon = IconUtils.getJSXIcon(icon, { ...previousThumbnailIconProps }, { props });
                 const previousThumbnailButtonProps = mergeProps(
@@ -516,16 +461,9 @@ export const GalleriaThumbnails = React.memo(
         const createForwardNavigator = () => {
             if (props.showThumbnailNavigators) {
                 const isDisabled = (!props.circular && props.activeItemIndex === props.value.length - 1) || props.value.length <= numVisibleState;
-
-                const nextThumbnailIconProps = mergeProps(
-                    {
-                        className: cx('nextThumbnailIcon')
-                    },
-                    getPTOptions('nextThumbnailIcon')
-                );
+                const nextThumbnailIconProps = mergeProps({ className: cx('nextThumbnailIcon') }, getPTOptions('nextThumbnailIcon'));
                 const icon = props.isVertical ? props.nextThumbnailIcon || <ChevronDownIcon {...nextThumbnailIconProps} /> : props.nextThumbnailIcon || <ChevronRightIcon {...nextThumbnailIconProps} />;
                 const nextThumbnailIcon = IconUtils.getJSXIcon(icon, { ...nextThumbnailIconProps }, { props });
-
                 const nextThumbnailButtonProps = mergeProps(
                     {
                         className: cx('nextThumbnailButton', { isDisabled }),
@@ -555,32 +493,10 @@ export const GalleriaThumbnails = React.memo(
             const height = props.isVertical ? props.contentHeight : '';
             const backwardNavigator = createBackwardNavigator();
             const forwardNavigator = createForwardNavigator();
-
-            const thumbnailContainerProps = mergeProps(
-                {
-                    className: cx('thumbnailContainer')
-                },
-                getPTOptions('thumbnailContainer')
-            );
-
-            const thumbnailItemsContainerProps = mergeProps(
-                {
-                    className: cx('thumbnailItemsContainer'),
-                    style: sx('thumbnailItemsContainer', { height })
-                },
-                getPTOptions('thumbnailItemsContainer')
-            );
-
+            const thumbnailContainerProps = mergeProps({ className: cx('thumbnailContainer') }, getPTOptions('thumbnailContainer'));
+            const thumbnailItemsContainerProps = mergeProps({ className: cx('thumbnailItemsContainer'), style: sx('thumbnailItemsContainer', { height }) }, getPTOptions('thumbnailItemsContainer'));
             const thumbnailItemsProps = mergeProps(
-                {
-                    ref: itemsContainerRef,
-                    className: cx('thumbnailItems'),
-                    role: 'tablist',
-                    onTransitionEnd: onTransitionEnd,
-                    onTouchStart: onTouchStart,
-                    onTouchMove: onTouchMove,
-                    onTouchEnd: onTouchEnd
-                },
+                { ref: itemsContainerRef, className: cx('thumbnailItems'), role: 'tablist', onTransitionEnd: onTransitionEnd, onTouchStart: onTouchStart, onTouchMove: onTouchMove, onTouchEnd: onTouchEnd },
                 getPTOptions('thumbnailItems')
             );
 
@@ -596,17 +512,10 @@ export const GalleriaThumbnails = React.memo(
         };
 
         const content = createContent();
-
-        const thumbnailWrapperProps = mergeProps(
-            {
-                className: cx('thumbnailWrapper')
-            },
-            getPTOptions('thumbnailWrapper')
-        );
+        const thumbnailWrapperProps = mergeProps({ className: cx('thumbnailWrapper') }, getPTOptions('thumbnailWrapper'));
 
         return <div {...thumbnailWrapperProps}>{content}</div>;
     })
 );
-
 GalleriaThumbnailItem.displayName = 'GalleriaThumbnailItem';
 GalleriaThumbnails.displayName = 'GalleriaThumbnails';

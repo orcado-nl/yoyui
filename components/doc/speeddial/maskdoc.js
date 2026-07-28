@@ -53,9 +53,9 @@ export function MaskDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
 import { useRouter } from 'next/router';
-import { Toast } from 'primereact/toast';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function MaskDemo() {
     const toast = useRef(null);
@@ -110,10 +110,10 @@ export default function MaskDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
-import { Toast } from 'primereact/toast';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
+import { Toast } from '@orcado/yoyui/toast';
 import { useRouter } from 'next/router';
-import { MenuItem } from 'primereact/menuitem';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function MaskDemo() {
     const toast = useRef<Toast>(null);

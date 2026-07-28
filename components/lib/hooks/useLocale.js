@@ -1,7 +1,6 @@
-/* eslint-disable */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
-import { PrimeReactContext } from '../../lib/api/Api';
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig, PrimeReactContext } from '../api/Api';
 
 let locales = {
     en: {
@@ -144,12 +143,12 @@ export const useLocale = () => {
     const locale = (locale) => {
         if (locale) {
             if (context) context.locale = locale;
-            else PrimeReact.locale = locale;
+            else PrimeReactConfig.locale = locale;
         }
 
         return {
-            locale: (context && context.locale) || PrimeReact.locale,
-            options: locales[(context && context.locale) || PrimeReact.locale]
+            locale: context?.locale || PrimeReactConfig.locale,
+            options: locales[context?.locale || PrimeReactConfig.locale]
         };
     };
 
@@ -157,6 +156,7 @@ export const useLocale = () => {
         if (locale.includes('__proto__') || locale.includes('prototype')) {
             throw new Error('Unsafe locale detected');
         }
+
         locales[locale] = { ...locales['en'], ...options };
     };
 
@@ -172,7 +172,8 @@ export const useLocale = () => {
         if (locale.includes('__proto__') || locale.includes('prototype')) {
             throw new Error('Unsafe locale detected');
         }
-        const _locale = locale || (context && context.locale) || PrimeReact.locale;
+
+        const _locale = locale || context?.locale || PrimeReactConfig.locale;
 
         locales[_locale] = { ...locales[_locale], ...options };
     };
@@ -182,12 +183,12 @@ export const useLocale = () => {
             throw new Error('Unsafe key detected');
         }
 
-        const _locale = locale || (context && context.locale) || PrimeReact.locale;
+        const _locale = locale || context?.locale || PrimeReactConfig.locale;
 
         try {
             return localeOptions(_locale)[key];
         } catch (error) {
-            throw new Error(`The ${key} option is not found in the current locale('${_locale}').`);
+            throw new Error(`The ${key} option is not found in the current locale('${_locale}').`, { cause: error });
         }
     };
 
@@ -207,7 +208,8 @@ export const useLocale = () => {
         if (ariaKey.includes('__proto__') || ariaKey.includes('prototype')) {
             throw new Error('Unsafe ariaKey detected');
         }
-        const _locale = (context && context.locale) || PrimeReact.locale;
+
+        const _locale = context?.locale || PrimeReactConfig.locale;
 
         try {
             let ariaLabel = localeOptions(_locale)['aria'][ariaKey];
@@ -222,12 +224,13 @@ export const useLocale = () => {
 
             return ariaLabel;
         } catch (error) {
-            throw new Error(`The ${ariaKey} option is not found in the current locale('${_locale}').`);
+            throw new Error(`The ${ariaKey} option is not found in the current locale('${_locale}').`, { cause: error });
         }
     };
 
     const localeOptions = (locale) => {
-        const _locale = locale || (context && context.locale) || PrimeReact.locale;
+        const _locale = locale || context?.locale || PrimeReactConfig.locale;
+
         if (_locale.includes('__proto__') || _locale.includes('prototype')) {
             throw new Error('Unsafe locale detected');
         }

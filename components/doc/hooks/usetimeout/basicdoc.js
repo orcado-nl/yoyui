@@ -7,7 +7,7 @@ import { useRef } from 'react';
 export function BasicDoc(props) {
     const toast = useRef(null);
 
-    const [clearTimeout] = useTimeout(() => {
+    const [,] = useTimeout(() => {
         toast.current.show({ severity: 'info', summary: 'Loaded' });
     }, 3000);
 
@@ -19,9 +19,9 @@ const [clearTimeout] = useTimeout(() => {
         `,
         javascript: `
 import React from 'react';
-import { InputText } from 'primereact/inputtext';
-import { useTimeout } from 'primereact/hooks';
-import { Toast } from 'primereact/toast';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { useTimeout } from '@orcado/yoyui/hooks';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function BasicDemo() {
     const toast = useRef(null);
@@ -42,9 +42,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react';
-import { InputText } from 'primereact/inputtext';
-import { useTimeout } from 'primereact/hooks';
-import { Toast } from 'primereact/toast';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { useTimeout } from '@orcado/yoyui/hooks';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function BasicDemo() {
     const toast = useRef<Toast>(null);

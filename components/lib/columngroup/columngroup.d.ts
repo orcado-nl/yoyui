@@ -3,7 +3,7 @@
  * Columns can be grouped at header and footer sections by defining a ColumnGroup component.
  * It is a helper component for DataTable.
  *
- * [Live Demo](https://www.primereact.org/datatable/)
+ * [Live Demo](https://yoyui.orcado.dev/datatable/)
  *
  * @module columngroup
  *
@@ -69,13 +69,13 @@ export interface ColumnGroupProps {
 }
 
 /**
- * **PrimeReact - ColumnGroup**
+ * **YoYui - ColumnGroup**
  *
  * _It is a helper component for DataTable._
  *
- * [Live Demo](https://www.primereact.org/columngroup/)
+ * [Live Demo](https://yoyui.orcado.dev/columngroup/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

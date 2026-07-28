@@ -17,8 +17,8 @@ export function ConstantsDoc(props) {
     const code = {
         basic: `
 import React from 'react'; 
-import { Menu } from 'primereact/menu';
-import { PrimeIcons } from 'primereact/api';
+import { Menu } from '@orcado/yoyui/menu';
+import { PrimeIcons } from '@orcado/yoyui/api';
 
 export default function ConstantsDemo() {
     const items = [

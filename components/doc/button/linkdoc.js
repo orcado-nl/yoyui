@@ -5,19 +5,19 @@ import { Button } from '@/components/lib/button/Button';
 export function LinkDoc(props) {
     const code = {
         basic: `
-<Button label="Link" link onClick={() =>  window.open('https://react.dev', '_blank')}/>
+<Button label="Link" link onClick={() =>  window.open('https://react.dev', '_blank', 'noopener,noreferrer')}/>
 <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="p-button font-bold">
     Navigate
 </a>
         `,
         javascript: `
 import React from 'react'; 
-import { Button } from 'primereact/button';
+import { Button } from '@orcado/yoyui/button';
 
 export default function LinkDemo() {
     return (
         <div className="card flex justify-content-center">
-            <Button label="Link" link onClick={() =>  window.open('https://react.dev', '_blank')}/>
+            <Button label="Link" link onClick={() =>  window.open('https://react.dev', '_blank', 'noopener,noreferrer')}/>
             <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="p-button font-bold">
                 Navigate
             </a>
@@ -28,12 +28,12 @@ export default function LinkDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Button } from 'primereact/button';
+import { Button } from '@orcado/yoyui/button';
 
 export default function LinkDemo() {
     return (
         <div className="card flex justify-content-center">
-            <Button label="Link" link onClick={() =>  window.open('https://react.dev', '_blank')}/>
+            <Button label="Link" link onClick={() =>  window.open('https://react.dev', '_blank', 'noopener,noreferrer')}/>
             <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="p-button font-bold">
                 Navigate
             </a>
@@ -51,7 +51,7 @@ export default function LinkDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <Button label="Link" link onClick={() => window.open('https://react.dev', '_blank')} />
+                <Button label="Link" link onClick={() => window.open('https://react.dev', '_blank', 'noopener,noreferrer')} />
                 <a href="https://react.dev" target="_blank" rel="noopener noreferrer" className="p-button font-bold">
                     Navigate
                 </a>

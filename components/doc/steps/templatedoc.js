@@ -12,21 +12,19 @@ export function TemplateDoc(props) {
         const textColor = isActiveItem ? 'var(--surface-b)' : 'var(--text-color-secondary)';
 
         return (
-            <span
+            <button
+                type="button"
                 className="inline-flex align-items-center justify-content-center align-items-center border-circle border-primary border-1 h-3rem w-3rem z-1 cursor-pointer"
                 style={{ backgroundColor: backgroundColor, color: textColor, marginTop: '-25px' }}
                 onClick={() => setActiveIndex(itemIndex)}
             >
                 <i className={`${item.icon} text-xl`} />
-            </span>
+            </button>
         );
     };
 
     const items = [
-        {
-            icon: 'pi pi-user',
-            template: (item) => itemRenderer(item, 0)
-        },
+        { icon: 'pi pi-user', template: (item) => itemRenderer(item, 0) },
         {
             icon: 'pi pi-calendar',
             template: (item) => itemRenderer(item, 1)
@@ -43,7 +41,7 @@ export function TemplateDoc(props) {
 `,
         javascript: `
 import React, { useState } from 'react'; 
-import { Steps } from 'primereact/steps';
+import { Steps } from '@orcado/yoyui/steps';
 
 export default function TemplateDemo() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -88,8 +86,8 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from 'react'; 
-import { Steps } from 'primereact/steps';
-import { MenuItem } from 'primereact/menuitem';
+import { Steps } from '@orcado/yoyui/steps';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function TemplateDemo() {
     const [activeIndex, setActiveIndex] = useState<number>(0);

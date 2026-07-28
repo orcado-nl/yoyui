@@ -101,14 +101,7 @@ const InstallationPage = () => {
     ];
 
     return (
-        <DocComponent
-            title="Configuration - PrimeReact"
-            header="Configuration"
-            description="Global configuration options of the components."
-            componentDocs={docs}
-            apiDocs={['API']}
-            apiExclude={{ interfaces: ['PrimeIconsOptions'], types: 'excludeAll' }}
-        />
+        <DocComponent title="Configuration - YoYui" header="Configuration" description="Global configuration options of the components." componentDocs={docs} apiDocs={['API']} apiExclude={{ interfaces: ['PrimeIconsOptions'], types: 'excludeAll' }} />
     );
 };
 

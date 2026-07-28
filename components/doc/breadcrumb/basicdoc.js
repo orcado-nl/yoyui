@@ -4,7 +4,7 @@ import { BreadCrumb } from '@/components/lib/breadcrumb/BreadCrumb';
 
 export function BasicDoc(props) {
     const items = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
-    const home = { icon: 'pi pi-home', url: 'https://primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     const code = {
         basic: `
@@ -12,11 +12,11 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from '@orcado/yoyui/breadcrumb';
 
 export default function BasicDemo() {
     const items = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
-    const home = { icon: 'pi pi-home', url: 'https://primereact.org' }
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' }
 
     return (
         <BreadCrumb model={items} home={home} />
@@ -25,12 +25,12 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { MenuItem } from 'primereact/menuitem';
+import { BreadCrumb } from '@orcado/yoyui/breadcrumb';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function BasicDemo() {
     const items: MenuItem[] = [{ label: 'Electronics' }, { label: 'Computer' }, { label: 'Accessories' }, { label: 'Keyboard' }, { label: 'Wireless' }];
-    const home: MenuItem = { icon: 'pi pi-home', url: 'https://primereact.org' }
+    const home: MenuItem = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' }
 
     return (
         <BreadCrumb model={items} home={home} />

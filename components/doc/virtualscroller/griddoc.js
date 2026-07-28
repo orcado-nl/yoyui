@@ -8,15 +8,13 @@ export function GridDoc(props) {
     const [items] = useState(Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => `Item #${i}_${j}`)));
 
     const itemTemplate = (items, options) => {
-        const className = classNames('flex align-items-center p-2', {
-            'surface-hover': options.odd
-        });
+        const className = classNames('flex align-items-center p-2', { 'surface-hover': options.odd });
 
         return (
             <div className={className} style={{ height: options.props.itemSize[0] + 'px' }}>
                 {items.map((item, i) => {
                     return (
-                        <div key={i} style={{ width: options.props.itemSize[1] + 'px' }}>
+                        <div key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)} style={{ width: options.props.itemSize[1] + 'px' }}>
                             {item}
                         </div>
                     );
@@ -32,8 +30,8 @@ export function GridDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { VirtualScroller } from 'primereact/virtualscroller';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller } from '@orcado/yoyui/virtualscroller';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function GridDemo() {
     const [items] = useState(Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => \`Item #\${i}_\${j}\`)));
@@ -65,8 +63,8 @@ export default function GridDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { VirtualScroller, VirtualScrollerTemplateOptions } from 'primereact/virtualscroller';
-import { classNames } from 'primereact/utils';
+import { VirtualScroller, VirtualScrollerTemplateOptions } from '@orcado/yoyui/virtualscroller';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function GridDemo() {
     const [items] = useState<string[][]>(Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => \`Item #\${i}_\${j}\`)));

@@ -2,7 +2,7 @@
  *
  * Messages is used to display inline messages with various severities.
  *
- * [Live Demo](https://www.primereact.org/messages)
+ * [Live Demo](https://yoyui.orcado.dev/messages)
  *
  * @module messages
  *
@@ -187,13 +187,13 @@ export interface MessagesProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Messages**
+ * **YoYui - Messages**
  *
  * _Messages is used to display inline messages with various severities._
  *
- * [Live Demo](https://www.primereact.org/messages/)
+ * [Live Demo](https://yoyui.orcado.dev/messages/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

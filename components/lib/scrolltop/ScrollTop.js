@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext, localeOption } from '../api/Api';
+import { PrimeReactContext, localeOption, PrimeReactConfig } from '../api/Api';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { CSSTransition } from '../csstransition/CSSTransition';
 import { useEventListener, useMergeProps, useUnmountEffect } from '../hooks/Hooks';
@@ -28,7 +28,7 @@ export const ScrollTop = React.memo(
         const isTargetParent = props.target === 'parent';
 
         const [bindParentScrollListener] = useEventListener({
-            target: () => helperRef.current && helperRef.current.parentElement,
+            target: () => helperRef.current?.parentElement,
             type: 'scroll',
             listener: (event) => {
                 checkVisibility(event.currentTarget.scrollTop);
@@ -57,17 +57,17 @@ export const ScrollTop = React.memo(
         };
 
         const onEnter = () => {
-            ZIndexUtils.set('overlay', scrollElementRef.current, (context && context.autoZIndex) || PrimeReact.autoZIndex, (context && context.zIndex.overlay) || PrimeReact.zIndex.overlay);
+            ZIndexUtils.set('overlay', scrollElementRef.current, context?.autoZIndex || PrimeReactConfig.autoZIndex, context?.zIndex.overlay || PrimeReactConfig.zIndex.overlay);
         };
 
         const onEntered = () => {
-            props.onShow && props.onShow();
+            props.onShow?.();
         };
 
         const onExited = () => {
             ZIndexUtils.clear(scrollElementRef.current);
 
-            props.onHide && props.onHide();
+            props.onHide?.();
         };
 
         React.useImperativeHandle(ref, () => ({

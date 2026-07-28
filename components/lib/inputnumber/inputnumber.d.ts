@@ -2,7 +2,7 @@
  *
  * InputNumber is an input component to provide numerical input.
  *
- * [Live Demo](https://www.primereact.org/inputnumber/)
+ * [Live Demo](https://yoyui.orcado.dev/inputnumber/)
  *
  * @module inputnumber
  *
@@ -345,13 +345,13 @@ export interface InputNumberProps extends Omit<React.DetailedHTMLProps<React.HTM
 }
 
 /**
- * **PrimeReact - InputNumber**
+ * **YoYui - InputNumber**
  *
  * _InputNumber is an input component to provide numerical input._
  *
- * [Live Demo](https://www.primereact.org/inputnumber/)
+ * [Live Demo](https://yoyui.orcado.dev/inputnumber/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

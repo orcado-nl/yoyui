@@ -21,8 +21,8 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { Button } from '@orcado/yoyui/button';
+import { Dialog } from '@orcado/yoyui/dialog';
 
 export default function BasicDemo() {
     const [visible, setVisible] = useState(false);
@@ -44,8 +44,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { Button } from '@orcado/yoyui/button';
+import { Dialog } from '@orcado/yoyui/dialog';
 
 export default function BasicDoc() {
     const [visible, setVisible] = useState<boolean>(false);

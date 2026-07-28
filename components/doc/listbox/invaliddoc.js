@@ -20,7 +20,7 @@ export function InvalidDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { ListBox } from 'primereact/listbox';
+import { ListBox } from '@orcado/yoyui/listbox';
 
 export default function InvalidDemo() {
     const [selectedCity, setSelectedCity] = useState(null);
@@ -42,7 +42,7 @@ export default function InvalidDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { ListBox, ListBoxChangeEvent } from 'primereact/listbox';
+import { ListBox, ListBoxChangeEvent } from '@orcado/yoyui/listbox';
 
 interface City {
     name: string;

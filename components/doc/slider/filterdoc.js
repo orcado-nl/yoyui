@@ -16,13 +16,15 @@ export function FilterDoc(props) {
 
     const filterStyle = () => {
         return {
+            aspectRatio: '1089 / 579',
+            objectFit: 'cover',
             filter: `contrast(${filterValues[0]}%) brightness(${filterValues[1]}%) sepia(${filterValues[2]}%)`
         };
     };
 
     const code = {
         basic: `
-<img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+<img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
 <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
 <Slider
     value={filterValues[filter]}
@@ -38,8 +40,8 @@ export function FilterDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Slider } from "primereact/slider";
-import { SelectButton } from "primereact/selectbutton";
+import { Slider } from "@orcado/yoyui/slider";
+import { SelectButton } from "@orcado/yoyui/selectbutton";
 
 export default function FilterDemo() {
     const [value, setValue] = useState(null);
@@ -47,7 +49,7 @@ export default function FilterDemo() {
     return (
         <div className="card flex justify-content-center">
             <div className="flex flex-column align-items-center">
-                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
                 <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
                 <Slider
                     value={filterValues[filter]}
@@ -67,8 +69,8 @@ export default function FilterDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Slider, SliderChangeEvent } from "primereact/slider";
-import { SelectButton } from "primereact/selectbutton";
+import { Slider, SliderChangeEvent } from "@orcado/yoyui/slider";
+import { SelectButton } from "@orcado/yoyui/selectbutton";
 
 export default function FilterDemo() {
     const [value, setValue] = useState<number>(null);
@@ -76,7 +78,7 @@ export default function FilterDemo() {
     return (
         <div className="card flex justify-content-center">
             <div className="flex flex-column align-items-center">
-                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+                <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
                 <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
                 <Slider
                     value={filterValues[filter]}
@@ -105,7 +107,7 @@ export default function FilterDemo() {
             </DocSectionText>
             <div className="card flex justify-content-center">
                 <div className="flex flex-column align-items-center">
-                    <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="https://primefaces.org/cdn/primevue/images/card-vue.jpg" style={filterStyle()} />
+                    <img alt="user header" className="w-full md:w-20rem border-round mb-4" src="/images/usercard.png" style={filterStyle()} />
                     <SelectButton value={filter} onChange={(e) => setFilter(e.value)} options={filterOptions} className="mb-3" />
                     <Slider
                         value={filterValues[filter]}

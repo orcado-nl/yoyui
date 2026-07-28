@@ -2,7 +2,7 @@
  *
  * Sidebar is a panel component displayed as an overlay.
  *
- * [Live Demo](https://www.primereact.org/sidebar/)
+ * [Live Demo](https://yoyui.orcado.dev/sidebar/)
  *
  * @module sidebar
  *
@@ -225,13 +225,13 @@ export interface SidebarProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - Sidebar**
+ * **YoYui - Sidebar**
  *
  * _Sidebar is a panel component displayed as an overlay._
  *
- * [Live Demo](https://www.primereact.org/sidebar/)
+ * [Live Demo](https://yoyui.orcado.dev/sidebar/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -2,7 +2,7 @@
  *
  * Checkbox is an extension to standard checkbox element with skinning capabilities.
  *
- * [Live Demo](https://www.primereact.org/checkbox/)
+ * [Live Demo](https://yoyui.orcado.dev/checkbox/)
  *
  * @module checkbox
  *
@@ -233,13 +233,13 @@ export interface CheckboxProps extends Omit<React.DetailedHTMLProps<React.InputH
 }
 
 /**
- * **PrimeReact - Checkbox**
+ * **YoYui - Checkbox**
  *
  * _Checkbox is an extension to standard checkbox element with skinning capabilities._
  *
- * [Live Demo](https://www.primereact.org/checkbox/)
+ * [Live Demo](https://yoyui.orcado.dev/checkbox/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

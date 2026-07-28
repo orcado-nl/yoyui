@@ -12,20 +12,12 @@ export const PageLinks = React.memo((inProps) => {
     const { ptm, cx } = props;
 
     const getPTOptions = (pageLink, key) => {
-        return ptm(key, {
-            hostName: props.hostName,
-            context: {
-                active: pageLink - 1 === props.page
-            }
-        });
+        return ptm(key, { hostName: props.hostName, context: { active: pageLink - 1 === props.page } });
     };
 
     const onPageLinkClick = (event, pageLink) => {
         if (props.onClick) {
-            props.onClick({
-                originalEvent: event,
-                value: pageLink
-            });
+            props.onClick({ originalEvent: event, value: pageLink });
         }
 
         event.preventDefault();
@@ -38,12 +30,7 @@ export const PageLinks = React.memo((inProps) => {
         const endPageInView = props.value[props.value.length - 1];
 
         elements = props.value.map((pageLink) => {
-            const className = classNames('p-paginator-page p-paginator-element p-link', {
-                'p-paginator-page-start': pageLink === startPageInView,
-                'p-paginator-page-end': pageLink === endPageInView,
-                'p-highlight': pageLink - 1 === props.page
-            });
-
+            const className = classNames('p-paginator-page p-paginator-element p-link', { 'p-paginator-page-start': pageLink === startPageInView, 'p-paginator-page-end': pageLink === endPageInView, 'p-highlight': pageLink - 1 === props.page });
             const pageButtonProps = mergeProps(
                 {
                     type: 'button',
@@ -55,7 +42,6 @@ export const PageLinks = React.memo((inProps) => {
                 },
                 getPTOptions(pageLink, 'pageButton')
             );
-
             let element = (
                 <button {...pageButtonProps}>
                     {pageLink}
@@ -67,10 +53,7 @@ export const PageLinks = React.memo((inProps) => {
                 const defaultOptions = {
                     onClick: (e) => onPageLinkClick(e, pageLink),
                     className,
-                    view: {
-                        startPage: startPageInView - 1,
-                        endPage: endPageInView - 1
-                    },
+                    view: { startPage: startPageInView - 1, endPage: endPageInView - 1 },
                     page: pageLink - 1,
                     currentPage: props.page,
                     totalPages: props.totalPages,
@@ -87,12 +70,7 @@ export const PageLinks = React.memo((inProps) => {
         });
     }
 
-    const pagesProps = mergeProps(
-        {
-            className: cx('pages')
-        },
-        ptm('pages', { hostName: props.hostName })
-    );
+    const pagesProps = mergeProps({ className: cx('pages') }, ptm('pages', { hostName: props.hostName }));
 
     return <span {...pagesProps}>{elements}</span>;
 });

@@ -22,7 +22,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { SelectButton } from 'primereact/selectbutton';
+import { SelectButton } from '@orcado/yoyui/selectbutton';
 
 export default function TemplateDemo() {
     const [value, setValue] = useState(null);
@@ -46,7 +46,7 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { SelectButton, SelectButtonChangeEvent } from 'primereact/selectbutton';
+import { SelectButton, SelectButtonChangeEvent } from '@orcado/yoyui/selectbutton';
 
 interface JustifyOption {
     icon: string;

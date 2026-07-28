@@ -7,7 +7,7 @@ const classes = {
     content: ''
 };
 
-const styles = `
+const styles = String.raw`
 /*!
  * Quill Editor v2.0.2
  * https://quilljs.com

@@ -49,8 +49,8 @@ const Tailwind = {
     const code2 = {
         javascript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
-import { Toast } from 'primereact/toast';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function UnstyledDemo() {
     const toast = useRef(null);
@@ -101,16 +101,14 @@ export default function UnstyledDemo() {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    PrimeReact offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
-                    <Link href="/tailwind">Tailwind Customization</Link> section for an example.
-                </p>
-                <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
-                <p>A playground sample with the pre-built Tailwind theme.</p>
-                <DocSectionCode code={code2} embedded />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                YoYui offers a built-in Tailwind theme to get you started quickly. The default values related to the component are displayed below. The component can easily be styled with your own design based on Tailwind utilities, see the{' '}
+                <Link href="/tailwind">Tailwind Customization</Link> section for an example.
+            </p>
+            <DocSectionCode code={code} hideToggleCode import hideStackBlitz />
+            <p>A playground sample with the pre-built Tailwind theme.</p>
+            <DocSectionCode code={code2} embedded />
+        </DocSectionText>
     );
 }

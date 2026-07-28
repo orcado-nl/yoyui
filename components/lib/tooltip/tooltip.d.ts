@@ -1,8 +1,8 @@
 /**
  *
- * Tooltip functionality is integrated within various PrimeReact components.
+ * Tooltip functionality is integrated within various YoYui components.
  *
- * [Live Demo](https://www.primereact.org/tooltip/)
+ * [Live Demo](https://yoyui.orcado.dev/tooltip/)
  *
  * @module tooltip
  *
@@ -130,13 +130,13 @@ export interface TooltipProps extends TooltipOptions {
 }
 
 /**
- * **PrimeReact - Tooltip**
+ * **YoYui - Tooltip**
  *
- * _Tooltip functionality is integrated within various PrimeReact components._
+ * _Tooltip functionality is integrated within various YoYui components._
  *
- * [Live Demo](https://www.primereact.org/tooltip/)
+ * [Live Demo](https://yoyui.orcado.dev/tooltip/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -26,7 +26,6 @@ export function ColumnToggleDoc(props) {
     };
 
     const header = <MultiSelect value={visibleColumns} options={columns} onChange={onColumnToggle} optionLabel="header" className="w-full sm:w-16rem" display="chip" />;
-
     const code = {
         basic: `
 <TreeTable value={nodes} header={header} tableStyle={{ minWidth: '50rem' }}>
@@ -38,10 +37,10 @@ export function ColumnToggleDoc(props) {
         `,
         javascript: `
 import React, {useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
 import { NodeService } from './service/NodeService';
-import { MultiSelect } from 'primereact/multiselect';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
 
 export default function ColumnToggleDemo() {
     let columns = [
@@ -78,10 +77,10 @@ export default function ColumnToggleDemo() {
         `,
         typescript: `
 import React, {useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 interface ColumnMeta {

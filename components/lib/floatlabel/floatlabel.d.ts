@@ -2,7 +2,7 @@
  *
  * FloatLabel appears on top of the input field when focused.
  *
- * [Live Demo](https://www.primereact.org/floatlabel/)
+ * [Live Demo](https://yoyui.orcado.dev/floatlabel/)
  *
  * @module floatlabel
  *
@@ -72,13 +72,13 @@ export interface FloatLabelProps {
 }
 
 /**
- * **PrimeReact - FloatLabel**
+ * **YoYui - FloatLabel**
  *
  * _FloatLabel appears on top of the input field when focused._
  *
- * [Live Demo](https://www.primereact.org/inputtext/)
+ * [Live Demo](https://yoyui.orcado.dev/inputtext/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  *

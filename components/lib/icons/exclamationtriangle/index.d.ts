@@ -8,11 +8,11 @@ import { IconBaseProps } from '../../iconbase';
 export interface ExclamationTriangleIconProps extends IconBaseProps {}
 
 /**
- * **PrimeReact - ExclamationTriangleIcon**
+ * **YoYui - ExclamationTriangleIcon**
  *
- * [Live Demo](https://www.primereact.org/icons/)
+ * [Live Demo](https://yoyui.orcado.dev/icons/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

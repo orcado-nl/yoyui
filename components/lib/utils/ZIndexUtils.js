@@ -23,7 +23,7 @@ function handler() {
     };
 
     const getZIndex = (el) => {
-        return el ? parseInt(el.style.zIndex, 10) || 0 : 0;
+        return el ? Number.parseInt(el.style.zIndex, 10) || 0 : 0;
     };
 
     return {

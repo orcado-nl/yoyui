@@ -4,7 +4,7 @@ import { Button } from '@/components/lib/button/Button';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Dialog } from '@/components/lib/dialog/Dialog';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -35,10 +35,10 @@ export function FlexibleScrollDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Button } from '@orcado/yoyui/button';
+import { Dialog } from '@orcado/yoyui/dialog';
 import { CustomerService } from './service/CustomerService';
 
 export default function FlexibleScrollDemo() {
@@ -71,10 +71,10 @@ export default function FlexibleScrollDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Button } from '@orcado/yoyui/button';
+import { Dialog } from '@orcado/yoyui/dialog';
 import { CustomerService } from './service/CustomerService';
 
 interface Customer {

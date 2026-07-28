@@ -2,7 +2,7 @@
  *
  * Fieldset is an input component that provides real-time suggestions when being typed.
  *
- * [Live Demo](https://www.primereact.org/fieldset/)
+ * [Live Demo](https://yoyui.orcado.dev/fieldset/)
  *
  * @module fieldset
  *
@@ -186,13 +186,13 @@ export interface FieldsetProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Fieldset**
+ * **YoYui - Fieldset**
  *
  * _Fieldset is an input component that provides real-time suggestions when being typed._
  *
- * [Live Demo](https://www.primereact.org/fieldset/)
+ * [Live Demo](https://yoyui.orcado.dev/fieldset/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

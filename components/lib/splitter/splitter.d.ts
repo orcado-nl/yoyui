@@ -2,7 +2,7 @@
  *
  * Splitter is utilized to separate and resize panels.
  *
- * [Live Demo](https://www.primereact.org/splitter/)
+ * [Live Demo](https://yoyui.orcado.dev/splitter/)
  *
  * Helper Components:
  *
@@ -214,13 +214,13 @@ export interface SplitterProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - SplitterPanel**
+ * **YoYui - SplitterPanel**
  *
  * _Splitter is utilized to separate and resize panels._
  *
- * [Live Demo](https://www.primereact.org/splitter/)
+ * [Live Demo](https://yoyui.orcado.dev/splitter/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

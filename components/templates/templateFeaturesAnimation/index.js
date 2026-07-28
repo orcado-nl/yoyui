@@ -25,11 +25,12 @@ const TemplateFeaturesAnimation = ({ featuresData, title, animationSeconds = 500
                         const orderNumber = (i + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
 
                         return (
-                            <div
-                                key={i}
+                            <button
+                                type="button"
+                                key={data?.id ?? data?.key ?? data?.name ?? data?.label ?? data?.value ?? data?.href ?? data?.src ?? data?.field ?? JSON.stringify(data)}
                                 onMouseEnter={() => enterCardArea(data.id)}
                                 onMouseLeave={() => leaveCardArea(data.id)}
-                                className={`template-features-animation-left-card ${selectedID === data.id ? 'template-features-animation-left-card-active' : ''}`}
+                                className={`template-features-animation-left-card border-none ${selectedID === data.id ? 'template-features-animation-left-card-active' : ''}`}
                                 onClick={() => handleClick(data.id)}
                             >
                                 <div className="template-features-animation-left-card-order">
@@ -41,7 +42,7 @@ const TemplateFeaturesAnimation = ({ featuresData, title, animationSeconds = 500
                                     <h5>{data.title}</h5>
                                     <p>{data.description}</p>
                                 </div>
-                            </div>
+                            </button>
                         );
                     })}
                 </div>
@@ -55,7 +56,7 @@ const TemplateFeaturesAnimation = ({ featuresData, title, animationSeconds = 500
                             inlineSeconds={animationSeconds / featuresData[selectedID - 1]?.inlineFeaturesData.length}
                         />
                     ) : (
-                        <img src={featuresData[selectedID - 1]?.src} alt="Animation Feature Image" />
+                        <img src={featuresData[selectedID - 1]?.src} alt="Animated feature" />
                     )}
                 </div>
             </div>

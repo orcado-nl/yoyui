@@ -5,7 +5,7 @@ export const Wireframe = (props) => {
         <>
             <DocSectionText {...props} />
             <div>
-                <img className="w-full" src="https://primefaces.org/cdn/primereact/images/pt/colorpicker.jpg" alt="colorpicker" />
+                <img className="w-full" src="/images/pt/wireframe-placeholder.svg" alt="colorpicker" />
             </div>
         </>
     );

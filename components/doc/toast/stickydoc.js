@@ -23,8 +23,8 @@ export function StickyDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
+import { Button } from '@orcado/yoyui/button';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function StickyDemo() {
     const toast = useRef(null);
@@ -50,8 +50,8 @@ export default function StickyDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
+import { Button } from '@orcado/yoyui/button';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function StickyDemo() {
     const toast = useRef<Toast>(null);

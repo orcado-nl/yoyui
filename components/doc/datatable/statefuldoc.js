@@ -22,7 +22,6 @@ export function StatefulDoc(props) {
         representative: { value: null, matchMode: FilterMatchMode.IN },
         status: { operator: FilterOperator.OR, constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }] }
     });
-
     const [selectedCustomer, setSelectedCustomer] = useState(null);
     const representatives = [
         { name: 'Amy Elsner', image: 'amyelsner.png' },
@@ -42,16 +41,12 @@ export function StatefulDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -64,7 +59,7 @@ export function StatefulDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.code} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt={rowData.country.code} src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -75,7 +70,7 @@ export function StatefulDoc(props) {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
+                <img alt={representative.name} src={`/images/avatar/${representative.image}`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -88,7 +83,7 @@ export function StatefulDoc(props) {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+                <img alt={option.name} src={`/images/avatar/${option.image}`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -111,7 +106,6 @@ export function StatefulDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
     };
 
@@ -127,7 +121,6 @@ export function StatefulDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <DataTable value={customers} paginator rows={5} header={header} filters={filters} onFilter={(e) => setFilters(e.filters)}
@@ -142,15 +135,15 @@ export function StatefulDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { MultiSelect } from 'primereact/multiselect';
-import { Dropdown } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 export default function BasicDemo() {
@@ -204,7 +197,7 @@ export default function BasicDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.code} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.code} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -215,7 +208,7 @@ export default function BasicDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -228,7 +221,7 @@ export default function BasicDemo() {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -285,15 +278,15 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
-import { Column, ColumnFilterElementTemplateOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Tag } from 'primereact/tag';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable, DataTableFilterMeta } from '@orcado/yoyui/datatable';
+import { Column, ColumnFilterElementTemplateOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { Tag } from '@orcado/yoyui/tag';
 import { CustomerService } from './service/CustomerService';
 
 interface RepresentativeOption {
@@ -365,7 +358,7 @@ export default function BasicDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={rowData.country.code} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt={rowData.country.code} src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -376,7 +369,7 @@ export default function BasicDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -389,7 +382,7 @@ export default function BasicDemo() {
     const representativesItemTemplate = (option: RepresentativeOption) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -509,6 +502,7 @@ export default function BasicDemo() {
                             filterMenuStyle={{ width: '14rem' }}
                             style={{ width: '25%' }}
                         />
+
                         <Column field="status" header="Status" body={statusBodyTemplate} sortable filter filterElement={statusFilterTemplate} filterMenuStyle={{ width: '14rem' }} style={{ width: '25%' }} />
                     </DataTable>
                 </div>

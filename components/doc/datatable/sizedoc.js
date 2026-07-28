@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { SelectButton } from '@/components/lib/selectbutton/SelectButton';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProductService } from '../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -32,9 +32,9 @@ export function SizeDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { SelectButton } from 'primereact/selectbutton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { SelectButton } from '@orcado/yoyui/selectbutton';
 import { ProductService } from './service/ProductService';
 
 export default function SizeDemo() {
@@ -67,9 +67,9 @@ export default function SizeDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { SelectButton, SelectButtonChangeEvent } from 'primereact/selectbutton';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { SelectButton, SelectButtonChangeEvent } from '@orcado/yoyui/selectbutton';
 import { ProductService } from './service/ProductService';
 
 interface Product {

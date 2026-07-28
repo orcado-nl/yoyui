@@ -23,7 +23,7 @@ export function TemplateDoc(props) {
     const customizedContent = (item) => {
         return (
             <Card title={item.status} subTitle={item.date}>
-                {item.image && <img src={`https://primefaces.org/cdn/primereact/images/product/${item.image}`} alt={item.name} width={200} className="shadow-1" />}
+                {item.image && <img src={`/images/product/${item.image}`} alt={item.name} width={200} className="shadow-1" />}
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
@@ -40,9 +40,9 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Timeline } from 'primereact/timeline';
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Timeline } from '@orcado/yoyui/timeline';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 import './TimelineDemo.css';
 
 export default function TemplateDemo() {
@@ -64,7 +64,7 @@ export default function TemplateDemo() {
     const customizedContent = (item) => {
         return (
             <Card title={item.status} subTitle={item.date}>
-                { item.image && <img src={\`https://primefaces.org/cdn/primereact/images/product/\${item.image}\`} alt={item.name} width={200} className="shadow-1" />}
+                { item.image && <img src={\`/images/product/\${item.image}\`} alt={item.name} width={200} className="shadow-1" />}
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                     quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
                 <Button label="Read more" className="p-button-text"></Button>
@@ -81,9 +81,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Timeline } from 'primereact/timeline';
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
+import { Timeline } from '@orcado/yoyui/timeline';
+import { Card } from '@orcado/yoyui/card';
+import { Button } from '@orcado/yoyui/button';
 import './TimelineDemo.css';
 
 interface TimelineEvent {
@@ -113,7 +113,7 @@ export default function TemplateDemo() {
     const customizedContent = (item: TimelineEvent) => {
         return (
             <Card title={item.status} subTitle={item.date}>
-                { item.image && <img src={\`https://primefaces.org/cdn/primereact/images/product/\${item.image}\`} alt={item.image} width={200} className="shadow-1" />}
+                { item.image && <img src={\`/images/product/\${item.image}\`} alt={item.image} width={200} className="shadow-1" />}
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                     quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
                 <Button label="Read more" className="p-button-text"></Button>

@@ -15,9 +15,7 @@ export function ConditionalStyleDoc(props) {
     };
 
     const rowClass = (data) => {
-        return {
-            'bg-primary': data.category === 'Fitness'
-        };
+        return { 'bg-primary': data.category === 'Fitness' };
     };
 
     const stockBodyTemplate = (rowData) => {
@@ -41,9 +39,9 @@ export function ConditionalStyleDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { classNames } from '@orcado/yoyui/utils';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
 
 export default function ConditionalStyleDemo() {
@@ -81,9 +79,9 @@ export default function ConditionalStyleDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { classNames } from '@orcado/yoyui/utils';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
 
 interface Product {

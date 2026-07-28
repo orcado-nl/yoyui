@@ -17,7 +17,7 @@ export function BasicDoc(props) {
 `,
         javascript: `
 import React, { useRef } from 'react';
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 
 export default function BasicDemo() {
     const cm = useRef(null);
@@ -29,15 +29,15 @@ export default function BasicDemo() {
     return (
         <div className="card flex md:justify-content-center">
             <ContextMenu model={items} ref={cm} breakpoint="767px" />
-            <img src="https://primefaces.org/cdn/primereact/images/nature/nature3.jpg" alt="Logo" className="max-w-full" onContextMenu={(e) => cm.current.show(e)} />
+            <img src="/images/nature/nature3.jpg" alt="Logo" className="max-w-full" onContextMenu={(e) => cm.current.show(e)} />
         </div>
     )
 }
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { ContextMenu } from 'primereact/contextmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function BasicDemo() {
     const cm = useRef<ContextMenu>(null);
@@ -49,7 +49,7 @@ export default function BasicDemo() {
     return (
         <div className="card flex md:justify-content-center">
             <ContextMenu model={items} ref={cm} breakpoint="767px" />
-            <img src="https://primefaces.org/cdn/primereact/images/nature/nature3.jpg" alt="Logo" className="max-w-full" onContextMenu={(e) => cm.current?.show(e)} />
+            <img src="/images/nature/nature3.jpg" alt="Logo" className="max-w-full" onContextMenu={(e) => cm.current?.show(e)} />
         </div>
     )
 }
@@ -65,7 +65,7 @@ export default function BasicDemo() {
             </DocSectionText>
             <div className="card flex md:justify-content-center">
                 <ContextMenu model={items} ref={cm} breakpoint="767px" />
-                <img src="https://primefaces.org/cdn/primereact/images/nature/nature3.jpg" alt="Logo" className="max-w-full" onContextMenu={(e) => cm.current.show(e)} />
+                <img src="/images/nature/nature3.jpg" alt="Logo" className="max-w-full" onContextMenu={(e) => cm.current.show(e)} />
             </div>
             <DocSectionCode code={code} />
         </>

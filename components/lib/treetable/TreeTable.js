@@ -420,7 +420,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
 
             for (let i = 0; i < value.length; i++) {
                 if (value[i].children && value[i].children.length) {
-                    value[i].children = sortSingle({ data: value[i].children, field, order });
+                    value[i] = { ...value[i], children: sortSingle({ data: value[i].children, field, order }) };
                 }
             }
         }
@@ -439,7 +439,7 @@ export const TreeTable = React.forwardRef((inProps, ref) => {
 
         for (let i = 0; i < value.length; i++) {
             if (value[i].children && value[i].children.length) {
-                value[i].children = sortMultiple({ data: value[i].children, multiSortMeta });
+                value[i] = { ...value[i], children: sortMultiple({ data: value[i].children, multiSortMeta }) };
             }
         }
 

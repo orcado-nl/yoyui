@@ -19,7 +19,7 @@ export function ImageDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
+import { Inplace, InplaceDisplay, InplaceContent } from '@orcado/yoyui/inplace';
 
 export default function ImageDemo() {
     return (
@@ -31,7 +31,7 @@ export default function ImageDemo() {
                 </span>
             </InplaceDisplay>
             <InplaceContent>
-                <img className="w-full" alt="Nature" src="https://primefaces.org/cdn/primereact/images/nature/nature1.jpg" />
+                <img className="w-full" alt="Nature" src="/images/nature/nature1.jpg" />
             </InplaceContent>
         </Inplace>
     );
@@ -39,7 +39,7 @@ export default function ImageDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Inplace, InplaceDisplay, InplaceContent } from 'primereact/inplace';
+import { Inplace, InplaceDisplay, InplaceContent } from '@orcado/yoyui/inplace';
 
 export default function ImageDemo() {
     return (
@@ -51,7 +51,7 @@ export default function ImageDemo() {
                 </span>
             </InplaceDisplay>
             <InplaceContent>
-                <img className="w-full" alt="Nature" src="https://primefaces.org/cdn/primereact/images/nature/nature1.jpg" />
+                <img className="w-full" alt="Nature" src="/images/nature/nature1.jpg" />
             </InplaceContent>
         </Inplace>
     );
@@ -73,7 +73,7 @@ export default function ImageDemo() {
                         </span>
                     </InplaceDisplay>
                     <InplaceContent>
-                        <img className="w-full" alt="Nature" src="https://primefaces.org/cdn/primereact/images/nature/nature1.jpg" />
+                        <img className="w-full" alt="Nature" src="/images/nature/nature1.jpg" />
                     </InplaceContent>
                 </Inplace>
             </div>

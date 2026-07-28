@@ -2,7 +2,7 @@
  *
  * Carousel is a content slider featuring various customization options.
  *
- * [Live Demo](https://www.primereact.org/carousel)
+ * [Live Demo](https://yoyui.orcado.dev/carousel)
  *
  * @module carousel
  *
@@ -285,13 +285,13 @@ export interface CarouselProps extends Omit<React.DetailedHTMLProps<React.HTMLAt
 }
 
 /**
- * **PrimeReact - Carousel**
+ * **YoYui - Carousel**
  *
  * _Carousel is a content slider featuring various customization options._
  *
- * [Live Demo](https://www.primereact.org/carousel/)
+ * [Live Demo](https://yoyui.orcado.dev/carousel/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

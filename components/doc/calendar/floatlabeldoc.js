@@ -17,8 +17,8 @@ export function FloatLabelDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { FloatLabel } from 'primereact/floatlabel';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
 
 export default function FloatLabelDemo() {
     const [date, setDate] = useState(null);
@@ -35,9 +35,9 @@ export default function FloatLabelDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { FloatLabel } from 'primereact/floatlabel';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar } from '@orcado/yoyui/calendar';
+import { FloatLabel } from '@orcado/yoyui/floatlabel';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function FloatLabelDemo() {
     const [date, setDate] = useState<Nullable<Date>>(null);

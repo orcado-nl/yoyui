@@ -11,7 +11,7 @@ export function SizeDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { Badge } from 'primereact/badge';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function SizeDemo() {
     return (
@@ -25,7 +25,7 @@ export default function SizeDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Badge } from 'primereact/badge';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function SizeDemo() {
     return (

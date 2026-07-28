@@ -8,10 +8,6 @@ export function VirtualScrollDoc(props) {
     const [selectedItem, setSelectedItem] = useState(null);
     const items = Array.from({ length: 100000 }).map((_, i) => ({ label: `Item #${i}`, value: i }));
 
-    const onItemChange = (e) => {
-        setSelectedItem(e.value);
-    };
-
     const code = {
         basic: `
 <Dropdown value={selectedItem} onChange={(e) => setSelectedItem(e.value)} options={items} virtualScrollerOptions={{ itemSize: 38 }} 
@@ -19,7 +15,7 @@ export function VirtualScrollDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function VirtualScrollDemo() {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -35,7 +31,7 @@ export default function VirtualScrollDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
 
 interface Item {
     label: string;

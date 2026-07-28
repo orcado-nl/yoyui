@@ -12,8 +12,8 @@ const [count, setCount] = useSessionStorage(0, 'count');
         `,
         javascript: `
 import React from 'react';
-import { Button } from 'primereact/button';
-import { useSessionStorage } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useSessionStorage } from '@orcado/yoyui/hooks';
 
 export default function SessionDoc() {
     const [count, setCount] = useSessionStorage(0, 'count');
@@ -31,8 +31,8 @@ export default function SessionDoc() {
         `,
         typescript: `
 import React from 'react';
-import { Button } from 'primereact/button';
-import { useSessionStorage } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useSessionStorage } from '@orcado/yoyui/hooks';
 
 export default function SessionDoc() {
     const [count, setCount] = useSessionStorage(0, 'count');

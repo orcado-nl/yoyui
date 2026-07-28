@@ -5,6 +5,10 @@ import { ChevronDownIcon } from '@/components/lib/icons/chevrondown';
 import { ChevronRightIcon } from '@/components/lib/icons/chevronright';
 import { useState } from 'react';
 
+function renderDropdownIcon(options) {
+    return options.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...options.iconProps} /> : <ChevronDownIcon {...options.iconProps} />;
+}
+
 export function TemplateDoc(props) {
     const [selectedCountry, setSelectedCountry] = useState(null);
     const countries = [
@@ -24,7 +28,7 @@ export function TemplateDoc(props) {
         if (option) {
             return (
                 <div className="flex align-items-center">
-                    <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />
+                    <img alt={option.name} src="/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />
                     <div>{option.name}</div>
                 </div>
             );
@@ -36,7 +40,7 @@ export function TemplateDoc(props) {
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />
+                <img alt={option.name} src="/images/flag/flag_placeholder.png" className={`mr-2 flag flag-${option.code.toLowerCase()}`} style={{ width: '18px' }} />
                 <div>{option.name}</div>
             </div>
         );
@@ -67,9 +71,13 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Dropdown } from 'primereact/dropdown';
-import { ChevronDownIcon } from 'primereact/icons/chevrondown';
-import { ChevronRightIcon } from 'primereact/icons/chevronright';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+
+function renderDropdownIcon(options) {
+    return options.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...options.iconProps} /> : <ChevronDownIcon {...options.iconProps} />;
+}
+import { ChevronDownIcon } from '@orcado/yoyui/icons/chevrondown';
+import { ChevronRightIcon } from '@orcado/yoyui/icons/chevronright';
 
 export default function TemplateDemo() {
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -90,7 +98,7 @@ export default function TemplateDemo() {
         if (option) {
             return (
                 <div className="flex align-items-center">
-                    <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
+                    <img alt={option.name} src="/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
                     <div>{option.name}</div>
                 </div>
             );
@@ -102,7 +110,7 @@ export default function TemplateDemo() {
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
+                <img alt={option.name} src="/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
                 <div>{option.name}</div>
             </div>
         );
@@ -135,9 +143,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { CheckIcon } from 'primereact/icons/check';
-import { StarIcon } from 'primereact/icons/star';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { CheckIcon } from '@orcado/yoyui/icons/check';
+import { StarIcon } from '@orcado/yoyui/icons/star';
 
 interface Country {
     name: string;
@@ -163,7 +171,7 @@ export default function TemplateDemo() {
         if (option) {
             return (
                 <div className="flex align-items-center">
-                    <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
+                    <img alt={option.name} src="/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
                     <div>{option.name}</div>
                 </div>
             );
@@ -175,7 +183,7 @@ export default function TemplateDemo() {
     const countryOptionTemplate = (option: Country) => {
         return (
             <div className="flex align-items-center">
-                <img alt={option.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
+                <img alt={option.name} src="/images/flag/flag_placeholder.png" className={\`mr-2 flag flag-\${option.code.toLowerCase()}\`} style={{ width: '18px' }} />
                 <div>{option.name}</div>
             </div>
         );
@@ -226,9 +234,7 @@ export default function TemplateDemo() {
                     itemTemplate={countryOptionTemplate}
                     panelFooterTemplate={panelFooterTemplate}
                     className="w-full md:w-14rem"
-                    dropdownIcon={(opts) => {
-                        return opts.iconProps['data-pr-overlay-visible'] ? <ChevronRightIcon {...opts.iconProps} /> : <ChevronDownIcon {...opts.iconProps} />;
-                    }}
+                    dropdownIcon={renderDropdownIcon}
                 />
             </div>
             <DocSectionCode code={code} />

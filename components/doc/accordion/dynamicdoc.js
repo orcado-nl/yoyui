@@ -5,18 +5,9 @@ import { useState } from 'react';
 
 export function DynamicDoc(props) {
     const [tabs] = useState([
-        {
-            header: 'Title I',
-            children: <p className="m-0">Content 1</p>
-        },
-        {
-            header: 'Title II',
-            children: <p className="m-0">Content 2 </p>
-        },
-        {
-            header: 'Title III',
-            children: <p className="m-0">Content 3 </p>
-        }
+        { header: 'Title I', children: <p className="m-0">Content 1</p> },
+        { header: 'Title II', children: <p className="m-0">Content 2 </p> },
+        { header: 'Title III', children: <p className="m-0">Content 3 </p> }
     ]);
 
     const createDynamicTabs = () => {
@@ -35,7 +26,7 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Accordion, AccordionTab } from '@orcado/yoyui/accordion';
 
 export default function DynamicDemo() {
     const [tabs] = useState([
@@ -72,7 +63,7 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Accordion, AccordionTab } from '@orcado/yoyui/accordion';
 
 export default function DynamicDemo() {
     const [tabs] = useState([

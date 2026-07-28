@@ -10,21 +10,12 @@ export const DropdownItem = React.memo((props) => {
     const { ptm, cx, selected, disabled, option, label, index, focusedOptionIndex, ariaSetSize, checkmark, highlightOnSelect, onInputKeyDown } = props;
 
     const getPTOptions = (key) => {
-        return ptm(key, {
-            context: {
-                selected,
-                disabled,
-                focused: index === focusedOptionIndex
-            }
-        });
+        return ptm(key, { context: { selected, disabled, focused: index === focusedOptionIndex } });
     };
 
     const onClick = (event, i) => {
         if (props.onClick) {
-            props.onClick({
-                originalEvent: event,
-                option
-            });
+            props.onClick({ originalEvent: event, option });
         }
     };
 
@@ -47,33 +38,18 @@ export const DropdownItem = React.memo((props) => {
             'data-p-focused': focusedOptionIndex === index,
             'data-p-disabled': disabled
         },
-        getPTOptions('item', { selected, disabled, option, label })
+        getPTOptions('item')
     );
-    const itemGroupLabelProps = mergeProps(
-        {
-            className: cx('itemLabel')
-        },
-        getPTOptions('itemLabel')
-    );
+    const itemGroupLabelProps = mergeProps({ className: cx('itemLabel') }, getPTOptions('itemLabel'));
 
     const iconRenderer = () => {
         if (selected) {
-            const checkIconProps = mergeProps(
-                {
-                    className: cx('checkIcon')
-                },
-                getPTOptions('checkIcon')
-            );
+            const checkIconProps = mergeProps({ className: cx('checkIcon') }, getPTOptions('checkIcon'));
 
             return <CheckIcon {...checkIconProps} />;
         }
 
-        const blankIconProps = mergeProps(
-            {
-                className: cx('blankIcon')
-            },
-            getPTOptions('blankIcon')
-        );
+        const blankIconProps = mergeProps({ className: cx('blankIcon') }, getPTOptions('blankIcon'));
 
         return <BlankIcon {...blankIconProps} />;
     };

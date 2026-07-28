@@ -14,21 +14,18 @@ export const TreeTableScrollableView = React.memo((props) => {
     const { ptm, cx, sx } = props.ptCallbacks;
 
     const getPTOptions = (key, options) => {
-        return ptm(key, {
-            hostName: props.hostName,
-            ...options
-        });
+        return ptm(key, { hostName: props.hostName, ...options });
     };
 
     const setScrollHeight = () => {
         if (props.scrollHeight) {
-            if (props.scrollHeight.indexOf('%') !== -1) {
+            if (props.scrollHeight.includes('%')) {
                 let datatableContainer = findDataTableContainer(elementRef.current);
 
                 scrollBodyRef.current.style.visibility = 'hidden';
                 scrollBodyRef.current.style.height = '100px'; //temporary height to calculate static height
                 let containerHeight = DomHandler.getOuterHeight(datatableContainer);
-                let relativeHeight = (DomHandler.getOuterHeight(datatableContainer.parentElement) * parseInt(props.scrollHeight, 10)) / 100;
+                let relativeHeight = (DomHandler.getOuterHeight(datatableContainer.parentElement) * Number.parseInt(props.scrollHeight, 10)) / 100;
                 let staticHeight = containerHeight - 100; //total height of headers, footers, paginators
                 let scrollBodyHeight = relativeHeight - staticHeight;
 
@@ -82,7 +79,6 @@ export const TreeTableScrollableView = React.memo((props) => {
         let el = DomHandler.find(findDataTableContainer(elementRef.current), '[data-pc-section="scrollablebody"]');
 
         el = el.length > 1 ? el[1] : el[0];
-
         const scrollBarWidth = DomHandler.calculateScrollbarWidth(el);
 
         if (!props.frozen) {
@@ -97,7 +93,6 @@ export const TreeTableScrollableView = React.memo((props) => {
             scrollBodyRef.current.style.paddingBottom = scrollBarWidth + 'px';
         }
     });
-
     React.useEffect(() => {
         setScrollHeight();
     });
@@ -105,12 +100,7 @@ export const TreeTableScrollableView = React.memo((props) => {
     const createColGroup = () => {
         if (ObjectUtils.isNotEmpty(props.columns)) {
             const cols = props.columns.map((col, i) => <col key={col.field + '_' + i} />);
-            const scrollableColgroupProps = mergeProps(
-                {
-                    className: cx('scrollableColgroup')
-                },
-                getPTOptions('scrollableColgroup')
-            );
+            const scrollableColgroupProps = mergeProps({ className: cx('scrollableColgroup') }, getPTOptions('scrollableColgroup'));
 
             return <colgroup {...scrollableColgroupProps}>{cols}</colgroup>;
         }
@@ -132,7 +122,7 @@ export const TreeTableScrollableView = React.memo((props) => {
     const scrollableHeaderProps = mergeProps(
         {
             className: cx('scrollableHeader'),
-            onScroll: (e) => onHeaderScroll(e)
+            onScroll: (e) => onHeaderScroll()
         },
         getPTOptions('scrollableHeader')
     );
@@ -155,7 +145,7 @@ export const TreeTableScrollableView = React.memo((props) => {
         {
             className: cx('scrollableBody'),
             style: !props.frozen && props.scrollHeight ? { overflowY: 'scroll' } : undefined,
-            onScroll: (e) => onBodyScroll(e)
+            onScroll: (e) => onBodyScroll()
         },
         getPTOptions('scrollableBody')
     );

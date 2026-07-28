@@ -6,11 +6,11 @@ export function CSSLayerDoc(props) {
         basic: `
 @layer tailwind-base, primereact, tailwind-utilities;
 
-/* VITE ONLY: In "styled" mode you must add the PrimeReact Theme here. Do NOT include in "unstyled" mode */
-@import 'primereact/resources/themes/lara-light-blue/theme.css';
+/* VITE ONLY: In "styled" mode you must add the YoYui Theme here. Do NOT include in "unstyled" mode */
+@import '@orcado/yoyui/resources/themes/lara-light-blue/theme.css';
 
 /* NEXT.JS ONLY: In "styled" mode you must also add the layer(primereact) */
-@import 'primereact/resources/themes/lara-light-blue/theme.css' layer(primereact);
+@import '@orcado/yoyui/resources/themes/lara-light-blue/theme.css' layer(primereact);
 
 @layer tailwind-base {
   @tailwind base;
@@ -24,14 +24,12 @@ export function CSSLayerDoc(props) {
     };
 
     return (
-        <>
-            <DocSectionText {...props}>
-                <p>
-                    Tailwind CSS can be used with styled or unstyled modes of PrimeReact. In both cases, <a href="https://tailwindcss.com/docs/preflight">preflight</a> mode may break styling of the core functionality so <i>@layer</i> configuration in
-                    your style file that includes tailwind styles is necessary for compatibility.
-                </p>
-                <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
-            </DocSectionText>
-        </>
+        <DocSectionText {...props}>
+            <p>
+                Tailwind CSS can be used with styled or unstyled modes of YoYui. In both cases, <a href="https://tailwindcss.com/docs/preflight">preflight</a> mode may break styling of the core functionality so <i>@layer</i> configuration in your
+                style file that includes tailwind styles is necessary for compatibility.
+            </p>
+            <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
+        </DocSectionText>
     );
 }

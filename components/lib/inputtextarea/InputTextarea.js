@@ -31,7 +31,7 @@ export const InputTextarea = React.memo(
                 resize();
             }
 
-            props.onFocus && props.onFocus(event);
+            props.onFocus?.(event);
         };
 
         const onBlur = (event) => {
@@ -39,7 +39,7 @@ export const InputTextarea = React.memo(
                 resize();
             }
 
-            props.onBlur && props.onBlur(event);
+            props.onBlur?.(event);
         };
 
         const onKeyUp = (event) => {
@@ -47,11 +47,11 @@ export const InputTextarea = React.memo(
                 resize();
             }
 
-            props.onKeyUp && props.onKeyUp(event);
+            props.onKeyUp?.(event);
         };
 
         const onKeyDown = (event) => {
-            props.onKeyDown && props.onKeyDown(event);
+            props.onKeyDown?.(event);
 
             if (props.keyfilter) {
                 KeyFilter.onKeyPress(event, props.keyfilter, props.validateOnly);
@@ -59,7 +59,7 @@ export const InputTextarea = React.memo(
         };
 
         const onBeforeInput = (event) => {
-            props.onBeforeInput && props.onBeforeInput(event);
+            props.onBeforeInput?.(event);
 
             if (props.keyfilter) {
                 KeyFilter.onBeforeInput(event, props.keyfilter, props.validateOnly);
@@ -67,7 +67,7 @@ export const InputTextarea = React.memo(
         };
 
         const onPaste = (event) => {
-            props.onPaste && props.onPaste(event);
+            props.onPaste?.(event);
 
             if (props.keyfilter) {
                 KeyFilter.onPaste(event, props.keyfilter, props.validateOnly);
@@ -81,7 +81,7 @@ export const InputTextarea = React.memo(
                 resize(ObjectUtils.isEmpty(target.value));
             }
 
-            props.onInput && props.onInput(event);
+            props.onInput?.(event);
 
             ObjectUtils.isNotEmpty(target.value) ? DomHandler.addClass(target, 'p-filled') : DomHandler.removeClass(target, 'p-filled');
         };
@@ -89,7 +89,7 @@ export const InputTextarea = React.memo(
         const resize = (initial) => {
             const inputEl = elementRef.current;
 
-            if (inputEl && isVisible(inputEl)) {
+            if (inputEl && isVisible()) {
                 if (!cachedScrollHeight.current) {
                     cachedScrollHeight.current = inputEl.scrollHeight;
                     inputEl.style.overflow = 'hidden';
@@ -99,7 +99,7 @@ export const InputTextarea = React.memo(
                     inputEl.style.height = '';
                     inputEl.style.height = inputEl.scrollHeight + 'px';
 
-                    if (parseFloat(inputEl.style.height) >= parseFloat(inputEl.style.maxHeight)) {
+                    if (Number.parseFloat(inputEl.style.height) >= Number.parseFloat(inputEl.style.maxHeight)) {
                         inputEl.style.overflowY = 'scroll';
                         inputEl.style.height = inputEl.style.maxHeight;
                     } else {

@@ -2,7 +2,7 @@
  *
  * Slider is a component to provide input with a drag handle.
  *
- * [Live Demo](https://www.primereact.org/slider/)
+ * [Live Demo](https://yoyui.orcado.dev/slider/)
  *
  * @module slider
  *
@@ -146,13 +146,13 @@ export interface SliderProps extends Omit<React.DetailedHTMLProps<React.InputHTM
 }
 
 /**
- * **PrimeReact - Slider**
+ * **YoYui - Slider**
  *
  * _Slider is a component to provide input with a drag handle._
  *
- * [Live Demo](https://www.primereact.org/slider/)
+ * [Live Demo](https://yoyui.orcado.dev/slider/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

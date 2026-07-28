@@ -4,13 +4,13 @@ import { InputText } from '@/components/lib/inputtext/InputText';
 
 export function RegexDoc(props) {
     const code = {
-        basic: `
+        basic: String.raw`
 <InputText keyfilter={/[^\s]/} />
 <InputText keyfilter={/^[^<>*!]+$/}  />
         `,
         javascript: `
 import React from 'react'; 
-import { InputText } from 'primereact/inputtext';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function RegexDemo() {
     return (
@@ -33,7 +33,7 @@ export default function RegexDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { InputText } from 'primereact/inputtext';
+import { InputText } from '@orcado/yoyui/inputtext';
 
 export default function RegexDemo() {
     return (

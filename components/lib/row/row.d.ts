@@ -2,7 +2,7 @@
  *
  * Row component is a helper component used to create grouping structures in DataTable.
  *
- * [Live Demo](https://www.primereact.org/datatable/)
+ * [Live Demo](https://yoyui.orcado.dev/datatable/)
  *
  * @module row
  *
@@ -75,13 +75,13 @@ export interface RowProps {
 }
 
 /**
- * **PrimeReact - Row**
+ * **YoYui - Row**
  *
  * _Row component is a helper component used to create grouping structures in DataTable._
  *
- * [Live Demo](https://www.primereact.org/datatable/)
+ * [Live Demo](https://yoyui.orcado.dev/datatable/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

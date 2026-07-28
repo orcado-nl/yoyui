@@ -8,11 +8,10 @@ import { useRef } from 'react';
 function MenuItem(props) {
     const router = useRouter();
     const { menuItem, root } = props;
-
     const btnRef = useRef(null);
 
     const isActiveRootmenuItem = (rootItem) => {
-        return rootItem.children && !rootItem.children.some((item) => item.to === router.pathname || (item.children && item.children.some((it) => it.to === router.pathname)));
+        return rootItem.children && !rootItem.children.some((item) => item.to === router.pathname || item.children?.some((it) => it.to === router.pathname));
     };
 
     return (
@@ -30,7 +29,7 @@ function MenuItem(props) {
             )}
             {menuItem?.href && (
                 <Link href={menuItem.href} passHref>
-                    <a target="_blank" rel="noopener noreferrer">
+                    <a href={menuItem.href} target="_blank" rel="noopener noreferrer">
                         {menuItem?.icon && root && (
                             <span className="menu-icon">
                                 <i className={menuItem?.icon} />
@@ -43,7 +42,7 @@ function MenuItem(props) {
             )}
             {menuItem?.to && (
                 <Link href={menuItem?.to} passHref>
-                    <a className={classNames({ 'router-link-active': menuItem.to === router.pathname })}>
+                    <a href={menuItem.to} className={classNames({ 'router-link-active': menuItem.to === router.pathname })}>
                         {menuItem?.icon && root && (
                             <span className="menu-icon">
                                 <i className={menuItem.icon} />
@@ -59,7 +58,7 @@ function MenuItem(props) {
                 <div className={classNames('overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out', { hidden: menuItem.children && root && isActiveRootmenuItem(menuItem) })}>
                     <ol>
                         {menuItem.children.map((item, index) => (
-                            <MenuItem root={false} menuItem={item} key={`_root${index}`} />
+                            <MenuItem root={false} menuItem={item} key={item?.id ?? item?.key ?? item?.name ?? item?.label ?? item?.value ?? item?.href ?? item?.src ?? item?.field ?? JSON.stringify(item)} />
                         ))}
                     </ol>
                 </div>

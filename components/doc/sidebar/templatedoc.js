@@ -9,16 +9,14 @@ export function TemplateDoc(props) {
     const [visible, setVisible] = useState(false);
 
     const customIcons = (
-        <React.Fragment>
-            <button className="p-sidebar-icon p-link mr-2">
-                <span className="pi pi-search" />
-            </button>
-        </React.Fragment>
+        <button className="p-sidebar-icon p-link mr-2">
+            <span className="pi pi-search" />
+        </button>
     );
 
     const customHeader = (
         <div className="flex align-items-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
             <span className="font-bold">Amy Elsner</span>
         </div>
     );
@@ -36,9 +34,9 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
+import { Avatar } from '@orcado/yoyui/avatar';
 
 export default function TemplateDemo() {
     const [visible, setVisible] = useState(false);
@@ -53,7 +51,7 @@ export default function TemplateDemo() {
 
     const customHeader = (
         <div className="flex align-items-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
             <span className="font-bold">Amy Elsner</span>
         </div>
     );
@@ -73,9 +71,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Sidebar } from 'primereact/sidebar';
-import { Button } from 'primereact/button';
-import { Avatar } from 'primereact/avatar';
+import { Sidebar } from '@orcado/yoyui/sidebar';
+import { Button } from '@orcado/yoyui/button';
+import { Avatar } from '@orcado/yoyui/avatar';
 
 export default function TemplateDemo() {
     const [visible, setVisible] = useState<boolean>(false);
@@ -90,7 +88,7 @@ export default function TemplateDemo() {
 
     const customHeader = (
         <div className="flex align-items-center gap-2">
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" shape="circle" />
+            <Avatar image="/images/avatar/amyelsner.png" shape="circle" />
             <span className="font-bold">Amy Elsner</span>
         </div>
     );

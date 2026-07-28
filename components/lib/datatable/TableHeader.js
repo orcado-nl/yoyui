@@ -32,42 +32,21 @@ export const TableHeader = React.memo((props) => {
 
     const getColumnGroupPTOptions = (key) => {
         const cGProps = getColumnGroupProps();
-
-        const columnGroupMetaData = {
-            props: cGProps,
-            parent: props.metaData,
-            hostName: props.hostName,
-            state: {
-                sortableDisabledFields: sortableDisabledFieldsState,
-                allSortableDisabled: allSortableDisabledState
-            }
-        };
+        const columnGroupMetaData = { props: cGProps, parent: props.metaData, hostName: props.hostName, state: { sortableDisabledFields: sortableDisabledFieldsState, allSortableDisabled: allSortableDisabledState } };
 
         return mergeProps(ptm(`columnGroup.${key}`, { columnGroup: columnGroupMetaData }), ptm(`columnGroup.${key}`, columnGroupMetaData), ptmo(cGProps, key, columnGroupMetaData));
     };
 
     const getColumnPTOptions = (column, key) => {
         const cProps = getColumnProps(column);
-        const columnMetaData = {
-            props: cProps,
-            parent: props.metaData,
-            hostName: props.hostName,
-            state: {
-                sortableDisabledFields: sortableDisabledFieldsState,
-                allSortableDisabled: allSortableDisabledState
-            }
-        };
+        const columnMetaData = { props: cProps, parent: props.metaData, hostName: props.hostName, state: { sortableDisabledFields: sortableDisabledFieldsState, allSortableDisabled: allSortableDisabledState } };
 
         return mergeProps(ptm(`column.${key}`, { column: columnMetaData }), ptm(`column.${key}`, columnMetaData), ptmo(cProps, key, columnMetaData));
     };
 
     const getRowPTOptions = (row, key) => {
         const rProps = getRowProps(row);
-        const rowMetaData = {
-            props: rProps,
-            parent: props.metaData,
-            hostName: props.hostName
-        };
+        const rowMetaData = { props: rProps, parent: props.metaData, hostName: props.hostName };
 
         return mergeProps(ptm(`row.${key}`, { row: rowMetaData }), ptm(`row.${key}`, rowMetaData), ptmo(rProps, key, rowMetaData));
     };
@@ -90,7 +69,6 @@ export const TableHeader = React.memo((props) => {
                     }
                 }
             });
-
             setSortableDisabledFieldsState(sortableDisabledFields);
             setAllSortableDisabledState(allSortableDisabled);
         }
@@ -209,18 +187,11 @@ export const TableHeader = React.memo((props) => {
 
             if (isVisible) {
                 const { filterHeaderStyle, style, filterHeaderClassName, className, frozen, columnKey, field, selectionMode, filter } = ColumnBase.getCProps(col);
-                const colStyle = { ...(filterHeaderStyle || {}), ...(style || {}) };
+                const colStyle = { ...filterHeaderStyle, ...style };
                 const colKey = columnKey || field || i;
                 const checkbox = createCheckbox(col, selectionMode);
                 const filterRow = createFilter(col, filter);
-                const headerCellProps = mergeProps(
-                    {
-                        style: colStyle,
-                        className: classNames(filterHeaderClassName, className, cx('headerCell', { frozen, column: col }))
-                    },
-                    getColumnPTOptions(col, 'root'),
-                    getColumnPTOptions(col, 'headerCell')
-                );
+                const headerCellProps = mergeProps({ style: colStyle, className: classNames(filterHeaderClassName, className, cx('headerCell', { frozen, column: col })) }, getColumnPTOptions(col, 'root'), getColumnPTOptions(col, 'headerCell'));
 
                 return (
                     <th key={colKey} {...headerCellProps}>
@@ -238,31 +209,23 @@ export const TableHeader = React.memo((props) => {
         if (props.headerColumnGroup) {
             const rows = React.Children.toArray(ColumnGroupBase.getCProp(props.headerColumnGroup, 'children'));
 
-            return rows.map((row, i) => {
-                const { unstyled, __TYPE, ptOptions, ...rest } = RowBase.getProps(row.props, context);
+            return (
+                <>
+                    {rows.map((row) => {
+                        const { unstyled, __TYPE, ptOptions, ...rest } = RowBase.getProps(row.props, context);
+                        const headerRowProps = mergeProps({ role: 'row' }, unstyled ? { unstyled, ...rest } : rest, getRowPTOptions(row, 'root'));
 
-                const headerRowProps = mergeProps(
-                    {
-                        role: 'row'
-                    },
-                    unstyled ? { unstyled, ...rest } : rest,
-                    getRowPTOptions(row, 'root')
-                );
-
-                return (
-                    <tr {...headerRowProps} key={i}>
-                        {createGroupHeaderCells(row)}
-                    </tr>
-                );
-            });
+                        return (
+                            <tr {...headerRowProps} key={row?.id ?? row?.key ?? row?.name ?? row?.label ?? row?.value ?? row?.href ?? row?.src ?? row?.field ?? JSON.stringify(row)}>
+                                {createGroupHeaderCells(row)}
+                            </tr>
+                        );
+                    })}
+                </>
+            );
         }
 
-        const headerRowProps = mergeProps(
-            {
-                role: 'row'
-            },
-            ptm('headerRow', { hostName: props.hostName })
-        );
+        const headerRowProps = mergeProps({ role: 'row' }, ptm('headerRow', { hostName: props.hostName }));
         const headerRow = <tr {...headerRowProps}>{createHeaderCells(props.columns)}</tr>;
         const filterRow = props.filterDisplay === 'row' && <tr {...headerRowProps}>{createFilterCells()}</tr>;
 
@@ -275,16 +238,8 @@ export const TableHeader = React.memo((props) => {
     };
 
     const content = createContent();
-    const theadProps = mergeProps(
-        {
-            className: cx('thead'),
-            role: 'rowgroup'
-        },
-        getColumnGroupPTOptions('root'),
-        ptm('thead', { hostName: props.hostName })
-    );
+    const theadProps = mergeProps({ className: cx('thead'), role: 'rowgroup' }, getColumnGroupPTOptions('root'), ptm('thead', { hostName: props.hostName }));
 
     return <thead {...theadProps}>{content}</thead>;
 });
-
 TableHeader.displayName = 'TableHeader';

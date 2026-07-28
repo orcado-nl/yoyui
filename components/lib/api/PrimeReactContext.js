@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FilterMatchMode } from './FilterMatchMode';
-import PrimeReact from './PrimeReact';
+import { PrimeReactConfig } from './PrimeReact';
 
 export const PrimeReactContext = React.createContext();
 
@@ -42,11 +42,11 @@ export const PrimeReactProvider = (props) => {
         }
     );
 
-    const changeTheme = (currentTheme, newTheme, linkElementId, callback) => {
+    const changeTheme = React.useCallback((currentTheme, newTheme, linkElementId, callback) => {
         const linkElement = document.getElementById(linkElementId);
 
         if (!linkElement) {
-            throw Error(`Element with id ${linkElementId} not found.`);
+            throw new Error(`Element with id ${linkElementId} not found.`);
         }
 
         const newThemeUrl = linkElement.getAttribute('href').replace(currentTheme, newTheme);
@@ -62,62 +62,65 @@ export const PrimeReactProvider = (props) => {
         });
 
         linkElement.parentNode?.replaceChild(newLinkElement, linkElement);
-    };
+    }, []);
 
     /**
      * @deprecated
      */
     React.useEffect(() => {
-        PrimeReact.ripple = ripple;
+        PrimeReactConfig.ripple = ripple;
     }, [ripple]);
 
     /**
      * @deprecated
      */
     React.useEffect(() => {
-        PrimeReact.inputStyle = inputStyle;
+        PrimeReactConfig.inputStyle = inputStyle;
     }, [inputStyle]);
 
     /**
      * @deprecated
      */
     React.useEffect(() => {
-        PrimeReact.locale = locale;
+        PrimeReactConfig.locale = locale;
     }, [locale]);
 
-    const value = {
-        changeTheme,
-        ripple,
-        setRipple,
-        inputStyle,
-        setInputStyle,
-        locale,
-        setLocale,
-        appendTo,
-        setAppendTo,
-        styleContainer,
-        setStyleContainer,
-        cssTransition,
-        setCssTransition,
-        autoZIndex,
-        setAutoZIndex,
-        hideOverlaysOnDocumentScrolling,
-        setHideOverlaysOnDocumentScrolling,
-        nonce,
-        setNonce,
-        nullSortOrder,
-        setNullSortOrder,
-        zIndex,
-        setZIndex,
-        ptOptions,
-        setPtOptions,
-        pt,
-        setPt,
-        filterMatchModeOptions,
-        setFilterMatchModeOptions,
-        unstyled,
-        setUnstyled
-    };
+    const value = React.useMemo(
+        () => ({
+            changeTheme,
+            ripple,
+            setRipple,
+            inputStyle,
+            setInputStyle,
+            locale,
+            setLocale,
+            appendTo,
+            setAppendTo,
+            styleContainer,
+            setStyleContainer,
+            cssTransition,
+            setCssTransition,
+            autoZIndex,
+            setAutoZIndex,
+            hideOverlaysOnDocumentScrolling,
+            setHideOverlaysOnDocumentScrolling,
+            nonce,
+            setNonce,
+            nullSortOrder,
+            setNullSortOrder,
+            zIndex,
+            setZIndex,
+            ptOptions,
+            setPtOptions,
+            pt,
+            setPt,
+            filterMatchModeOptions,
+            setFilterMatchModeOptions,
+            unstyled,
+            setUnstyled
+        }),
+        [changeTheme, ripple, inputStyle, locale, appendTo, styleContainer, cssTransition, autoZIndex, hideOverlaysOnDocumentScrolling, nonce, nullSortOrder, zIndex, ptOptions, pt, filterMatchModeOptions, unstyled]
+    );
 
     return <PrimeReactContext.Provider value={value}>{props.children}</PrimeReactContext.Provider>;
 };

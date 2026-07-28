@@ -4,14 +4,14 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 export function ContextDoc(props) {
     const code = {
         basic: `
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
+import { PrimeReactProvider, PrimeReactContext } from '@orcado/yoyui/api';
         `
     };
 
     const code2 = {
         basic: `
 // _app.js
-import { PrimeReactProvider } from 'primereact/api';
+import { PrimeReactProvider } from '@orcado/yoyui/api';
 
 export default function MyApp({ Component, pageProps }) {
     return (
@@ -27,7 +27,7 @@ export default function MyApp({ Component, pageProps }) {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Configuration is managed by the <i>PrimeReactProvider</i> and <i>PrimeReactContext</i> imported from <i>primereact/api</i>.
+                    Configuration is managed by the <i>PrimeReactProvider</i> and <i>PrimeReactContext</i> imported from <i>@orcado/yoyui/api</i>.
                 </p>
             </DocSectionText>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

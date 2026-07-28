@@ -6,8 +6,8 @@ import replace from '@rollup/plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 
-import fs from 'fs-extra';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import pkg from './package.json';
 
@@ -112,7 +112,7 @@ const GLOBAL_COMPONENT_DEPENDENCIES = {
 };
 
 // externals
-const EXTERNAL = ['react', 'react-dom', 'react-transition-group', '@babel/runtime', '@fullcalendar/core', 'chart.js/auto', 'quill'];
+const EXTERNAL = ['react', 'react-dom', 'react-transition-group', '@babel/runtime', 'chart.js/auto', 'quill'];
 
 const EXTERNAL_COMPONENT = [...EXTERNAL, ...(NPM_LINK ? [] : ALIAS_COMPONENT_ENTRIES.map((entries) => entries.replacement))];
 
@@ -274,12 +274,10 @@ function addCore() {
                         return val;
                     }, '');
 
-                    fs.outputFile(path.resolve(__dirname, filePath), code, {}, function (err) {
-                        if (err) {
-                            // eslint-disable-next-line no-console
-                            return console.error(err);
-                        }
-                    });
+                    const outputFile = path.resolve(__dirname, filePath);
+
+                    fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+                    fs.writeFileSync(outputFile, code);
                 });
             }
         }

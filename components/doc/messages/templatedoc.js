@@ -15,7 +15,7 @@ export function TemplateDoc(props) {
                 sticky: true,
                 content: (
                     <React.Fragment>
-                        <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" width="32" />
+                        <img alt="logo" src="/images/logo.png" width="32" />
                         <div className="ml-2">Always bet on Prime.</div>
                     </React.Fragment>
                 )
@@ -38,8 +38,8 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function TemplateDemo() {
     const msgs = useRef(null);
@@ -52,7 +52,7 @@ export default function TemplateDemo() {
                 sticky: true,
                 content: (
                     <React.Fragment>
-                        <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" width="32" />
+                        <img alt="logo" src="/images/logo.png" width="32" />
                         <div className="ml-2">Always bet on Prime.</div>
                     </React.Fragment>
                 )
@@ -69,8 +69,8 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useEffect, useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function TemplateDemo() {
     const msgs = useRef<Messages>(null);
@@ -80,7 +80,7 @@ export default function TemplateDemo() {
         msgs.current?.show({
             severity: 'info', sticky: true, content: (
                 <React.Fragment>
-                    <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" width="32" />
+                    <img alt="logo" src="/images/logo.png" width="32" />
                     <div className="ml-2">Always bet on Prime.</div>
                 </React.Fragment>
             )

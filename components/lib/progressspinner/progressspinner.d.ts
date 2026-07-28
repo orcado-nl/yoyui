@@ -2,7 +2,7 @@
  *
  * ProgressSpinner is a process status indicator.
  *
- * [Live Demo](https://www.primereact.org/progressspinner)
+ * [Live Demo](https://yoyui.orcado.dev/progressspinner)
  *
  * @module progressspinner
  *
@@ -87,13 +87,13 @@ export interface ProgressSpinnerProps extends Omit<React.DetailedHTMLProps<React
 }
 
 /**
- * **PrimeReact - ProgressSpinner**
+ * **YoYui - ProgressSpinner**
  *
  * _ProgressSpinner is a process status indicator._
  *
- * [Live Demo](https://www.primereact.org/progressspinner/)
+ * [Live Demo](https://yoyui.orcado.dev/progressspinner/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

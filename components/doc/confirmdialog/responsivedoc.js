@@ -36,9 +36,9 @@ export function ResponsiveDoc(props) {
         `,
         javascript: `
 import React, { useState, useRef } from 'react';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
-import { Button } from 'primereact/button';
+import { ConfirmDialog, confirmDialog } from '@orcado/yoyui/confirmdialog';
+import { Toast } from '@orcado/yoyui/toast';
+import { Button } from '@orcado/yoyui/button';
 
 export default function DeclarativeDemo() {
     const [visible, setVisible] = useState(false);
@@ -76,8 +76,8 @@ export default function DeclarativeDemo() {
         `,
         typescript: `
 import React, { useState, useRef } from 'react';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { Toast } from 'primereact/toast';
+import { ConfirmDialog, confirmDialog } from '@orcado/yoyui/confirmdialog';
+import { Toast } from '@orcado/yoyui/toast';
 import { Button } from 'primefaces/button';
 
 export default function DeclarativeDemo() {

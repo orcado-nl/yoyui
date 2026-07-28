@@ -5,7 +5,7 @@ import { Message } from '@/components/lib/message/Message';
 export function TemplateDoc(props) {
     const content = (
         <div className="flex align-items-center">
-            <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" width="32" />
+            <img alt="logo" src="/images/logo.png" width="32" />
             <div className="ml-2">Always bet on Prime.</div>
         </div>
     );
@@ -25,12 +25,12 @@ content={content}
         `,
         javascript: `
 import React from 'react';
-import { Message } from 'primereact/message';
+import { Message } from '@orcado/yoyui/message';
 
 export default function TemplateDemo() {
     const content = (
         <div className="flex align-items-center">
-            <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" width="32" />
+            <img alt="logo" src="/images/logo.png" width="32" />
             <div className="ml-2">Always bet on Prime.</div>
         </div>
     );
@@ -53,12 +53,12 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Message } from 'primereact/message';
+import { Message } from '@orcado/yoyui/message';
 
 export default function TemplateDemo() {
     const content = (
         <div className="flex align-items-center">
-            <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" width="32" />
+            <img alt="logo" src="/images/logo.png" width="32" />
             <div className="ml-2">Always bet on Prime.</div>
         </div>
     );

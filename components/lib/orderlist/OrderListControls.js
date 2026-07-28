@@ -20,8 +20,8 @@ export const OrderListControls = React.memo((props) => {
         if (props.selection) {
             let value = [...props.value];
 
-            for (let i = 0; i < props.selection.length; i++) {
-                const selectedItem = props.selection[i];
+            for (const _item of props.selection) {
+                const selectedItem = _item;
                 const selectedItemIndex = ObjectUtils.findIndexInList(selectedItem, value, props.dataKey);
 
                 if (selectedItemIndex !== 0) {
@@ -105,8 +105,8 @@ export const OrderListControls = React.memo((props) => {
         if (props.selection) {
             let value = [...props.value];
 
-            for (let i = 0; i < props.selection.length; i++) {
-                let selectedItem = props.selection[i];
+            for (const _item2 of props.selection) {
+                let selectedItem = _item2;
                 let selectedItemIndex = ObjectUtils.findIndexInList(selectedItem, value, props.dataKey);
 
                 if (selectedItemIndex !== value.length - 1) {

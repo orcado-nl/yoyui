@@ -2,7 +2,7 @@
  *
  * Tag component is used to categorize content.
  *
- * [Live Demo](https://www.primereact.org/tag)
+ * [Live Demo](https://yoyui.orcado.dev/tag)
  *
  * @module tag
  *
@@ -91,13 +91,13 @@ export interface TagProps extends Omit<React.DetailedHTMLProps<React.HTMLAttribu
 }
 
 /**
- * **PrimeReact - Tag**
+ * **YoYui - Tag**
  *
  * _Tag component is used to categorize content._
  *
- * [Live Demo](https://www.primereact.org/tag/)
+ * [Live Demo](https://yoyui.orcado.dev/tag/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -14,9 +14,7 @@ export const Chip = React.memo(
         const elementRef = React.useRef(null);
         const [visibleState, setVisibleState] = React.useState(true);
         const [idState, setIdState] = React.useState(props.id);
-        const { ptm, cx, isUnstyled } = ChipBase.setMetaData({
-            props
-        });
+        const { ptm, cx, isUnstyled } = ChipBase.setMetaData({ props });
 
         useHandleStyle(ChipBase.css.styles, isUnstyled, { name: 'chip' });
 
@@ -31,10 +29,7 @@ export const Chip = React.memo(
 
             if (props.onRemove) {
                 event.stopPropagation();
-                result = props.onRemove({
-                    originalEvent: event,
-                    value: props.label || props.image || props.icon
-                });
+                result = props.onRemove({ originalEvent: event, value: props.label || props.image || props.icon });
             }
 
             if (result !== false) {
@@ -44,48 +39,21 @@ export const Chip = React.memo(
 
         const createContent = () => {
             let content = [];
-
-            const removeIconProps = mergeProps(
-                {
-                    role: 'button',
-                    tabIndex: 0,
-                    className: cx('removeIcon'),
-                    onClick: close,
-                    onKeyDown
-                },
-                ptm('removeIcon')
-            );
-
+            const removeIconProps = mergeProps({ role: 'button', tabIndex: 0, className: cx('removeIcon'), onClick: close, onKeyDown }, ptm('removeIcon'));
             const icon = props.removeIcon || <TimesCircleIcon {...removeIconProps} key={`${idState}-removeIcon`} />;
 
             if (props.image) {
-                const imageProps = mergeProps(
-                    {
-                        src: props.image,
-                        onError: props.onImageError
-                    },
-                    ptm('image')
-                );
+                const imageProps = mergeProps({ src: props.image, onError: props.onImageError }, ptm('image'));
 
                 content.push(<img alt={props.imageAlt} {...imageProps} key={`${idState}-image`} />);
             } else if (props.icon) {
-                const chipIconProps = mergeProps(
-                    {
-                        className: cx('icon')
-                    },
-                    ptm('icon')
-                );
+                const chipIconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
 
                 content.push(IconUtils.getJSXIcon(props.icon, { ...chipIconProps }, { props }));
             }
 
             if (props.label) {
-                const labelProps = mergeProps(
-                    {
-                        className: cx('label')
-                    },
-                    ptm('label')
-                );
+                const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
 
                 content.push(
                     <span {...labelProps} key={UniqueComponentId('label')}>
@@ -103,17 +71,7 @@ export const Chip = React.memo(
 
         const createElement = () => {
             const content = props.template ? ObjectUtils.getJSXElement(props.template, props) : createContent();
-
-            const rootProps = mergeProps(
-                {
-                    ref: elementRef,
-                    style: props.style,
-                    className: classNames(props.className, cx('root')),
-                    'aria-label': props.label
-                },
-                ChipBase.getOtherProps(props),
-                ptm('root')
-            );
+            const rootProps = mergeProps({ ref: elementRef, style: props.style, className: classNames(props.className, cx('root')), 'aria-label': props.label }, ChipBase.getOtherProps(props), ptm('root'));
 
             return (
                 <div {...rootProps} key={UniqueComponentId('chip')}>
@@ -122,12 +80,7 @@ export const Chip = React.memo(
             );
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            getVisible: () => visibleState,
-            setVisible: (visible) => setVisibleState(visible),
-            getElement: () => elementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, getVisible: () => visibleState, setVisible: (visible) => setVisibleState(visible), getElement: () => elementRef.current }));
 
         useMountEffect(() => {
             if (!idState) {

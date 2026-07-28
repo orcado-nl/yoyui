@@ -53,9 +53,9 @@ export function CircleDoc(props) {
         `,
         javascript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
 import { useRouter } from 'next/router';
-import { Toast } from 'primereact/toast';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function CircleDemo() {
     const toast = useRef(null);
@@ -110,10 +110,10 @@ export default function CircleDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react';
-import { SpeedDial } from 'primereact/speeddial';
+import { SpeedDial } from '@orcado/yoyui/speeddial';
 import { useRouter } from 'next/router';
-import { Toast } from 'primereact/toast';
-import { MenuItem } from 'primereact/menuitem';
+import { Toast } from '@orcado/yoyui/toast';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function CircleDemo() {
     const toast = useRef<Toast>(null);

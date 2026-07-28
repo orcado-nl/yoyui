@@ -2,7 +2,7 @@
  *
  * Accordion groups a collection of contents in tabs.
  *
- * [Live Demo](https://www.primereact.org/accordion/)
+ * [Live Demo](https://yoyui.orcado.dev/accordion/)
  *
  * Helper Components:
  *
@@ -322,13 +322,13 @@ export interface AccordionProps extends Omit<React.DetailedHTMLProps<React.HTMLA
 }
 
 /**
- * **PrimeReact - Accordion**
+ * **YoYui - Accordion**
  *
  * _Accordion groups a collection of contents in tabs._
  *
- * [Live Demo](https://www.primereact.org/accordion/)
+ * [Live Demo](https://yoyui.orcado.dev/accordion/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

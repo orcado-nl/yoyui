@@ -5,12 +5,12 @@ import { Badge } from '@/components/lib/badge/Badge';
 
 export function TemplateDoc(props) {
     const itemRenderer = (item) => (
-        <a className="flex align-items-center p-menuitem-link">
+        <button type="button" className="doc-button-reset flex align-items-center p-menuitem-link">
             <span className={item.icon} />
             <span className="mx-2">{item.label}</span>
             {item.badge && <Badge className="ml-auto" value={item.badge} />}
             {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
-        </a>
+        </button>
     );
     const items = [
         {
@@ -108,8 +108,8 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { TieredMenu } from 'primereact/tieredmenu';
-import { Badge } from 'primereact/badge';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function TemplateDemo() {
     const itemRenderer = (item) => (
@@ -217,9 +217,9 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react';
-import { TieredMenu } from 'primereact/tieredmenu';
-import { MenuItem } from 'primereact/menuitem';
-import { Badge } from 'primereact/badge';
+import { TieredMenu } from '@orcado/yoyui/tieredmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function TemplateDemo() {
     const itemRenderer = (item) => (

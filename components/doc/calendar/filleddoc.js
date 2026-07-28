@@ -12,7 +12,7 @@ export function FilledDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from '@orcado/yoyui/calendar';
 
 export default function FilledDemo() {
     const [date, setDate] = useState(null);
@@ -26,8 +26,8 @@ export default function FilledDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar } from '@orcado/yoyui/calendar';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function FilledDemo() {
     const [date, setDate] = useState<Nullable<Date>>(null);

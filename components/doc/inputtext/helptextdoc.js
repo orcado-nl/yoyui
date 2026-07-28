@@ -15,7 +15,7 @@ export function HelpTextDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { InputText } from "primereact/inputtext";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function HelpTextDemo() {
     return (
@@ -33,7 +33,7 @@ export default function HelpTextDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { InputText } from "primereact/inputtext";
+import { InputText } from "@orcado/yoyui/inputtext";
 
 export default function HelpTextDemo() {
     return (

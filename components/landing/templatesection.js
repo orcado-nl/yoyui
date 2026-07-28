@@ -11,13 +11,17 @@ const TemplateSection = () => {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const imageBg = (template) => {
-        const url = template === 'templates-text' ? 'png' : 'jpg';
+        if (template === 'verona') {
+            return "url('/images/templates/verona/verona-hero-dashboard1.png')";
+        }
 
-        return `url('https://primefaces.org/cdn/primereact/images/landing/templates/${template}-${darkMode ? 'dark' : 'light'}.${url}')`;
+        const extension = template === 'apollo' ? 'jpg' : 'jpeg';
+
+        return `url('/images/landing-new/templates/${template}-${darkMode ? 'dark' : 'light'}.${extension}')`;
     };
 
     const templateImg = () => {
-        return `https://primefaces.org/cdn/primereact/images/landing/templates/templates-text-new-${darkMode ? 'dark' : 'light'}.png`;
+        return `/images/landing-new/templates/templates-text-${darkMode ? 'dark' : 'light'}.png`;
     };
 
     return (
@@ -33,19 +37,19 @@ const TemplateSection = () => {
             <section className={classNames('templates flex justify-content-center align-items-center flex-column mt-7', { 'templates-animation': animation })}>
                 <div className="flex md:flex-row flex-column gap-4 lg:gap-0">
                     <div className="template-block block-5 mr-2 lg:mb-0 flex justify-content-center align-items-center" style={{ backgroundImage: imageBg('verona') }}>
-                        <a className="templates-btn" target="_blank" href="https://verona.primereact.org">
+                        <a className="templates-btn" target="_blank" href="https://yoyui.orcado.dev/templates/verona">
                             Verona Preview
                         </a>
                     </div>
                     <div className="template-block block-2 ml-2 flex justify-content-center align-items-center" style={{ backgroundImage: imageBg('freya') }}>
-                        <a className="templates-btn" target="_blank" href="https://freya.primereact.org">
+                        <a className="templates-btn" target="_blank" href="https://yoyui.orcado.dev/templates/freya">
                             Freya Preview
                         </a>
                     </div>
                 </div>
                 <div className="flex my-4 md:flex-row flex-column gap-4 lg:gap-0">
                     <div className="template-block block-3 mr-2 lg:mb-0 flex justify-content-center align-items-center" style={{ backgroundImage: imageBg('atlantis') }}>
-                        <a className="templates-btn" target="_blank" href="https://atlantis.primereact.org/">
+                        <a className="templates-btn" target="_blank" href="https://yoyui.orcado.dev/templates/atlantis">
                             Atlantis Preview
                         </a>
                     </div>
@@ -53,19 +57,19 @@ const TemplateSection = () => {
                         <img className="img-1" src={templateImg()} height="110" alt="Template" />
                     </div>
                     <div className="template-block block-4 ml-2 flex justify-content-center align-items-center" style={{ backgroundImage: imageBg('apollo') }}>
-                        <a className="templates-btn" target="_blank" href="https://apollo.primereact.org">
+                        <a className="templates-btn" target="_blank" href="https://yoyui.orcado.dev/templates/apollo">
                             Apollo Preview
                         </a>
                     </div>
                 </div>
                 <div className="flex md:flex-row flex-column gap-4 lg:gap-0">
                     <div className="template-block block-1 mr-2 lg:mb-0 flex justify-content-center align-items-center" style={{ backgroundImage: imageBg('diamond') }}>
-                        <a className="templates-btn" target="_blank" href="https://diamond.primereact.org">
+                        <a className="templates-btn" target="_blank" href="https://yoyui.orcado.dev/templates/diamond">
                             Diamond Preview
                         </a>
                     </div>
                     <div className="template-block block-6 ml-2 flex justify-content-center align-items-center" style={{ backgroundImage: imageBg('ultima') }}>
-                        <a className="templates-btn" target="_blank" href="https://ultima.primereact.org">
+                        <a className="templates-btn" target="_blank" href="https://yoyui.orcado.dev/templates/ultima">
                             Ultima Preview
                         </a>
                     </div>

@@ -27,7 +27,7 @@ export function TypeDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
+import { Divider } from '@orcado/yoyui/divider';
 
 export default function TypeDemo() {
     return (
@@ -57,7 +57,7 @@ export default function TypeDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Divider } from 'primereact/divider';
+import { Divider } from '@orcado/yoyui/divider';
 
 export default function TypeDemo() {
     return (

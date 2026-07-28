@@ -20,7 +20,7 @@ export function BasicDoc(props) {
     const itemTemplate = (item) => {
         return (
             <div className="flex flex-wrap p-2 align-items-center gap-3">
-                <img className="w-4rem shadow-2 flex-shrink-0 border-round" src={`https://primefaces.org/cdn/primereact/images/product/${item.image}`} alt={item.name} />
+                <img className="w-4rem shadow-2 flex-shrink-0 border-round" src={`/images/product/${item.image}`} alt={item.name} />
                 <div className="flex-1 flex flex-column gap-2">
                     <span className="font-bold">{item.name}</span>
                     <div className="flex align-items-center gap-2">
@@ -40,7 +40,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { PickList } from 'primereact/picklist';
+import { PickList } from '@orcado/yoyui/picklist';
 import { ProductService } from './service/ProductService';
 
 export default function BasicDemo() {
@@ -59,7 +59,7 @@ export default function BasicDemo() {
     const itemTemplate = (item) => {
         return (
             <div className="flex flex-wrap p-2 align-items-center gap-3">
-                <img className="w-4rem shadow-2 flex-shrink-0 border-round" src={\`https://primefaces.org/cdn/primereact/images/product/\${item.image}\`} alt={item.name} />
+                <img className="w-4rem shadow-2 flex-shrink-0 border-round" src={\`/images/product/\${item.image}\`} alt={item.name} />
                 <div className="flex-1 flex flex-column gap-2">
                     <span className="font-bold">{item.name}</span>
                     <div className="flex align-items-center gap-2">
@@ -82,7 +82,7 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { PickList } from 'primereact/picklist';
+import { PickList } from '@orcado/yoyui/picklist';
 import { ProductService } from './service/ProductService';
 
 interface Product {
@@ -114,7 +114,7 @@ export default function BasicDemo() {
     const itemTemplate = (item: Product) => {
         return (
             <div className="flex flex-wrap p-2 align-items-center gap-3">
-                <img className="w-4rem shadow-2 flex-shrink-0 border-round" src={\`https://primefaces.org/cdn/primereact/images/product/\${item.image}\`} alt={item.name} />
+                <img className="w-4rem shadow-2 flex-shrink-0 border-round" src={\`/images/product/\${item.image}\`} alt={item.name} />
                 <div className="flex-1 flex flex-column gap-2">
                     <span className="font-bold">{item.name}</span>
                     <div className="flex align-items-center gap-2">

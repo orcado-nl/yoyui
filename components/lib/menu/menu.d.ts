@@ -2,7 +2,7 @@
  *
  * Menu is a navigation/command component that supports dynamic and static positioning.
  *
- * [Live Demo](https://www.primereact.org/menu/)
+ * [Live Demo](https://yoyui.orcado.dev/menu/)
  *
  * @module menu
  *
@@ -209,13 +209,13 @@ export interface MenuProps extends Omit<React.DetailedHTMLProps<React.HTMLAttrib
 }
 
 /**
- * **PrimeReact - Menu**
+ * **YoYui - Menu**
  *
  * _Menu is a navigation/command component that supports dynamic and static positioning._
  *
- * [Live Demo](https://www.primereact.org/menu/)
+ * [Live Demo](https://yoyui.orcado.dev/menu/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

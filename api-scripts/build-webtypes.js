@@ -1,10 +1,32 @@
 const TypeDoc = require('typedoc');
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 
 const rootDir = path.resolve(__dirname, '../');
 const distDir = path.resolve(rootDir, 'dist');
 const outputPath = path.resolve(rootDir, 'components/doc/common/apidoc');
+const DOCUMENTATION_TEXT_FIELDS = new Set(['description', 'doc-url']);
+const UPSTREAM_BRAND_NAME = /\bPrimeReact\b/g;
+
+function brandDocumentationFields(value) {
+    if (Array.isArray(value)) {
+        value.forEach(brandDocumentationFields);
+
+        return;
+    }
+
+    if (!value || typeof value !== 'object') {
+        return;
+    }
+
+    Object.entries(value).forEach(([key, child]) => {
+        if (typeof child === 'string' && DOCUMENTATION_TEXT_FIELDS.has(key)) {
+            value[key] = child.replace(UPSTREAM_BRAND_NAME, 'YoYui');
+        } else {
+            brandDocumentationFields(child);
+        }
+    });
+}
 
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
@@ -23,7 +45,7 @@ app.options.addReader(new TypeDoc.TypeDocReader());
 
 const pkg = require(path.resolve(rootDir, 'package.json'));
 const library = {
-    name: 'PrimeReact',
+    name: 'YoYui',
     version: pkg.version,
     repository: pkg.repository,
     license: pkg.license
@@ -48,7 +70,7 @@ const webTypes = {
 
 app.bootstrap({
     // typedoc options here
-    name: 'PrimeReact',
+    name: 'YoYui',
     entryPoints: [`components/lib`],
     entryPointStrategy: 'expand',
     tsconfig: 'api-scripts/tsconfig.json',
@@ -427,6 +449,8 @@ if (project) {
                 };
             });
     });
+
+    brandDocumentationFields(webTypes);
 
     const webTypesJson = JSON.stringify(webTypes, null, 4);
 

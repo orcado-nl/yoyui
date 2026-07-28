@@ -1,73 +1,83 @@
 import * as React from 'react';
 import { DomHandler, ObjectUtils } from '../utils/Utils';
-import { usePrevious } from './usePrevious';
-import { useUnmountEffect } from './useUnmountEffect';
 
 export const useEventListener = ({ target = 'document', type, listener, options, when = true }) => {
     const targetRef = React.useRef(null);
-    const listenerRef = React.useRef(null);
-    let prevListener = usePrevious(listener);
-    let prevOptions = usePrevious(options);
+    const listenerRef = React.useRef(listener);
+    const configRef = React.useRef({ target, type, options, when });
+    const registrationRef = React.useRef(null);
 
-    const bind = (bindOptions = {}) => {
-        const { target: bindTarget } = bindOptions;
+    listenerRef.current = listener;
+    configRef.current = { target, type, options, when };
 
-        if (ObjectUtils.isNotEmpty(bindTarget)) {
-            unbind();
-            (bindOptions.when || when) && (targetRef.current = DomHandler.getTargetElement(bindTarget));
+    const unbind = React.useCallback(() => {
+        const registration = registrationRef.current;
+
+        if (registration) {
+            registration.target.removeEventListener(registration.type, registration.listener, registration.options);
+            registrationRef.current = null;
         }
+    }, []);
 
-        if (!listenerRef.current && targetRef.current) {
-            listenerRef.current = (event) => listener && listener(event);
-            targetRef.current.addEventListener(type, listenerRef.current, options);
-        }
-    };
+    const bind = React.useCallback(
+        (bindOptions = {}) => {
+            const config = configRef.current;
+            const hasTargetOverride = ObjectUtils.isNotEmpty(bindOptions.target);
+            const shouldBind = Object.prototype.hasOwnProperty.call(bindOptions, 'when') ? bindOptions.when : config.when;
 
-    const unbind = () => {
-        if (listenerRef.current) {
-            targetRef.current.removeEventListener(type, listenerRef.current, options);
-            listenerRef.current = null;
-        }
-    };
+            if (hasTargetOverride) {
+                unbind();
+                targetRef.current = shouldBind ? DomHandler.getTargetElement(bindOptions.target) : null;
+            } else if (!targetRef.current && shouldBind) {
+                targetRef.current = DomHandler.getTargetElement(config.target);
+            }
 
-    const dispose = () => {
-        unbind();
-        // Prevent memory leak by releasing
-        prevListener = null;
-        prevOptions = null;
-    };
+            if (!shouldBind || registrationRef.current || !targetRef.current) {
+                return;
+            }
 
-    const updateTarget = React.useCallback(() => {
-        if (when) {
-            targetRef.current = DomHandler.getTargetElement(target);
-        } else {
-            unbind();
-            targetRef.current = null;
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [target, when]);
+            const eventListener = (event) => listenerRef.current?.(event);
+            const registration = {
+                target: targetRef.current,
+                type: config.type,
+                listener: eventListener,
+                options: config.options
+            };
+
+            registration.target.addEventListener(registration.type, registration.listener, registration.options);
+            registrationRef.current = registration;
+        },
+        [unbind]
+    );
 
     React.useEffect(() => {
-        updateTarget();
-    }, [updateTarget]);
+        const nextTarget = when ? DomHandler.getTargetElement(target) : null;
+        const targetChanged = targetRef.current !== nextTarget;
+        const wasBound = !!registrationRef.current;
+
+        if (targetChanged || !when) {
+            unbind();
+            targetRef.current = nextTarget;
+
+            if (targetChanged && wasBound && when) {
+                bind();
+            }
+        }
+    }, [bind, target, unbind, when]);
 
     React.useEffect(() => {
-        const listenerChanged = `${prevListener}` !== `${listener}`;
-        const optionsChanged = prevOptions !== options;
-        const listenerExists = listenerRef.current;
+        const registration = registrationRef.current;
 
-        if (listenerExists && (listenerChanged || optionsChanged)) {
+        if (registration && (registration.type !== type || registration.options !== options)) {
             unbind();
-            when && bind();
-        } else if (!listenerExists) {
-            dispose();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [listener, options, when]);
 
-    useUnmountEffect(() => {
-        dispose();
-    });
+            if (when) {
+                bind();
+            }
+        }
+    }, [bind, options, type, unbind, when]);
+
+    React.useEffect(() => unbind, [unbind]);
 
     return [bind, unbind];
 };

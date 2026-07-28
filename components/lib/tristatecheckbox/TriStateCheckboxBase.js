@@ -7,7 +7,7 @@ const classes = {
             'p-highlight': props.value !== '' && props.value !== null,
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled'
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled'
         }),
     checkIcon: 'p-checkbox-icon p-c',
     box: 'p-checkbox-box',

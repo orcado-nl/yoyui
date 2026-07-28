@@ -34,11 +34,11 @@ export function RouterDoc(props) {
     const code = {
         basic: `
 <span className="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" onContextMenu={(event) => onRightClick(event)} aria-haspopup="true">
-    <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40"></img>
+    <img alt="logo" src="/images/logo.png" height="40"></img>
 </span>
 <ContextMenu model={items} ref={cm} />`,
         javascript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useRef } from 'react';
 import { useRouter } from 'next/router'
 
@@ -72,7 +72,7 @@ export function RouterDemo(props) {
     return (
         <div className="card flex md:justify-content-center">
             <span className="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" onContextMenu={(event) => onRightClick(event)} aria-haspopup="true">
-                <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40"></img>
+                <img alt="logo" src="/images/logo.png" height="40"></img>
             </span>
             <ContextMenu model={items} ref={cm} />
         </div>
@@ -80,10 +80,10 @@ export function RouterDemo(props) {
 }
         `,
         typescript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useRef, MouseEvent } from 'react';
 import { useRouter } from 'next/router'
-import { MenuItem } from 'primereact/menuitem';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export function RouterDemo(props: any) {
     const cm = useRef<ContextMenuRef | null>(null);
@@ -115,7 +115,7 @@ export function RouterDemo(props: any) {
     return (
         <div className="card flex md:justify-content-center">
             <span className="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" onContextMenu={(event) => onRightClick(event)} aria-haspopup="true">
-                <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40"></img>
+                <img alt="logo" src="/images/logo.png" height="40"></img>
             </span>
             <ContextMenu model={items} ref={cm} />
         </div>
@@ -132,7 +132,7 @@ export function RouterDemo(props: any) {
             </DocSectionText>
             <div className="card flex md:justify-content-center">
                 <span className="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" onContextMenu={(event) => onRightClick(event)} aria-haspopup="true">
-                    <img alt="logo" src="https://primefaces.org/cdn/primereact/images/logo.png" height="40" />
+                    <img alt="logo" src="/images/logo.png" height="40" />
                 </span>
                 <ContextMenu model={items} ref={cm} />
             </div>

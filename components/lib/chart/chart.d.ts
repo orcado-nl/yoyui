@@ -2,7 +2,7 @@
  *
  * Chart components are based on Chart.js, an open source HTML5 based charting library.
  *
- * [Live Demo](https://www.primereact.org/chart)
+ * [Live Demo](https://yoyui.orcado.dev/chart)
  *
  * @module chart
  *
@@ -98,13 +98,13 @@ export interface ChartProps extends Omit<React.DetailedHTMLProps<React.HTMLAttri
 }
 
 /**
- * **PrimeReact - Chart**
+ * **YoYui - Chart**
  *
  * _Chart components are based on Chart.js, an open source HTML5 based charting library._
  *
- * [Live Demo](https://www.primereact.org/chart/)
+ * [Live Demo](https://yoyui.orcado.dev/chart/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

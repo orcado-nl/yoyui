@@ -1,4 +1,4 @@
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -6,8 +6,8 @@ const classes = {
     root: ({ props, context }) =>
         classNames('p-tieredmenu p-component', {
             'p-tieredmenu-overlay': props.popup,
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     separator: 'p-menuitem-separator',
     icon: ({ _icon }) => classNames('p-menuitem-icon', _icon),

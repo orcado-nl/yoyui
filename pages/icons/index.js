@@ -58,7 +58,7 @@ const IconsDoc = () => {
         }
     ];
 
-    return <DocComponent title="React Icon Library - PrimeReact" header="Icons" description="PrimeIcons is the default icon library of PrimeReact." componentDocs={docs} hideTabMenu />;
+    return <DocComponent title="React Icon Library - YoYui" header="Icons" description="PrimeIcons is the default icon library of YoYui." componentDocs={docs} hideTabMenu />;
 };
 
 export default IconsDoc;

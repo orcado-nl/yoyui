@@ -2,7 +2,7 @@
  *
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
  *
- * [Live Demo](https://www.primereact.org/confirmpopup)
+ * [Live Demo](https://yoyui.orcado.dev/confirmpopup)
  *
  * @module confirmpopup
  *
@@ -312,13 +312,13 @@ interface ConfirmPopupReturn {
 }
 
 /**
- * **PrimeReact - ConfirmPopup**
+ * **YoYui - ConfirmPopup**
  *
  * _ConfirmPopup displays a confirmation overlay displayed relatively to its target._
  *
- * [Live Demo](https://www.primereact.org/confirmpopup/)
+ * [Live Demo](https://yoyui.orcado.dev/confirmpopup/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

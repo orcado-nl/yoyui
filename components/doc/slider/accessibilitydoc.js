@@ -16,8 +16,7 @@ export function AccessibilityDoc() {
             <h3>Screen Reader</h3>
             <p>
                 Slider element component uses <i>slider</i> role on the handle in addition to the <i>aria-orientation</i>, <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined
-                using
-                <i>aria-labelledby</i> and <i>aria-label</i> props.
+                using <i>aria-labelledby</i> and <i>aria-label</i> props.
             </p>
 
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

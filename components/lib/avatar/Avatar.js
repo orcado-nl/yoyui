@@ -9,39 +9,20 @@ export const Avatar = React.forwardRef((inProps, ref) => {
     const mergeProps = useMergeProps();
     const context = React.useContext(PrimeReactContext);
     const props = AvatarBase.getProps(inProps, context);
-
     const elementRef = React.useRef(null);
     const [imageFailed, setImageFailed] = React.useState(false);
     const [nested, setNested] = React.useState(false);
-
-    const { ptm, cx, isUnstyled } = AvatarBase.setMetaData({
-        props,
-        state: {
-            imageFailed: imageFailed,
-            nested
-        }
-    });
+    const { ptm, cx, isUnstyled } = AvatarBase.setMetaData({ props, state: { imageFailed: imageFailed, nested } });
 
     useHandleStyle(AvatarBase.css.styles, isUnstyled, { name: 'avatar' });
 
     const createContent = () => {
         if (ObjectUtils.isNotEmpty(props.image) && !imageFailed) {
-            const imageProps = mergeProps(
-                {
-                    src: props.image,
-                    onError: onImageError
-                },
-                ptm('image')
-            );
+            const imageProps = mergeProps({ src: props.image, onError: onImageError }, ptm('image'));
 
             return <img alt={props.imageAlt} {...imageProps} />;
         } else if (props.label) {
-            const labelProps = mergeProps(
-                {
-                    className: cx('label')
-                },
-                ptm('label')
-            );
+            const labelProps = mergeProps({ className: cx('label') }, ptm('label'));
 
             return <span {...labelProps}>{props.label}</span>;
         } else if (props.icon) {
@@ -70,7 +51,7 @@ export const Avatar = React.forwardRef((inProps, ref) => {
             event.target.src = props.imageFallback;
         }
 
-        props.onImageError && props.onImageError(event);
+        props.onImageError?.(event);
     };
 
     React.useEffect(() => {

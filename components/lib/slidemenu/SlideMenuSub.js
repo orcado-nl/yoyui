@@ -10,12 +10,7 @@ export const SlideMenuSub = React.memo((props) => {
     const { ptm, cx, sx } = props;
 
     const getPTOptions = (item, key) => {
-        return ptm(key, {
-            hostName: props.hostName,
-            context: {
-                active: activeItemState === item
-            }
-        });
+        return ptm(key, { hostName: props.hostName, context: { active: activeItemState === item } });
     };
 
     const onItemClick = (event, item, index) => {
@@ -26,10 +21,7 @@ export const SlideMenuSub = React.memo((props) => {
         }
 
         if (item.command) {
-            item.command({
-                originalEvent: event,
-                item: item
-            });
+            item.command({ originalEvent: event, item: item });
         }
 
         if (item.items) {
@@ -48,15 +40,7 @@ export const SlideMenuSub = React.memo((props) => {
 
     const createSeparator = (index) => {
         const key = props.id + '_sep_' + index;
-
-        const separatorProps = mergeProps(
-            {
-                id: key,
-                className: cx('separator'),
-                role: 'separator'
-            },
-            ptm('separator', { hostName: props.hostName })
-        );
+        const separatorProps = mergeProps({ id: key, className: cx('separator'), role: 'separator' }, ptm('separator', { hostName: props.hostName }));
 
         return <li {...separatorProps} key={key} />;
     };
@@ -98,39 +82,14 @@ export const SlideMenuSub = React.memo((props) => {
         const key = createKey(item, index);
         const active = activeItemState === item;
         const iconClassName = classNames('p-menuitem-icon', item.icon);
-        const iconProps = mergeProps(
-            {
-                className: cx('icon')
-            },
-            getPTOptions(item, 'icon')
-        );
+        const iconProps = mergeProps({ className: cx('icon') }, getPTOptions(item, 'icon'));
         const icon = IconUtils.getJSXIcon(item.icon, { ...iconProps }, { props: props.menuProps });
-        const submenuIconProps = mergeProps(
-            {
-                className: cx('submenuIcon')
-            },
-            getPTOptions(item, 'submenuIcon')
-        );
-        const labelProps = mergeProps(
-            {
-                className: cx('label')
-            },
-            getPTOptions(item, 'label')
-        );
+        const submenuIconProps = mergeProps({ className: cx('submenuIcon') }, getPTOptions(item, 'submenuIcon'));
+        const labelProps = mergeProps({ className: cx('label') }, getPTOptions(item, 'label'));
         const submenuIcon = item.items && IconUtils.getJSXIcon(props.submenuIcon || <AngleRightIcon {...submenuIconProps} />, { ...submenuIconProps }, { props });
         const label = item.label && <span {...labelProps}>{item.label}</span>;
         const submenu = createSubmenu(item, index);
-        const actionProps = mergeProps(
-            {
-                href: item.url || '#',
-                className: cx('action'),
-                target: item.target,
-                onClick: (event) => onItemClick(event, item, index),
-                'aria-disabled': item.disabled
-            },
-            getPTOptions(item, 'action')
-        );
-
+        const actionProps = mergeProps({ href: item.url || '#', className: cx('action'), target: item.target, onClick: (event) => onItemClick(event, item, index), 'aria-disabled': item.disabled }, getPTOptions(item, 'action'));
         let content = (
             <a {...actionProps}>
                 {icon}
@@ -154,14 +113,7 @@ export const SlideMenuSub = React.memo((props) => {
             content = ObjectUtils.getJSXElement(item.template, item, defaultContentOptions);
         }
 
-        const menuitemProps = mergeProps(
-            {
-                id: key,
-                className: cx('menuitem', { active, item }),
-                style: item.style
-            },
-            getPTOptions(item, 'menuitem')
-        );
+        const menuitemProps = mergeProps({ id: key, className: cx('menuitem', { active, item }), style: item.style }, getPTOptions(item, 'menuitem'));
 
         return (
             <li {...menuitemProps} key={key}>

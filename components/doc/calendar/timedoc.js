@@ -4,23 +4,23 @@ import { Calendar } from '@/components/lib/calendar/Calendar';
 import { useState } from 'react';
 
 export function TimeDoc(props) {
-    const [datetime12h, setDateTime12h] = useState(null);
-    const [datetime24h, setDateTime24h] = useState(null);
+    const [datetime12h, setDatetime12h] = useState(null);
+    const [datetime24h, setDatetime24h] = useState(null);
     const [time, setTime] = useState(null);
 
     const code = {
         basic: `
-<Calendar value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
-<Calendar value={datetime24h} onChange={(e) => setDateTime24h(e.value)} showTime hourFormat="24" />
+<Calendar value={datetime12h} onChange={(e) => setDatetime12h(e.value)} showTime hourFormat="12" />
+<Calendar value={datetime24h} onChange={(e) => setDatetime24h(e.value)} showTime hourFormat="24" />
 <Calendar value={time} onChange={(e) => setTime(e.value)} timeOnly />
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from '@orcado/yoyui/calendar';
 
 export default function TimeDemo() {
-    const [datetime12h, setDateTime12h] = useState(null);
-    const [datetime24h, setDateTime24h] = useState(null);
+    const [datetime12h, setDatetime12h] = useState(null);
+    const [datetime24h, setDatetime24h] = useState(null);
     const [time, setTime] = useState(null);
 
     return (
@@ -29,13 +29,13 @@ export default function TimeDemo() {
                 <label htmlFor="calendar-12h" className="font-bold block mb-2">
                     12h Format
                 </label>
-                <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
+                <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDatetime12h(e.value)} showTime hourFormat="12" />
             </div>
             <div className="flex-auto">
                 <label htmlFor="calendar-24h" className="font-bold block mb-2">
                     24h Format
                 </label>
-                <Calendar id="calendar-24h" value={datetime24h} onChange={(e) => setDateTime24h(e.value)} showTime hourFormat="24" />
+                <Calendar id="calendar-24h" value={datetime24h} onChange={(e) => setDatetime24h(e.value)} showTime hourFormat="24" />
             </div>
             <div className="flex-auto">
                 <label htmlFor="calendar-timeonly" className="font-bold block mb-2">
@@ -49,12 +49,12 @@ export default function TimeDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar} from 'primereact/calendar';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar} from '@orcado/yoyui/calendar';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function TimeDemo() {
-    const [datetime12h, setDateTime12h] = useState<Nullable<Date>>(null);
-    const [datetime24h, setDateTime24h] = useState<Nullable<Date>>(null);
+    const [datetime12h, setDatetime12h] = useState<Nullable<Date>>(null);
+    const [datetime24h, setDatetime24h] = useState<Nullable<Date>>(null);
     const [time, setTime] = useState<Nullable<Date>>(null);
 
     return (
@@ -63,13 +63,13 @@ export default function TimeDemo() {
                 <label htmlFor="calendar-12h" className="font-bold block mb-2">
                     12h Format
                 </label>
-                <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
+                <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDatetime12h(e.value)} showTime hourFormat="12" />
             </div>
             <div className="flex-auto">
                 <label htmlFor="calendar-24h" className="font-bold block mb-2">
                     24h Format
                 </label>
-                <Calendar id="calendar-24h" value={datetime24h} onChange={(e) => setDateTime24h(e.value)} showTime hourFormat="24" />
+                <Calendar id="calendar-24h" value={datetime24h} onChange={(e) => setDatetime24h(e.value)} showTime hourFormat="24" />
             </div>
             <div className="flex-auto">
                 <label htmlFor="calendar-timeonly" className="font-bold block mb-2">
@@ -95,13 +95,13 @@ export default function TimeDemo() {
                     <label htmlFor="calendar-12h" className="font-bold block mb-2">
                         12h Format
                     </label>
-                    <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDateTime12h(e.value)} showTime hourFormat="12" />
+                    <Calendar id="calendar-12h" value={datetime12h} onChange={(e) => setDatetime12h(e.value)} showTime hourFormat="12" />
                 </div>
                 <div className="flex-auto">
                     <label htmlFor="calendar-24h" className="font-bold block mb-2">
                         24h Format
                     </label>
-                    <Calendar id="calendar-24h" value={datetime24h} onChange={(e) => setDateTime24h(e.value)} showTime hourFormat="24" />
+                    <Calendar id="calendar-24h" value={datetime24h} onChange={(e) => setDatetime24h(e.value)} showTime hourFormat="24" />
                 </div>
                 <div className="flex-auto">
                     <label htmlFor="calendar-timeonly" className="font-bold block mb-2">

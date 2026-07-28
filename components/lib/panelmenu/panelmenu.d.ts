@@ -2,7 +2,7 @@
  *
  * PanelMenu is a hybrid of accordion-tree components.
  *
- * [Live Demo](https://www.primereact.org/panelmenu/)
+ * [Live Demo](https://yoyui.orcado.dev/panelmenu/)
  *
  * @module panelmenu
  *
@@ -232,13 +232,13 @@ export interface PanelMenuProps extends Omit<React.DetailedHTMLProps<React.HTMLA
 }
 
 /**
- * **PrimeReact - PanelMenu**
+ * **YoYui - PanelMenu**
  *
  * _PanelMenu is a hybrid of accordion-tree components._
  *
- * [Live Demo](https://www.primereact.org/panelmenu/)
+ * [Live Demo](https://yoyui.orcado.dev/panelmenu/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -5,9 +5,9 @@ import { BreadCrumb } from '@/components/lib/breadcrumb/BreadCrumb';
 export function TemplateDoc(props) {
     const iconItemTemplate = (item, options) => {
         return (
-            <a className={options.className}>
+            <button type="button" className={`${options.className} doc-button-reset p-0`}>
                 <span className={item.icon} />
-            </a>
+            </button>
         );
     };
 
@@ -19,7 +19,7 @@ export function TemplateDoc(props) {
         { icon: 'pi pi-calculator', template: iconItemTemplate }
     ];
 
-    const home = { icon: 'pi pi-home', url: 'https://www.primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     const code = {
         basic: `
@@ -27,7 +27,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
+import { BreadCrumb } from '@orcado/yoyui/breadcrumb';
 
 export default function TemplateDemo() {
     const iconItemTemplate = (item, options) => {
@@ -46,7 +46,7 @@ export default function TemplateDemo() {
         { icon: 'pi pi-calculator', template: iconItemTemplate }
     ];
 
-    const home = { icon: 'pi pi-home', url: 'https://www.primereact.org' };
+    const home = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     return (
         <BreadCrumb model={items} home={home} />
@@ -55,8 +55,8 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React from 'react';
-import { BreadCrumb } from 'primereact/breadcrumb';
-import { MenuItem, MenuItemOptions } from 'primereact/menuitem';
+import { BreadCrumb } from '@orcado/yoyui/breadcrumb';
+import { MenuItem, MenuItemOptions } from '@orcado/yoyui/menuitem';
 
 export default function TemplateDoc() {
     const iconItemTemplate = (item: MenuItem, options: MenuItemOptions) => {
@@ -75,7 +75,7 @@ export default function TemplateDoc() {
         { icon: 'pi pi-calculator', template: iconItemTemplate }
     ];
 
-    const home: MenuItem = { icon: 'pi pi-home', url: 'https://www.primereact.org' };
+    const home: MenuItem = { icon: 'pi pi-home', url: 'https://yoyui.orcado.dev' };
 
     return (
         <BreadCrumb model={items} home={home} />

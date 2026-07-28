@@ -5,7 +5,7 @@ export function CSSTransitionDoc(props) {
     const code = {
         basic: `
 //_app.js
-import { PrimeReactProvider } from 'primereact/api';
+import { PrimeReactProvider } from '@orcado/yoyui/api';
 
 export default function MyApp({ Component }) {
     const value = {
@@ -26,7 +26,7 @@ export default function MyApp({ Component }) {
         <>
             <DocSectionText {...props}>
                 <p>
-                    PrimeReact components utilize <a href="https://www.npmjs.com/package/react-transition-group">react-transition-group</a> internally to implement animations. Setting <i>cssTransition</i> to false disables all animations.
+                    YoYui components utilize <a href="https://www.npmjs.com/package/react-transition-group">react-transition-group</a> internally to implement animations. Setting <i>cssTransition</i> to false disables all animations.
                 </p>
             </DocSectionText>
             <DocSectionCode code={code} hideToggleCode import hideStackBlitz />

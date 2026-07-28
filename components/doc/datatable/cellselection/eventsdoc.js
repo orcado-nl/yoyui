@@ -3,7 +3,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import { Toast } from '@/components/lib/toast/Toast';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { ProductService } from '../../../../service/ProductService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -39,9 +39,9 @@ export function CellSelectEventsDoc(props) {
         `,
         javascript: `
 import React, { useState, useRef, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast'
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Toast } from '@orcado/yoyui/toast'
 import { ProductService } from './service/ProductService';
 
 export default function CellSelectEventsDemo() {
@@ -78,9 +78,9 @@ export default function CellSelectEventsDemo() {
         `,
         typescript: `
 import React, { useState, useRef, useEffect } from 'react';
-import { DataTable, DataTableSelectionChangeEvent, DataTableCellSelection, DataTableSelectEvent, DataTableUnselectEvent } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { Toast } from 'primereact/toast'
+import { DataTable, DataTableSelectionChangeEvent, DataTableCellSelection, DataTableSelectEvent, DataTableUnselectEvent } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { Toast } from '@orcado/yoyui/toast'
 import { ProductService } from './service/ProductService';
 
 interface Product {

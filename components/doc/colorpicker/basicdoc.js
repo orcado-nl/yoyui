@@ -13,7 +13,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { ColorPicker } from 'primereact/colorpicker';
+import { ColorPicker } from '@orcado/yoyui/colorpicker';
 
 export default function BasicDemo() {
     const [color, setColor] = useState(null);
@@ -27,7 +27,7 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { ColorPicker, ColorPickerChangeEvent } from 'primereact/colorpicker';
+import { ColorPicker, ColorPickerChangeEvent } from '@orcado/yoyui/colorpicker';
 
 export default function BasicDemo() {
     const [color, setColor] = useState<string>(null);

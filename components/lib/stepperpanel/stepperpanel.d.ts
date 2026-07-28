@@ -2,7 +2,7 @@
  *
  * StepperPanel is a helper component for Stepper component.
  *
- * [Live Demo](https://www.primereact.org/stepper/)
+ * [Live Demo](https://yoyui.orcado.dev/stepper/)
  *
  * @module stepperpanel
  *
@@ -145,13 +145,13 @@ export interface StepperPanelProps {
 }
 
 /**
- * **PrimeReact - StepperPanel**
+ * **YoYui - StepperPanel**
  *
  * _StepperPanel is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multi-step process._
  *
- * [Live Demo](https://www.primereact.org/stepper/)
+ * [Live Demo](https://yoyui.orcado.dev/stepper/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

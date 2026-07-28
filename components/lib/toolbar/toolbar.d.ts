@@ -2,7 +2,7 @@
  *
  * Toolbar is a grouping component for buttons and other content.
  *
- * [Live Demo](https://www.primereact.org/toolbar/)
+ * [Live Demo](https://yoyui.orcado.dev/toolbar/)
  *
  * @module toolbar
  *
@@ -99,13 +99,13 @@ export interface ToolbarProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - Toolbar**
+ * **YoYui - Toolbar**
  *
  * _Toolbar is a grouping component for buttons and other content._
  *
- * [Live Demo](https://www.primereact.org/toolbar/)
+ * [Live Demo](https://yoyui.orcado.dev/toolbar/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

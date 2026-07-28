@@ -28,7 +28,6 @@ export function ColumnToggleDoc(props) {
     };
 
     const header = <MultiSelect value={visibleColumns} options={columns} optionLabel="header" onChange={onColumnToggle} className="w-full sm:w-20rem" display="chip" />;
-
     const code = {
         basic: `
 <DataTable value={products} header={header} tableStyle={{ minWidth: '50rem' }}>
@@ -40,9 +39,9 @@ export function ColumnToggleDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { MultiSelect } from 'primereact/multiselect';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
 import { ProductService } from './service/ProductService';
 
 export default function ColumnToggleDemo() {
@@ -81,9 +80,9 @@ export default function ColumnToggleDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
 import { ProductService } from './service/ProductService';
 
 interface Product {

@@ -14,13 +14,13 @@ export function ConditionalStyleDoc(props) {
 
     const sizeTemplate = (node) => {
         let size = node.data.size;
-        let fontWeight = parseInt(size, 10) > 75 ? 'bold' : 'normal';
+        let fontWeight = Number.parseInt(size, 10) > 75 ? 'bold' : 'normal';
 
         return <span style={{ fontWeight: fontWeight }}>{size}</span>;
     };
 
     const rowClassName = (node) => {
-        return { 'p-highlight': node.children && node.children.length === 3 };
+        return { 'p-highlight': node.children?.length === 3 };
     };
 
     const code = {
@@ -33,8 +33,8 @@ export function ConditionalStyleDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
 import { NodeService } from './service/NodeService';
 
 export default function ConditionalStyleDemo() {
@@ -46,7 +46,7 @@ export default function ConditionalStyleDemo() {
 
     const sizeTemplate = (node) => {
         let size = node.data.size;
-        let fontWeight = parseInt(size, 10) > 75 ? 'bold' : 'normal';
+        let fontWeight = Number.parseInt(size, 10) > 75 ? 'bold' : 'normal';
 
         return <span style={{ fontWeight: fontWeight }}>{size}</span>;
     }
@@ -68,9 +68,9 @@ export default function ConditionalStyleDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { TreeNode } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { TreeNode } from '@orcado/yoyui/column';
 import { NodeService } from './service/NodeService';
 
 export default function ConditionalStyleDemo() {
@@ -82,7 +82,7 @@ export default function ConditionalStyleDemo() {
 
     const sizeTemplate = (node: TreeNode) => {
         let size = node.data.size;
-        let fontWeight = parseInt(size, 10) > 75 ? 'bold' : 'normal';
+        let fontWeight = Number.parseInt(size, 10) > 75 ? 'bold' : 'normal';
 
         return <span style={{ fontWeight: fontWeight }}>{size}</span>;
     }

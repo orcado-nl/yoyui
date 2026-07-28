@@ -9,24 +9,24 @@ export function ThumbnailDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Image } from 'primereact/image';
+import { Image } from '@orcado/yoyui/image';
 
 export default function ThumbnailDemo() {
     return (
         <div className="card flex justify-content-center">
-            <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria14.jpg" zoomSrc="https://primefaces.org/cdn/primereact/images/galleria/galleria14.jpg" alt="Image" width="80" height="60" preview />
+            <Image src="/images/galleria/galleria14.jpg" zoomSrc="/images/galleria/galleria14.jpg" alt="Image" width="80" height="60" preview />
         </div>
     )
 }
         `,
         typescript: `
 import React from 'react'; 
-import { Image } from 'primereact/image';
+import { Image } from '@orcado/yoyui/image';
 
 export default function ThumbnailDemo() {
     return (
         <div className="card flex justify-content-center">
-            <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria14.jpg" zoomSrc="https://primefaces.org/cdn/primereact/images/galleria/galleria14.jpg" alt="Image" width="80" height="60" preview />
+            <Image src="/images/galleria/galleria14.jpg" zoomSrc="/images/galleria/galleria14.jpg" alt="Image" width="80" height="60" preview />
         </div>
     )
 }
@@ -41,7 +41,7 @@ export default function ThumbnailDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria14s.jpg" zoomSrc="https://primefaces.org/cdn/primereact/images/galleria/galleria14.jpg" alt="Image" width="80" height="60" preview />
+                <Image src="/images/galleria/galleria14s.jpg" zoomSrc="/images/galleria/galleria14.jpg" alt="Image" width="80" height="60" preview />
             </div>
             <DocSectionCode code={code} />
         </>

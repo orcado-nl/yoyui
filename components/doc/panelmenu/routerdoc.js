@@ -53,7 +53,7 @@ export function RouterDoc(props) {
 `,
         javascript: `
 import React from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
 import { useRouter } from 'next/router';
 
 export default function RouterDemo() {
@@ -109,8 +109,8 @@ export default function RouterDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { PanelMenu } from 'primereact/panelmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { PanelMenu } from '@orcado/yoyui/panelmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 import { useRouter } from 'next/router';
 
 export default function RouterDemo() {

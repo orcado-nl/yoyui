@@ -59,7 +59,7 @@ const useAnimatedFeatures = (animationRef, arrayLength, seconds = 10000) => {
 
     useEffect(() => {
         if (!hoveredID) {
-            null;
+            return;
         }
 
         handleHover(hoveredID, 'onMouseEnter');

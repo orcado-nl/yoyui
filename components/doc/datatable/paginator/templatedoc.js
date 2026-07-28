@@ -4,7 +4,7 @@ import { Button } from '@/components/lib/button/Button';
 import { Column } from '@/components/lib/column/Column';
 import { DataTable } from '@/components/lib/datatable/DataTable';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CustomerService } from '../../../../service/CustomerService';
 import DeferredDemo from '@/components/demo/DeferredDemo';
 
@@ -31,9 +31,9 @@ export function PaginatorTemplateDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Button } from '@orcado/yoyui/button';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { CustomerService } from './service/CustomerService';
 
 export default function PaginatorTemplateDemo() {
@@ -62,9 +62,9 @@ export default function PaginatorTemplateDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Button } from '@orcado/yoyui/button';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { CustomerService } from './service/CustomerService';
 
 interface Country {

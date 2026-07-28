@@ -18,21 +18,21 @@ export const CarService = {
         let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
         for (let i = 0; i < 5; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
+            text += possible.charAt(crypto.getRandomValues(new Uint32Array(1))[0] % possible.length);
         }
 
         return text;
     },
 
     generateBrand() {
-        return this.brands[Math.floor(Math.random() * Math.floor(10))];
+        return this.brands[crypto.getRandomValues(new Uint32Array(1))[0] % 10];
     },
 
     generateColor() {
-        return this.colors[Math.floor(Math.random() * Math.floor(7))];
+        return this.colors[crypto.getRandomValues(new Uint32Array(1))[0] % 7];
     },
 
     generateYear() {
-        return 2000 + Math.floor(Math.random() * Math.floor(19));
+        return 2000 + (crypto.getRandomValues(new Uint32Array(1))[0] % 19);
     }
 };

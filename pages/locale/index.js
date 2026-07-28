@@ -30,7 +30,7 @@ const LocalePage = () => {
 
     return (
         <DocComponent
-            title="Locale - PrimeReact"
+            title="Locale - YoYui"
             header="Internationalization and Localization"
             description="The Locale API allows setting i18n and l7n options globally for the components."
             componentDocs={docs}

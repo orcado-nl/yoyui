@@ -2,7 +2,7 @@
  *
  * Chips is used to enter multiple values on an input field.
  *
- * [Live Demo](https://www.primereact.org/chips/)
+ * [Live Demo](https://yoyui.orcado.dev/chips/)
  *
  * @module chips
  *
@@ -216,6 +216,10 @@ export interface ChipsProps extends Omit<React.DetailedHTMLProps<React.InputHTML
      */
     ariaLabelledBy?: string | undefined;
     /**
+     * @deprecated Use `ariaLabelledBy` instead.
+     */
+    ariaLabelledby?: string | undefined;
+    /**
      * Separator char to add an item when pressed in addition to the enter key.
      */
     separator?: string | undefined;
@@ -292,13 +296,13 @@ export interface ChipsProps extends Omit<React.DetailedHTMLProps<React.InputHTML
 }
 
 /**
- * **PrimeReact - Chips**
+ * **YoYui - Chips**
  *
  * _Chips is used to enter multiple values on an input field._
  *
- * [Live Demo](https://www.primereact.org/chips/)
+ * [Live Demo](https://yoyui.orcado.dev/chips/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

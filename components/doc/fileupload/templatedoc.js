@@ -30,7 +30,6 @@ export function TemplateDoc(props) {
         e.files.forEach((file) => {
             _totalSize = _totalSize + (file.size || 0);
         });
-
         setTotalSize(_totalSize);
         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
     };
@@ -47,7 +46,7 @@ export function TemplateDoc(props) {
     const headerTemplate = (options) => {
         const { className, chooseButton, uploadButton, cancelButton } = options;
         const value = totalSize / 10000;
-        const formatedValue = fileUploadRef && fileUploadRef.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
+        const formatedValue = fileUploadRef?.current ? fileUploadRef.current.formatSize(totalSize) : '0 B';
 
         return (
             <div className={className} style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center' }}>
@@ -92,7 +91,6 @@ export function TemplateDoc(props) {
     const chooseOptions = { icon: 'pi pi-fw pi-images', iconOnly: true, className: 'custom-choose-btn p-button-rounded p-button-outlined' };
     const uploadOptions = { icon: 'pi pi-fw pi-cloud-upload', iconOnly: true, className: 'custom-upload-btn p-button-success p-button-rounded p-button-outlined' };
     const cancelOptions = { icon: 'pi pi-fw pi-times', iconOnly: true, className: 'custom-cancel-btn p-button-danger p-button-rounded p-button-outlined' };
-
     const code = {
         basic: `
 <Toast ref={toast}></Toast>
@@ -108,12 +106,12 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useRef, useState } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload } from '@orcado/yoyui/fileupload';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Button } from '@orcado/yoyui/button';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function TemplateDemo() {
     const toast = useRef(null);
@@ -218,12 +216,12 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useRef, useState } from 'react';
-import { Toast } from 'primereact/toast';
-import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, FileUploadUploadEvent, ItemTemplateOptions,} from 'primereact/fileupload';
-import { ProgressBar } from 'primereact/progressbar';
-import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { FileUpload, FileUploadHeaderTemplateOptions, FileUploadSelectEvent, FileUploadUploadEvent, ItemTemplateOptions,} from '@orcado/yoyui/fileupload';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Button } from '@orcado/yoyui/button';
+import { Tooltip } from '@orcado/yoyui/tooltip';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function TemplateDemo() {
     const toast = useRef<Toast>(null);

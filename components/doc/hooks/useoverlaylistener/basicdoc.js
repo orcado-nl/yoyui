@@ -48,8 +48,8 @@ const [bindOverlayListener, unbindOverlayListener] = useOverlayListener({
         `,
         javascript: `
 import React, { useState, useRef, useEffect } from 'react'; 
-import { Button } from 'primereact/button';
-import { useOverlayScrollListener } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useOverlayScrollListener } from '@orcado/yoyui/hooks';
 
 export default function BasicDemo() {
     const [visible, setVisible] = useState(false);
@@ -96,8 +96,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState, useRef, useEffect } from 'react'; 
-import { Button } from 'primereact/button';
-import { useOverlayScrollListener } from 'primereact/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { useOverlayScrollListener } from '@orcado/yoyui/hooks';
 
 export default function BasicDemo() {
     const [visible, setVisible] = useState(false);

@@ -25,9 +25,8 @@ const classes = {
 
 const inlineStyles = {
     tab: {
-        header: ({ headerStyle, _style }) => ({ ...(headerStyle || {}), ...(_style || {}) }),
-        content: ({ props, getTabProp, tab, isSelected, shouldUseTab, index }) =>
-            shouldUseTab(tab, index) && (!props.renderActiveOnly || isSelected(index)) ? { ...(getTabProp(tab, 'contentStyle') || {}), ...(getTabProp(tab, 'style') || {}) } : undefined
+        header: ({ headerStyle, _style }) => ({ ...headerStyle, ..._style }),
+        content: ({ props, getTabProp, tab, isSelected, shouldUseTab, index }) => (shouldUseTab(tab, index) && (!props.renderActiveOnly || isSelected(index)) ? { ...getTabProp(tab, 'contentStyle'), ...getTabProp(tab, 'style') } : undefined)
     }
 };
 

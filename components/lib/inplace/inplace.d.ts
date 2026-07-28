@@ -2,7 +2,7 @@
  *
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  *
- * [Live Demo](https://www.primereact.org/inplace)
+ * [Live Demo](https://yoyui.orcado.dev/inplace)
  *
  * Helper Components:
  *
@@ -151,13 +151,13 @@ export interface InplaceProps extends Omit<React.DetailedHTMLProps<React.HTMLAtt
 }
 
 /**
- * **PrimeReact - Inplace**
+ * **YoYui - Inplace**
  *
  * _Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content._
  *
- * [Live Demo](https://www.primereact.org/inplace/)
+ * [Live Demo](https://yoyui.orcado.dev/inplace/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

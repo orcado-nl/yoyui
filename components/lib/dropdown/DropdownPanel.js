@@ -9,25 +9,22 @@ import { classNames, DomHandler, IconUtils, ObjectUtils } from '../utils/Utils';
 import { VirtualScroller } from '../virtualscroller/VirtualScroller';
 import { DropdownItem } from './DropdownItem';
 
+function renderSonarNested1(listProps, content) {
+    return <ul {...listProps}>{content}</ul>;
+}
+
 export const DropdownPanel = React.memo(
     React.forwardRef((props, ref) => {
         const mergeProps = useMergeProps();
         const { ptm, cx, sx } = props;
         const context = React.useContext(PrimeReactContext);
-
         const filterInputRef = React.useRef(null);
-        const isEmptyFilter = !(props.visibleOptions && props.visibleOptions.length) && props.hasFilter;
+        const isEmptyFilter = !props.visibleOptions?.length && props.hasFilter;
         const ariaSetSize = props.visibleOptions ? props.visibleOptions.length : 0;
-        const filterOptions = {
-            filter: (e) => onFilterInputChange(e),
-            reset: () => props.resetFilter()
-        };
+        const filterOptions = { filter: (e) => onFilterInputChange(e), reset: () => props.resetFilter() };
 
         const getPTOptions = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
+            return ptm(key, { hostName: props.hostName, ...options });
         };
 
         const onEnter = () => {
@@ -51,18 +48,13 @@ export const DropdownPanel = React.memo(
         };
 
         const onFilterInputChange = (event) => {
-            props.onFilterInputChange && props.onFilterInputChange(event);
+            props.onFilterInputChange?.(event);
         };
 
         const createFooter = () => {
             if (props.panelFooterTemplate) {
                 const content = ObjectUtils.getJSXElement(props.panelFooterTemplate, props, props.onOverlayHide);
-                const footerProps = mergeProps(
-                    {
-                        className: cx('footer')
-                    },
-                    getPTOptions('footer')
-                );
+                const footerProps = mergeProps({ className: cx('footer') }, getPTOptions('footer'));
 
                 return <div {...footerProps}>{content}</div>;
             }
@@ -78,12 +70,7 @@ export const DropdownPanel = React.memo(
 
         const createEmptyMessage = (emptyMessage, isFilter) => {
             const message = ObjectUtils.getJSXElement(emptyMessage, props) || localeOption(isFilter ? 'emptyFilterMessage' : 'emptyMessage');
-            const emptyMessageProps = mergeProps(
-                {
-                    className: cx('emptyMessage')
-                },
-                getPTOptions('emptyMessage')
-            );
+            const emptyMessageProps = mergeProps({ className: cx('emptyMessage') }, getPTOptions('emptyMessage'));
 
             return <li {...emptyMessageProps}>{message}</li>;
         };
@@ -97,20 +84,8 @@ export const DropdownPanel = React.memo(
                 const { optionGroupLabel } = props;
                 const groupContent = props.optionGroupTemplate ? ObjectUtils.getJSXElement(props.optionGroupTemplate, option, index) : props.getOptionGroupLabel(option);
                 const key = index + '_' + props.getOptionGroupRenderKey(option);
-                const itemGroupProps = mergeProps(
-                    {
-                        className: cx('itemGroup', { optionGroupLabel }),
-                        style,
-                        'data-p-highlight': props.selected
-                    },
-                    getPTOptions('itemGroup')
-                );
-                const itemGroupLabelProps = mergeProps(
-                    {
-                        className: cx('itemGroupLabel')
-                    },
-                    getPTOptions('itemGroupLabel')
-                );
+                const itemGroupProps = mergeProps({ className: cx('itemGroup', { optionGroupLabel }), style, 'data-p-highlight': props.selected }, getPTOptions('itemGroup'));
+                const itemGroupLabelProps = mergeProps({ className: cx('itemGroupLabel') }, getPTOptions('itemGroupLabel'));
 
                 return (
                     <li key={key} {...itemGroupProps}>
@@ -159,14 +134,7 @@ export const DropdownPanel = React.memo(
         const createFilterClearIcon = () => {
             if (props.showFilterClear && props.filterValue) {
                 const ariaLabelFilterClear = localeOption('clear');
-                const clearIconProps = mergeProps(
-                    {
-                        className: cx('filterClearIcon'),
-                        'aria-label': ariaLabelFilterClear,
-                        onClick: () => props.onFilterClearIconClick(() => DomHandler.focus(filterInputRef.current))
-                    },
-                    getPTOptions('filterClearIcon')
-                );
+                const clearIconProps = mergeProps({ className: cx('filterClearIcon'), 'aria-label': ariaLabelFilterClear, onClick: () => props.onFilterClearIconClick(() => DomHandler.focus(filterInputRef.current)) }, getPTOptions('filterClearIcon'));
                 const icon = props.filterClearIcon || <TimesIcon {...clearIconProps} />;
                 const filterClearIcon = IconUtils.getJSXIcon(icon, { ...clearIconProps }, { props });
 
@@ -179,20 +147,10 @@ export const DropdownPanel = React.memo(
         const createFilter = () => {
             if (props.filter) {
                 const clearIcon = createFilterClearIcon();
-                const filterIconProps = mergeProps(
-                    {
-                        className: cx('filterIcon')
-                    },
-                    getPTOptions('filterIcon')
-                );
+                const filterIconProps = mergeProps({ className: cx('filterIcon') }, getPTOptions('filterIcon'));
                 const icon = props.filterIcon || <SearchIcon {...filterIconProps} />;
                 const filterIcon = IconUtils.getJSXIcon(icon, { ...filterIconProps }, { props });
-                const filterContainerProps = mergeProps(
-                    {
-                        className: cx('filterContainer', { clearIcon })
-                    },
-                    getPTOptions('filterContainer')
-                );
+                const filterContainerProps = mergeProps({ className: cx('filterContainer', { clearIcon }) }, getPTOptions('filterContainer'));
                 const filterInputProps = mergeProps(
                     {
                         ref: filterInputRef,
@@ -229,12 +187,7 @@ export const DropdownPanel = React.memo(
                     content = ObjectUtils.getJSXElement(props.filterTemplate, defaultContentOptions);
                 }
 
-                const headerProps = mergeProps(
-                    {
-                        className: cx('header')
-                    },
-                    getPTOptions('header')
-                );
+                const headerProps = mergeProps({ className: cx('header') }, getPTOptions('header'));
 
                 return <div {...headerProps}>{content}</div>;
             }
@@ -246,30 +199,22 @@ export const DropdownPanel = React.memo(
             if (props.virtualScrollerOptions) {
                 const virtualScrollerProps = {
                     ...props.virtualScrollerOptions,
-                    ...{
-                        style: { ...props.virtualScrollerOptions.style, ...{ height: props.scrollHeight } },
-                        className: classNames('p-dropdown-items-wrapper', props.virtualScrollerOptions.className),
-                        items: props.visibleOptions,
-                        autoSize: true,
-                        onLazyLoad: (event) => props.virtualScrollerOptions.onLazyLoad({ ...event, ...{ filter: props.filterValue } }),
-                        itemTemplate: (item, options) => item && createItem(item, options.index, options),
-                        contentTemplate: (options) => {
-                            const children = options.children || [];
-                            const emptyMessage = props.hasFilter ? props.emptyFilterMessage : props.emptyMessage;
-                            const content = isEmptyFilter || children?.length === 0 ? createEmptyMessage(emptyMessage) : children;
-                            const listProps = mergeProps(
-                                {
-                                    ref: options.contentRef,
-                                    style: options.style,
-                                    className: classNames(options.className, cx('list', { virtualScrollerProps: props.virtualScrollerOptions })),
-                                    role: 'listbox',
-                                    'aria-label': ariaLabel('listLabel')
-                                },
-                                getPTOptions('list')
-                            );
+                    style: { ...props.virtualScrollerOptions.style, height: props.scrollHeight },
+                    className: classNames('p-dropdown-items-wrapper', props.virtualScrollerOptions.className),
+                    items: props.visibleOptions,
+                    autoSize: true,
+                    onLazyLoad: (event) => props.virtualScrollerOptions.onLazyLoad({ ...event, filter: props.filterValue }),
+                    itemTemplate: (item, options) => item && createItem(item, options.index, options),
+                    contentTemplate: (options) => {
+                        const children = options.children || [];
+                        const emptyMessage = props.hasFilter ? props.emptyFilterMessage : props.emptyMessage;
+                        const content = isEmptyFilter || children?.length === 0 ? createEmptyMessage(emptyMessage) : children;
+                        const listProps = mergeProps(
+                            { ref: options.contentRef, style: options.style, className: classNames(options.className, cx('list', { virtualScrollerProps: props.virtualScrollerOptions })), role: 'listbox', 'aria-label': ariaLabel('listLabel') },
+                            getPTOptions('list')
+                        );
 
-                            return <ul {...listProps}>{content}</ul>;
-                        }
+                        return renderSonarNested1(listProps, content);
                     }
                 };
 
@@ -277,22 +222,8 @@ export const DropdownPanel = React.memo(
             }
 
             const items = createItems();
-            const wrapperProps = mergeProps(
-                {
-                    className: cx('wrapper'),
-                    style: sx('wrapper')
-                },
-                getPTOptions('wrapper')
-            );
-
-            const listProps = mergeProps(
-                {
-                    className: cx('list'),
-                    role: 'listbox',
-                    'aria-label': ariaLabel('listLabel')
-                },
-                getPTOptions('list')
-            );
+            const wrapperProps = mergeProps({ className: cx('wrapper'), style: sx('wrapper') }, getPTOptions('wrapper'));
+            const listProps = mergeProps({ className: cx('list'), role: 'listbox', 'aria-label': ariaLabel('listLabel') }, getPTOptions('list'));
 
             return (
                 <div {...wrapperProps}>
@@ -305,28 +236,9 @@ export const DropdownPanel = React.memo(
             const filter = createFilter();
             const content = createContent();
             const footer = createFooter();
-            const panelProps = mergeProps(
-                {
-                    className: classNames(props.panelClassName, cx('panel', { context })),
-                    style: sx('panel'),
-                    onClick: props.onClick,
-                    'data-pr-is-overlay': true
-                },
-                getPTOptions('panel')
-            );
-
+            const panelProps = mergeProps({ className: classNames(props.panelClassName, cx('panel', { context })), style: sx('panel'), onClick: props.onClick, 'data-pr-is-overlay': true }, getPTOptions('panel'));
             const transitionProps = mergeProps(
-                {
-                    classNames: cx('transition'),
-                    in: props.in,
-                    timeout: { enter: 120, exit: 100 },
-                    options: props.transitionOptions,
-                    unmountOnExit: true,
-                    onEnter: onEnter,
-                    onEntered: onEntered,
-                    onExit: props.onExit,
-                    onExited: props.onExited
-                },
+                { classNames: cx('transition'), in: props.in, timeout: { enter: 120, exit: 100 }, options: props.transitionOptions, unmountOnExit: true, onEnter: onEnter, onEntered: onEntered, onExit: props.onExit, onExited: props.onExited },
                 getPTOptions('transition')
             );
 
@@ -348,5 +260,4 @@ export const DropdownPanel = React.memo(
         return <Portal element={element} appendTo={props.appendTo} />;
     })
 );
-
 DropdownPanel.displayName = 'DropdownPanel';

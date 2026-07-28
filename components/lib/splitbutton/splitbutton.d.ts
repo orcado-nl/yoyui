@@ -2,7 +2,7 @@
  *
  * SplitButton groups a set of commands in an overlay with a default command.
  *
- * [Live Demo](https://www.primereact.org/splitbutton/)
+ * [Live Demo](https://yoyui.orcado.dev/splitbutton/)
  *
  * @module splitbutton
  *
@@ -256,13 +256,13 @@ export interface SplitButtonState {
 }
 
 /**
- * **PrimeReact - SplitButton**
+ * **YoYui - SplitButton**
  *
  * _SplitButton groups a set of commands in an overlay with a default command._
  *
- * [Live Demo](https://www.primereact.org/splitbutton/)
+ * [Live Demo](https://yoyui.orcado.dev/splitbutton/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

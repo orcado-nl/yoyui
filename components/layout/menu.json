@@ -468,10 +468,6 @@
                     "to": "/colors"
                 },
                 {
-                    "name": "SASS API",
-                    "href": "https://www.primefaces.org/designer/api/primereact/9.0.0"
-                },
-                {
                     "name": "Unstyled Mode",
                     "children": [
                         {
@@ -624,23 +620,6 @@
             ]
         },
         {
-            "name": "Templates",
-            "icon": "pi pi-star",
-            "to": "/templates"
-        },
-        {
-            "name": "New PrimeBlocks",
-            "icon": "pi pi-server",
-            "href": "https://primeblocks.org",
-            "badge": "Soon"
-        },
-        {
-            "name": "PrimeFlex CSS",
-            "icon": "pi pi-table",
-            "href": "https://primeflex.org",
-            "target": "_blank"
-        },
-        {
             "name": "Guides",
             "icon": "pi pi-book",
             "children": [
@@ -651,36 +630,8 @@
                 {
                     "name": "CSS Layer",
                     "to": "/guides/csslayer"
-                },
-                {
-                    "name": "PrimeTV",
-                    "icon": "pi pi-youtube",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
                 }
             ]
-        },
-        {
-            "name": "Support",
-            "icon": "pi pi-question",
-            "children": [
-                {
-                    "name": "Discord",
-                    "href": "https://discord.gg/gzKFYnpmCY"
-                },
-                {
-                    "name": "Forum",
-                    "href": "https://github.com/orgs/primefaces/discussions"
-                },
-                {
-                    "name": "PRO Support",
-                    "to": "/support"
-                }
-            ]
-        },
-        {
-            "name": "Contribution",
-            "to": "/contribution",
-            "icon": "pi pi-users"
         },
         {
             "name": "Discover",
@@ -688,35 +639,15 @@
             "children": [
                 {
                     "name": "About Us",
-                    "to": "/team"
-                },
-                {
-                    "name": "Roadmap",
-                    "to": "/roadmap"
+                    "href": "https://www.orcado.nl"
                 },
                 {
                     "name": "Source Code",
-                    "href": "https://github.com/primefaces/primereact"
+                    "href": "https://github.com/orcado-nl/yoyui"
                 },
                 {
                     "name": "Changelog",
-                    "href": "https://github.com/primefaces/primereact/blob/master/CHANGELOG.md"
-                },
-                {
-                    "name": "Store",
-                    "href": "https://primeui.store"
-                },
-                {
-                    "name": "Twitter",
-                    "href": "https://twitter.com/primereact?lang=en"
-                },
-                {
-                    "name": "Newsletter",
-                    "href": "https://www.primefaces.org/newsletter"
-                },
-                {
-                    "name": "PrimeGear",
-                    "href": "https://gear.primefaces.org"
+                    "href": "https://github.com/orcado-nl/yoyui/blob/main/CHANGELOG.md"
                 }
             ]
         }

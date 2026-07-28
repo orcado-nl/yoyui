@@ -9,7 +9,7 @@ export function LoadingDoc(props) {
         `,
         javascript: `
 import React from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function LoadingDemo() {
 
@@ -20,7 +20,7 @@ export default function LoadingDemo() {
         `,
         typescript: `
 import React from "react";
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown } from '@orcado/yoyui/dropdown';
 
 export default function LoadingDemo() {
 

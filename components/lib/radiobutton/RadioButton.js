@@ -11,13 +11,9 @@ export const RadioButton = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = RadioButtonBase.getProps(inProps, context);
-
         const elementRef = React.useRef(null);
         const inputRef = React.useRef(props.inputRef);
-
-        const { ptm, cx, isUnstyled } = RadioButtonBase.setMetaData({
-            props
-        });
+        const { ptm, cx, isUnstyled } = RadioButtonBase.setMetaData({ props });
 
         useHandleStyle(RadioButtonBase.css.styles, isUnstyled, { name: 'radiobutton' });
 
@@ -37,7 +33,6 @@ export const RadioButton = React.memo(
                 const isInputToggled = inputClicked && event.target.checked !== checked;
                 const isRadioToggled = radioClicked && (DomHandler.hasClass(elementRef.current, 'p-radiobutton-checked') === checked ? !checked : false);
                 const value = !checked;
-
                 const eventData = {
                     originalEvent: event,
                     value: props.value,
@@ -48,19 +43,12 @@ export const RadioButton = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        type: 'radio',
-                        name: props.name,
-                        id: props.id,
-                        value: props.value,
-                        checked: value
-                    }
+                    target: { type: 'radio', name: props.name, id: props.id, value: props.value, checked: value }
                 };
 
                 if (isInputToggled || isRadioToggled) {
-                    props?.onChange?.(eventData);
+                    props?.onChange?.(eventData); // do not continue if the user defined click wants to prevent
 
-                    // do not continue if the user defined click wants to prevent
                     if (event.defaultPrevented) {
                         return;
                     }
@@ -82,43 +70,23 @@ export const RadioButton = React.memo(
             props?.onBlur?.(event);
         };
 
-        React.useImperativeHandle(ref, () => ({
-            props,
-            select,
-            focus: () => DomHandler.focus(inputRef.current),
-            getElement: () => elementRef.current,
-            getInput: () => inputRef.current
-        }));
-
+        React.useImperativeHandle(ref, () => ({ props, select, focus: () => DomHandler.focus(inputRef.current), getElement: () => elementRef.current, getInput: () => inputRef.current }));
         React.useEffect(() => {
             if (inputRef.current) {
                 inputRef.current.checked = props.checked;
             }
         }, [props.checked]);
-
         React.useEffect(() => {
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
         }, [inputRef, props.inputRef]);
-
         useMountEffect(() => {
             if (props.autoFocus) {
                 DomHandler.focus(inputRef.current, props.autoFocus);
             }
         });
-
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip);
         const otherProps = RadioButtonBase.getOtherProps(props);
-
-        const rootProps = mergeProps(
-            {
-                id: props.id,
-                className: classNames(props.className, cx('root', { context })),
-                style: props.style,
-                'data-p-checked': props.checked
-            },
-            otherProps,
-            ptm('root')
-        );
+        const rootProps = mergeProps({ id: props.id, className: classNames(props.className, cx('root', { context })), style: props.style, 'data-p-checked': props.checked }, otherProps, ptm('root'));
 
         delete rootProps.input;
         delete rootProps.box;
@@ -150,21 +118,8 @@ export const RadioButton = React.memo(
         };
 
         const createBoxElement = () => {
-            const boxProps = mergeProps(
-                {
-                    className: cx('box')
-                },
-                inProps.box,
-                ptm('box')
-            );
-
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                inProps.icon,
-                ptm('icon')
-            );
+            const boxProps = mergeProps({ className: cx('box') }, inProps.box, ptm('box'));
+            const iconProps = mergeProps({ className: cx('icon') }, inProps.icon, ptm('icon'));
 
             return (
                 <div {...boxProps}>

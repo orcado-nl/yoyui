@@ -10,11 +10,11 @@ import { DomHandler, IconUtils, ObjectUtils, classNames } from '../utils/Utils';
 import { ConfirmDialogBase } from './ConfirmDialogBase';
 
 export const confirmDialog = (props = {}) => {
-    props = { ...props, ...{ visible: props.visible === undefined ? true : props.visible } };
+    props = { ...props, visible: props.visible === undefined ? true : props.visible };
     props.visible && OverlayService.emit('confirm-dialog', props);
 
     const show = (updatedProps = {}) => {
-        OverlayService.emit('confirm-dialog', { ...props, ...updatedProps, ...{ visible: true } });
+        OverlayService.emit('confirm-dialog', { ...props, ...updatedProps, visible: true });
     };
 
     const hide = () => {
@@ -29,7 +29,6 @@ export const ConfirmDialog = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = ConfirmDialogBase.getProps(inProps, context);
-
         const [visibleState, setVisibleState] = React.useState(props.visible);
         const [reshowState, setReshowState] = React.useState(false);
         const confirmProps = React.useRef(null);
@@ -43,21 +42,14 @@ export const ConfirmDialog = React.memo(
                 group = confirmProps.current.group;
             }
 
-            return Object.assign({}, props, confirmProps.current, { group });
+            return { ...props, ...confirmProps.current, group };
         };
 
         const getPropValue = (key) => getCurrentProps()[key];
         const callbackFromProp = (key, ...param) => ObjectUtils.getPropValue(getPropValue(key), param);
-
         const acceptLabel = getPropValue('acceptLabel') || localeOption('accept');
         const rejectLabel = getPropValue('rejectLabel') || localeOption('reject');
-
-        const metaData = {
-            props,
-            state: {
-                visible: visibleState
-            }
-        };
+        const metaData = { props, state: { visible: visibleState } };
         const { ptm, cx, isUnstyled } = ConfirmDialogBase.setMetaData(metaData);
 
         useHandleStyle(ConfirmDialogBase.css.styles, isUnstyled, { name: 'confirmdialog' });
@@ -83,9 +75,7 @@ export const ConfirmDialog = React.memo(
 
             if (currentProps.group === props.group) {
                 setVisibleState(true);
-                isCallbackExecuting.current = false;
-
-                // Remember the focused element before we opened the dialog
+                isCallbackExecuting.current = false; // Remember the focused element before we opened the dialog
                 // so we can return focus to it once we close the dialog.
                 focusElementOnHide.current = document.activeElement;
             }
@@ -121,10 +111,8 @@ export const ConfirmDialog = React.memo(
         };
 
         React.useEffect(() => {
-            props.visible ? show() : hide();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+            props.visible ? show() : hide(); // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.visible]);
-
         React.useEffect(() => {
             if (!props.target && !props.message) {
                 OverlayService.on('confirm-dialog', confirm);
@@ -132,34 +120,20 @@ export const ConfirmDialog = React.memo(
 
             return () => {
                 OverlayService.off('confirm-dialog', confirm);
-            };
-            // eslint-disable-next-line react-hooks/exhaustive-deps
+            }; // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props.target]);
-
         useUpdateEffect(() => {
             reshowState && show();
         }, [reshowState]);
-
         useUnmountEffect(() => {
             OverlayService.off('confirm-dialog', confirm);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            confirm
-        }));
+        React.useImperativeHandle(ref, () => ({ props, confirm }));
 
         const createFooter = () => {
             const defaultFocus = getPropValue('defaultFocus');
             const acceptClassName = classNames('p-confirm-dialog-accept', getPropValue('acceptClassName'));
-            const rejectClassName = classNames(
-                'p-confirm-dialog-reject',
-                {
-                    'p-button-text': !getPropValue('rejectClassName')
-                },
-                getPropValue('rejectClassName')
-            );
-
+            const rejectClassName = classNames('p-confirm-dialog-reject', { 'p-button-text': !getPropValue('rejectClassName') }, getPropValue('rejectClassName'));
             const rejectButtonProps = mergeProps(
                 {
                     label: rejectLabel,
@@ -169,13 +143,10 @@ export const ConfirmDialog = React.memo(
                     onClick: reject,
                     pt: ptm('rejectButton'),
                     unstyled: props.unstyled,
-                    __parentMetadata: {
-                        parent: metaData
-                    }
+                    __parentMetadata: { parent: metaData }
                 },
                 ptm('rejectButton')
             );
-
             const acceptButtonProps = mergeProps(
                 {
                     label: acceptLabel,
@@ -185,13 +156,10 @@ export const ConfirmDialog = React.memo(
                     onClick: accept,
                     pt: ptm('acceptButton'),
                     unstyled: props.unstyled,
-                    __parentMetadata: {
-                        parent: metaData
-                    }
+                    __parentMetadata: { parent: metaData }
                 },
                 ptm('acceptButton')
             );
-
             const content = (
                 <>
                     <Button {...rejectButtonProps} />
@@ -200,16 +168,7 @@ export const ConfirmDialog = React.memo(
             );
 
             if (getPropValue('footer')) {
-                const defaultContentOptions = {
-                    accept,
-                    reject,
-                    acceptClassName,
-                    rejectClassName,
-                    acceptLabel,
-                    rejectLabel,
-                    element: content,
-                    props: getCurrentProps()
-                };
+                const defaultContentOptions = { accept, reject, acceptClassName, rejectClassName, acceptLabel, rejectLabel, element: content, props: getCurrentProps() };
 
                 return ObjectUtils.getJSXElement(getPropValue('footer'), defaultContentOptions);
             }
@@ -220,24 +179,10 @@ export const ConfirmDialog = React.memo(
         const createElement = () => {
             const currentProps = getCurrentProps();
             const message = ObjectUtils.getJSXElement(getPropValue('message'), currentProps);
-
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                ptm('icon')
-            );
-
+            const iconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
             const icon = IconUtils.getJSXIcon(getPropValue('icon'), { ...iconProps }, { props: currentProps });
             const footer = createFooter();
-
-            const messageProps = mergeProps(
-                {
-                    className: cx('message')
-                },
-                ptm('message')
-            );
-
+            const messageProps = mergeProps({ className: cx('message') }, ptm('message'));
             const rootProps = mergeProps(
                 {
                     visible: visibleState,
@@ -248,9 +193,7 @@ export const ConfirmDialog = React.memo(
                     pt: currentProps.pt,
                     unstyled: props.unstyled,
                     appendTo: getPropValue('appendTo'),
-                    __parentMetadata: {
-                        parent: metaData
-                    }
+                    __parentMetadata: { parent: metaData }
                 },
                 ConfirmDialogBase.getOtherProps(currentProps)
             );
@@ -268,5 +211,4 @@ export const ConfirmDialog = React.memo(
         return <Portal element={element} appendTo={getPropValue('appendTo')} />;
     })
 );
-
 ConfirmDialog.displayName = 'ConfirmDialog';

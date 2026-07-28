@@ -13,9 +13,9 @@ const { ref, x, y, active, reset } = useMove({ initialValue: { x: 0.2, y: 0.6 } 
         `,
         javascript: `
 import React from 'react'; 
-import { useMove } from 'primereact/hooks';
-import { Button } from 'primereact/button';
-import { classNames } from 'primereact/utils';
+import { useMove } from '@orcado/yoyui/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function BasicDemo() {
     const { ref, x, y, active, reset } = useMove({ initialValue: { x: 0.2, y: 0.6 } });
@@ -47,9 +47,9 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { useMove } from 'primereact/hooks';
-import { Button } from 'primereact/button';
-import { classNames } from 'primereact/utils';
+import { useMove } from '@orcado/yoyui/hooks';
+import { Button } from '@orcado/yoyui/button';
+import { classNames } from '@orcado/yoyui/utils';
 
 export default function BasicDemo() {
     const { ref, x, y, active, reset } = useMove({ initialValue: { x: 0.2, y: 0.6 } });

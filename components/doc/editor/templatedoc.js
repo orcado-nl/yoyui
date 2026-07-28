@@ -4,7 +4,7 @@ import { Editor } from '@/components/lib/editor/Editor';
 import { useState } from 'react';
 
 export function TemplateDoc(props) {
-    const [text, setText] = useState('<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>');
+    const [text, setText] = useState('<div>Hello World!</div><div>YoYui <b>Editor</b> Rocks</div><div><br></div>');
 
     const renderHeader = () => {
         return (
@@ -17,17 +17,16 @@ export function TemplateDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <Editor value={text} onTextChange={(e) => setText(e.htmlValue)} headerTemplate={header} style={{ height: '320px' }} />
         `,
         javascript: `
 import React, { useState } from "react";
-import { Editor } from "primereact/editor";
+import { Editor } from "@orcado/yoyui/editor";
 
 export default function TemplateDemo() {
-    const [text, setText] = useState('<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>');
+    const [text, setText] = useState('<div>Hello World!</div><div>YoYui <b>Editor</b> Rocks</div><div><br></div>');
 
     const renderHeader = () => {
         return (
@@ -50,10 +49,10 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Editor, EditorTextChangeEvent } from "primereact/editor";
+import { Editor, EditorTextChangeEvent } from "@orcado/yoyui/editor";
 
 export default function TemplateDemo() {
-    const [text, setText] = useState<string>('<div>Hello World!</div><div>PrimeReact <b>Editor</b> Rocks</div><div><br></div>');
+    const [text, setText] = useState<string>('<div>Hello World!</div><div>YoYui <b>Editor</b> Rocks</div><div><br></div>');
 
     const renderHeader = () => {
         return (
@@ -80,7 +79,7 @@ export default function TemplateDemo() {
         <>
             <DocSectionText {...props}>
                 <p>
-                    Toolbar is customized with the <i>headerTemplate</i> property. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.
+                    Toolbar is customized with the <i>headerTemplate</i> property. Refer to <a href="https://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.
                 </p>
             </DocSectionText>
             <div className="card">

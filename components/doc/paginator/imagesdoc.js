@@ -15,12 +15,12 @@ export function ImagesDoc(props) {
 <Paginator first={first} rows={1} totalRecords={12} onPageChange={onPageChange} template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" />
 
 <div className="p-3 text-center">
-    <img alt={first} src={\`https://primefaces.org/cdn/primereact/images/nature/nature\${first + 1}.jpg\`} className="shadow-2 border-round max-w-full" />
+    <img alt={first} src={\`/images/nature/nature\${first + 1}.jpg\`} className="shadow-2 border-round max-w-full" />
 </div>
         `,
         javascript: `
 import React, { useState } from "react";
-import { Paginator } from 'primereact/paginator';
+import { Paginator } from '@orcado/yoyui/paginator';
 
 export default function ImagesDemo() {
     const [first, setFirst] = useState(0);
@@ -34,7 +34,7 @@ export default function ImagesDemo() {
             <Paginator first={first} rows={1} totalRecords={12} onPageChange={onPageChange} template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" />
 
             <div className="p-3 text-center">
-                <img alt={first} src={\`https://primefaces.org/cdn/primereact/images/nature/nature\${first + 1}.jpg\`} className="shadow-2 border-round max-w-full" />
+                <img alt={first} src={\`/images/nature/nature\${first + 1}.jpg\`} className="shadow-2 border-round max-w-full" />
             </div>
         </div>
     );
@@ -42,7 +42,7 @@ export default function ImagesDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
+import { Paginator, PaginatorPageChangeEvent } from '@orcado/yoyui/paginator';
 
 export default function ImagesDemo() {
     const [first, setFirst] = useState<number>(0);
@@ -56,7 +56,7 @@ export default function ImagesDemo() {
             <Paginator first={first} rows={1} totalRecords={12} onPageChange={onPageChange} template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" />
 
             <div className="p-3 text-center">
-                <img alt={first} src={\`https://primefaces.org/cdn/primereact/images/nature/nature\${first + 1}.jpg\`} className="shadow-2 border-round max-w-full" />
+                <img alt={first} src={\`/images/nature/nature\${first + 1}.jpg\`} className="shadow-2 border-round max-w-full" />
             </div>
         </div>
     );
@@ -73,7 +73,7 @@ export default function ImagesDemo() {
                 <Paginator first={first} rows={1} totalRecords={12} onPageChange={onPageChange} template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink" />
 
                 <div className="p-3 text-center">
-                    <img alt={first} src={`https://primefaces.org/cdn/primereact/images/nature/nature${first + 1}.jpg`} className="shadow-2 border-round max-w-full" />
+                    <img alt={first} src={`/images/nature/nature${first + 1}.jpg`} className="shadow-2 border-round max-w-full" />
                 </div>
             </div>
             <DocSectionCode code={code} />

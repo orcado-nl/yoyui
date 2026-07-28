@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { Button } from '../button/Button';
 import { useHandleStyle } from '../componentbase/ComponentBase';
 import { ESC_KEY_HANDLING_PRIORITIES, useDisplayOrder, useGlobalOnEscapeKey, useMergeProps, useMountEffect, useUnmountEffect } from '../hooks/Hooks';
@@ -15,7 +15,6 @@ export const SplitButton = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = SplitButtonBase.getProps(inProps, context);
-
         const [idState, setIdState] = React.useState(props.id ?? UniqueComponentId);
         const [overlayVisibleState, setOverlayVisibleState] = React.useState(false);
         const elementRef = React.useRef(null);
@@ -23,18 +22,10 @@ export const SplitButton = React.memo(
         const defaultButtonRef = React.useRef(null);
         const overlayRef = React.useRef(null);
         const overlayDisplayOrder = useDisplayOrder('split-button-tooltip', overlayVisibleState);
-        const metaData = {
-            props,
-            state: {
-                id: idState,
-                overlayVisible: overlayVisibleState
-            }
-        };
-
+        const metaData = { props, state: { id: idState, overlayVisible: overlayVisibleState } };
         const { ptm, cx, isUnstyled } = SplitButtonBase.setMetaData(metaData);
 
         useHandleStyle(SplitButtonBase.css.styles, isUnstyled, { name: 'splitbutton' });
-
         useGlobalOnEscapeKey({
             callback: () => {
                 hide();
@@ -44,10 +35,7 @@ export const SplitButton = React.memo(
         });
 
         const onPanelClick = (event) => {
-            OverlayService.emit('overlay-click', {
-                originalEvent: event,
-                target: elementRef.current
-            });
+            OverlayService.emit('overlay-click', { originalEvent: event, target: elementRef.current });
         };
 
         const onMenuButtonKeyDown = (event) => {
@@ -63,25 +51,25 @@ export const SplitButton = React.memo(
 
         const show = (event) => {
             setOverlayVisibleState(true);
-            menuRef.current && menuRef.current.show(event);
+            menuRef.current?.show(event);
         };
 
         const hide = (event) => {
             setOverlayVisibleState(false);
-            menuRef.current && menuRef.current.hide(event);
+            menuRef.current?.hide(event);
         };
 
         const onMenuShow = () => {
-            props.onShow && props.onShow();
+            props.onShow?.();
         };
 
         const onMenuHide = () => {
             setOverlayVisibleState(false);
-            props.onHide && props.onHide();
+            props.onHide?.();
         };
 
         const alignOverlay = () => {
-            DomHandler.alignOverlay(overlayRef.current, defaultButtonRef.current.parentElement, props.appendTo || (context && context.appendTo) || PrimeReact.appendTo);
+            DomHandler.alignOverlay(overlayRef.current, defaultButtonRef.current.parentElement, props.appendTo || context?.appendTo || PrimeReactConfig.appendTo);
         };
 
         useMountEffect(() => {
@@ -91,39 +79,23 @@ export const SplitButton = React.memo(
 
             alignOverlay();
         });
-
         useUnmountEffect(() => {
             ZIndexUtils.clear(overlayRef.current);
         });
-
-        React.useImperativeHandle(ref, () => ({
-            props,
-            show,
-            hide,
-            getElement: () => elementRef.current
-        }));
+        React.useImperativeHandle(ref, () => ({ props, show, hide, getElement: () => elementRef.current }));
 
         if (props.visible === false) {
             return null;
         }
 
         const hasTooltip = ObjectUtils.isNotEmpty(props.tooltip);
-        const sizeMapping = {
-            large: 'lg',
-            small: 'sm'
-        };
+        const sizeMapping = { large: 'lg', small: 'sm' };
         const size = sizeMapping[props.size];
         const buttonContent = props.buttonTemplate ? ObjectUtils.getJSXElement(props.buttonTemplate, props) : null;
         const menuId = idState + '_overlay';
 
         const dropdownIcon = () => {
-            const iconProps = mergeProps(
-                {
-                    className: cx('icon')
-                },
-                ptm('icon')
-            );
-
+            const iconProps = mergeProps({ className: cx('icon') }, ptm('icon'));
             const icon = props.dropdownIcon || <ChevronDownIcon {...iconProps} />;
             const dropdownIcon = IconUtils.getJSXIcon(icon, { ...iconProps }, { props });
 
@@ -192,6 +164,7 @@ export const SplitButton = React.memo(
                         onKeyDown={onMenuButtonKeyDown}
                         unstyled={props.unstyled}
                     />
+
                     <TieredMenu
                         ref={menuRef}
                         popup={true}

@@ -18,7 +18,7 @@ export function NumeralsDoc(props) {
 `,
         javascript: `
 import React, { useState } from "react";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
 
 export default function NumeralsDemo() {
     const [value1, setValue1] = useState(42723);
@@ -50,7 +50,7 @@ export default function NumeralsDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber';
+import { InputNumber, InputNumberValueChangeEvent } from '@orcado/yoyui/inputnumber';
 
 export default function NumeralsDemo() {
     const [value1, setValue1] = useState<number>(42723);

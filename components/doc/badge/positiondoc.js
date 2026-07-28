@@ -17,7 +17,7 @@ export function PositionDoc(props) {
             `,
         javascript: `
 import React from 'react';
-import { Badge } from 'primereact/badge';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function PositionDemo() {
     return (
@@ -37,7 +37,7 @@ export default function PositionDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Badge } from 'primereact/badge';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function PositionDemo() {
     return (

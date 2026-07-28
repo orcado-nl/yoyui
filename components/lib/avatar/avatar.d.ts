@@ -2,7 +2,7 @@
  *
  * Avatar represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primereact.org/avatar)
+ * [Live Demo](https://yoyui.orcado.dev/avatar)
  *
  * @module avatar
  *
@@ -139,13 +139,13 @@ export interface AvatarProps extends Omit<React.DetailedHTMLProps<React.HTMLAttr
 }
 
 /**
- * **PrimeReact - Avatar**
+ * **YoYui - Avatar**
  *
  * _Avatar represents people using icons, labels and images._
  *
- * [Live Demo](https://www.primereact.org/avatar/)
+ * [Live Demo](https://yoyui.orcado.dev/avatar/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

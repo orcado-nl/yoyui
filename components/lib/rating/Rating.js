@@ -14,24 +14,15 @@ export const Rating = React.memo(
         const mergeProps = useMergeProps();
         const context = React.useContext(PrimeReactContext);
         const props = RatingBase.getProps(inProps, context);
-
         const [focusedOptionIndex, setFocusedOptionIndex] = React.useState(-1);
-        const [isFocusVisibleItem, setFocusVisibleItem] = React.useState(true);
-
+        const [isFocusVisibleItem, ,] = React.useState(true);
         const elementRef = React.useRef(null);
-
-        const { ptm, cx, isUnstyled } = RatingBase.setMetaData({
-            props
-        });
+        const { ptm, cx, isUnstyled } = RatingBase.setMetaData({ props });
 
         useHandleStyle(RatingBase.css.styles, isUnstyled, { name: 'rating' });
 
         const getPTOptions = (value, key) => {
-            return ptm(key, {
-                context: {
-                    active: value <= props.value
-                }
-            });
+            return ptm(key, { context: { active: value <= props.value } });
         };
 
         const enabled = !props.disabled && !props.readOnly;
@@ -48,16 +39,11 @@ export const Rating = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: i
-                    }
+                    target: { name: props.name, id: props.id, value: i }
                 });
             }
 
             setFocusedOptionIndex(i);
-
             event.preventDefault();
         };
 
@@ -72,11 +58,7 @@ export const Rating = React.memo(
                     preventDefault: () => {
                         event?.preventDefault();
                     },
-                    target: {
-                        name: props.name,
-                        id: props.id,
-                        value: null
-                    }
+                    target: { name: props.name, id: props.id, value: null }
                 });
             }
 
@@ -95,13 +77,11 @@ export const Rating = React.memo(
                     event.preventDefault();
                     rate(event, props.value - 1 < 1 ? props.stars : props.value - 1);
                     break;
-
                 case 'ArrowRight':
                 case 'ArrowDown':
                     event.preventDefault();
                     rate(event, props.value + 1 > props.stars ? 1 : props.value + 1);
                     break;
-
                 default:
                     break;
             }
@@ -124,21 +104,10 @@ export const Rating = React.memo(
         const createIcons = () => {
             return Array.from({ length: props.stars }, (_, i) => i + 1).map((value) => {
                 const active = value <= props.value;
-                const onIconProps = mergeProps(
-                    {
-                        className: cx('onIcon')
-                    },
-                    getPTOptions(props.value, 'onIcon')
-                );
-                const offIconProps = mergeProps(
-                    {
-                        className: cx('onIcon')
-                    },
-                    getPTOptions(props.value, 'offIcon')
-                );
+                const onIconProps = mergeProps({ className: cx('onIcon') }, getPTOptions(props.value, 'onIcon'));
+                const offIconProps = mergeProps({ className: cx('onIcon') }, getPTOptions(props.value, 'offIcon'));
                 const icon = active ? { type: props.onIcon || <StarFillIcon {...onIconProps} /> } : { type: props.offIcon || <StarIcon {...offIconProps} /> };
                 const content = IconUtils.getJSXIcon(icon.type, active ? { ...onIconProps } : { ...offIconProps }, { props });
-
                 const itemProps = mergeProps(
                     {
                         className: cx('item', { active, focusedOptionIndex, isFocusVisibleItem, value }),
@@ -162,24 +131,10 @@ export const Rating = React.memo(
 
         const createCancelIcon = () => {
             if (props.cancel) {
-                const cancelIconProps = mergeProps(
-                    {
-                        className: cx('cancelIcon')
-                    },
-                    ptm('cancelIcon')
-                );
+                const cancelIconProps = mergeProps({ className: cx('cancelIcon') }, ptm('cancelIcon'));
                 const icon = props.cancelIcon || <BanIcon {...cancelIconProps} />;
                 const content = IconUtils.getJSXIcon(icon, { ...cancelIconProps, ...props.cancelIconProps }, { props });
-
-                const cancelItemProps = mergeProps(
-                    {
-                        className: cx('cancelItem'),
-                        onClick: clear,
-                        tabIndex: tabIndex,
-                        onKeyDown: onCancelKeyDown
-                    },
-                    ptm('cancelItem')
-                );
+                const cancelItemProps = mergeProps({ className: cx('cancelItem'), onClick: clear, tabIndex: tabIndex, onKeyDown: onCancelKeyDown }, ptm('cancelItem'));
 
                 return <div {...cancelItemProps}>{content}</div>;
             }

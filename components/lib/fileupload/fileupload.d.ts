@@ -2,7 +2,7 @@
  *
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
  *
- * [Live Demo](https://www.primereact.org/fileupload)
+ * [Live Demo](https://yoyui.orcado.dev/fileupload)
  *
  * @module fileupload
  *
@@ -644,13 +644,13 @@ interface FileUploadProps {
 }
 
 /**
- * **PrimeReact - FileUpload**
+ * **YoYui - FileUpload**
  *
  * _FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations._
  *
- * [Live Demo](https://www.primereact.org/fileupload/)
+ * [Live Demo](https://yoyui.orcado.dev/fileupload/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

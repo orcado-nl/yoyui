@@ -13,7 +13,7 @@ export const useFavicon = (newIcon = '', rel = 'shortcut icon') => {
             const linkElements = document.querySelectorAll("link[rel*='icon']");
 
             linkElements.forEach((linkEl) => {
-                document.head.removeChild(linkEl);
+                linkEl.remove();
             });
 
             const link = document.createElement('link');

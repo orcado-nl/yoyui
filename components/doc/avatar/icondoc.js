@@ -20,8 +20,8 @@ export function IconDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { Avatar } from 'primereact/avatar';
-import { Badge } from 'primereact/badge';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function IconDemo() {
     return (
@@ -54,8 +54,8 @@ export default function IconDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { Avatar } from 'primereact/avatar';
-import { Badge } from 'primereact/badge';
+import { Avatar } from '@orcado/yoyui/avatar';
+import { Badge } from '@orcado/yoyui/badge';
 
 export default function IconDemo() {
     return (

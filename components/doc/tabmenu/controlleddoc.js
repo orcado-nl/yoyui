@@ -20,8 +20,8 @@ export function ControlledDoc(props) {
         `,
         javascript: `
 import React, { useState } from 'react';
-import { Button } from 'primereact/button';
-import { TabMenu } from 'primereact/tabmenu';
+import { Button } from '@orcado/yoyui/button';
+import { TabMenu } from '@orcado/yoyui/tabmenu';
 
 export default function ControlledDemo() {
     const [activeIndex, setActiveIndex] = useState(3);
@@ -42,9 +42,9 @@ export default function ControlledDemo() {
         `,
         typescript: `
 import React, { useState } from 'react';
-import { Button } from 'primereact/button';
-import { TabMenu } from 'primereact/tabmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { Button } from '@orcado/yoyui/button';
+import { TabMenu } from '@orcado/yoyui/tabmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function ControlledDemo() {
     const [activeIndex, setActiveIndex] = useState<number>(3);

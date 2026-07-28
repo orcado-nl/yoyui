@@ -3,16 +3,19 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 import { Calendar } from '@/components/lib/calendar/Calendar';
 import { useState } from 'react';
 
+function renderSonarNested1() {
+    return <i className="pi pi-clock" />;
+}
+
 export function IconDoc(props) {
     const [date, setDate] = useState(null);
-
     const code = {
         basic: `
 <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon />
         `,
         javascript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from '@orcado/yoyui/calendar';
 
 export default function IconDemo() {
     const [date, setDate] = useState(null);
@@ -45,8 +48,8 @@ export default function IconDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Calendar } from 'primereact/calendar';
-import { Nullable } from "primereact/ts-helpers";
+import { Calendar } from '@orcado/yoyui/calendar';
+import { Nullable } from "@orcado/yoyui/ts-helpers";
 
 export default function IconDemo() {
     const [date, setDate] = useState<Nullable<Date>>(null);
@@ -105,7 +108,7 @@ export default function IconDemo() {
                         Icon Template
                     </label>
 
-                    <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon timeOnly icon={() => <i className="pi pi-clock" />} />
+                    <Calendar value={date} onChange={(e) => setDate(e.value)} showIcon timeOnly icon={() => renderSonarNested1()} />
                 </div>
             </div>
             <DocSectionCode code={code} />

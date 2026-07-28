@@ -22,7 +22,7 @@ export const ContextMenu = React.memo(
         const [focused, setFocused] = React.useState(false);
         const [focusTrigger, setFocusTrigger] = React.useState(false);
         const [focusedItemInfo, setFocusedItemInfo] = React.useState({ index: -1, level: 0, parentKey: '' });
-        const [activeItemPath, setActiveItemPath] = React.useState('');
+        const [activeItemPath, setActiveItemPath] = React.useState([]);
         const [processedItems, setProcessedItems] = React.useState([]);
         const [visibleItems, setVisibleItems] = React.useState([]);
         const [focusedItemId, setFocusedItemId] = React.useState(null);
@@ -718,7 +718,7 @@ export const ContextMenu = React.memo(
                         <ContextMenuSub
                             ref={listRef}
                             ariaLabel={props.ariaLabel}
-                            ariaLabelledby={props.ariaLabelledby}
+                            ariaLabelledby={props.ariaLabelledBy ?? props.ariaLabelledby}
                             activeItemPath={activeItemPath}
                             hostName="ContextMenu"
                             id={idState + '_list'}

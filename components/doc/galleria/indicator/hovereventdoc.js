@@ -21,7 +21,7 @@ export function HoverEventDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function HoverEventDemo() {
@@ -44,7 +44,7 @@ export default function HoverEventDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Galleria } from 'primereact/galleria';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function HoverEventDemo() {
@@ -68,8 +68,8 @@ export default function HoverEventDemo() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },

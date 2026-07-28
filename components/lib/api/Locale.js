@@ -1,4 +1,4 @@
-import PrimeReact from './PrimeReact';
+import { PrimeReactConfig } from './PrimeReact';
 
 let locales = {
     en: {
@@ -136,11 +136,11 @@ let locales = {
 };
 
 function locale(locale) {
-    locale && (PrimeReact.locale = locale);
+    locale && (PrimeReactConfig.locale = locale);
 
     return {
-        locale: PrimeReact.locale,
-        options: locales[PrimeReact.locale]
+        locale: PrimeReactConfig.locale,
+        options: locales[PrimeReactConfig.locale]
     };
 }
 
@@ -165,7 +165,7 @@ function updateLocaleOptions(options, locale) {
         throw new Error('Unsafe locale detected');
     }
 
-    const _locale = locale || PrimeReact.locale;
+    const _locale = locale || PrimeReactConfig.locale;
 
     locales[_locale] = { ...locales[_locale], ...options };
 }
@@ -175,12 +175,12 @@ function localeOption(key, locale) {
         throw new Error('Unsafe key detected');
     }
 
-    const _locale = locale || PrimeReact.locale;
+    const _locale = locale || PrimeReactConfig.locale;
 
     try {
         return localeOptions(_locale)[key];
     } catch (error) {
-        throw new Error(`The ${key} option is not found in the current locale('${_locale}').`);
+        throw new Error(`The ${key} option is not found in the current locale('${_locale}').`, { cause: error });
     }
 }
 
@@ -201,7 +201,7 @@ function ariaLabel(ariaKey, options) {
         throw new Error('Unsafe ariaKey detected');
     }
 
-    const _locale = PrimeReact.locale;
+    const _locale = PrimeReactConfig.locale;
 
     try {
         let ariaLabel = localeOptions(_locale).aria[ariaKey];
@@ -216,12 +216,12 @@ function ariaLabel(ariaKey, options) {
 
         return ariaLabel;
     } catch (error) {
-        throw new Error(`The ${ariaKey} option is not found in the current locale('${_locale}').`);
+        throw new Error(`The ${ariaKey} option is not found in the current locale('${_locale}').`, { cause: error });
     }
 }
 
 function localeOptions(locale) {
-    const _locale = locale || PrimeReact.locale;
+    const _locale = locale || PrimeReactConfig.locale;
 
     if (_locale.includes('__proto__') || _locale.includes('prototype')) {
         throw new Error('Unsafe locale detected');

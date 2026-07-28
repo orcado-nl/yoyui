@@ -16,7 +16,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React from 'react'; 
-import { TabMenu } from 'primereact/tabmenu';
+import { TabMenu } from '@orcado/yoyui/tabmenu';
 
 export default function BasicDemo() {
     const items = [
@@ -35,8 +35,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react'; 
-import { TabMenu } from 'primereact/tabmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { TabMenu } from '@orcado/yoyui/tabmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function BasicDemo() {
     const items: MenuItem[] = [

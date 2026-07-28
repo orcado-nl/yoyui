@@ -7,7 +7,7 @@ const TemplateRelated = ({ relatedData }) => {
                 <h2 className="template-related-title">Related Layouts</h2>
                 <div className="template-related-slide">
                     {relatedData.map((data, i) => (
-                        <a href={data.href} target="_blank" key={i} className="template-related-slide-card">
+                        <a href={data.href} target="_blank" key={data?.id ?? data?.key ?? data?.name ?? data?.label ?? data?.value ?? data?.href ?? data?.src ?? data?.field ?? JSON.stringify(data)} className="template-related-slide-card">
                             <img src={data.src} alt={'Related Image ' + i} />
                         </a>
                     ))}

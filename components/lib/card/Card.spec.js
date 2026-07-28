@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 import { snapshot } from '../../test';
 import { PrimeReactProvider } from '../api/Api';
 import { Button } from '../button/Button';
@@ -13,6 +14,11 @@ const footer = (
 );
 
 describe('Card', () => {
+    test('renders its content', () => {
+        const { getByText } = render(<Card>Card content</Card>);
+
+        expect(getByText('Card content')).toBeInTheDocument();
+    });
     snapshot(
         <PrimeReactProvider>
             <Card />

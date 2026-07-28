@@ -2,7 +2,7 @@
  *
  * DataScroller displays data with on demand loading using scroll.
  *
- * [Live Demo](https://www.primereact.org/datascroller/)
+ * [Live Demo](https://yoyui.orcado.dev/datascroller/)
  *
  * @module datascroller
  *
@@ -159,13 +159,13 @@ export interface DataScrollerProps extends Omit<React.DetailedHTMLProps<React.HT
 }
 
 /**
- * **PrimeReact - DataScroller**
+ * **YoYui - DataScroller**
  *
  * _DataScroller displays data with on demand loading using scroll._
  *
- * [Live Demo](https://www.primereact.org/datascroller/)
+ * [Live Demo](https://yoyui.orcado.dev/datascroller/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -12,7 +12,7 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Slider } from "primereact/slider";
+import { Slider } from "@orcado/yoyui/slider";
 
 export default function BasicDemo() {
     const [value, setValue] = useState(null);
@@ -26,7 +26,7 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Slider, SliderChangeEvent } from "primereact/slider";
+import { Slider, SliderChangeEvent } from "@orcado/yoyui/slider";
 
 export default function BasicDemo() {
     const [value, setValue] = useState<number>(null);

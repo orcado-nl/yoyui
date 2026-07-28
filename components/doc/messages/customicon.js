@@ -17,7 +17,7 @@ export function CustomIcon(props) {
                     sticky: true,
                     content: (
                         <React.Fragment>
-                            <img alt="logo" src="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" width="32" />
+                            <img alt="logo" src="/images/avatar/amyelsner.png" width="32" />
                             <div className="ml-2">How may I help you?</div>
                         </React.Fragment>
                     )
@@ -35,7 +35,7 @@ msgs.current.show([
         sticky: true,
         content: (
             <React.Fragment>
-                <img alt="logo" src="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" width="32" />
+                <img alt="logo" src="/images/avatar/amyelsner.png" width="32" />
                 <div className="ml-2">How may I help you?</div>
             </React.Fragment>
         )
@@ -44,8 +44,8 @@ msgs.current.show([
         `,
         javascript: `
 import React, { useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function BasicDemo() {
     const msgs = useRef(null);
@@ -60,7 +60,7 @@ export default function BasicDemo() {
                     sticky: true,
                     content: (
                         <React.Fragment>
-                            <img alt="logo" src="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" width="32" />
+                            <img alt="logo" src="/images/avatar/amyelsner.png" width="32" />
                             <div className="ml-2">How may I help you?</div>
                         </React.Fragment>
                     )
@@ -78,8 +78,8 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef } from 'react'; 
-import { useMountEffect } from 'primereact/hooks';
-import { Messages } from 'primereact/messages';
+import { useMountEffect } from '@orcado/yoyui/hooks';
+import { Messages } from '@orcado/yoyui/messages';
 
 export default function BasicDemo() {
     const msgs = useRef<Messages>(null);
@@ -93,7 +93,7 @@ export default function BasicDemo() {
                     sticky: true,
                     content: (
                         <React.Fragment>
-                            <img alt="logo" src="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" width="32" />
+                            <img alt="logo" src="/images/avatar/amyelsner.png" width="32" />
                             <div className="ml-2">How may I help you?</div>
                         </React.Fragment>
                     )

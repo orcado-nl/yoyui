@@ -2,7 +2,7 @@
  *
  * StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.
  *
- * [Live Demo](https://www.primereact.org/styleclass)
+ * [Live Demo](https://yoyui.orcado.dev/styleclass)
  *
  * @module styleclass
  *
@@ -73,13 +73,13 @@ export interface StyleClassProps {
 }
 
 /**
- * **PrimeReact - StyleClass**
+ * **YoYui - StyleClass**
  *
  * _StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element._
  *
- * [Live Demo](https://www.primereact.org/styleclass/)
+ * [Live Demo](https://yoyui.orcado.dev/styleclass/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -1,27 +1,18 @@
+function resolveClassNames(value) {
+    if (!value) return [];
+
+    const type = typeof value;
+
+    if (type === 'string' || type === 'number') return [value];
+    if (Array.isArray(value)) return value.flatMap(resolveClassNames);
+    if (type === 'object')
+        return Object.entries(value)
+            .filter(([, enabled]) => enabled)
+            .map(([className]) => className);
+
+    return [];
+}
+
 export function classNames(...args) {
-    if (args) {
-        let classes = [];
-
-        for (let i = 0; i < args.length; i++) {
-            let className = args[i];
-
-            if (!className) {
-                continue;
-            }
-
-            const type = typeof className;
-
-            if (type === 'string' || type === 'number') {
-                classes.push(className);
-            } else if (type === 'object') {
-                const _classes = Array.isArray(className) ? className : Object.entries(className).map(([key, value]) => (value ? key : null));
-
-                classes = _classes.length ? classes.concat(_classes.filter((c) => !!c)) : classes;
-            }
-        }
-
-        return classes.join(' ').trim();
-    }
-
-    return undefined;
+    return args.flatMap(resolveClassNames).join(' ').trim();
 }

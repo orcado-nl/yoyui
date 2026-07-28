@@ -37,7 +37,7 @@ export function DynamicDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { Checkbox } from "primereact/checkbox";
+import { Checkbox } from "@orcado/yoyui/checkbox";
 
 export default function DynamicDemo() {
     const categories = [
@@ -79,7 +79,7 @@ export default function DynamicDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { Checkbox } from "primereact/checkbox";
+import { Checkbox } from "@orcado/yoyui/checkbox";
 
 interface Category {
     name: string; 

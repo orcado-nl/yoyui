@@ -43,16 +43,12 @@ export function AdvancedFilterDoc(props) {
         switch (status) {
             case 'unqualified':
                 return 'danger';
-
             case 'qualified':
                 return 'success';
-
             case 'new':
                 return 'info';
-
             case 'negotiation':
                 return 'warning';
-
             case 'renewal':
                 return null;
         }
@@ -75,11 +71,7 @@ export function AdvancedFilterDoc(props) {
     };
 
     const formatDate = (value) => {
-        return value.toLocaleDateString('en-US', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        });
+        return value.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
     };
 
     const formatCurrency = (value) => {
@@ -95,7 +87,6 @@ export function AdvancedFilterDoc(props) {
         let _filters = { ...filters };
 
         _filters.global.value = value;
-
         setFilters(_filters);
         setGlobalFilterValue(value);
     };
@@ -130,7 +121,7 @@ export function AdvancedFilterDoc(props) {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={`flag flag-${rowData.country.code}`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -153,7 +144,7 @@ export function AdvancedFilterDoc(props) {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${representative.image}`} width="32" />
+                <img alt={representative.name} src={`/images/avatar/${representative.image}`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -166,7 +157,7 @@ export function AdvancedFilterDoc(props) {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={`https://primefaces.org/cdn/primereact/images/avatar/${option.image}`} width="32" />
+                <img alt={option.name} src={`/images/avatar/${option.image}`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -232,7 +223,6 @@ export function AdvancedFilterDoc(props) {
     };
 
     const header = renderHeader();
-
     const code = {
         basic: `
 <DataTable value={customers} paginator showGridlines rows={10} loading={loading} dataKey="id" 
@@ -253,22 +243,22 @@ export function AdvancedFilterDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown } from 'primereact/dropdown';
-import { InputNumber } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect } from 'primereact/multiselect';
-import { Slider } from 'primereact/slider';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
+import { Button } from '@orcado/yoyui/button';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { MultiSelect } from '@orcado/yoyui/multiselect';
+import { Slider } from '@orcado/yoyui/slider';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 export default function AdvancedFilterDemo() {
@@ -381,7 +371,7 @@ export default function AdvancedFilterDemo() {
     const countryBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -404,7 +394,7 @@ export default function AdvancedFilterDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -417,7 +407,7 @@ export default function AdvancedFilterDemo() {
     const representativesItemTemplate = (option) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -507,22 +497,22 @@ export default function AdvancedFilterDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { classNames } from 'primereact/utils';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
-import { Column, ColumnFilterApplyTemplateOptions, ColumnFilterClearTemplateOptions, ColumnFilterElementTemplateOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { InputNumber, InputNumberChangeEvent } from 'primereact/inputnumber';
-import { Button } from 'primereact/button';
-import { ProgressBar } from 'primereact/progressbar';
-import { Calendar } from 'primereact/calendar';
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Slider, SliderChangeEvent } from 'primereact/slider';
-import { Tag } from 'primereact/tag';
-import { TriStateCheckbox, TriStateCheckboxChangeEvent } from 'primereact/tristatecheckbox';
+import { classNames } from '@orcado/yoyui/utils';
+import { FilterMatchMode, FilterOperator } from '@orcado/yoyui/api';
+import { DataTable, DataTableFilterMeta } from '@orcado/yoyui/datatable';
+import { Column, ColumnFilterApplyTemplateOptions, ColumnFilterClearTemplateOptions, ColumnFilterElementTemplateOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { InputNumber, InputNumberChangeEvent } from '@orcado/yoyui/inputnumber';
+import { Button } from '@orcado/yoyui/button';
+import { ProgressBar } from '@orcado/yoyui/progressbar';
+import { Calendar } from '@orcado/yoyui/calendar';
+import { MultiSelect, MultiSelectChangeEvent } from '@orcado/yoyui/multiselect';
+import { Slider, SliderChangeEvent } from '@orcado/yoyui/slider';
+import { Tag } from '@orcado/yoyui/tag';
+import { TriStateCheckbox, TriStateCheckboxChangeEvent } from '@orcado/yoyui/tristatecheckbox';
 import { CustomerService } from './service/CustomerService';
 
 interface Representative {
@@ -677,7 +667,7 @@ export default function AdvancedFilterDemo() {
     const countryBodyTemplate = (rowData: Customer) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt="flag" src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
+                <img alt="flag" src="/images/flag/flag_placeholder.png" className={\`flag flag-\${rowData.country.code}\`} style={{ width: '24px' }} />
                 <span>{rowData.country.name}</span>
             </div>
         );
@@ -700,7 +690,7 @@ export default function AdvancedFilterDemo() {
 
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={representative.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${representative.image}\`} width="32" />
+                <img alt={representative.name} src={\`/images/avatar/\${representative.image}\`} width="32" />
                 <span>{representative.name}</span>
             </div>
         );
@@ -713,7 +703,7 @@ export default function AdvancedFilterDemo() {
     const representativesItemTemplate = (option: Representative) => {
         return (
             <div className="flex align-items-center gap-2">
-                <img alt={option.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${option.image}\`} width="32" />
+                <img alt={option.name} src={\`/images/avatar/\${option.image}\`} width="32" />
                 <span>{option.name}</span>
             </div>
         );
@@ -858,6 +848,7 @@ export default function AdvancedFilterDemo() {
                             filterApply={filterApplyTemplate}
                             filterFooter={filterFooterTemplate}
                         />
+
                         <Column
                             header="Agent"
                             filterField="representative"
@@ -868,6 +859,7 @@ export default function AdvancedFilterDemo() {
                             filter
                             filterElement={representativeFilterTemplate}
                         />
+
                         <Column header="Date" filterField="date" dataType="date" style={{ minWidth: '10rem' }} body={dateBodyTemplate} filter filterElement={dateFilterTemplate} />
                         <Column header="Balance" filterField="balance" dataType="numeric" style={{ minWidth: '10rem' }} body={balanceBodyTemplate} filter filterElement={balanceFilterTemplate} />
                         <Column field="status" header="Status" filterMenuStyle={{ width: '14rem' }} style={{ minWidth: '12rem' }} body={statusBodyTemplate} filter filterElement={statusFilterTemplate} />

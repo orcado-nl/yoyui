@@ -1,5 +1,284 @@
 # Changelog
 
+## Documentation regression corrections (2026-07-27)
+
+### Component and audit corrections
+
+- Restored responsive floating-label sizing so controls with an intrinsic width,
+  including the Mention Float Label example, shrink to their available card width
+  instead of widening mobile pages.
+- Corrected ContextMenu's initial active-item path to use an empty collection,
+  preventing its first focused-item update from calling array operations on a
+  string.
+- Contained DataTable roots and made their headers horizontally scrollable in
+  narrow documentation cards, keeping wide editable tables accessible through
+  their existing wrapper scrollbars without widening the mobile page.
+- Made deferred documentation examples and simulated DataTable network delays
+  deterministic only during visual-test runs. Hosted examples retain their
+  original loading behavior, while the audit now waits for every deferred and
+  virtualized loading state to finish before measuring or capturing the page.
+- Changed dark-mode visual navigation so documentation components mount after the
+  dark theme is active. This ensures Chart examples read the intended theme
+  variables when creating their datasets and options.
+- Added stable-canvas detection before Chart screenshots and focused mobile
+  containment coverage for floating-label Mention controls.
+
+### Required changes for users
+
+No consumer code changes are required. Public component props and APIs are
+unchanged; these corrections restore PrimeReact 10.9.7-compatible responsive
+layout and make documentation regression checks deterministic.
+
+## Calendar migration parity (2026-07-26)
+
+### Component corrections
+
+- Restored PrimeReact 10 Calendar startup behavior so a hidden, non-inline
+  `touchUI` Calendar no longer creates its modal mask or disables document
+  scrolling during mount.
+- Restored the documentation page scrollbar and the original available content
+  width. This also returns the fluid inputs and calendar trigger buttons in the
+  Icon example to their PrimeReact 10 dimensions and keeps both built-in and
+  custom trigger icons centered.
+- Added Calendar interaction checks at desktop, tablet, and mobile Chromium
+  viewports for document scrolling, compact input and trigger geometry, icon
+  centering, connected input/button edges, overlay positioning, and scroll-lock
+  behavior.
+- Re-recorded the six reviewed Linux Chromium Calendar baselines after restoring
+  the PrimeReact 10 layout.
+- Extended the all-component documentation health check to fail whenever a page
+  unexpectedly disables vertical document scrolling.
+
+### Required changes for users
+
+No consumer code changes are required. The Calendar correction restores the
+behavior and layout from PrimeReact 10.9.7; existing Calendar props and public
+APIs are unchanged.
+
+## Documentation visual parity (2026-07-24)
+
+### Component and documentation corrections
+
+- Audited all 94 component documentation routes against PrimeReact v10.9.8 in
+  Chromium at desktop (1440×900), tablet (1024×768), and mobile (390×844)
+  viewports in light and dark modes.
+- Verified the AutoComplete dropdown-button and virtual-scroll scenarios across
+  opening, filtering, keyboard and mouse selection, scrolling, overlay anchoring,
+  closing, and reopening. The reported virtual-scroll geometry matches the v10
+  reference and required no component-specific CSS workaround.
+- Restored MegaMenu's v10 list-key behavior. The optimized fallback attempted to
+  serialize circular processed menu items and prevented the MegaMenu
+  documentation page from rendering.
+- Contained scrollable TreeTable views within the component root and added
+  documentation-level narrow-screen containment for non-scrollable examples,
+  preventing frozen table content from extending beyond the viewport.
+- Constrained Mention and its textarea to their available inline width so the
+  documented fixed-column example no longer widens the page on narrow screens.
+- Reserved the original 300×200 dimensions for the local OverlayPanel demo image
+  so the popup is positioned with its final width and remains inside mobile
+  viewports while the replacement asset loads.
+- Preserved the upstream aspect ratio for the local Slider filter image so the
+  replacement asset keeps the original example height and spacing.
+- Made the responsive Galleria example retain its original 800px desktop size
+  while shrinking to the available content width on smaller viewports.
+- Corrected narrow-screen layouts for IconField, Stepper, TabView, paginator, and
+  Dock examples so controls wrap or scroll within their demonstration card.
+- Added a shared reset class to documentation examples that intentionally render
+  menu item templates as semantic buttons, preserving the previous visual
+  appearance without invalid interactive markup.
+- Restored MeterGroup's composite meter semantics, kept Tooltip's hidden state out
+  of the accessibility tree, and made Knob SVG coordinates deterministic between
+  server and client rendering.
+
+### Permanent regression coverage
+
+- Added Playwright and 564 reviewed snapshots: 94 component routes × three
+  Chromium viewports × light and dark modes.
+- Visual checks use documentation-content crops, deterministic timers, disabled
+  animation and caret rendering, a per-pixel threshold of `0.2`, and a maximum
+  differing-pixel ratio of `0.001`.
+- Added exact assertions for horizontal overflow, clipped content, broken images,
+  intrinsic image behavior, and actionable browser-console or page errors.
+- Added interaction scenarios for selection and virtual scrolling controls,
+  overlays, dialogs, tooltips, menus, DataTable behavior, media components,
+  disclosure controls, drag/resize interactions, and file uploads.
+- Added focused Jest regression tests for AutoComplete, VirtualScroller,
+  MegaMenu, TreeTable, MeterGroup, Tooltip, and deterministic Knob rendering.
+- Updated CI to run the checks in Linux Chromium and upload Playwright actual,
+  expected, diff, trace, and report artifacts when a visual test fails.
+- Added `test:visual`, `test:visual:update`, and `audit:docs` scripts. Baseline
+  updates remain explicit and require review; CI never compares against the live
+  PrimeReact website.
+- The live comparison report retains every raw difference and separately labels
+  reviewed local-asset, asynchronous-demo, and responsive-containment
+  differences with their reason. Only unexplained differences, broken resources,
+  target-only browser errors, or interaction mismatches fail the audit.
+
+### Required changes for users
+
+No consumer code changes are required for this documentation-parity pass. Public
+component APIs remain unchanged. The corrections restore v10 behavior, improve
+accessibility output, or affect only documentation layout and regression tooling.
+
+## Sonarqube fixes
+
+This entry records all the changes to make sure the project adheres to the Sonarqube quality standards.
+
+### Public API and accessibility fixes
+
+- Fixed Chips so the documented `ariaLabelledBy` prop is applied to the listbox's
+  `aria-labelledby` attribute. The previous runtime implementation read the
+  incorrectly cased `ariaLabelledby` name even though the default props and
+  TypeScript declaration already exposed `ariaLabelledBy`.
+- Aligned ContextMenu's runtime and default props with its existing
+  `ariaLabelledBy` TypeScript declaration.
+- Corrected the Tree TypeScript declaration from `ariaLabelledby` to
+  `ariaLabelledBy`, matching the existing runtime prop.
+- Corrected the InputOtp TypeScript declaration from `readonly` to `readOnly`,
+  matching its default props and runtime behavior.
+- Fixed Knob's remaining read-only keyboard and tab-order checks to use `readOnly`.
+  A read-only Knob now consistently ignores keyboard changes and is removed from the
+  tab order.
+- Updated Knob accessibility forwarding to use React's standard `aria-label` and
+  `aria-labelledby` DOM props.
+- Corrected DeferredContent's default prop from `onload` to `onLoad`. Its component
+  callback is now consumed by DeferredContent and is no longer also forwarded to the
+  root `<div>` as a native load handler.
+
+### Hook correctness and lifecycle changes
+
+- Updated `useCounter` so its initial value and options are optional in TypeScript,
+  option fields can be supplied independently, and the return value has a concrete
+  type instead of `any`.
+- Changed `useCounter` increments and decrements to functional state updates, added
+  correct support for zero-valued boundaries, clamped steps to `min` and `max`, and
+  made `reset()` restore the supplied initial value instead of always returning to
+  zero.
+- Reworked `useEventListener` to retain the active registration separately from the
+  latest callback. It now invokes the newest callback without unnecessary
+  remove/add cycles and correctly re-registers when the target, event type, options,
+  or `when` state changes.
+- Reworked `useOverlayScrollListener` with the same stable-listener lifecycle,
+  including correct cleanup and rebinding when its target, options, or
+  `hideOverlaysOnDocumentScrolling` configuration changes.
+- Updated `useIntersectionObserver` to avoid recreating the observer when an inline
+  options object is recreated, to preserve scalar and array thresholds, and to
+  return `false` safely when `IntersectionObserver` is unavailable.
+- Updated `useMatchMedia` to be safe during server-side rendering, support both
+  modern and legacy MediaQueryList listener APIs, remove listeners when disabled,
+  and return `false` while `when` is false.
+- Updated `useLocalStorage` and `useSessionStorage` so sequential functional updates
+  use the latest value, key or storage changes rehydrate and rebind correctly,
+  invalid cross-tab JSON falls back safely, and values that serialize to
+  `undefined` remove the storage entry instead of storing an invalid sentinel.
+
+### Component behavior and data integrity
+
+- Fixed type-ahead search timeout cleanup in MegaMenu and TieredMenu by clearing the
+  timer stored in the ref rather than the ref object.
+- Fixed PanelMenu type-ahead timeout cleanup and corrected the misspelled
+  `searchTimeout.currentt` assignment, preventing stale timers and search state.
+- Changed TreeTable recursive single-column and multi-column sorting to replace
+  parent nodes with updated copies instead of mutating nested `children` arrays
+  supplied through the `value` prop.
+
+### Dependencies
+
+- Updated `jspdf` from `4.0.0` to `4.2.1`.
+- Updated `jspdf-autotable` from `5.0.2` to `5.0.8`, including its declared support
+  for jsPDF 4.
+- Regenerated `package-lock.json`, changing 69 resolved package entries. This
+  refresh includes Babel, DOMPurify, PostCSS, Rollup, SVGO, WebSocket, YAML, glob
+  matching, and related transitive packages; no additional direct dependency was
+  introduced.
+
+### Tests
+
+- Added five focused test files containing 13 regression tests.
+- Added coverage for Chips labeling, DeferredContent callback isolation, Knob
+  read-only behavior, immutable nested TreeTable sorting, counter boundaries,
+  event-listener lifecycle, storage updates, IntersectionObserver stability, and
+  match-media cleanup.
+- Post-merge validation passes 31 Jest suites, 293 tests, and 145 snapshots.
+- The branch diff passes Git's whitespace validation.
+
+### Deprecated prop aliases
+
+The previous spellings remain supported for compatibility and are deprecated in
+favor of the corrected names:
+
+| Deprecated spelling | Preferred spelling | Affected API |
+| --- | --- | --- |
+| `readonly` | `readOnly` | InputOtp; any Knob workaround using the lowercase name |
+| `ariaLabelledby` | `ariaLabelledBy` | Chips, ContextMenu, and Tree |
+| `ariaLabel` | `aria-label` | Knob |
+| `ariaLabelledby` | `aria-labelledby` | Knob |
+| `onload` | `onLoad` | DeferredContent |
+
+The Chips and ContextMenu corrections align runtime behavior with declarations that
+already exposed `ariaLabelledBy`; the Tree and InputOtp corrections align their
+declarations with the existing runtime names. Existing code can migrate to
+`readOnly`, `ariaLabelledBy`, `aria-label`, `aria-labelledby`, and `onLoad` without
+being forced to change in this patch release.
+
+Review the following behavior changes where applicable:
+
+- If code expects `useCounter().reset()` to return to zero regardless of its initial
+  value, update that logic or initialize the counter with zero. Counter steps now
+  clamp at `min` and `max` rather than overshooting or being incorrectly blocked.
+- If code changes the key passed to `useLocalStorage` or `useSessionStorage`, expect
+  the hook to load the new key. Setting a value to `undefined` now removes that key;
+  do not depend on the literal string `"undefined"` being stored.
+- If code relies on `useEventListener` or `useOverlayScrollListener` physically
+  removing and adding a DOM listener whenever only the callback identity changes,
+  move that side effect out of the callback. The hooks retain one registration and
+  invoke the latest callback.
+- If code uses `useMatchMedia(query, false)`, expect the returned match state to be
+  `false` instead of retaining a stale previous match.
+- If code relies on TreeTable sorting to mutate the nested arrays passed in `value`,
+  stop reading sorted data back from that input object. Treat `value` as immutable
+  and use the component's controlled sorting state and callbacks.
+- Run `npm install` after taking the branch so the direct PDF dependencies and
+  refreshed lockfile are installed. Revalidate byte-for-byte PDF snapshots if your
+  tests depend on jsPDF's exact generated output.
+
+No component names, export paths, or event payload shapes changed on the
+`optimisations` branch.
+
+## Unreleased - SonarQube cleanup (2026-07-27)
+
+The repository-wide SonarQube rewrite was audited and reduced to avoid changing
+PrimeReact 10 behavior merely to satisfy static-analysis metrics.
+
+### Changed
+
+- Removed the generated `runComplexBranch*`, `handleSonarNested*`, and
+  `resolveConditional` helper layer from components, documentation, API routes, and
+  metadata generators.
+- Restored the affected high-risk components to their established control flow while
+  retaining focused fixes covered by regression tests, including immutable TreeTable
+  sorting, menu search-timer cleanup, Tooltip visibility semantics, Calendar startup
+  behavior, ContextMenu state initialization, and shared-style lifetime handling.
+- Replaced unnecessary `Array.at`, `Array.toSorted`, `Object.hasOwn`, and
+  `String.replaceAll` substitutions in distributed component code with compatible
+  equivalents. This avoids raising the browser runtime requirement without an
+  intentional compatibility decision.
+- Added deprecated compatibility aliases for corrected Knob, InputOtp,
+  DeferredContent, Chips, ContextMenu, and Tree prop spellings. Existing consumers
+  can migrate without a breaking patch-release change.
+- Limited the default SonarQube source scope to the distributed library, services,
+  and maintained API tooling. Documentation and visual baselines no longer drive
+  production-component rewrites, and SCM analysis is no longer disabled.
+- Kept YoYui branding in generated API documentation and JetBrains Web Types output.
+
+### Verification
+
+- Jest: **38 suites, 309 tests, and 145 snapshots passed**.
+- ESLint: passed with zero warnings.
+- TypeScript: passed.
+- Prettier verification: passed.
+- Next.js production build: passed and generated 156 pages.
+
 ## [10.9.8](https://github.com/primefaces/primereact/tree/10.9.8) (2026-05-14)
 
 [Full Changelog](https://github.com/primefaces/primereact/compare/10.9.7...10.9.8)

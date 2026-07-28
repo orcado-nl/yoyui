@@ -35,11 +35,7 @@ export function BasicDoc(props) {
         </IconField>
     );
 
-    const endContent = (
-        <React.Fragment>
-            <SplitButton label="Save" model={items} icon="pi pi-check" />
-        </React.Fragment>
-    );
+    const endContent = <SplitButton label="Save" model={items} icon="pi pi-check" />;
 
     const code = {
         basic: `
@@ -47,12 +43,12 @@ export function BasicDoc(props) {
         `,
         javascript: `
 import React from 'react';
-import { Toolbar } from 'primereact/toolbar';
-import { Button } from 'primereact/button';
-import { SplitButton } from 'primereact/splitbutton';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
+import { Toolbar } from '@orcado/yoyui/toolbar';
+import { Button } from '@orcado/yoyui/button';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
 
 export default function BasicDemo() {
     const items = [
@@ -96,13 +92,13 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React from 'react';
-import { Toolbar } from 'primereact/toolbar';
-import { Button } from 'primereact/button';
-import { MenuItem } from 'primereact/menuitem';
-import { SplitButton } from 'primereact/splitbutton';
-import { InputText } from 'primereact/inputtext';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
+import { Toolbar } from '@orcado/yoyui/toolbar';
+import { Button } from '@orcado/yoyui/button';
+import { MenuItem } from '@orcado/yoyui/menuitem';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { IconField } from '@orcado/yoyui/iconfield';
+import { InputIcon } from '@orcado/yoyui/inputicon';
 
 export default function BasicDemo() {
     const items: MenuItem[] = [

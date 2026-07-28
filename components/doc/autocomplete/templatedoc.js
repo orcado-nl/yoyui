@@ -29,7 +29,7 @@ export function TemplateDoc(props) {
     const itemTemplate = (item) => {
         return (
             <div className="flex align-items-center">
-                <img alt={item.name} src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png" className={`flag flag-${item.code.toLowerCase()} mr-2`} style={{ width: '18px' }} />
+                <img alt={item.name} src="/images/flag/flag_placeholder.png" className={`flag flag-${item.code.toLowerCase()} mr-2`} style={{ width: '18px' }} />
                 <div>{item.name}</div>
             </div>
         );
@@ -58,7 +58,6 @@ export function TemplateDoc(props) {
     useEffect(() => {
         CountryService.getCountries().then((data) => setCountries(data));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
     const code = {
         basic: `
 <AutoComplete field="name" value={selectedCountry} suggestions={filteredCountries}  
@@ -66,7 +65,7 @@ export function TemplateDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useState } from 'react';
-import { AutoComplete } from "primereact/autocomplete";
+import { AutoComplete } from "@orcado/yoyui/autocomplete";
 import { CountryService } from './service/CountryService';
 
 export default function TemplateDemo() {
@@ -112,7 +111,7 @@ export default function TemplateDemo() {
             <div className="flex align-items-center">
                 <img
                     alt={item.name}
-                    src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+                    src="/images/flag/flag_placeholder.png"
                     className={\`flag flag-\${item.code.toLowerCase()} mr-2\`}
                     style={{width: '18px'}}
                 />
@@ -139,7 +138,7 @@ export default function TemplateDemo() {
         `,
         typescript: `
 import React, { useEffect, useState } from 'react';
-import { AutoComplete, AutoCompleteCompleteEvent } from "primereact/autocomplete";
+import { AutoComplete, AutoCompleteCompleteEvent } from "@orcado/yoyui/autocomplete";
 import { CountryService } from './service/CountryService';
 
 interface Country {
@@ -175,7 +174,7 @@ export default function TemplateDemo() {
             <div className="flex align-items-center">
                 <img
                     alt={item.name}
-                    src="https://primefaces.org/cdn/primereact/images/flag/flag_placeholder.png"
+                    src="/images/flag/flag_placeholder.png"
                     className={\`flag flag-\${item.code.toLowerCase()} mr-2\`}
                     style={{width: '18px'}}
                 />

@@ -2,7 +2,7 @@
  *
  * OrderList is used to sort a collection.
  *
- * [Live Demo](https://www.primereact.org/orderlist/)
+ * [Live Demo](https://yoyui.orcado.dev/orderlist/)
  *
  * @module orderlist
  *
@@ -298,13 +298,13 @@ export interface OrderListProps extends Omit<React.DetailedHTMLProps<React.HTMLA
 }
 
 /**
- * **PrimeReact - OrderList**
+ * **YoYui - OrderList**
  *
  * _OrderList is used to sort a collection._
  *
- * [Live Demo](https://www.primereact.org/orderlist/)
+ * [Live Demo](https://yoyui.orcado.dev/orderlist/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

@@ -116,6 +116,7 @@ export const TreeBase = ComponentBase.extend({
         value: null,
         ariaLabel: null,
         ariaLabelledBy: null,
+        ariaLabelledby: null,
         checkboxIcon: null,
         className: null,
         collapseIcon: null,

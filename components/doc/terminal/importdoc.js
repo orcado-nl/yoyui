@@ -4,8 +4,8 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 export function ImportDoc(props) {
     const code = {
         basic: `
-import { Terminal } from 'primereact/terminal';
-import { TerminalService } from 'primereact/terminalservice';
+import { Terminal } from '@orcado/yoyui/terminal';
+import { TerminalService } from '@orcado/yoyui/terminalservice';
         `
     };
 

@@ -4,7 +4,7 @@ import { DocSectionText } from '@/components/doc/common/docsectiontext';
 export function ImportDoc(props) {
     const code = {
         basic: `
-import { SplitButton } from 'primereact/splitbutton';
+import { SplitButton } from '@orcado/yoyui/splitbutton';
         `
     };
 

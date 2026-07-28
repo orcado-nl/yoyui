@@ -6,24 +6,11 @@ import { PhotoService } from '../../../service/PhotoService';
 
 export function ResponsiveDoc(props) {
     const [images, setImages] = useState(null);
-
     const responsiveOptions = [
-        {
-            breakpoint: '1024px',
-            numVisible: 5
-        },
-        {
-            breakpoint: '960px',
-            numVisible: 4
-        },
-        {
-            breakpoint: '768px',
-            numVisible: 3
-        },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
+        { breakpoint: '1024px', numVisible: 5 },
+        { breakpoint: '960px', numVisible: 4 },
+        { breakpoint: '768px', numVisible: 3 },
+        { breakpoint: '560px', numVisible: 1 }
     ];
 
     useEffect(() => {
@@ -40,13 +27,13 @@ export function ResponsiveDoc(props) {
 
     const code = {
         basic: `
-<Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }}
+<Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media"
     item={itemTemplate} thumbnail={thumbnailTemplate} />
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ResponsiveDoc() {
@@ -85,7 +72,7 @@ export default function ResponsiveDoc() {
 
     return (
         <div>
-            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }}
+            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media"
                 item={itemTemplate} thumbnail={thumbnailTemplate} />
         </div>
     )
@@ -93,8 +80,8 @@ export default function ResponsiveDoc() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { Galleria } from 'primereact/galleria';
+import { Button } from '@orcado/yoyui/button';
+import { Galleria } from '@orcado/yoyui/galleria';
 import { PhotoService } from './service/PhotoService';
 
 export default function ResponsiveDoc() {
@@ -133,7 +120,7 @@ export default function ResponsiveDoc() {
     
     return (
         <div>
-            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }}
+            <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media"
                 item={itemTemplate} thumbnail={thumbnailTemplate} />
         </div>
     )
@@ -142,8 +129,8 @@ export default function ResponsiveDoc() {
         data: `
 /* PhotoService */
 {
-    itemImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1.jpg',
-    thumbnailImageSrc: 'https://primefaces.org/cdn/primereact/images/galleria/galleria1s.jpg',
+    itemImageSrc: '/images/galleria/galleria1.jpg',
+    thumbnailImageSrc: '/images/galleria/galleria1s.jpg',
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
@@ -159,8 +146,8 @@ export default function ResponsiveDoc() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <div>
-                    <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular style={{ maxWidth: '800px' }} item={itemTemplate} thumbnail={thumbnailTemplate} />
+                <div className="doc-responsive-media-container">
+                    <Galleria value={images} responsiveOptions={responsiveOptions} numVisible={7} circular className="doc-responsive-media" item={itemTemplate} thumbnail={thumbnailTemplate} />
                 </div>
             </div>
             <DocSectionCode code={code} service={['PhotoService']} />

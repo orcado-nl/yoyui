@@ -86,7 +86,7 @@ export function CommandDoc(props) {
             onContextMenu={(event) => onRightClick(event, user)}
         >
             <div className="flex align-items-center gap-2">
-                <img alt="user.name" src={\`https://primefaces.org/cdn/primereact/images/avatar/\${user.image}\`} style={{ width: '32px' }} />
+                <img alt="user.name" src={\`/images/avatar/\${user.image}\`} style={{ width: '32px' }} />
                 <span className="font-bold">{user.name}</span>
             </div>
             <Tag value={user.role} severity={getBadge(user)} />
@@ -97,10 +97,10 @@ export function CommandDoc(props) {
 <Toast ref={toast} />
 `,
         javascript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useState, useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function CommandDemo() {
     const cm = useRef(null);
@@ -179,7 +179,7 @@ export default function CommandDemo() {
                         onContextMenu={(event) => onRightClick(event, user)}
                     >
                         <div className="flex align-items-center gap-2">
-                            <img alt="user.name" src={\`https://primefaces.org/cdn/primereact/images/avatar/\${user.image}\`} style={{ width: '32px' }} />
+                            <img alt="user.name" src={\`/images/avatar/\${user.image}\`} style={{ width: '32px' }} />
                             <span className="font-bold">{user.name}</span>
                         </div>
                         <Tag value={user.role} severity={getBadge(user)} />
@@ -193,10 +193,10 @@ export default function CommandDemo() {
 }
         `,
         typescript: `
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 import { useState, useRef } from 'react';
-import { Toast } from 'primereact/toast';
-import { Tag } from 'primereact/tag';
+import { Toast } from '@orcado/yoyui/toast';
+import { Tag } from '@orcado/yoyui/tag';
 
 export default function CommandDemo() {
     const cm = useRef<ContextMenuRef | null>(null);
@@ -281,7 +281,7 @@ export default function CommandDemo() {
                         onContextMenu={(event) => onRightClick(event, user)}
                     >
                         <div className="flex align-items-center gap-2">
-                            <img alt={user.name} src={\`https://primefaces.org/cdn/primereact/images/avatar/\${user.image}\`} style={{ width: '32px' }} />
+                            <img alt={user.name} src={\`/images/avatar/\${user.image}\`} style={{ width: '32px' }} />
                             <span className="font-bold">{user.name}</span>
                         </div>
                         <Tag value={user.role} severity={getBadge(user)} />
@@ -312,7 +312,7 @@ export default function CommandDemo() {
                             onContextMenu={(event) => onRightClick(event, user)}
                         >
                             <div className="flex align-items-center gap-2">
-                                <img alt="user.name" src={`https://primefaces.org/cdn/primereact/images/avatar/${user.image}`} style={{ width: '32px' }} />
+                                <img alt="user.name" src={`/images/avatar/${user.image}`} style={{ width: '32px' }} />
                                 <span className="font-bold">{user.name}</span>
                             </div>
                             <Tag value={user.role} severity={getBadge(user)} />

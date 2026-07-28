@@ -10,7 +10,7 @@ export function VerticalDoc(props) {
 
     const code = {
         basic: `
-<Stepper ref={stepperRef} style={{ flexBasis: '50rem' }} orientation="vertical">
+<Stepper ref={stepperRef} style={{ flexBasis: '50rem', minWidth: 0 }} orientation="vertical">
     <StepperPanel header="Header I">
         <div className="flex flex-column h-12rem">
             <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
@@ -40,16 +40,16 @@ export function VerticalDoc(props) {
         `,
         javascript: `
 import React, { useRef } from "react";
-import { Stepper } from 'primereact/stepper';
-import { StepperPanel } from 'primereact/stepperpanel';
-import { Button } from 'primereact/button';
+import { Stepper } from '@orcado/yoyui/stepper';
+import { StepperPanel } from '@orcado/yoyui/stepperpanel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const stepperRef = useRef(null);
 
     return (
         <div className="card">
-            <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }} orientation="vertical">
+            <Stepper ref={stepperRef} style={{ flexBasis: '50rem', minWidth: 0 }} orientation="vertical">
                 <StepperPanel header="Header I">
                     <div className="flex flex-column h-12rem">
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
@@ -82,16 +82,16 @@ export default function BasicDemo() {
         `,
         typescript: `
 import React, { useRef } from "react";
-import { Stepper } from 'primereact/stepper';
-import { StepperPanel } from 'primereact/stepperpanel';
-import { Button } from 'primereact/button';
+import { Stepper } from '@orcado/yoyui/stepper';
+import { StepperPanel } from '@orcado/yoyui/stepperpanel';
+import { Button } from '@orcado/yoyui/button';
 
 export default function BasicDemo() {
     const stepperRef = useRef(null);
 
     return (
         <div className="card">
-            <Stepper ref={stepperRef} style={{ flexBasis: '50rem' }} orientation="vertical">
+            <Stepper ref={stepperRef} style={{ flexBasis: '50rem', minWidth: 0 }} orientation="vertical">
                 <StepperPanel header="Header I">
                     <div className="flex flex-column h-12rem">
                         <div className="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>

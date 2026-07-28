@@ -5,7 +5,6 @@ export const StepperContent = React.memo(
     React.forwardRef((props, ref) => {
         const mergeProps = useMergeProps();
         const { cx } = props;
-
         const rootProps = mergeProps({
             ref: ref,
             id: props.id,

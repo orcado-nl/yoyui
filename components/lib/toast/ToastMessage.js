@@ -31,15 +31,12 @@ export const ToastMessage = React.memo(
         );
 
         const getPTOptions = (key, options) => {
-            return ptm(key, {
-                hostName: props.hostName,
-                ...options
-            });
+            return ptm(key, { hostName: props.hostName, ...options });
         };
 
         const onClose = () => {
             clearTimer();
-            props.onClose && props.onClose(messageInfo);
+            props.onClose?.(messageInfo);
         };
 
         const onClick = (event) => {
@@ -49,14 +46,12 @@ export const ToastMessage = React.memo(
         };
 
         const onMouseEnter = (event) => {
-            props.onMouseEnter && props.onMouseEnter(event);
+            props.onMouseEnter?.(event); // do not continue if the user has canceled the event
 
-            // do not continue if the user has canceled the event
             if (event.defaultPrevented) {
                 return;
-            }
+            } // stop timer while user has focused message
 
-            // stop timer while user has focused message
             if (!sticky) {
                 clearTimer();
                 setFocused(true);
@@ -64,38 +59,23 @@ export const ToastMessage = React.memo(
         };
 
         const onMouseLeave = (event) => {
-            props.onMouseLeave && props.onMouseLeave(event);
+            props.onMouseLeave?.(event); // do not continue if the user has canceled the event
 
-            // do not continue if the user has canceled the event
             if (event.defaultPrevented) {
                 return;
-            }
+            } // restart timer when user has left message
 
-            // restart timer when user has left message
             if (!sticky) {
                 setFocused(false);
             }
         };
 
         const createCloseIcon = () => {
-            const buttonIconProps = mergeProps(
-                {
-                    className: cx('message.buttonicon')
-                },
-                getPTOptions('buttonicon', parentParams),
-                ptmo(pt, 'buttonicon', { ...params, hostName: props.hostName })
-            );
-
+            const buttonIconProps = mergeProps({ className: cx('message.buttonicon') }, getPTOptions('buttonicon', parentParams), ptmo(pt, 'buttonicon', { ...params, hostName: props.hostName }));
             const icon = _closeIcon || <TimesIcon {...buttonIconProps} />;
             const closeIcon = IconUtils.getJSXIcon(icon, { ...buttonIconProps }, { props });
-
             const closeButtonProps = mergeProps(
-                {
-                    type: 'button',
-                    className: cx('message.closeButton'),
-                    onClick: onClose,
-                    'aria-label': props.ariaCloseLabel || ariaLabel('close')
-                },
+                { type: 'button', className: cx('message.closeButton'), onClick: onClose, 'aria-label': props.ariaCloseLabel || ariaLabel('close') },
                 getPTOptions('closeButton', parentParams),
                 ptmo(pt, 'closeButton', { ...params, hostName: props.hostName })
             );
@@ -117,14 +97,7 @@ export const ToastMessage = React.memo(
         const createMessage = () => {
             if (messageInfo) {
                 const contentEl = ObjectUtils.getJSXElement(content, { message: messageInfo.message, onClick, onClose });
-                const iconProps = mergeProps(
-                    {
-                        className: cx('message.icon')
-                    },
-                    getPTOptions('icon', parentParams),
-                    ptmo(pt, 'icon', { ...params, hostName: props.hostName })
-                );
-
+                const iconProps = mergeProps({ className: cx('message.icon') }, getPTOptions('icon', parentParams), ptmo(pt, 'icon', { ...params, hostName: props.hostName }));
                 let icon = _icon;
 
                 if (!_icon) {
@@ -147,30 +120,9 @@ export const ToastMessage = React.memo(
                 }
 
                 const messageIcon = IconUtils.getJSXIcon(icon, { ...iconProps }, { props });
-
-                const textProps = mergeProps(
-                    {
-                        className: cx('message.text')
-                    },
-                    getPTOptions('text', parentParams),
-                    ptmo(pt, 'text', { ...params, hostName: props.hostName })
-                );
-
-                const summaryProps = mergeProps(
-                    {
-                        className: cx('message.summary')
-                    },
-                    getPTOptions('summary', parentParams),
-                    ptmo(pt, 'summary', { ...params, hostName: props.hostName })
-                );
-
-                const detailProps = mergeProps(
-                    {
-                        className: cx('message.detail')
-                    },
-                    getPTOptions('detail', parentParams),
-                    ptmo(pt, 'detail', { ...params, hostName: props.hostName })
-                );
+                const textProps = mergeProps({ className: cx('message.text') }, getPTOptions('text', parentParams), ptmo(pt, 'text', { ...params, hostName: props.hostName }));
+                const summaryProps = mergeProps({ className: cx('message.summary') }, getPTOptions('summary', parentParams), ptmo(pt, 'summary', { ...params, hostName: props.hostName }));
+                const detailProps = mergeProps({ className: cx('message.detail') }, getPTOptions('detail', parentParams), ptmo(pt, 'detail', { ...params, hostName: props.hostName }));
 
                 return (
                     contentEl || (
@@ -190,19 +142,8 @@ export const ToastMessage = React.memo(
 
         const message = createMessage();
         const closeIcon = createCloseIcon();
-
         const messageProps = mergeProps(
-            {
-                ref,
-                className: classNames(_className, cx('message.message', { severity })),
-                style,
-                role: 'alert',
-                'aria-live': 'assertive',
-                'aria-atomic': 'true',
-                onClick,
-                onMouseEnter: onMouseEnter,
-                onMouseLeave: onMouseLeave
-            },
+            { ref, className: classNames(_className, cx('message.message', { severity })), style, role: 'alert', 'aria-live': 'assertive', 'aria-atomic': 'true', onClick, onMouseEnter: onMouseEnter, onMouseLeave: onMouseLeave },
             getPTOptions('message', parentParams),
             ptmo(pt, 'root', { ...params, hostName: props.hostName })
         );

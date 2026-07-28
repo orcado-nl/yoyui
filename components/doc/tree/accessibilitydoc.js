@@ -6,8 +6,9 @@ export function AccessibilityDoc() {
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided with <i>aria-labelledby</i> or <i>aria-label</i> props. The root list element has a <i>tree</i> role whereas each list item has a <i>treeitem</i> role along with <i>aria-label</i>
-                , <i>aria-selected</i> and <i>aria-expanded</i> attributes. In checkbox selection, <i>aria-checked</i> is used instead of <i>aria-selected</i>. The container element of a treenode has the <i>group</i> role. Checkbox and toggle icons
-                are hidden from screen readers as their parent element with <i>treeitem</i> role and attributes are used instead for readers and keyboard support. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are
+                {', '}
+                <i>aria-selected</i> and <i>aria-expanded</i> attributes. In checkbox selection, <i>aria-checked</i> is used instead of <i>aria-selected</i>. The container element of a treenode has the <i>group</i> role. Checkbox and toggle icons are
+                hidden from screen readers as their parent element with <i>treeitem</i> role and attributes are used instead for readers and keyboard support. The <i>aria-setsize</i>, <i>aria-posinset</i> and <i>aria-level</i> attributes are
                 calculated implicitly and added to each treeitem.
             </p>
 

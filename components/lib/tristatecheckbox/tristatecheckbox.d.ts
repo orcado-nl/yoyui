@@ -2,7 +2,7 @@
  *
  * TriStateCheckbox is used to select either "true", "false" or "null" as the value.
  *
- * [Live Demo](https://www.primereact.org/tristatecheckbox/)
+ * [Live Demo](https://yoyui.orcado.dev/tristatecheckbox/)
  *
  * @module tristatecheckbox
  *
@@ -152,13 +152,13 @@ export interface TriStateCheckboxProps extends Omit<React.DetailedHTMLProps<Reac
 }
 
 /**
- * **PrimeReact - TriStateCheckbox**
+ * **YoYui - TriStateCheckbox**
  *
  * _TriStateCheckbox is used to select either "true", "false" or "null" as the value._
  *
- * [Live Demo](https://www.primereact.org/tristatecheckbox/)
+ * [Live Demo](https://yoyui.orcado.dev/tristatecheckbox/)
  * --- ---
- * ![PrimeReact](https://primefaces.org/cdn/primereact/images/logo-100.png)
+ * ![YoYui](https://yoyui.orcado.dev/images/logo-100.png)
  *
  * @group Component
  */

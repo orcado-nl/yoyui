@@ -37,7 +37,7 @@ export function DocumentDoc(props) {
 `,
         javascript: `
 import React from 'react';
-import { ContextMenu } from 'primereact/contextmenu';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
 
 export default function DocumentDemo() {
     const items = [
@@ -78,8 +78,8 @@ export default function DocumentDemo() {
         `,
         typescript: `
 import React from 'react';
-import { ContextMenu } from 'primereact/contextmenu';
-import { MenuItem } from 'primereact/menuitem';
+import { ContextMenu } from '@orcado/yoyui/contextmenu';
+import { MenuItem } from '@orcado/yoyui/menuitem';
 
 export default function DocumentDemo() {
     const items: MenuItem[] = [

@@ -11,7 +11,13 @@ export const InputOtp = React.memo(
         const elementRef = useRef(ref);
         const mergeProps = useMergeProps();
         const context = useContext(PrimeReactContext);
-        const props = InputOtpBase.getProps(inProps, context);
+        const props = InputOtpBase.getProps(
+            {
+                ...inProps,
+                readOnly: inProps.readOnly ?? inProps.readonly
+            },
+            context
+        );
         const { ptm, cx, isUnstyled } = InputOtpBase.setMetaData({
             props,
             ...props.__parentMetadata,

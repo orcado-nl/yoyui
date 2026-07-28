@@ -4,36 +4,36 @@ import { InputOtp } from '@/components/lib/inputotp/InputOtp';
 import { useState } from 'react';
 
 export function BasicDoc(props) {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     const code = {
         basic: `
-<InputOtp value={token} onChange={(e) => setTokens(e.value)}/>
+<InputOtp value={token} onChange={(e) => setToken(e.value)}/>
         `,
         javascript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function BasicDemo() {
-    const [token, setTokens] = useState();
+    const [token, setToken] = useState();
 
     return (
         <div className="card flex justify-content-center">
-            <InputOtp value={token} onChange={(e) => setTokens(e.value)}/>
+            <InputOtp value={token} onChange={(e) => setToken(e.value)}/>
         </div>
     );
 }
         `,
         typescript: `
 import React, { useState } from 'react';
-import { InputOtp } from 'primereact/inputotp';
+import { InputOtp } from '@orcado/yoyui/inputotp';
 
 export default function BasicDemo() {
-    const [token, setTokens] = useState<string | number | undefined>();
+    const [token, setToken] = useState<string | number | undefined>();
 
     return (
         <div className="card flex justify-content-center">
-            <InputOtp value={token} onChange={(e) => setTokens(e.value)}/>
+            <InputOtp value={token} onChange={(e) => setToken(e.value)}/>
         </div>
     );
 }
@@ -48,7 +48,7 @@ export default function BasicDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <InputOtp value={token} onChange={(e) => setTokens(e.value)} />
+                <InputOtp value={token} onChange={(e) => setToken(e.value)} />
             </div>
             <DocSectionCode code={code} />
         </>

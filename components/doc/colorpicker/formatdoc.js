@@ -16,7 +16,7 @@ export function FormatDoc(props) {
         `,
         javascript: `
 import React, { useState } from "react";
-import { ColorPicker } from 'primereact/colorpicker';
+import { ColorPicker } from '@orcado/yoyui/colorpicker';
 
 export default function FormatDemo() {
     const [colorHEX, setColorHEX] = useState('6466f1');
@@ -52,7 +52,7 @@ export default function FormatDemo() {
         `,
         typescript: `
 import React, { useState } from "react";
-import { ColorPicker, ColorPickerChangeEvent } from 'primereact/colorpicker';
+import { ColorPicker, ColorPickerChangeEvent } from '@orcado/yoyui/colorpicker';
 
 interface RGB {
     r: number;

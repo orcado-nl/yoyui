@@ -31,7 +31,6 @@ export function RowExpansionDoc(props) {
         let _expandedRows = {};
 
         products.forEach((p) => (_expandedRows[`${p.id}`] = true));
-
         setExpandedRows(_expandedRows);
     };
 
@@ -56,7 +55,7 @@ export function RowExpansionDoc(props) {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={`https://primefaces.org/cdn/primereact/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
+        return <img src={`/images/product/${rowData.image}`} alt={rowData.image} width="64px" className="shadow-4" />;
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -75,13 +74,10 @@ export function RowExpansionDoc(props) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -91,16 +87,12 @@ export function RowExpansionDoc(props) {
         switch (order.status) {
             case 'DELIVERED':
                 return 'success';
-
             case 'CANCELLED':
                 return 'danger';
-
             case 'PENDING':
                 return 'warning';
-
             case 'RETURNED':
                 return 'info';
-
             default:
                 return null;
         }
@@ -132,7 +124,6 @@ export function RowExpansionDoc(props) {
             <Button icon="pi pi-minus" label="Collapse All" onClick={collapseAll} text />
         </div>
     );
-
     const code = {
         basic: `
 <DataTable value={products} expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
@@ -149,13 +140,13 @@ export function RowExpansionDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
-import { Rating } from 'primereact/rating';
-import { Button } from 'primereact/button';
-import { Tag } from 'primereact/tag';
-import { Toast } from 'primereact/toast';
+import { Rating } from '@orcado/yoyui/rating';
+import { Button } from '@orcado/yoyui/button';
+import { Tag } from '@orcado/yoyui/tag';
+import { Toast } from '@orcado/yoyui/toast';
 
 export default function RowExpansionDemo() {
     const [products, setProducts] = useState([]);
@@ -203,7 +194,7 @@ export default function RowExpansionDemo() {
     };
 
     const imageBodyTemplate = (rowData) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
     };
 
     const priceBodyTemplate = (rowData) => {
@@ -300,13 +291,13 @@ export default function RowExpansionDemo() {
         `,
         typescript: `
 import React, { useState, useEffect, useRef } from 'react';
-import { DataTable, DataTableExpandedRows, DataTableRowEvent, DataTableValueArray } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable, DataTableExpandedRows, DataTableRowEvent, DataTableValueArray } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
 import { ProductService } from './service/ProductService';
-import { Rating } from 'primereact/rating';
-import { Button } from 'primereact/button';
-import { Tag } from 'primereact/tag';
-import { Toast } from 'primereact/toast';
+import { Rating } from '@orcado/yoyui/rating';
+import { Button } from '@orcado/yoyui/button';
+import { Tag } from '@orcado/yoyui/tag';
+import { Toast } from '@orcado/yoyui/toast';
 
 interface Order {
     id: string;
@@ -378,7 +369,7 @@ export default function RowExpansionDemo() {
     };
 
     const imageBodyTemplate = (rowData: Product) => {
-        return <img src={\`https://primefaces.org/cdn/primereact/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
+        return <img src={\`/images/product/\${rowData.image}\`} alt={rowData.image} width="64px" className="shadow-4" />;
     };
 
     const priceBodyTemplate = (rowData: Product) => {

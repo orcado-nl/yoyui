@@ -13,7 +13,7 @@ export function AccessibilityDoc() {
             </p>
 
             <p>
-                Built-in checkbox and radiobutton components for row selection use <i>checkbox</i> and <i>radiobutton</i> roles respectively with <i>aria-checked</i> state attribute. The label to describe them is retrieved from the
+                Built-in checkbox and radiobutton components for row selection use <i>checkbox</i> and <i>radiobutton</i> roles respectively with <i>aria-checked</i> state attribute. The label to describe them is retrieved from the{' '}
                 <i>aria.selectRow</i> and <i>aria.unselectRow</i> properties of the <Link href="/locale">locale</Link> API. Similarly header checkbox uses <i>selectAll</i> and <i>unselectAll</i> keys. When a row is selected, <i>aria-selected</i> is
                 set to true on a row.
             </p>
@@ -25,11 +25,9 @@ export function AccessibilityDoc() {
 
             <p>
                 The filter menu button use <i>aria.showFilterMenu</i> and <i>aria.hideFilterMenu</i> properties as <i>aria-label</i> in addition to the <i>aria-haspopup</i>, <i>aria-expanded</i> and <i>aria-controls</i> to define the relation between
-                the button and the overlay. Popop menu has <i>dialog</i> role with <i>aria-modal</i>
-                as focus is kept within the overlay. The operator dropdown use <i>aria.filterOperator</i> and filter constraints dropdown use <i>aria.filterConstraint</i> properties. Buttons to add rules on the other hand utilize <i>aria.addRule</i>{' '}
-                and <i>aria.removeRule</i> properties. The footer buttons similarly use
-                <i>aria.clear</i> and <i>aria.apply</i> properties. <i>filterInputProps</i> of the Column component can be used to define aria labels for the built-in filter components, if a custom component is used with templating you also may
-                define your own aria labels as well.
+                the button and the overlay. Popop menu has <i>dialog</i> role with <i>aria-modal</i> as focus is kept within the overlay. The operator dropdown use <i>aria.filterOperator</i> and filter constraints dropdown use{' '}
+                <i>aria.filterConstraint</i> properties. Buttons to add rules on the other hand utilize <i>aria.addRule</i> and <i>aria.removeRule</i> properties. The footer buttons similarly use <i>aria.clear</i> and <i>aria.apply</i> properties.{' '}
+                <i>filterInputProps</i> of the Column component can be used to define aria labels for the built-in filter components, if a custom component is used with templating you also may define your own aria labels as well.
             </p>
 
             <p>

@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
 import { DomHandler } from '../utils/Utils';
 import { useEventListener } from './useEventListener';
@@ -20,13 +20,19 @@ export const useOverlayListener = ({ target, overlay, listener, when = true, typ
         target: 'window',
         type: type,
         listener: (event) => {
-            listener && listener(event, { type: 'outside', valid: event.which !== 3 && isOutsideClicked(event) });
+            listener?.(event, {
+                type: 'outside',
+                valid: event.which !== 3 && isOutsideClicked(event)
+            });
         },
         when
     });
     const [bindWindowResizeListener, unbindWindowResizeListener] = useResizeListener({
         listener: (event) => {
-            listener && listener(event, { type: 'resize', valid: !DomHandler.isTouchDevice() });
+            listener?.(event, {
+                type: 'resize',
+                valid: !DomHandler.isTouchDevice()
+            });
         },
         when
     });
@@ -34,20 +40,26 @@ export const useOverlayListener = ({ target, overlay, listener, when = true, typ
         target: 'window',
         type: 'orientationchange',
         listener: (event) => {
-            listener && listener(event, { type: 'orientationchange', valid: true });
+            listener?.(event, {
+                type: 'orientationchange',
+                valid: true
+            });
         },
         when
     });
     const [bindOverlayScrollListener, unbindOverlayScrollListener] = useOverlayScrollListener({
         target,
         listener: (event) => {
-            listener && listener(event, { type: 'scroll', valid: true });
+            listener?.(event, {
+                type: 'scroll',
+                valid: true
+            });
         },
         when
     });
 
     const isOutsideClicked = (event) => {
-        return targetRef.current && !(targetRef.current.isSameNode(event.target) || targetRef.current.contains(event.target) || (overlayRef.current && overlayRef.current.contains(event.target)));
+        return targetRef.current && !(targetRef.current.isSameNode(event.target) || targetRef.current.contains(event.target) || overlayRef.current?.contains(event.target));
     };
 
     const bind = () => {

@@ -10,7 +10,6 @@ import { ProductService } from '../../../../service/ProductService';
 
 export function CellEditDoc(props) {
     const [products, setProducts] = useState(null);
-
     const columns = [
         { field: 'code', header: 'Code' },
         { field: 'name', header: 'Name' },
@@ -50,7 +49,6 @@ export function CellEditDoc(props) {
                 }
 
                 break;
-
             default:
                 if (newValue.trim().length > 0) {
                     rowData[field] = newValue;
@@ -94,10 +92,10 @@ export function CellEditDoc(props) {
         `,
         javascript: `
 import React, { useEffect, useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { InputNumber } from '@orcado/yoyui/inputnumber';
 import { ProductService } from './service/ProductService';
 
 export default function CellEditingDemo() {
@@ -176,10 +174,10 @@ export default function CellEditingDemo() {
         `,
         typescript: `
 import React, { useEffect, useState } from 'react';
-import { DataTable } from 'primereact/datatable';
-import { Column, ColumnEvent, ColumnEditorOptions } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber';
+import { DataTable } from '@orcado/yoyui/datatable';
+import { Column, ColumnEvent, ColumnEditorOptions } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { InputNumber, InputNumberValueChangeEvent } from '@orcado/yoyui/inputnumber';
 import { ProductService } from './service/ProductService';
 
 interface Product {

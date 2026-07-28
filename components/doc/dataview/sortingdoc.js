@@ -27,13 +27,10 @@ export function SortingDoc(props) {
         switch (product.inventoryStatus) {
             case 'INSTOCK':
                 return 'success';
-
             case 'LOWSTOCK':
                 return 'warning';
-
             case 'OUTOFSTOCK':
                 return 'danger';
-
             default:
                 return null;
         }
@@ -61,7 +58,7 @@ export function SortingDoc(props) {
         return (
             <div className="col-12" key={product.id}>
                 <div className={classNames('flex flex-column xl:flex-row xl:align-items-start p-4 gap-4', { 'border-top-1 surface-border': index !== 0 })}>
-                    <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`} alt={product.name} />
+                    <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={`/images/product/${product.image}`} alt={product.name} />
                     <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div className="flex flex-column align-items-center sm:align-items-start gap-3">
                             <div className="text-2xl font-bold text-900">{product.name}</div>
@@ -102,12 +99,12 @@ export function SortingDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Dropdown } from 'primereact/dropdown';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView } from '@orcado/yoyui/dataview';
+import { Dropdown } from '@orcado/yoyui/dropdown';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 export default function SortingDemo() {
@@ -162,7 +159,7 @@ export default function SortingDemo() {
         return (
             <div className="col-12" key={product.id}>
                 <div className={classNames('flex flex-column xl:flex-row xl:align-items-start p-4 gap-4', { 'border-top-1 surface-border': index !== 0 })}>
-                    <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.name} />
+                    <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={\`/images/product/\${product.image}\`} alt={product.name} />
                     <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div className="flex flex-column align-items-center sm:align-items-start gap-3">
                             <div className="text-2xl font-bold text-900">{product.name}</div>
@@ -204,12 +201,12 @@ export default function SortingDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { Button } from '@orcado/yoyui/button';
+import { DataView } from '@orcado/yoyui/dataview';
+import { Dropdown, DropdownChangeEvent } from '@orcado/yoyui/dropdown';
+import { Rating } from '@orcado/yoyui/rating';
+import { Tag } from '@orcado/yoyui/tag';
+import { classNames } from '@orcado/yoyui/utils';
 import { ProductService } from './service/ProductService';
 
 interface Product {
@@ -282,7 +279,7 @@ export default function SortingDemo() {
         return (
             <div className="col-12" key={product.id}>
                 <div className={classNames('flex flex-column xl:flex-row xl:align-items-start p-4 gap-4', { 'border-top-1 surface-border': index !== 0 })}>
-                    <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={\`https://primefaces.org/cdn/primereact/images/product/\${product.image}\`} alt={product.name} />
+                    <img className="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src={\`/images/product/\${product.image}\`} alt={product.name} />
                     <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div className="flex flex-column align-items-center sm:align-items-start gap-3">
                             <div className="text-2xl font-bold text-900">{product.name}</div>

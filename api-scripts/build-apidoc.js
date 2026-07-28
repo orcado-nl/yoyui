@@ -1,9 +1,32 @@
 const TypeDoc = require('typedoc');
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 
 const rootDir = path.resolve(__dirname, '../');
 const outputPath = path.resolve(rootDir, 'components/doc/common/apidoc');
+const apiIconSourcePath = path.resolve(rootDir, 'public/yoyui-icon.svg');
+const DOCUMENTATION_TEXT_FIELDS = new Set(['description', 'doc-url']);
+const UPSTREAM_BRAND_NAME = /\bPrimeReact\b/g;
+
+function brandDocumentationFields(value) {
+    if (Array.isArray(value)) {
+        value.forEach(brandDocumentationFields);
+
+        return;
+    }
+
+    if (!value || typeof value !== 'object') {
+        return;
+    }
+
+    Object.entries(value).forEach(([key, child]) => {
+        if (typeof child === 'string' && DOCUMENTATION_TEXT_FIELDS.has(key)) {
+            value[key] = child.replace(UPSTREAM_BRAND_NAME, 'YoYui');
+        } else {
+            brandDocumentationFields(child);
+        }
+    });
+}
 
 const staticMessages = {
     methods: "Defines methods that can be accessed by the component's reference.",
@@ -22,7 +45,7 @@ app.options.addReader(new TypeDoc.TypeDocReader());
 
 app.bootstrap({
     // typedoc options here
-    name: 'PrimeReact',
+    name: 'YoYui',
     entryPoints: [`components/lib`],
     entryPointStrategy: 'expand',
     tsconfig: 'api-scripts/tsconfig.json',
@@ -432,10 +455,13 @@ if (project) {
         // app.generateJson(module, `./api-generator/module-typedoc.json`);
     });
 
+    brandDocumentationFields(doc);
+
     const typedocJSON = JSON.stringify(doc, null, 4);
 
     !fs.existsSync(outputPath) && fs.mkdirSync(outputPath);
     fs.writeFileSync(path.resolve(outputPath, 'index.json'), typedocJSON);
+    fs.copyFileSync(apiIconSourcePath, path.resolve(outputPath, 'yoyui-icon.svg'));
 
     // app.generateJson(project, `./api-generator/typedoc.json`);
 }

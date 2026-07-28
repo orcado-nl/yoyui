@@ -6,7 +6,7 @@ const classes = {
         classNames('p-cascadeselect p-component p-inputwrapper', {
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled',
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled',
             'p-focus': focusedState,
             'p-inputwrapper-filled': props.value,
             'p-inputwrapper-focus': focusedState || overlayVisibleState

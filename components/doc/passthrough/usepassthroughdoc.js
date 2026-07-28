@@ -5,9 +5,9 @@ export function UsePassThroughDoc(props) {
     const code1 = {
         basic: `
 import React from 'react'; 
-import { PrimeReactProvider } from "primereact/api";
-import { usePassThrough } from "primereact/passthrough";
-import Tailwind from "primereact/passthrough/tailwind";
+import { PrimeReactProvider } from "@orcado/yoyui/api";
+import { usePassThrough } from "@orcado/yoyui/passthrough";
+import Tailwind from "@orcado/yoyui/passthrough/tailwind";
 
 export default function UsePassThroughDemo() {
 
@@ -111,7 +111,7 @@ const CustomTailwind = usePassThrough(
                 </p>
                 <DocSectionCode code={code1} hideToggleCode import hideStackBlitz />
                 <p>
-                    The <i>mergeSections</i> defines whether the sections from the main configuration gets added and the <i>mergeProps</i> controls whether to override or merge the defined props. Defaults are <i>true</i> for <i>mergeSections</i> and
+                    The <i>mergeSections</i> defines whether the sections from the main configuration gets added and the <i>mergeProps</i> controls whether to override or merge the defined props. Defaults are <i>true</i> for <i>mergeSections</i> and{' '}
                     <i>false</i> for <i>mergeProps</i>.
                 </p>
                 <p>

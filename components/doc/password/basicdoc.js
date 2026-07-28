@@ -8,32 +8,32 @@ export function BasicDoc(props) {
 
     const code = {
         basic: `
-<Password value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+<Password value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={0} />
         `,
         javascript: `
 import React, { useState } from "react";
-import { Password } from 'primereact/password';
+import { Password } from '@orcado/yoyui/password';
 
 export default function BasicDemo() {
     const [value, setValue] = useState('');
 
     return (
         <div className="card flex justify-content-center">
-            <Password value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+            <Password value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={0} />
         </div>
     )
 }
         `,
         typescript: `
 import React, { useState } from "react";
-import { Password } from 'primereact/password';
+import { Password } from '@orcado/yoyui/password';
 
 export default function BasicDemo() {
     const [value, setValue] = useState<string>('');
 
     return (
         <div className="card flex justify-content-center">
-            <Password value={value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+            <Password value={value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setValue(e.target.value)} feedback={false} tabIndex={0} />
         </div>
     )
 }
@@ -48,7 +48,7 @@ export default function BasicDemo() {
                 </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
-                <Password value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={1} />
+                <Password value={value} onChange={(e) => setValue(e.target.value)} feedback={false} tabIndex={0} />
             </div>
             <DocSectionCode code={code} />
         </>

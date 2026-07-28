@@ -14,11 +14,10 @@ export function EditDoc(props) {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onEditorValueChange = (options, value) => {
-        let newNodes = JSON.parse(JSON.stringify(nodes));
+        let newNodes = structuredClone(nodes);
         let editedNode = findNodeByKey(newNodes, options.node.key);
 
         editedNode.data[options.field] = value;
-
         setNodes(newNodes);
     };
 
@@ -29,7 +28,7 @@ export function EditDoc(props) {
         while (path.length) {
             let list = node ? node.children : nodes;
 
-            node = list[parseInt(path[0], 10)];
+            node = list[Number.parseInt(path[0], 10)];
             path.shift();
         }
 
@@ -65,9 +64,9 @@ export function EditDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
 import { NodeService } from './service/NodeService';
 
 export default function EditDemo() {
@@ -78,7 +77,7 @@ export default function EditDemo() {
     }, []);
 
     const onEditorValueChange = (options, value) => {
-        let newNodes = JSON.parse(JSON.stringify(nodes));
+        let newNodes = structuredClone(nodes);
         let editedNode = findNodeByKey(newNodes, options.node.key);
 
         editedNode.data[options.field] = value;
@@ -93,7 +92,7 @@ export default function EditDemo() {
         while (path.length) {
             let list = node ? node.children : nodes;
 
-            node = list[parseInt(path[0], 10)];
+            node = list[Number.parseInt(path[0], 10)];
             path.shift();
         }
 
@@ -132,10 +131,10 @@ export default function EditDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column, ColumnEditorOptions, ColumnEvent } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column, ColumnEditorOptions, ColumnEvent } from '@orcado/yoyui/column';
+import { InputText } from '@orcado/yoyui/inputtext';
+import { TreeNode } from '@orcado/yoyui/treenode';
 import { NodeService } from './service/NodeService';
 
 export default function EditDemo() {
@@ -146,7 +145,7 @@ export default function EditDemo() {
     }, []);
 
     const onEditorValueChange = (options: ColumnEditorOptions, value: string) => {
-        let newNodes = JSON.parse(JSON.stringify(nodes));
+        let newNodes = structuredClone(nodes);
         let editedNode = findNodeByKey(newNodes, options.node.key);
 
         editedNode.data[options.field] = value;
@@ -161,7 +160,7 @@ export default function EditDemo() {
         while (path.length) {
             let list = node ? node.children : nodes;
 
-            node = list[parseInt(path[0], 10)];
+            node = list[Number.parseInt(path[0], 10)];
             path.shift();
         }
 

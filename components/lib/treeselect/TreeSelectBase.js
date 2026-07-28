@@ -1,4 +1,4 @@
-import PrimeReact from '../api/Api';
+import { PrimeReactConfig } from '../api/Api';
 import { ComponentBase } from '../componentbase/ComponentBase';
 import { classNames } from '../utils/Utils';
 
@@ -10,7 +10,7 @@ const classes = {
             'p-disabled': props.disabled,
             'p-invalid': props.invalid,
             'p-focus': focusedState,
-            'p-variant-filled': props.variant ? props.variant === 'filled' : context && context.inputStyle === 'filled',
+            'p-variant-filled': props.variant ? props.variant === 'filled' : context?.inputStyle === 'filled',
             'p-inputwrapper-filled': !isValueEmpty,
             'p-inputwrapper-focus': focusedState || overlayVisibleState
         }),
@@ -21,8 +21,8 @@ const classes = {
         }),
     panel: ({ panelProps: props, context }) =>
         classNames('p-treeselect-panel p-component', props.panelClassName, {
-            'p-input-filled': (context && context.inputStyle === 'filled') || PrimeReact.inputStyle === 'filled',
-            'p-ripple-disabled': (context && context.ripple === false) || PrimeReact.ripple === false
+            'p-input-filled': context?.inputStyle === 'filled' || PrimeReactConfig.inputStyle === 'filled',
+            'p-ripple-disabled': context?.ripple === false || PrimeReactConfig.ripple === false
         }),
     labelContainer: 'p-treeselect-label-container',
     tokenLabel: 'p-treeselect-token-label',

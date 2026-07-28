@@ -11,7 +11,7 @@ export function WAIAriaDoc(props) {
             <DocSectionText {...props}>
                 <p>
                     ARIA refers to "Accessible Rich Internet Applications" is a suite to fill the gap where semantic HTML is inadequate. These cases are mainly related to rich UI components/widgets. Although browser support for rich UI components
-                    such as a datepicker or colorpicker has been improved over the past years many web developers still utilize UI components derived from standard HTML elements created by them or by other projects like PrimeReact. These types of
+                    such as a datepicker or colorpicker has been improved over the past years many web developers still utilize UI components derived from standard HTML elements created by them or by other projects like YoYui. These types of
                     components must provide keyboard and screen reader support, the latter case is where the WAI-ARIA is utilized.
                 </p>
                 <p>
@@ -54,8 +54,7 @@ export function WAIAriaDoc(props) {
 
             <p className="doc-section-description">
                 However the best practice is combining semantic HTML for accessibility while keeping the design for UX. This approach involves hiding a native checkbox for accessibility and using javascript events to update its state. Notice the
-                usage of <i>p-hidden-accessible</i>
-                that hides the elements from the user but not from the screen reader.
+                usage of <i>p-hidden-accessible</i> that hides the elements from the user but not from the screen reader.
             </p>
             <CodeHighlight>
                 {`
@@ -68,7 +67,7 @@ export function WAIAriaDoc(props) {
 `}
             </CodeHighlight>
 
-            <p className="doc-section-description">A working sample is the PrimeReact checkbox that is tabbable, keyboard accessible and is compliant with a screen reader. Instead of ARIA roles it relies on a hidden native checkbox.</p>
+            <p className="doc-section-description">A working sample is the YoYui checkbox that is tabbable, keyboard accessible and is compliant with a screen reader. Instead of ARIA roles it relies on a hidden native checkbox.</p>
 
             <div className="card flex align-items-center justify-content-center">
                 <label htmlFor="binary" className="mr-2">

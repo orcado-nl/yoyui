@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import PrimeReact, { PrimeReactContext } from '../api/Api';
+import { PrimeReactContext, PrimeReactConfig } from '../api/Api';
 import { useMountEffect, useUnmountEffect, useUpdateEffect } from '../hooks/Hooks';
 import { DomHandler, ObjectUtils } from '../utils/Utils';
 import { PortalBase } from './PortalBase';
@@ -14,22 +14,22 @@ export const Portal = React.memo((inProps) => {
     useMountEffect(() => {
         if (DomHandler.isClient() && !mountedState) {
             setMountedState(true);
-            props.onMounted && props.onMounted();
+            props.onMounted?.();
         }
     });
 
     useUpdateEffect(() => {
-        props.onMounted && props.onMounted();
+        props.onMounted?.();
     }, [mountedState]);
 
     useUnmountEffect(() => {
-        props.onUnmounted && props.onUnmounted();
+        props.onUnmounted?.();
     });
 
     const element = props.element || props.children;
 
     if (element && mountedState) {
-        let appendTo = props.appendTo || (context && context.appendTo) || PrimeReact.appendTo;
+        let appendTo = props.appendTo || context?.appendTo || PrimeReactConfig.appendTo;
 
         if (ObjectUtils.isFunction(appendTo)) {
             appendTo = appendTo();

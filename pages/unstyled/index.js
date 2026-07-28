@@ -28,7 +28,7 @@ const UnstyledDemo = () => {
         }
     ];
 
-    return <DocComponent title="Unstyled - PrimeReact" header="Unstyled Mode" description="Styling PrimeReact with your favorite CSS library." componentDocs={docs} hideTabMenu />;
+    return <DocComponent title="Unstyled - YoYui" header="Unstyled Mode" description="Styling YoYui with your favorite CSS library." componentDocs={docs} hideTabMenu />;
 };
 
 export default UnstyledDemo;

@@ -15,7 +15,7 @@ export function PaginatorBasicDoc(props) {
                 key: i,
                 data: {
                     name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
@@ -23,7 +23,7 @@ export function PaginatorBasicDoc(props) {
                         key: i + ' - 0',
                         data: {
                             name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'Type ' + i
                         }
                     }
@@ -46,8 +46,8 @@ export function PaginatorBasicDoc(props) {
         `,
         javascript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
 
 export default function PaginatorBasicDemo() {
     const [nodes, setNodes] = useState([]);
@@ -60,7 +60,7 @@ export default function PaginatorBasicDemo() {
                 key: i,
                 data: {
                     name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
@@ -68,7 +68,7 @@ export default function PaginatorBasicDemo() {
                         key: i + ' - 0',
                         data: {
                             name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'Type ' + i
                         }
                     }
@@ -94,9 +94,9 @@ export default function PaginatorBasicDemo() {
         `,
         typescript: `
 import React, { useState, useEffect } from 'react';
-import { TreeTable } from 'primereact/treetable';
-import { Column } from 'primereact/column';
-import { TreeNode } from 'primereact/treenode';
+import { TreeTable } from '@orcado/yoyui/treetable';
+import { Column } from '@orcado/yoyui/column';
+import { TreeNode } from '@orcado/yoyui/treenode';
 
 export default function PaginatorBasicDemo() {
     const [nodes, setNodes] = useState<TreeNode[]>([]);
@@ -109,7 +109,7 @@ export default function PaginatorBasicDemo() {
                 key: i,
                 data: {
                     name: 'Item ' + i,
-                    size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                    size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
@@ -117,7 +117,7 @@ export default function PaginatorBasicDemo() {
                         key: i + ' - 0',
                         data: {
                             name: 'Item ' + i + ' - 0',
-                            size: Math.floor(Math.random() * 1000) + 1 + 'kb',
+                            size: (crypto.getRandomValues(new Uint32Array(1))[0] % 1000) + 1 + 'kb',
                             type: 'Type ' + i
                         }
                     }
