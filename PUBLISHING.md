@@ -18,9 +18,11 @@ A few things in this fork's build pipeline had to be corrected after forking fro
   **Temporary workaround** if you need to build despite an unresolved critical vulnerability:
 
   1. In `package.json`, find:
+
      ```json
      "build:package": "npm run build:check && rollup -c && gulp build-resources && npm run build:api"
      ```
+
      and temporarily remove the `npm run build:check && ` part, so it becomes:
      ```json
      "build:package": "rollup -c && gulp build-resources && npm run build:api"
@@ -32,27 +34,29 @@ A few things in this fork's build pipeline had to be corrected after forking fro
 
 ## Steps to publish
 
-1. **Bump the version**
+1. **Log in to npm**
+
+   ```bash
+   npm login
+   ```
+   Verify you're logged in with `npm whoami` — it should show your npm username. If you're not a member of the `orcado-nl` organization yet, ask an existing member to add you before continuing.
+
+3. **Bump the version**
 
    Edit the `"version"` field in the root `package.json` (this is what `dist/package.json` reads from during the build). Use a normal semantic version — do not reuse or go lower than a version that's already published (check with `npm view @orcado/yoyui versions`).
-
-2. **Build the library**
+4. **Build the library**
 
    ```bash
    npm run build:lib
    ```
-
    (or `npm run build:lib:windows` on Windows). This runs lint/format/type/security checks, bundles the components with Rollup, and generates resources with Gulp — including the per-component folders (e.g. `dist/button/`, `dist/toolbar/`) needed for subpath imports like `@orcado/yoyui/button`.
-
-3. **Verify the build output**
+5. **Verify the build output**
 
    ```bash
    cat dist/package.json
    ```
-
    Confirm `"name"` is `@orcado/yoyui` and `"version"` matches what you set in step 1. Also check that the component folders you expect (e.g. `dist/toolbar/`) exist and contain built files.
-
-4. **Publish from the `dist/` directory — not the repo root**
+6. **Publish from the `dist/` directory — not the repo root**
 
    The repo root `package.json` is for the Next.js documentation site. The actual publishable package is generated inside `dist/`, so you must `cd` into it first:
 
@@ -60,12 +64,11 @@ A few things in this fork's build pipeline had to be corrected after forking fro
    cd dist
    npm publish --dry-run
    ```
-
    Check the file list in the output: it should include the component folders directly (not nested under an extra `dist/`), the correct package name, and the correct version.
-
-5. **Publish for real**
+7. **Publish for real**
 
    Before running the actual publish, double-check:
+
    - You're in the `dist/` directory, not the repo root.
    - You have your authenticator app ready for the OTP code.
    - The version in `dist/package.json` matches what you intend to publish.
@@ -73,7 +76,6 @@ A few things in this fork's build pipeline had to be corrected after forking fro
    ```bash
    npm publish
    ```
-
    You'll be prompted for an OTP code from your authenticator app (due to 2FA).
 
    If you need to publish a version that isn't meant to become the default install target (e.g. a pre-release), tag it explicitly:
@@ -81,27 +83,22 @@ A few things in this fork's build pipeline had to be corrected after forking fro
    ```bash
    npm publish --tag next
    ```
-
    Otherwise, a normal `npm publish` sets it as `latest` — unless the version number is lower than the currently published `latest`, in which case you must force it explicitly:
 
    ```bash
    npm publish --tag latest
    ```
-
 6. **Confirm the publish**
 
    ```bash
    npm view @orcado/yoyui
    ```
-
    Check the version, `dist-tags`, and that `readme` isn't empty. (If npmjs.com shows a stale "no README" warning right after publishing, that's usually just a browser cache issue — hard refresh or check in an incognito window.)
-
 7. **Test in a real project**
 
    ```bash
    npm install @orcado/yoyui@latest
    ```
-
    Then verify subpath imports resolve correctly, e.g.:
 
    ```tsx

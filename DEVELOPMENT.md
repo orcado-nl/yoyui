@@ -1,18 +1,22 @@
 ## Local Development
+
 This document intends to establish a series of steps to take in order to set up a local environment for developing on the YoYui components with live reload, quick builds, and incremental builds.
 
 ## Instructions
+
 You must have a local copy of this repository somewhere on your machine. From that repository. Before starting, make sure that the version for your `yoyui/package.json` is a [valid semantic version](https://docs.npmjs.com/about-semantic-versioning) and does not contain a suffix such as `-SNAPSHOT`.
 
 Once that is done, you will run:
 
 **Unix/MacOS:**
+
 ```shell
 ~/yoyui/ $ npm run dev:link
 ```
 
 **Windows:**
 dev🔗windows
+
 ```shell
 C:\yoyui> npm run dev:link:windows
 ```
@@ -65,6 +69,7 @@ After doing your changes in the `yoyui/` directory, you can publish the changes 
 ```
 
 ## Live Development
+
 If you want to push your changes automatically to your local project, you can use the following:
 
 ```shell
@@ -74,9 +79,11 @@ If you want to push your changes automatically to your local project, you can us
 This command will watch for changes in the `yoyui/` directory and automatically push updates to your local project whenever you save a file. (note the double -- before `watch.onEnd`)
 
 ### Congratulations!
+
 You can now live develop in the `yoyui/` directory and your changes should be represented in your `my-cool-project/` build. (Assuming you are running vite or another bundler for `my-cool-project`)
 
 ### Cleanup
+
 Once done, you can clean up with:
 
 ```shell
