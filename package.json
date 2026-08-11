@@ -1,7 +1,7 @@
 {
     "name": "@orcado/yoyui",
     "private": false,
-    "version": "0.0.9",
+    "version": "26.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -99,5 +99,12 @@
     "engines": {
         "node": ">=18"
     },
-    "packageManager": "yarn@4.10.3+sha512.c38cafb5c7bb273f3926d04e55e1d8c9dfa7d9c3ea1f36a4868fa028b9e5f72298f0b7f401ad5eb921749eb012eb1c3bb74bf7503df3ee43fd600d14a018266f"
+    "packageManager": "yarn@4.10.3+sha512.c38cafb5c7bb273f3926d04e55e1d8c9dfa7d9c3ea1f36a4868fa028b9e5f72298f0b7f401ad5eb921749eb012eb1c3bb74bf7503df3ee43fd600d14a018266f",
+    "allowScripts": {
+        "@parcel/watcher@2.5.1": true,
+        "core-js@3.45.1": true,
+        "fsevents@2.3.3": true,
+        "fsevents@2.3.2": true,
+        "unrs-resolver@1.11.1": true
+    }
 }
