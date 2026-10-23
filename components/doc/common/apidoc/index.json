@@ -23353,6 +23353,14 @@
                             "description": "Whether to focus on the first visible or selected element."
                         },
                         {
+                            "name": "autoSelectSingleOption",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Automatically selects the only option through onChange, including when options are loaded later.\nCounts all options (including grouped options), regardless of filtering. Disabled options and disabled or loading dropdowns are not automatically selected."
+                        },
+                        {
                             "name": "checkmark",
                             "optional": true,
                             "readonly": false,
