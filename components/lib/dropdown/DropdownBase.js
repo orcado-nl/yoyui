@@ -165,6 +165,7 @@ export const DropdownBase = ComponentBase.extend({
         ariaLabelledBy: null,
         autoFocus: false,
         autoOptionFocus: false,
+        autoSelectSingleOption: false,
         checkmark: false,
         children: undefined,
         className: null,

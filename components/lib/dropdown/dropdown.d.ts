@@ -255,6 +255,12 @@ export interface DropdownProps extends Omit<React.DetailedHTMLProps<React.InputH
      */
     autoFocus?: boolean;
     /**
+     * Automatically selects the only option through onChange, including when options are loaded later.
+     * Counts all options (including grouped options), regardless of filtering. Disabled options and disabled or loading dropdowns are not automatically selected.
+     * @defaultValue false
+     */
+    autoSelectSingleOption?: boolean;
+    /**
      * Style class of the component.
      */
     className?: string | undefined;

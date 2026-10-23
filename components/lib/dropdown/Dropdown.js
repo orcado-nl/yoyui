@@ -31,6 +31,7 @@ export const Dropdown = React.memo(
         const virtualScrollerRef = React.useRef(null);
         const searchTimeout = React.useRef(null);
         const searchValue = React.useRef(null);
+        const autoSelectionRef = React.useRef(null);
         const isLazy = props.virtualScrollerOptions && props.virtualScrollerOptions.lazy;
         const hasFilter = ObjectUtils.isNotEmpty(filterState);
         const appendTo = props.appendTo || (context && context.appendTo) || PrimeReact.appendTo;
@@ -950,6 +951,44 @@ export const Dropdown = React.memo(
             ObjectUtils.combinedRefs(inputRef, props.inputRef);
             ObjectUtils.combinedRefs(focusInputRef, props.focusInputRef);
         }, [inputRef, props.inputRef, focusInputRef, props.focusInputRef]);
+
+        React.useEffect(() => {
+            if (!props.autoSelectSingleOption || props.disabled || props.loading || !props.onChange) {
+                autoSelectionRef.current = null;
+
+                return;
+            }
+
+            const options = props.optionGroupLabel ? (props.options || []).flatMap((group) => getOptionGroupChildren(group) || []) : props.options || [];
+
+            if (options.length !== 1 || options[0] == null || isOptionDisabled(options[0]) || isSelected(options[0])) {
+                autoSelectionRef.current = null;
+
+                return;
+            }
+
+            const value = getOptionValue(options[0]);
+            const previousSelection = autoSelectionRef.current;
+            const key = equalityKey();
+
+            // Avoid repeated change events while the parent has not accepted the automatic selection.
+            if (previousSelection && ObjectUtils.equals(previousSelection.value, value, key) && ObjectUtils.equals(previousSelection.modelValue, props.value, key)) {
+                return;
+            }
+
+            autoSelectionRef.current = { value, modelValue: props.value };
+            props.onChange({
+                originalEvent: undefined,
+                value,
+                stopPropagation: () => {},
+                preventDefault: () => {},
+                target: {
+                    name: props.name,
+                    id: props.id,
+                    value
+                }
+            });
+        });
 
         useMountEffect(() => {
             if (props.autoFocus) {

@@ -77,6 +77,10 @@ export default function BasicDemo() {
                     properties respectively. Default property name for the <i>optionLabel</i> is <i>label</i> and <i>value</i> for the <i>optionValue</i>. If <i>optionValue</i> is omitted and the object has no <i>value</i> property, the object itself
                     becomes the value of an option. Note that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
                 </p>
+                <p>
+                    Enable <i>autoSelectSingleOption</i> to automatically select the only option through <i>onChange</i>, including when options are loaded later. This property defaults to <i>false</i> and counts all options, including grouped
+                    options, regardless of filtering. Automatic selection is skipped while the dropdown is disabled or loading, or when the only option is disabled.
+                </p>
             </DocSectionText>
             <div className="card flex justify-content-center">
                 <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={cities} optionLabel="name" placeholder="Select a City" className="w-full md:w-14rem" />
